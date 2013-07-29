@@ -42,7 +42,7 @@ World::World()
 
 void World::EventUpdate(App &app, const sf::Event &event)
 {
-	std::cout << entityList.size()<< "\n";
+	//std::cout << entityList.size()<< "\n";
 	eventHandler.EventUpdate(app, event, this, packetDataList);
 	/*for (Entity *entity : entityList)
 	{
