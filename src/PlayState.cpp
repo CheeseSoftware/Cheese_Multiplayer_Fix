@@ -15,6 +15,9 @@
 #include "BlockSolid.h"
 #include "BlockBackground.h"
 #include "EventHandler.h"
+#include "TextureContainer.h"
+#include "Connection.h"
+#include "NoobishBlockMenu.h"
 
 namespace sf
 {
@@ -41,8 +44,9 @@ PlayState::PlayState(App &app)
 
 	camera = new Camera(16);
 	currentWorld = new World();
-	blockMenu = new InGameUI(app, tC, *currentWorld);
+	noobishBlockMenu = new NoobishBlockMenu(currentWorld);//InGameUI(app, tC, *currentWorld);
 	connection = new Connection(5001, ip);
+	tC = new TextureContainer();
 
 	app.setView(*reinterpret_cast<sf::View*>(camera));
 	//camera->setSize(sf::Vector2f(768, 512)); 
@@ -70,14 +74,14 @@ PlayState::~PlayState()
 void PlayState::EventUpdate(App &app, const sf::Event &event)
 {
 	currentWorld->EventUpdate(app, event);
-	blockMenu->EventUpdate(app, event, currentWorld);
+	noobishBlockMenu->EventUpdate(app, event, currentWorld);
 }
 
 GameState *PlayState::Update(App &app)
 {
-	std::cout << 1/app.getFrameTime() << "\n";
+	//std::cout << 1/app.getFrameTime() << "\n";
 
-	std::queue<sf::Packet> *packetDataList = currentWorld->Update(app, tC, camera);
+	std::queue<sf::Packet> *packetDataList = currentWorld->Update(app, *tC, camera);
 	while (!packetDataList->empty())
 	{
 		connection->client->socket.send(packetDataList->front());
@@ -88,7 +92,7 @@ GameState *PlayState::Update(App &app)
 	camera->Update(app);
 	app.setView(*reinterpret_cast<sf::View*>(camera));
 	
-	blockMenu->Update(app, tC, *currentWorld);
+	//noobishBlockMenu->Update(app, tC, *currentWorld);
 	connection->Run();
 	ProcessPackets();
 	return this;
@@ -96,8 +100,8 @@ GameState *PlayState::Update(App &app)
 
 void PlayState::Draw(App &app)
 {
-	currentWorld->Draw(app, tC);
-	blockMenu->Draw(app, tC, *currentWorld);
+	currentWorld->Draw(app, *tC);
+	noobishBlockMenu->Draw(app, *tC);
 }
 
 void PlayState::ProcessPackets(void)

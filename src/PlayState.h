@@ -2,22 +2,23 @@
 #pragma once
 #include "App.h"
 #include "gamestate.h"
-#include "TextureContainer.h"
-#include "Connection.h"
 #include <SFML\Graphics.hpp>
 
 class World;
 class InGameUI;
 class Camera;
 class EventHandler;
+class NoobishBlockMenu;
+class TextureContainer;
+class Connection;
 
 class PlayState : public GameState
 {
-	TextureContainer tC;
+	TextureContainer *tC;
 	Camera *camera;
-	InGameUI *blockMenu;
+	NoobishBlockMenu *noobishBlockMenu;//InGameUI *blockMenu;
 	Connection *connection;
-	EventHandler eventHandler;
+	EventHandler *eventHandler;
 	void ProcessPackets();
 public:
 	PlayState(App &app);

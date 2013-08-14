@@ -138,6 +138,15 @@
     <ClCompile Include="MenuState.cpp">
       <Filter>Source Files\GameState</Filter>
     </ClCompile>
+    <ClCompile Include="SoundHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NoobishBlockMenu.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NoobishBlockMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MenuItem.h">
@@ -230,10 +239,10 @@
     <ClInclude Include="Listener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SoundContainer.h">
+    <ClInclude Include="BlockRegister.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BlockRegister.h">
+    <ClInclude Include="SoundHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

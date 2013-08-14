@@ -6,7 +6,7 @@ Camera::Camera(double speed) : View(sf::FloatRect(200, 200, 300, 200))
 	this->speed = speed;
 	currentEntity = nullptr;
 
-	setSize(1152,700);// temporära magiska nummer
+	setSize(1152,720);// temporära magiska nummer
 }
 
 
