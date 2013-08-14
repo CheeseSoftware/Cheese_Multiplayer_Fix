@@ -27,7 +27,7 @@ InGameUI::InGameUI(App &app, TextureContainer &tC, World &world)
 
 	chatBox->setBorders(2, 2, 2, 2);
 	editBox->setBorders(2, 2, 2, 2);
-
+	
 	chatBox->selectionPointWidth = 2;
 	chatBox->selectionPointColor = sf::Color::Black;
 
@@ -47,7 +47,7 @@ InGameUI::~InGameUI(void)
 void InGameUI::Update(App &app, TextureContainer &tC, World &world)
 {
 
-
+	
 }
 
 void InGameUI::EventUpdate(App &app, const sf::Event &event, World *world)
@@ -62,54 +62,52 @@ void InGameUI::EventUpdate(App &app, const sf::Event &event, World *world)
 		- (app.getView().getSize().y/2)
 		+ sf::Mouse::getPosition().y);
 
-	if(event.type == sf::Event::MouseButtonPressed)
-	{
-		if(event.key.code == sf::Mouse::Left)
+	//while(false)//while(app.pollEvent(event)) <- läs sfml-tutorials... så kan man absolut inte göra >.< använd eventupdate!
+	//{
+		if(event.type == sf::Event::MouseButtonPressed)
 		{
-			selectedBackground = -1;
-			selectedBlockSolid = 4;
-			world->setBlockAndMetadata(app.getView().getCenter().x, app.getView().getCenter().y, 2, 1, selectedBlockSolid);
-			std::cout << "setblock";
-			/*for(int i = 0; i < 16; i++)
+			if(event.key.code == sf::Mouse::Left)
 			{
-			if(mousePos.x > 96 + bla.x + 16 * i - 128 && mousePos.x < 96 + bla.x + 16 * i + 16 -128 && mousePos.y > bla.y + 492 && mousePos.y < bla.y + 492 + 16)
-			{
-			selectedBackground = -1;
-			selectedBlockSolid = i;
-			std::cout << "Clicked block solid " << i << std::endl;
+				for(int i = 0; i < 16; i++)
+				{
+					if(mousePos.x > 96 + bla.x + 16 * i - 128 && mousePos.x < 96 + bla.x + 16 * i + 16 -128 && mousePos.y > bla.y + 492 && mousePos.y < bla.y + 492 + 16)
+					{
+						selectedBackground = -1;
+						selectedBlockSolid = i;
+						std::cout << "Clicked block solid " << i << std::endl;
+					}
+				}
+				for(int i = 0; i < 16; i++)
+				{
+					if(mousePos.x > 96 + bla.x + 16 * i + 144 && mousePos.x < 96 + bla.x + 16 * i + 16 + 128 + 16 && mousePos.y > bla.y + 492 && mousePos.y < bla.y + 492 + 16)
+					{
+						selectedBlockSolid = -1;
+						selectedBackground = i;
+						std::cout << "Clicked block background " << i << std::endl;
+					}
+				}
 			}
-			}
-			for(int i = 0; i < 16; i++)
+			if(event.key.code == sf::Mouse::Left)
 			{
-			if(mousePos.x > 96 + bla.x + 16 * i + 144 && mousePos.x < 96 + bla.x + 16 * i + 16 + 128 + 16 && mousePos.y > bla.y + 492 && mousePos.y < bla.y + 492 + 16)
-			{
-			selectedBlockSolid = -1;
-			selectedBackground = i;
-			std::cout << "Clicked block background " << i << std::endl;
-			}
-			}*/
-		}
-		if(event.key.code == sf::Mouse::Left)
-		{
-			if(sf::Mouse::getPosition().y < 512 - 24)
-			{
-				//"//orka" hade rätt...
-				if(selectedBlockSolid != -1)
-					world->setBlockAndMetadata((long)((app.getView().getCenter().x + event.mouseButton.x-app.getPosition().x)*0.0625-16), ((long)(app.getView().getCenter().y + event.mouseButton.y-app.getPosition().y)>>4)+96, 2, 1, selectedBlockSolid);//world.setBlockAndMetadata(2,(short)( app.getView().GetCenter().x + app.GetInput().GetMouseX()-(8*16)), (short)(app.getView().GetCenter().y + app.GetInput().GetMouseY()), 1, selectedBlockSolid);
-				else if(selectedBackground != -1)
-					world->setBlockAndMetadata((long)((app.getView().getCenter().x + event.mouseButton.x-app.getPosition().x)*0.0625-16), ((long)(app.getView().getCenter().y + event.mouseButton.y-app.getPosition().y)>>4)+96, 0, 2, selectedBackground);
+				if(sf::Mouse::getPosition().y < 512 - 24)
+				{
+					//"//orka" hade rätt...
+					if(selectedBlockSolid != -1)
+						world->setBlockAndMetadata((long)((app.getView().getCenter().x + event.mouseButton.x-app.getPosition().x)*0.0625-16), ((long)(app.getView().getCenter().y + event.mouseButton.y-app.getPosition().y)>>4)+96, 2, 1, selectedBlockSolid);//world.setBlockAndMetadata(2,(short)( app.getView().GetCenter().x + app.GetInput().GetMouseX()-(8*16)), (short)(app.getView().GetCenter().y + app.GetInput().GetMouseY()), 1, selectedBlockSolid);
+					else if(selectedBackground != -1)
+						world->setBlockAndMetadata((long)((app.getView().getCenter().x + event.mouseButton.x-app.getPosition().x)*0.0625-16), ((long)(app.getView().getCenter().y + event.mouseButton.y-app.getPosition().y)>>4)+96, 0, 2, selectedBackground);
 
-				//world.setBlockAndMetadata(0, (short)(app.getView().GetCenter().x + app.GetInput().GetMouseX()-(8*16)), (short)(app.getView().GetCenter().y + app.GetInput().GetMouseY()), 2, selectedBackground);
+					//world.setBlockAndMetadata(0, (short)(app.getView().GetCenter().x + app.GetInput().GetMouseX()-(8*16)), (short)(app.getView().GetCenter().y + app.GetInput().GetMouseY()), 2, selectedBackground);
+				}
+			}
+			else if(event.key.code == sf::Mouse::Right)
+			{
+				int layer = 2;
+				//if (world.getBlock(layer, (short)(app.getView().GetCenter().x + app.GetInput().GetMouseX()-(8*16))>>4, (short)(app.getView().GetCenter().y + app.GetInput().GetMouseY())>>4) == 0)
+				//	layer = 0;
+				//ORKAworld.setBlock((short)(app.getView().GetCenter().x + app.GetInput().GetMouseX()-(8*16))>>4, (short)(app.getView().GetCenter().y + app.GetInput().GetMouseY())>>4, 2, 0);	
 			}
 		}
-		else if(event.key.code == sf::Mouse::Right)
-		{
-			int layer = 2;
-			//if (world.getBlock(layer, (short)(app.getView().GetCenter().x + app.GetInput().GetMouseX()-(8*16))>>4, (short)(app.getView().GetCenter().y + app.GetInput().GetMouseY())>>4) == 0)
-			//	layer = 0;
-			//ORKAworld.setBlock((short)(app.getView().GetCenter().x + app.GetInput().GetMouseX()-(8*16))>>4, (short)(app.getView().GetCenter().y + app.GetInput().GetMouseY())>>4, 2, 0);	
-		}
-	}
 	//}
 }
 
