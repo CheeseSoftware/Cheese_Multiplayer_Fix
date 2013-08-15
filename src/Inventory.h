@@ -21,7 +21,7 @@ public:
 	bool RemoveItem(int slot);
 	bool AddItem(Item* item, int amount);
 	bool AddItem(int slot, int amount);
-	int Contains(Item* item);
+	bool Contains(Item* item);
 private:
 	std::pair<Item*, int>** storedItems;
 	int slots;
