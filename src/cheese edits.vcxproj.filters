@@ -55,6 +55,18 @@
     <Filter Include="Header Files\Network">
       <UniqueIdentifier>{aedd41a3-ab91-47c0-9c27-66f317cdddcc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Block\blockBackground">
+      <UniqueIdentifier>{745984fa-978e-4135-902e-c4c8d5d77ffe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Block\BlockSolid">
+      <UniqueIdentifier>{e3fb4951-b5f1-4311-9f94-27363eb7018e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Block\BlockComplex">
+      <UniqueIdentifier>{33873d6b-762a-4a51-8614-da0e79c3058c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Block\BlockGravity">
+      <UniqueIdentifier>{07e4e3a7-6506-4df4-9948-605736d908c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -182,9 +194,6 @@
     <ClInclude Include="Block.h">
       <Filter>Header Files\Block</Filter>
     </ClInclude>
-    <ClInclude Include="BlockSolid.h">
-      <Filter>Header Files\Block</Filter>
-    </ClInclude>
     <ClInclude Include="Chunk.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
@@ -196,12 +205,6 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BlockGravity.h">
-      <Filter>Header Files\Block</Filter>
-    </ClInclude>
-    <ClInclude Include="BlockBackground.h">
-      <Filter>Header Files\Block</Filter>
     </ClInclude>
     <ClInclude Include="InGameUI.h">
       <Filter>Header Files\MenuItem</Filter>
@@ -244,6 +247,15 @@
     </ClInclude>
     <ClInclude Include="SoundHandler.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockBackground.h">
+      <Filter>Header Files\Block\blockBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockSolid.h">
+      <Filter>Header Files\Block\BlockSolid</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockGravity.h">
+      <Filter>Header Files\Block\BlockGravity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
