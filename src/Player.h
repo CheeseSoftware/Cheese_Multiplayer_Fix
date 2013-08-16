@@ -5,6 +5,9 @@
 #include <string>
 #include <list>
 #include "Creature.h"
+#include "Inventory.h"
+#include "Item.h"
+#include "NormalItem.h"
 
 class TextureContainer;
 class Camera;
@@ -20,6 +23,7 @@ private:
 	bool lmb;
 	float cameraDelay;
     std::string name;
+	Inventory* inventory;
 public:
 #ifdef _SERVER
 	Player(float X, float Y, short sizeX, short sizeY,

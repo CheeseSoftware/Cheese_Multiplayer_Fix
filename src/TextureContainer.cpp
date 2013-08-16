@@ -5,6 +5,7 @@
 
 TextureContainer::TextureContainer(void)
 {
+	AddSpriteSheet("slot.png", 32, 32);
 	AddSpriteSheet("Block0.png", 16, 16);
 	AddSpriteSheet("BlockBackground.png", 16, 16);
 	AddSpriteSheet("BlockSolid.png", 16, 16);

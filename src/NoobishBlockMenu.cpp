@@ -46,8 +46,6 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, World *worl
 		{
 			if (event.mouseButton.y < app.getSize().y-32)
 			{
-				std::cout <<":D\n";
-
 				int x = (int)(app.getView().getCenter().x-app.getView().getSize().x/2 + 256 + event.mouseButton.x)>>4;
 				int y = (int)(app.getView().getCenter().y-app.getView().getSize().y/2 + 256 + event.mouseButton.y)>>4;
 

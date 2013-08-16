@@ -73,8 +73,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\SFML-2.0\include;D:\TGUI-0.5\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\TGUI-0.5\lib;D:\SFML-2.0\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-2.0\include;C:\TGUI-0.5\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\TGUI-0.5\lib;C:\SFML-2.0\lib;$(LibraryPath)</LibraryPath>
     <IntDir>$(Configuration)\</IntDir>
     <TargetName>$(ProjectName) $(Configuration)</TargetName>
   </PropertyGroup>
@@ -166,6 +166,8 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="InGameUI.cpp" />
+    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
@@ -175,6 +177,7 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="NoobishBlockMenu.cpp" />
     <ClCompile Include="NoobishBlockMenu.h" />
+    <ClCompile Include="NormalItem.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Projectile.cpp" />
@@ -201,6 +204,8 @@
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="InGameUI.h" />
+    <ClInclude Include="Inventory.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="Listener.h" />
     <ClInclude Include="MainMenu.h" />
@@ -209,6 +214,7 @@
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="MessageType.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="NormalItem.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="Projectile.h" />
