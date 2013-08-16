@@ -186,10 +186,10 @@ bool Inventory::Contains(Item* item)
 	return false;
 }
 
-void Inventory::Draw(int xBlock, int yBlock, App& app, TextureContainer& tC)
+void Inventory::Draw(int xPos, int yPos, App& app, TextureContainer& tC)
 {
-	int x = xBlock;
-	int y = yBlock;
+	int x = xPos;
+	int y = yPos;
 	int slot = 0;
 	sf::Sprite slotSprite = tC.getTextures("slot.png")[0];
 	for(int xSlot = 0; xSlot < xSize; xSlot++)
@@ -198,7 +198,6 @@ void Inventory::Draw(int xBlock, int yBlock, App& app, TextureContainer& tC)
 		{
 			slotSprite.setPosition(x + (xSlot * 32), y + (ySlot * 32));
 			app.draw(slotSprite);
-
 			slot++;
 		}
 	}

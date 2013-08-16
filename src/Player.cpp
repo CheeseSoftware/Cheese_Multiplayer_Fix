@@ -141,10 +141,10 @@ UpR:
 			switch(event.key.code)
 			{
 			case sf::Mouse::Left:
-					inventory->AddItem(new NormalItem("Cow", "cowtexture"), 2);
-					inventory->AddItem(new NormalItem("Goat", "cofsafwtexture"), 8);
-					inventory->AddItem(new NormalItem("Chicken", "cowtexture"), 20);
-					inventory->get(std::cout);
+					//inventory->AddItem(new NormalItem("Cow", "cowtexture"), 2);
+					//inventory->AddItem(new NormalItem("Goat", "cofsafwtexture"), 8);
+					//inventory->AddItem(new NormalItem("Chicken", "cowtexture"), 20);
+					//inventory->get(std::cout);
 					
 				if(!lmb && (lmb=true))
 				{
@@ -192,7 +192,7 @@ UpR:
 void Player::Draw(App &app, TextureContainer &tC)
 {
 
-	inventory->Draw(1, 1, app, tC); 
+	inventory->Draw(16, 16, app, tC); 
 	Creature::Draw(app, tC);
 }
 #endif

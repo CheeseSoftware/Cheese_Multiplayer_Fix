@@ -156,6 +156,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlockBackground.cpp" />
+    <ClCompile Include="BlockChest.cpp" />
     <ClCompile Include="BlockGravity.cpp" />
     <ClCompile Include="BlockRegister.cpp" />
     <ClCompile Include="BlockSolid.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockBackground.h" />
+    <ClInclude Include="BlockChest.h" />
     <ClInclude Include="BlockGravity.h" />
     <ClInclude Include="BlockRegister.h" />
     <ClInclude Include="BlockSolid.h" />
