@@ -177,6 +177,7 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="NoobishBlockMenu.cpp" />
     <ClCompile Include="NoobishBlockMenu.h" />
+    <ClCompile Include="NormalItem.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Projectile.cpp" />
@@ -213,6 +214,7 @@
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="MessageType.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="NormalItem.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="Projectile.h" />

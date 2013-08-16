@@ -27,7 +27,7 @@ int Inventory::getSlot(Item* item) //jämför pekare, inte bra, måste fixas!
 {
 	for (int i = 0; i < slots; i++)
 	{
-		if(storedItems[i]->first == item)
+		if(storedItems[i] != nullptr && *storedItems[i]->first == *item)
 			return i;
 	}
 	return -1;
@@ -48,7 +48,7 @@ int Inventory::getItemCount(Item* item) //jämför pekare, inte bra, måste fixas!
 	int total = 0;
 	for (int i = 0; i < slots; i++)
 	{
-		if(storedItems[i] != nullptr && storedItems[i]->first == item)
+		if(storedItems[i] != nullptr && *storedItems[i]->first == *item)
 			total += storedItems[i]->second;
 	}
 	return total;
@@ -74,9 +74,9 @@ bool Inventory::RemoveItem(Item* item, int amount) //jämför pekare, inte (bra), 
 	int left = amount;
 	for (int i = 0; i < slots; i++)
 	{
-		if(storedItems[i] != nullptr && storedItems[i]->first == item)
+		if(storedItems[i] != nullptr && *storedItems[i]->first == *item)
 		{
-			if(storedItems[i]->second >= left)
+			if(storedItems[i]->second > left)
 			{
 				storedItems[i]->second -= left;
 				return true;
@@ -111,48 +111,62 @@ bool Inventory::RemoveItem(int slot)
 	return true;
 }
 
-bool Inventory::AddItem(Item* item, int amount)
+int Inventory::AddItem(Item* item, int amount)
 {
 	int left = amount;
 	for (int i = 0; i < slots; i++)
 	{
-		if(storedItems[i] != nullptr && storedItems[i]->first == item && storedItems[i]->second + amount <= getSlotCapacity())
+		if(storedItems[i] != nullptr && *storedItems[i]->first == *item)
 		{
-			storedItems[i]->second += amount;
-			return true;
+			if(storedItems[i]->second + amount <= getSlotCapacity())
+			{
+				storedItems[i]->second += amount;
+				return 0;
+			}
+			else
+			{
+				int toAdd = getSlotCapacity() - storedItems[i]->second;
+				storedItems[i]->second += toAdd;
+				left -= toAdd;
+			}
 		}
 	}
-	for (int i = 0; i < slots; i++)
+	while(left != 0)
 	{
 		int freeSlot = getFreeSlot();
 		if(left != 0 && freeSlot != -1)
 		{
 			if(left <= getSlotCapacity())
+			{
 				storedItems[freeSlot] = new std::pair<Item*, int>(item, left);
+				return 0;
+			}
 			else
 			{
 				storedItems[freeSlot] = new std::pair<Item*, int>(item, getSlotCapacity());
 				left -= getSlotCapacity();
 			}
-
 		}
-		else
-			return true;
+		else if(freeSlot == -1)
+			break;
 	}
-	return false;
+	return left;
 }
 
-bool Inventory::AddItem(int slot, int amount)
+int Inventory::AddItem(int slot, int amount)
 {
+	if(storedItems[slot] == nullptr)
+		return -1;
 	if(storedItems[slot]->second + amount <= getSlotCapacity())
 	{
 		storedItems[slot]->second += amount;
-		return true;
+		return 0;
 	}
 	else
 	{
+		int added = getSlotCapacity() - storedItems[slot]->second;
 		storedItems[slot]->second = getSlotCapacity();
-		return false; //Not entire amount was added!
+		return amount - added; //Not entire amount was added!
 	}
 }
 
@@ -160,10 +174,32 @@ bool Inventory::Contains(Item* item)
 {
 	for (int i = 0; i < slots; i++)
 	{
-		if(storedItems[i] != nullptr && storedItems[i]->first == item)
+		if(storedItems[i] != nullptr && *storedItems[i]->first == *item)
 		{
 			return true;
 		}
 	}
 	return false;
+}
+
+void Inventory::Draw(int xBlock, int yBlock, sf::RenderWindow& window, Camera& camera, TextureContainer& tC)
+{
+
+}
+
+std::ostream& Inventory::get(std::ostream &out) 
+{ 
+	for (int i = 0; i < slots; i++)
+	{
+		out << "\n";
+		if(storedItems[i] == nullptr)
+		{
+			out << "Slot " << i << " is null.";
+		}
+		else
+		{
+			out << "Slot " << i << " is " << storedItems[i]->first->getName() << " and amount " << storedItems[i]->second;
+		}
+	}
+	return out;
 }

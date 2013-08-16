@@ -16,6 +16,7 @@ Player::Player(float X, float Y, short sizeX, short sizeY, bool IsClientControll
 	left = false;
 	up = false;
 	lmb = false;
+	inventory = new Inventory(32, 64);
 
 #ifndef _SERVER
 	//auto eventUpdate =  [this](App &app, sf::Event &event, World *world, std::queue<sf::Packet> *packetDataList) { EventUpdate(app, event, world, packetDataList); };
@@ -140,6 +141,11 @@ UpR:
 			switch(event.key.code)
 			{
 			case sf::Mouse::Left:
+					inventory->AddItem(new NormalItem("Cow", "cowtexture"), 2);
+					inventory->AddItem(new NormalItem("Goat", "cofsafwtexture"), 8);
+					inventory->AddItem(new NormalItem("Chicken", "cowtexture"), 20);
+					inventory->get(std::cout);
+					
 				if(!lmb && (lmb=true))
 				{
 

@@ -35,7 +35,7 @@ PlayState::PlayState(App &app)
 	{
 		str_ip = _argv[1];
 	}
-	std::cout << "Connectiong to " << str_ip << " ...\n";
+	std::cout << "Connecting to " << str_ip << " ...\n";
 
 	sf::IpAddress ip(str_ip);//std::string ip;
 	int port;
@@ -255,7 +255,7 @@ void PlayState::ProcessPackets(void)
 				currentWorld->setBlockMetadataClientOnly(xPos, yPos, layer, metadata);
 			}
 			break;
-			std::cout << packetType << std::endl;
+			//std::cout << packetType << std::endl;
 		}
 		delete packet;
 		packets.pop();

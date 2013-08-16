@@ -2,6 +2,9 @@
 #include <iostream>
 #include <string>
 #include "Item.h"
+#include "TextureContainer.h"
+#include "Camera.h"
+#include <SFML/Graphics.hpp>
 class Inventory
 {
 public:
@@ -19,9 +22,11 @@ public:
 	bool RemoveItem(Item* item, int amount);
 	bool RemoveItem(int slot, int amount);
 	bool RemoveItem(int slot);
-	bool AddItem(Item* item, int amount);
-	bool AddItem(int slot, int amount);
+	int AddItem(Item* item, int amount);
+	int AddItem(int slot, int amount);
 	bool Contains(Item* item);
+	void Draw(int xBlock, int yBlock, sf::RenderWindow& window, Camera& camera, TextureContainer& tC);
+	std::ostream& get(std::ostream &out);
 private:
 	std::pair<Item*, int>** storedItems;
 	int slots;

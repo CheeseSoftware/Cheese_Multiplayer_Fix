@@ -11,8 +11,3 @@ Item::~Item(void)
 {
 
 }
-
-std::string Item::getName()
-{
-	return name;
-}
