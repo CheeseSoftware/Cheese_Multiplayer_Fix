@@ -16,7 +16,7 @@ Player::Player(float X, float Y, short sizeX, short sizeY, bool IsClientControll
 	left = false;
 	up = false;
 	lmb = false;
-	inventory = new Inventory(32, 64);
+	inventory = new Inventory(8, 4, 64);
 
 #ifndef _SERVER
 	//auto eventUpdate =  [this](App &app, sf::Event &event, World *world, std::queue<sf::Packet> *packetDataList) { EventUpdate(app, event, world, packetDataList); };
@@ -191,6 +191,8 @@ UpR:
 
 void Player::Draw(App &app, TextureContainer &tC)
 {
+
+	//inventory->Draw(1, 1, app, tC); 
 	Creature::Draw(app, tC);
 }
 #endif

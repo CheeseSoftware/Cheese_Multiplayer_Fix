@@ -5,10 +5,11 @@
 #include "Item.h"
 class TextureContainer;
 class Camera;
+//class App;
 class Inventory
 {
 public:
-	Inventory(int slots, int slotCapacity);
+	Inventory(int xSize, int ySize, int slotCapacity);
 	~Inventory(void);
 	int getSlots() { return this->slots; };
 	int getSlotCapacity() { return this->slotCapacity; };
@@ -25,10 +26,12 @@ public:
 	int AddItem(Item* item, int amount);
 	int AddItem(int slot, int amount);
 	bool Contains(Item* item);
-	void Draw(int xBlock, int yBlock, sf::RenderWindow& window, Camera& camera, TextureContainer& tC);
+	//void Draw(int xBlock, int yBlock, App& app, TextureContainer& tC);
 	std::ostream& get(std::ostream &out);
 private:
 	std::pair<Item*, int>** storedItems;
+	int xSize;
+	int ySize;
 	int slots;
 	int slotCapacity;
 };
