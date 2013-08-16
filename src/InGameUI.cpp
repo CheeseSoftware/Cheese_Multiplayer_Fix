@@ -1,4 +1,4 @@
-#ifndef _SERVER
+/*#ifndef _SERVER
 #include "InGameUI.h"
 #include "TextureContainer.h"
 #include "World.h"
@@ -152,4 +152,4 @@ void InGameUI::Draw(App &app, TextureContainer &tC, World &world)
 		}
 	}
 }
-#endif
+#endif*/

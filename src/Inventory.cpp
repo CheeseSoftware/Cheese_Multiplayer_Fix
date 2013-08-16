@@ -1,9 +1,13 @@
 #include "Inventory.h"
+#include "TextureContainer.h"
+#include "Camera.h"
+#include "App.h"
 
-
-Inventory::Inventory(int slots, int slotCapacity)
+Inventory::Inventory(int xSize, int ySize, int slotCapacity)
 {
-	this->slots = slots;
+	this->xSize = xSize;
+	this->ySize = ySize;
+	this->slots = xSize * ySize;
 	this->slotCapacity = slotCapacity;
 	storedItems = new std::pair<Item*, int>*[slots]();
 }
@@ -182,10 +186,24 @@ bool Inventory::Contains(Item* item)
 	return false;
 }
 
-void Inventory::Draw(int xBlock, int yBlock, sf::RenderWindow& window, Camera& camera, TextureContainer& tC)
+#ifndef _SERVER
+void Inventory::Draw(int xPos, int yPos, App& app, TextureContainer& tC)
 {
-
+	int x = xPos;
+	int y = yPos;
+	int slot = 0;
+	sf::Sprite slotSprite = tC.getTextures("slot.png")[0];
+	for(int xSlot = 0; xSlot < xSize; xSlot++)
+	{
+		for(int ySlot = 0; ySlot < ySize; ySlot++)
+		{
+			slotSprite.setPosition(x + (xSlot * 32), y + (ySlot * 32));
+			//app.dr//.draw(slotSprite);
+			slot++;
+		}
+	}
 }
+#endif
 
 std::ostream& Inventory::get(std::ostream &out) 
 { 

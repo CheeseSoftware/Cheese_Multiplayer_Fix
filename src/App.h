@@ -4,14 +4,14 @@
 #include <SFML\System.hpp>
 #else
 #include <SFML\Graphics.hpp>
-#include <TGUI/TGUI.hpp>
+//#include <TGUI/TGUI.hpp>
 #endif
 
 #define APP(a) (*reinterpret_cast<App*>(&a))
 
 class App
 #ifndef _SERVER
-	: public tgui::Window
+	: public sf::RenderWindow
 #endif
 {
 	sf::Clock frameTimer;

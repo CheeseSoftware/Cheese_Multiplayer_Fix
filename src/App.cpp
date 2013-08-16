@@ -4,9 +4,9 @@
 #define MIN_FRAME_TIME 0.00390625F
 
 #ifndef _SERVER
-App::App(sf::VideoMode videoMode) : tgui::Window(videoMode, "Cheese Multiplayer - Alpha")
+App::App(sf::VideoMode videoMode) : sf::RenderWindow(videoMode, "Cheese Multiplayer - Alpha")//tgui::Window(videoMode, "Cheese Multiplayer - Alpha")
 {
-	globalFont.loadFromFile("TGUI/Fonts/DejaVuSans.ttf");
+	//globalFont.loadFromFile("TGUI/Fonts/DejaVuSans.ttf");
 }
 #endif
 

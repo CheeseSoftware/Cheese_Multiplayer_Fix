@@ -1,8 +1,8 @@
-#ifndef _SERVER
+/*#ifndef _SERVER
 class InGameUI;
 #pragma once
 #include <SFML\Graphics.hpp>
-#include <TGUI\TGUI.hpp>
+//#include <TGUI\TGUI.hpp>
 #include "App.h"
 
 class TextureContainer;
@@ -23,4 +23,4 @@ public:
 	short int selectedBackground;
 
 };
-#endif
+#endif*/

@@ -2,6 +2,8 @@
 #include "NoobishBlockMenu.h"
 #include "World.h"
 #include "Block.h"
+#include "TextureContainer.h"
+#include <SFML\Network.hpp>
 
 NoobishBlockMenu::NoobishBlockMenu(World *world)
 {

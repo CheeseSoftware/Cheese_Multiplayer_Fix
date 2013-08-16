@@ -1,14 +1,14 @@
 #ifndef _SERVER
+#pragma once
 #include <stack>
+#include "App.h"
 
-class App;
 class World;
 class TextureContainer;
 class Block;
 
 namespace sf
 {
-	class Event;
 	class Packet;
 }
 

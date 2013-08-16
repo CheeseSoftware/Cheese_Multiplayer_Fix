@@ -47,7 +47,7 @@ int main(int argc, char** argv)
 				app.close();
 			gameState->EventUpdate(app, event);
 			// Pass the event to all the objects (if there would be objects)
-            app.handleEvent(event);
+            //app.handleEvent(event);
 		}
 #else
 	while (true)

@@ -49,23 +49,11 @@
     <Filter Include="Header Files\Entity\Creature">
       <UniqueIdentifier>{cf4be33f-685d-48c9-b81c-875471f6a527}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Network">
-      <UniqueIdentifier>{d719da3f-3b61-4d48-aeec-94434b40724b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Network">
       <UniqueIdentifier>{aedd41a3-ab91-47c0-9c27-66f317cdddcc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Block\Solid">
-      <UniqueIdentifier>{93ad00a6-c546-48a4-842e-36809878b36f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Block\Background">
-      <UniqueIdentifier>{fa0d1887-ea50-4dda-b9de-8a316c254b81}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Block\Unique">
-      <UniqueIdentifier>{30882ab4-ed8e-438d-93ca-6ee79c2f515c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Block\Gravity">
-      <UniqueIdentifier>{4009faf5-6ab9-44ce-ac9b-d0050a53a794}</UniqueIdentifier>
+    <Filter Include="Source Files\Network">
+      <UniqueIdentifier>{d719da3f-3b61-4d48-aeec-94434b40724b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +67,9 @@
       <Filter>Source Files\MenuItem</Filter>
     </ClCompile>
     <ClCompile Include="PlayState.cpp">
+      <Filter>Source Files\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
       <Filter>Source Files\GameState</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
@@ -141,31 +132,22 @@
     <ClCompile Include="Connection.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NoobishBlockMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="BlockRegister.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityRegister.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EventHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MenuState.cpp">
-      <Filter>Source Files\GameState</Filter>
-    </ClCompile>
     <ClCompile Include="SoundHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NoobishBlockMenu.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NoobishBlockMenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Inventory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NormalItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -203,6 +185,9 @@
     <ClInclude Include="Block.h">
       <Filter>Header Files\Block</Filter>
     </ClInclude>
+    <ClInclude Include="BlockSolid.h">
+      <Filter>Header Files\Block</Filter>
+    </ClInclude>
     <ClInclude Include="Chunk.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
@@ -214,6 +199,12 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockGravity.h">
+      <Filter>Header Files\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockBackground.h">
+      <Filter>Header Files\Block</Filter>
     </ClInclude>
     <ClInclude Include="InGameUI.h">
       <Filter>Header Files\MenuItem</Filter>
@@ -242,38 +233,26 @@
     <ClInclude Include="MessageType.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NoobishBlockMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockRegister.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="EntityRegister.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EventHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Listener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BlockRegister.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SoundHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Inventory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NormalItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BlockSolid.h">
-      <Filter>Header Files\Block\Solid</Filter>
-    </ClInclude>
-    <ClInclude Include="BlockBackground.h">
-      <Filter>Header Files\Block\Background</Filter>
-    </ClInclude>
-    <ClInclude Include="BlockGravity.h">
-      <Filter>Header Files\Block\Gravity</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PropertySheet1.props" />
   </ItemGroup>
 </Project>
