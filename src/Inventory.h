@@ -5,7 +5,7 @@
 #include "Item.h"
 class TextureContainer;
 class Camera;
-//class App;
+class App;
 class Inventory
 {
 public:
@@ -26,7 +26,7 @@ public:
 	int AddItem(Item* item, int amount);
 	int AddItem(int slot, int amount);
 	bool Contains(Item* item);
-	//void Draw(int xBlock, int yBlock, App& app, TextureContainer& tC);
+	void Draw(int xBlock, int yBlock, App& app, TextureContainer& tC);
 	std::ostream& get(std::ostream &out);
 private:
 	std::pair<Item*, int>** storedItems;

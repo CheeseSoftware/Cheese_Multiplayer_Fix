@@ -192,7 +192,7 @@ UpR:
 void Player::Draw(App &app, TextureContainer &tC)
 {
 
-	//inventory->Draw(1, 1, app, tC); 
+	inventory->Draw(1, 1, app, tC); 
 	Creature::Draw(app, tC);
 }
 #endif

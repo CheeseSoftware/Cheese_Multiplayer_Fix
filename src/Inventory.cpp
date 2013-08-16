@@ -1,7 +1,7 @@
 #include "Inventory.h"
 #include "TextureContainer.h"
 #include "Camera.h"
-//#include "App.h"
+#include "App.h"
 
 Inventory::Inventory(int xSize, int ySize, int slotCapacity)
 {
@@ -186,9 +186,9 @@ bool Inventory::Contains(Item* item)
 	return false;
 }
 
-//void Inventory::Draw(int xBlock, int yBlock, App& app, TextureContainer& tC)
-//{
-	/*int x = xBlock;
+void Inventory::Draw(int xBlock, int yBlock, App& app, TextureContainer& tC)
+{
+	int x = xBlock;
 	int y = yBlock;
 	int slot = 0;
 	sf::Sprite slotSprite = tC.getTextures("slot.png")[0];
@@ -201,8 +201,8 @@ bool Inventory::Contains(Item* item)
 
 			slot++;
 		}
-	}*/
-//}
+	}
+}
 
 std::ostream& Inventory::get(std::ostream &out) 
 { 
