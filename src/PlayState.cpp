@@ -80,6 +80,8 @@ void PlayState::EventUpdate(App &app, const sf::Event &event)
 GameState *PlayState::Update(App &app)
 {
 	//std::cout << 1/app.getFrameTime() << "\n";
+	camera->Update(app);
+	app.setView(*reinterpret_cast<sf::View*>(camera));
 
 	std::queue<sf::Packet> *packetDataList = currentWorld->Update(app, *tC, camera);
 	while (!packetDataList->empty())
@@ -89,8 +91,7 @@ GameState *PlayState::Update(App &app)
 	}
 	//delete packetDataList;
 
-	camera->Update(app);
-	app.setView(*reinterpret_cast<sf::View*>(camera));
+
 	
 	//noobishBlockMenu->Update(app, tC, *currentWorld);
 	connection->Run();

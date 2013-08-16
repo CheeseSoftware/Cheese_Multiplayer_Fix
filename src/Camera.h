@@ -1,8 +1,5 @@
 #ifndef _SERVER
 #pragma once
-#include <SFML\Graphics.hpp>
-#include "App.h"
-#include "Entity.h"
 #include "App.h"
 
 class Entity;

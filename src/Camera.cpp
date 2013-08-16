@@ -1,5 +1,6 @@
 #ifndef _SERVER
 #include "camera.h"
+#include "Entity.h"
 
 Camera::Camera(double speed) : View(sf::FloatRect(200, 200, 300, 200))
 {
