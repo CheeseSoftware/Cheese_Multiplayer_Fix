@@ -6,6 +6,7 @@
 class TextureContainer;
 class World;
 class Entity;
+class Creature;
 
 class Block
 {
@@ -22,11 +23,12 @@ public:
 	virtual std::string getTextureName()=0;
 	virtual bool isSeeThrough()=0;
 	virtual bool isSolid()=0;
-	virtual bool isSimple();
-	//virtual float getFrictionStrength();
-	//virtual void EntityTouch(Entity *entity);
-	//virtual void EntitySlide(Entity *entity, float &friction);
-	//virtual void EntityGravity(Entity *entity, float &friction, float &speed, bool);
+	virtual bool isUnique();
+	virtual void onRemove();
+	virtual void onRightClick(Creature *creature);
+	virtual void EntityTouch(Entity *entity);
+	virtual void EntitySlide(Entity *entity, float &friction);
+	virtual void EntityGravity(Entity *entity, float &friction, float &speed, bool);
 	//virtual char getSubTextureId() = 0;
 #ifndef _SERVER
 	void Draw(long posX, long posY, App &app, TextureContainer &tC, unsigned short metadata);

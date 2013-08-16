@@ -11,7 +11,19 @@ Block::Block(unsigned short id)
 std::function<Block*(unsigned short)> Block::RegisterBlock(const unsigned short id)
 {
 	std::cout << typeid(*this).name() << '(' << typeid(*this).hash_code() << ") registered with blockId " << id << ".\n";
-	return [&](unsigned short metadata) { return this; };
+	if (isUnique())
+	{
+		return [&](unsigned short metadata)
+		{
+			Block *block = (Block*)malloc(sizeof(*this));
+			*block = *this;
+			return block;
+		};
+	}
+	else
+	{
+		return [&](unsigned short metadata) { return this; };
+	}
 }
 
 unsigned short Block::getId()
@@ -19,9 +31,37 @@ unsigned short Block::getId()
 	return id;
 }
 
-bool Block::isSimple()
+bool Block::isUnique()
 {
-	return true;
+	return false;
+}
+
+void Block::onRemove()
+{
+	if (isUnique())
+	{
+		delete this;
+	}
+}
+
+void Block::onRightClick(Creature *creature)
+{
+
+}
+
+void Block::EntityTouch(Entity *entity)
+{
+
+}
+
+void Block::EntitySlide(Entity *entity, float &friction)
+{
+
+}
+
+void Block::EntityGravity(Entity *entity, float &friction, float &speed, bool)
+{
+
 }
 
 #ifndef _SERVER

@@ -55,6 +55,18 @@
     <Filter Include="Header Files\Network">
       <UniqueIdentifier>{aedd41a3-ab91-47c0-9c27-66f317cdddcc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Block\Solid">
+      <UniqueIdentifier>{93ad00a6-c546-48a4-842e-36809878b36f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Block\Background">
+      <UniqueIdentifier>{fa0d1887-ea50-4dda-b9de-8a316c254b81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Block\Unique">
+      <UniqueIdentifier>{30882ab4-ed8e-438d-93ca-6ee79c2f515c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Block\Gravity">
+      <UniqueIdentifier>{4009faf5-6ab9-44ce-ac9b-d0050a53a794}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -191,9 +203,6 @@
     <ClInclude Include="Block.h">
       <Filter>Header Files\Block</Filter>
     </ClInclude>
-    <ClInclude Include="BlockSolid.h">
-      <Filter>Header Files\Block</Filter>
-    </ClInclude>
     <ClInclude Include="Chunk.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
@@ -205,12 +214,6 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BlockGravity.h">
-      <Filter>Header Files\Block</Filter>
-    </ClInclude>
-    <ClInclude Include="BlockBackground.h">
-      <Filter>Header Files\Block</Filter>
     </ClInclude>
     <ClInclude Include="InGameUI.h">
       <Filter>Header Files\MenuItem</Filter>
@@ -262,6 +265,15 @@
     </ClInclude>
     <ClInclude Include="NormalItem.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockSolid.h">
+      <Filter>Header Files\Block\Solid</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockBackground.h">
+      <Filter>Header Files\Block\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockGravity.h">
+      <Filter>Header Files\Block\Gravity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
