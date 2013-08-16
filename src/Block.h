@@ -5,6 +5,7 @@
 
 class TextureContainer;
 class World;
+class Entity;
 
 class Block
 {
@@ -22,6 +23,10 @@ public:
 	virtual bool isSeeThrough()=0;
 	virtual bool isSolid()=0;
 	virtual bool isSimple();
+	//virtual float getFrictionStrength();
+	//virtual void EntityTouch(Entity *entity);
+	//virtual void EntitySlide(Entity *entity, float &friction);
+	//virtual void EntityGravity(Entity *entity, float &friction, float &speed, bool);
 	//virtual char getSubTextureId() = 0;
 #ifndef _SERVER
 	void Draw(long posX, long posY, App &app, TextureContainer &tC, unsigned short metadata);
