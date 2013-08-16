@@ -1,10 +1,10 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
 #include "Item.h"
-#include "TextureContainer.h"
-#include "Camera.h"
-#include <SFML/Graphics.hpp>
+class TextureContainer;
+class Camera;
 class Inventory
 {
 public:
