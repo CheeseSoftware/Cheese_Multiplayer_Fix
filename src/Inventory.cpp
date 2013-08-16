@@ -186,7 +186,10 @@ bool Inventory::Contains(Item* item)
 	return false;
 }
 
+<<<<<<< HEAD
 #ifndef _SERVER
+=======
+>>>>>>> 9ca7b738d39372dad513184c1908491f0560ca9f
 void Inventory::Draw(int xPos, int yPos, App& app, TextureContainer& tC)
 {
 	int x = xPos;
@@ -198,7 +201,11 @@ void Inventory::Draw(int xPos, int yPos, App& app, TextureContainer& tC)
 		for(int ySlot = 0; ySlot < ySize; ySlot++)
 		{
 			slotSprite.setPosition(x + (xSlot * 32), y + (ySlot * 32));
+<<<<<<< HEAD
 			//app.dr//.draw(slotSprite);
+=======
+			app.draw(slotSprite);
+>>>>>>> 9ca7b738d39372dad513184c1908491f0560ca9f
 			slot++;
 		}
 	}
