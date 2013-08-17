@@ -7,6 +7,7 @@ class TextureContainer;
 class World;
 class Entity;
 class Creature;
+class EventHandler;
 
 class Block
 {
@@ -24,11 +25,12 @@ public:
 	virtual bool isSeeThrough()=0;
 	virtual bool isSolid()=0;
 	virtual bool isUnique();
-	virtual void onRemove();
-	virtual void onRightClick(Creature *creature);
-	virtual void EntityTouch(Entity *entity);
-	virtual void EntitySlide(Entity *entity, float &friction);
-	virtual void EntityGravity(Entity *entity, float &friction, float &speed, bool);
+	virtual void OnCreate(unsigned short metadata, EventHandler &eventHandler);
+	virtual void OnRemove();
+	virtual void OnRightClick(Creature *creature, unsigned short metadata);
+	virtual void OnEntityTouch(Entity *entity, unsigned short metadata);
+	virtual void OnEntitySlide(Entity *entity, float &friction, unsigned short metadata);
+	virtual void OnEntityGravity(Entity *entity, float &friction, float &speedX, float &speedY, bool &Up, bool &Left, bool &Right, bool &Down, unsigned short metadata);
 	//virtual char getSubTextureId() = 0;
 #ifndef _SERVER
 	void Draw(long posX, long posY, App &app, TextureContainer &tC, unsigned short metadata);

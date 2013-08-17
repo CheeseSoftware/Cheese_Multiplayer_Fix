@@ -36,7 +36,12 @@ bool Block::isUnique()
 	return false;
 }
 
-void Block::onRemove()
+void Block::OnCreate(unsigned short metadata, EventHandler &eventHandler)
+{
+
+}
+
+void Block::OnRemove()
 {
 	if (isUnique())
 	{
@@ -44,22 +49,22 @@ void Block::onRemove()
 	}
 }
 
-void Block::onRightClick(Creature *creature)
+void Block::OnRightClick(Creature *creature, unsigned short metadata)
 {
 
 }
 
-void Block::EntityTouch(Entity *entity)
+void Block::OnEntityTouch(Entity *entity, unsigned short metadata)
 {
 
 }
 
-void Block::EntitySlide(Entity *entity, float &friction)
+void Block::OnEntitySlide(Entity *entity, float &friction, unsigned short metadata)
 {
 
 }
 
-void Block::EntityGravity(Entity *entity, float &friction, float &speed, bool)
+void Block::OnEntityGravity(Entity *entity, float &friction, float &speedX, float &speedY, bool &Up, bool &Left, bool &Right, bool &Down, unsigned short metadata)
 {
 
 }

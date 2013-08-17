@@ -34,6 +34,8 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 {
 	if (speedX != 0.0F || speedY != 0.0F)
 	{
+		Block *block = world->getBlock((long)(x/16.0F),(long)(y/16.0F), 2);
+		block->OnEntityGravity(this, friction, speedX, speedY, 0);
 
 		float speedXModifier = abs(speedX * app.getFrameTime());
 
