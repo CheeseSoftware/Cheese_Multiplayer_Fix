@@ -36,7 +36,7 @@ void BlockGravity::OnEntityGravity(App &app, Entity *entity, float &friction, fl
 {
 	float strength = (1.0F+(metadata>>3)/2.0F)*app.getFrameTime()*4000.0F;
 
-	//friction = 1;//(metadata&0x0004)? friction/strength : friction*strength;
+	friction = 1.0F-(1.0F-friction)*0.5F;//friction = 1;//(metadata&0x0004)? friction/strength : friction*strength;
 
 	switch(metadata&0x0003)
 	{
