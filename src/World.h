@@ -60,11 +60,12 @@ public:
 	void setBlockMetadata(long x, long y, long layer, unsigned short metadata);
 	MessageType setBlockAndMetadataClientOnly(long x, long y, long layer, unsigned short id, unsigned short metadata);
 	MessageType setBlockMetadataClientOnly(long x, long y, long layer, unsigned short metadata);
-	Block* getBlock(long x, long y, long layer);
+	Block *getBlock(long x, long y, long layer);
+	std::pair<Block*, unsigned short> getBlockAndMetadata(long x, long y, long layer);
 	void Expand(long x, long y, Chunk* chunk);
 	void AddBlockType(unsigned short, std::function<Block*(unsigned short)>);
 	bool isBlockSolid(long x, long y);
-	Block* getBlockType(unsigned short id, unsigned short metadata);
+	Block *getBlockType(unsigned short id, unsigned short metadata);
 	std::map<unsigned short, std::function<Block*(unsigned short)>>& getBlockTypeMap();
 	int AddEntity(Entity*);
 	void RemoveEntity(int id);
@@ -125,9 +126,9 @@ public:
 	void DrawBorder(int blockId);
 	bool isVisible(App &app, Entity& entity, short position);
 	sf::Vector2i getSize();
-	Block* getBlock(unsigned char layer, short x, short y);
+	Block *getBlock(unsigned char layer, short x, short y);
 	bool isBlockSolid(short x,short y);
-	Block* getBlockType(unsigned short id, unsigned short metadata);
+	Block *getBlockType(unsigned short id, unsigned short metadata);
 	std::map<unsigned short, std::function<Block*(unsigned short)>>* getBlockTypeMap();
 	void AddEntity(Entity*);
 	void AddPlayer(Player*, short Id);

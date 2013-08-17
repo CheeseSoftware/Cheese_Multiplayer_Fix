@@ -25,8 +25,8 @@ private:
 public:
 	Chunk();
 	~Chunk(void);
-	Block* getHighestBlock(unsigned char x, unsigned char y);
-	Block* getBlock(unsigned char layer, unsigned short x, unsigned short y);
+	Block *getHighestBlock(unsigned char x, unsigned char y);
+	Block *getBlock(unsigned char layer, unsigned short x, unsigned short y);
 	short getMetadata(unsigned char layer, unsigned short x, unsigned short y);
 	void setBlock(unsigned char layer, unsigned short x, unsigned short y, Block*);
 	void setMetadata(unsigned char layer, unsigned short x, unsigned short y, unsigned short metadata);

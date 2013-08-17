@@ -40,20 +40,20 @@ void BlockGravity::OnEntityGravity(App &app, Entity *entity, float &friction, fl
 
 	switch(metadata&0x0003)
 	{
-	case 0://up
+	case 1://up
 		speedY -= strength;
 		break;
 
-	case 1://left
+	case 0://left
 		speedX -= strength;
 		break;
 
 	case 2://right
-		speedY += strength;
+		speedX += strength;
 		break;
 
 	case 3://down
-		speedX += strength;
+		speedY += strength;
 		break;
 	}
 }

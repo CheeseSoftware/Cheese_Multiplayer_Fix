@@ -288,9 +288,9 @@ MessageType World::setBlockMetadataClientOnly(long x, long y, long layer, unsign
 	return NullMessage;
 }
 
-Block* World::getBlock(long x, long y, long layer)
+Block *World::getBlock(long x, long y, long layer)
 {
-	long xx = floor(x * 0.0625) + chunkMatrix.second;
+	long xx = floor(x * 0.0625) + chunkMatrix.second + 1;
 
 	unsigned short xxx = x&0xF;
 	unsigned short yyy = y&0xF;
@@ -298,7 +298,7 @@ Block* World::getBlock(long x, long y, long layer)
 	if (isColumnInsideChunkMatrix(xx))
 	{
 		auto it = chunkMatrix.first.at(xx);
-		long yy = floor(y * 0.0625) + it.second;
+		long yy = floor(y * 0.0625) + it.second + 1;
 
 		if (isChunkInsideChunkColumn(yy,it.first))
 		{
@@ -309,6 +309,30 @@ Block* World::getBlock(long x, long y, long layer)
 		}
 	}
 	return nullptr;
+}
+
+std::pair<Block*, unsigned short> World::getBlockAndMetadata(long x, long y, long layer)
+{
+	long xx = floor(x * 0.0625) + chunkMatrix.second + 1;
+
+	unsigned short xxx = x&0xF;
+	unsigned short yyy = y&0xF;
+
+	if (isColumnInsideChunkMatrix(xx))
+	{
+		auto it = chunkMatrix.first.at(xx);
+		long yy = floor(y * 0.0625) + it.second + 1;
+
+		if (isChunkInsideChunkColumn(yy,it.first))
+		{
+			if (it.first.at(yy) != nullptr)
+			{
+				Chunk* chunk = it.first.at(yy);//->getBlock(layer, xxx, yyy);
+				return std::pair<Block*, unsigned short>(chunk->getBlock(layer, xxx, yyy), chunk->getMetadata(layer, xxx, yyy));
+			}
+		}
+	}
+	return std::pair<Block*, unsigned short>(nullptr, 0);;
 }
 
 void World::Expand(long x, long y, Chunk* chunk)
@@ -360,7 +384,7 @@ void World::AddBlockType(unsigned short key, std::function<Block*(unsigned short
 	blockTypeMap.emplace(key, value);
 }
 
-Block* World::getBlockType(unsigned short id, unsigned short metadata)
+Block *World::getBlockType(unsigned short id, unsigned short metadata)
 {
 	auto it = blockTypeMap.find(id);
 	return (it == blockTypeMap.end())? nullptr : it->second(metadata);
@@ -428,7 +452,7 @@ void World::SetPlayer(int id, Player *player)
 
 bool World::isBlockSolid(long x,long y)
 {
-	Block *block = getBlock(x+16, y+16, 2);
+	Block *block = getBlock(x, y, 2);
 	if (block != nullptr)
 	{
 		return block->isSolid();
@@ -582,7 +606,7 @@ chunkList[chunkX][chunkY]->setMetadata(layer, blockX, blockY, metadata);
 }
 
 
-Block* World::getBlock(unsigned char layer, short x, short y)
+Block *World::getBlock(unsigned char layer, short x, short y)
 {
 /*x+=16;
 y+=16;
@@ -626,7 +650,7 @@ void World::RegisterBlock(unsigned short key, std::function<Block*(unsigned shor
 blockTypeMap.emplace(key, value);
 }
 
-Block* World::getBlockType(unsigned short id, unsigned short metadata)
+Block *World::getBlockType(unsigned short id, unsigned short metadata)
 {
 auto it = blockTypeMap.find(id);
 return ((it == blockTypeMap.end()) ? nullptr : it->second(metadata));

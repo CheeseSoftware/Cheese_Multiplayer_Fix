@@ -57,7 +57,7 @@ bool Chunk::isAnySeeThrough(std::pair<Block*, unsigned short> blocks[6])
 	return false;
 }
 
-Block* Chunk::getHighestBlock(unsigned char x, unsigned char y)
+Block *Chunk::getHighestBlock(unsigned char x, unsigned char y)
 {
 	for(int l = 5; l >= 0; l--)
 	{
@@ -111,7 +111,7 @@ void Chunk::setMetadata(unsigned char layer, unsigned short x, unsigned short y,
 	blockList[x][y][layer].second = metadata;
 }
 
-Block* Chunk::getBlock(unsigned char layer, unsigned short x, unsigned short y)
+Block *Chunk::getBlock(unsigned char layer, unsigned short x, unsigned short y)
 {
 	return blockList[x][y][layer].first;
 }

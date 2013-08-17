@@ -13,6 +13,6 @@ class BlockRegister
 public:
 	BlockRegister();
 	void RegisterBlock(TextureContainer tC, Block *block, size_t typeId);
-	Block* getBlockType(unsigned short id, unsigned short metadata);
-	Block* getBlockTypeByTypeId(size_t typeId, unsigned short metadata);
+	Block *getBlockType(unsigned short id, unsigned short metadata);
+	Block *getBlockTypeByTypeId(size_t typeId, unsigned short metadata);
 };

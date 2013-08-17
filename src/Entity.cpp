@@ -34,9 +34,9 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 {
 	float friction_ = friction;
 
-	Block *block = world->getBlock(((long)x+8>>4)+16,((long)y+8>>4)+16, 2);
-	if (block != nullptr)
-		block->OnEntityGravity(app, this, friction_, speedX, speedY, 0);
+	std::pair<Block*, unsigned short> blockAndMetadata = world->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
+	if (blockAndMetadata.first != nullptr)
+		blockAndMetadata.first->OnEntityGravity(app, this, friction_, speedX, speedY, blockAndMetadata.second);
 
 	if (speedX != 0.0F || speedY != 0.0F)
 	{
