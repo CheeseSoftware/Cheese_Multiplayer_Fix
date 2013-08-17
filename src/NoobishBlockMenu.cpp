@@ -14,7 +14,10 @@ NoobishBlockMenu::NoobishBlockMenu(World *world)
 		blockMenu[i] = new std::pair<Block*, unsigned short>[80];
 		for(int x = 0; x < 80; x++)
 		{
-			blockMenu[i][x] = std::pair<Block*, unsigned short>(world->getBlockType(3, x), x);
+			if (x < 50)
+				blockMenu[i][x] = std::pair<Block*, unsigned short>(world->getBlockType(1+i, x), x);
+			else
+				blockMenu[i][x] = std::pair<Block*, unsigned short>(world->getBlockType(3, x%4), x%4);
 		}
 	}
 }
@@ -28,10 +31,10 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, World *worl
 			if (event.mouseButton.y >= app.getSize().y-32)
 			{
 				std::cout << "den gamla storkossan är: " << selected << std::endl;
-				if (event.mouseButton.x <= 80*16)
+				//if (event.mouseButton.x <= 80*16)
 				{
 					int layer = (event.mouseButton.x >= app.getSize().y-16)? 1:0;
-					selected = event.mouseButton.x>>4 + layer*80;
+					selected = event.mouseButton.x>>4;
 					std::cout << "den nya storkossan är: " << selected << std::endl;
 				}
 			}
@@ -41,7 +44,7 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, World *worl
 				int y = (int)(app.getView().getCenter().y-app.getView().getSize().y/2 + 256 + event.mouseButton.y)>>4;
 				int layer = (selected >= 80)? 1:0;
 
-				world->setBlockAndMetadata(x, y, blockMenu[layer][selected%80].first->getLayer(), blockMenu[layer][selected%80].first->getId(), selected%80);
+				world->setBlockAndMetadata(x, y, blockMenu[layer][selected%80].first->getLayer(), blockMenu[layer][selected%80].first->getId(), blockMenu[layer][selected%80].second);
 			}
 		}
 		else if(event.key.code == sf::Mouse::Right)
