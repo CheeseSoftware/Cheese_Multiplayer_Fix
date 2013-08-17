@@ -1,4 +1,6 @@
 #include "Creature.h"
+#include "Block.h"
+#include "World.h"
 
 #define PI 3.141592653589793238462643383279502884197169399375105820974944
 
@@ -15,8 +17,15 @@ void Creature::Update(App &app, World *world, std::queue<sf::Packet> *packetData
 void Creature::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
 #endif
 {
-    speedX += horizontal * app.getFrameTime();
-    speedY += vertical * app.getFrameTime();
+	float horizontal2 = horizontal;
+	float vertical2 = vertical;
+
+	std::pair<Block*, unsigned short> blockAndMetadata = world->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
+	if (blockAndMetadata.first != nullptr)
+		blockAndMetadata.first->getCreatureMovePossibilities(app, this, horizontal2, vertical2, blockAndMetadata.second);
+
+	speedX += horizontal2 * app.getFrameTime();
+    speedY += vertical2 * app.getFrameTime();
 
 #ifdef _SERVER
 	Entity::Update(app, world, packetDataList, camera);

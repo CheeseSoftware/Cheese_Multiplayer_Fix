@@ -31,7 +31,7 @@ public:
 	virtual void OnEntityTouch(Entity *entity, unsigned short metadata);
 	virtual void OnEntitySlide(Entity *entity, float &friction, unsigned short metadata);
 	virtual void OnEntityGravity(App &app, Entity *entity, float &xFriction, float&yFriction, float &speedX, float &speedY, unsigned short metadata);
-	virtual void getCreatureMovePossibilities(App &app, Creature *creature, bool &Up, bool &Left, bool &Right, bool &Down, unsigned short metadata);
+	virtual void getCreatureMovePossibilities(App &app, Creature *creature, float &horizontal, float &vertical, unsigned short metadata);
 	//virtual char getSubTextureId() = 0;
 #ifndef _SERVER
 	void Draw(long posX, long posY, App &app, TextureContainer &tC, unsigned short metadata);

@@ -1,5 +1,6 @@
 #include "Chunk.h"
 #include "Block.h"
+#include "BlockGravity.h"
 #include "TextureContainer.h"
 #include "camera.h"
 #include "App.h"
@@ -17,7 +18,7 @@ Chunk::Chunk()
 			for (int y = 0; y < CHUNKHEIGHT; y++)
 			{
 				blockList[x][y][l].first = nullptr;
-				//blockList[x][y][l] = new BlockSolid(2);
+				blockList[x][y][l].first = new BlockGravity(3);
 			}
 		}
 	}

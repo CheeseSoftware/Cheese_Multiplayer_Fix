@@ -79,7 +79,7 @@ void Block::OnEntityGravity(App &app, Entity *entity, float &xFriction, float&yF
 
 }
 
-void Block::getCreatureMovePossibilities(App &app, Creature *creature, bool &Up, bool &Left, bool &Right, bool &Down, unsigned short metadata)
+void Block::getCreatureMovePossibilities(App &app, Creature *creature, float &horizontal, float &vertical, unsigned short metadata)
 {
 
 }

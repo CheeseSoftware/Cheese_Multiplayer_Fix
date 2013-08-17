@@ -66,28 +66,24 @@ void BlockGravity::OnEntityGravity(App &app, Entity *entity, float &xFriction, f
 	}
 }
 
-void BlockGravity::getCreatureMovePossibilities(App &app, Creature *creature, bool &Up, bool &Left, bool &Right, bool &Down, unsigned short metadata)
+void BlockGravity::getCreatureMovePossibilities(App &app, Creature *creature, float &horizontal, float &vertical, unsigned short metadata)
 {
 	switch(metadata&0x0003)
 	{
-	case 0://up
-		Up = false;
-		Down = false;
+	case 1://up
+		vertical = 0;
 		break;
 
-	case 1://left
-		Left = false;
-		Right = false;
+	case 0://left
+		horizontal = 0;
 		break;
 
 	case 2://right
-		Left = false;
-		Right = false;
+		horizontal = 0;
 		break;
 
 	case 3://down
-		Up = false;
-		Down = false;
+		vertical = 0;
 		break;
 	}
 }
