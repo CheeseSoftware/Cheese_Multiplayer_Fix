@@ -32,11 +32,12 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &EventHandler)
 #endif
 {
-	float friction_ = friction;
+	float xFriction = friction;
+	float yFriction = friction;
 
 	std::pair<Block*, unsigned short> blockAndMetadata = world->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
 	if (blockAndMetadata.first != nullptr)
-		blockAndMetadata.first->OnEntityGravity(app, this, friction_, speedX, speedY, blockAndMetadata.second);
+		blockAndMetadata.first->OnEntityGravity(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
 
 	if (speedX != 0.0F || speedY != 0.0F)
 	{
@@ -145,8 +146,8 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 				//std::cout << x << " " << y << std::endl;
 		//< D:
 
-		speedX *= 1 - tan(friction_*M_PI/2) * app.getFrameTime();
-		speedY *= 1 - tan(friction_*M_PI/2) * app.getFrameTime();
+		speedX *= 1 - tan(xFriction*M_PI/2) * app.getFrameTime();
+		speedY *= 1 - tan(yFriction*M_PI/2) * app.getFrameTime();
 	}
 }
 

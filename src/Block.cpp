@@ -74,7 +74,7 @@ void Block::OnEntitySlide(Entity *entity, float &friction, unsigned short metada
 
 }
 
-void Block::OnEntityGravity(App &app, Entity *entity, float &friction, float &speedX, float &speedY, unsigned short metadata)
+void Block::OnEntityGravity(App &app, Entity *entity, float &xFriction, float&yFriction, float &speedX, float &speedY, unsigned short metadata)
 {
 
 }

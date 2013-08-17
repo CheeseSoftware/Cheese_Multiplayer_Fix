@@ -32,28 +32,32 @@ std::string BlockGravity::getTextureName()
 	return "BlockGravity.png";
 }
 
-void BlockGravity::OnEntityGravity(App &app, Entity *entity, float &friction, float &speedX, float &speedY, unsigned short metadata)
+void BlockGravity::OnEntityGravity(App &app, Entity *entity, float &xFriction, float&yFriction, float &speedX, float &speedY, unsigned short metadata)
 {
 	float strength = (1.0F+(metadata>>3)/2.0F)*app.getFrameTime()*4000.0F;
 
-	friction = 1.0F-(1.0F-friction)*0.5F;//friction = 1;//(metadata&0x0004)? friction/strength : friction*strength;
+	float friction = 1.0F-(1.0F-xFriction)*0.5F;//friction = 1;//(metadata&0x0004)? friction/strength : friction*strength;
 
 	switch(metadata&0x0003)
 	{
 	case 1://up
 		speedY -= strength;
+		xFriction = friction;
 		break;
 
 	case 0://left
 		speedX -= strength;
+		yFriction = friction;
 		break;
 
 	case 2://right
 		speedX += strength;
+		yFriction = friction;
 		break;
 
 	case 3://down
 		speedY += strength;
+		xFriction = friction;
 		break;
 	}
 }
