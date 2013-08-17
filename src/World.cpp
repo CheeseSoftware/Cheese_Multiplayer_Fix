@@ -5,6 +5,7 @@
 #include "Chunk.h"
 #include "BlockSolid.h"
 #include "BlockBackground.h"
+#include "BlockGravity.h"
 #include "Player.h"
 #include "MessageType.h"
 #include "EventHandler.h"
@@ -23,6 +24,7 @@ World::World()
 
 	RegisterBlock(i,(new BlockSolid(i))->RegisterBlock(i));i++;
 	RegisterBlock(i,(new BlockBackground(i))->RegisterBlock(i));i++;
+	RegisterBlock(i,(new BlockGravity(i))->RegisterBlock(i));i++;
 
 	for (int x = 0; x < 3; x++)
 	{ 

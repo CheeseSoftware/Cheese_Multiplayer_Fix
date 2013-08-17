@@ -14,7 +14,7 @@ NoobishBlockMenu::NoobishBlockMenu(World *world)
 		blockMenu[i] = new std::pair<Block*, unsigned short>[80];
 		for(int x = 0; x < 80; x++)
 		{
-			blockMenu[i][x] = std::pair<Block*, unsigned short>(world->getBlockType(i+1, x), x);
+			blockMenu[i][x] = std::pair<Block*, unsigned short>(world->getBlockType(3, x), x);
 		}
 	}
 }

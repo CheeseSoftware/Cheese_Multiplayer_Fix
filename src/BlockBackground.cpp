@@ -16,19 +16,9 @@ unsigned short BlockBackground::getTextureId(App &app, unsigned short metadata)
 	return metadata;
 }
 
-unsigned short BlockBackground::getId()
-{
-	return 2;
-}
-
-bool BlockBackground::isSeeThrough()
-{
-	return(false);
-}
-
 bool BlockBackground::isSolid()
 {
-	return(false);
+	return false;
 }
 
 unsigned char BlockBackground::getLayer()

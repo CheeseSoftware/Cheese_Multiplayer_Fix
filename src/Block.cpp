@@ -31,6 +31,16 @@ unsigned short Block::getId()
 	return id;
 }
 
+bool Block::isSeeThrough()
+{
+	return false;
+}
+
+bool Block::isSolid()
+{
+	return true;
+}
+
 bool Block::isUnique()
 {
 	return false;
@@ -64,7 +74,12 @@ void Block::OnEntitySlide(Entity *entity, float &friction, unsigned short metada
 
 }
 
-void Block::OnEntityGravity(Entity *entity, float &friction, float &speedX, float &speedY, bool &Up, bool &Left, bool &Right, bool &Down, unsigned short metadata)
+void Block::OnEntityGravity(App &app, Entity *entity, float &friction, float &speedX, float &speedY, unsigned short metadata)
+{
+
+}
+
+void Block::getCreatureMovePossibilities(App &app, Creature *creature, bool &Up, bool &Left, bool &Right, bool &Down, unsigned short metadata)
 {
 
 }

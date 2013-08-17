@@ -100,7 +100,9 @@ void Chunk::setBlock(unsigned char layer, unsigned short x, unsigned short y, Bl
 {
 	if (x >= 16 || y >= 16)
 		return;
-	blockList[x][y][layer].first->OnRemove();
+	if (blockList[x][y][layer].first != nullptr)
+		blockList[x][y][layer].first->OnRemove();
+
 	blockList[x][y][layer].first = block;
 }
 
