@@ -43,21 +43,25 @@ void BlockGravity::OnEntityGravity(App &app, Entity *entity, float &xFriction, f
 	case 1://up
 		speedY -= strength;
 		xFriction = friction;
+		yFriction = yFriction*0.25;
 		break;
 
 	case 0://left
 		speedX -= strength;
 		yFriction = friction;
+		xFriction = xFriction*0.25;
 		break;
 
 	case 2://right
 		speedX += strength;
 		yFriction = friction;
+		xFriction = xFriction*0.25;
 		break;
 
 	case 3://down
 		speedY += strength;
 		xFriction = friction;
+		yFriction = yFriction*0.25;
 		break;
 	}
 }

@@ -23,10 +23,18 @@ void Projectile::Update(App &app, World *world, std::queue<sf::Packet> *packetDa
 void Projectile::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
 #endif
 { 
-	speed = sqrt(pow(abs(speedX),2)+pow(abs(speedY),2));
+	/*speed = sqrt(pow(abs(speedX),2)+pow(abs(speedY),2));
 	friction = 100/speed;
 	if (friction > 1)
-		friction = 1;
+		friction = 1;*/
+
+	if (speedX != 0 || speedY != 0)
+	{
+		angle = atan2(speedY,speedX)*180/3.14159265;
+
+		//if (speedY < 0)
+		//	angle += 180;
+	}
 
 #ifdef _SERVER
 	Entity::Update(app, world, packetDataList, camera);

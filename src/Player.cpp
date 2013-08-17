@@ -109,7 +109,7 @@ Up:
 
 
 					//Projectile *projectile = new Projectile(app.getView().getEntityPosition().x.getEntityPosition().y, 32, 32, -angle, 512, 0, "arrow.png", 0, false);
-					Projectile *projectile = new Projectile(x+8, y+8, 32, 32, angle, 2048, 0.03125F, "arrow.png", 0, false);
+					Projectile *projectile = new Projectile(x+8, y+8, 32, 32, angle, 1024, 0.03125F, "arrow.png", 0, false);
 					world->AddEntity(projectile);//new Projectile(sf::Vector2f(app.getView().getCreaturePosition().x+8.getCreaturePosition().y+8), (float)angle, 500, tC.getTextures("arroaaawb.png")[0]));
 					cameraDelay = 0.03125F;
 					//app.getView().setCameraAt(*projectile);
