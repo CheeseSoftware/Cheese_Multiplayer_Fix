@@ -34,7 +34,7 @@ std::string BlockGravity::getTextureName()
 
 void BlockGravity::OnEntityGravity(App &app, Entity *entity, float &xFriction, float&yFriction, float &speedX, float &speedY, unsigned short metadata)
 {
-	float strength = (1.0F+(metadata>>3)/2.0F)*app.getFrameTime()*4000.0F;
+	float strength = (1.0F+(metadata>>3)/2.0F)*app.getDeltaTime()*1000.0F;
 
 	float friction = 1.0F-(1.0F-xFriction)*0.5F;//friction = 1;//(metadata&0x0004)? friction/strength : friction*strength;
 
@@ -84,6 +84,28 @@ void BlockGravity::getCreatureMovePossibilities(App &app, Creature *creature, fl
 
 	case 3://down
 		vertical = 0;
+		break;
+	}
+}
+
+void BlockGravity::CreatureJump(App &app, Creature *creature, float &speedX, float &speedY, unsigned short metadata)
+{
+	switch(metadata&0x0003)
+	{
+	case 1://up
+		speedY = 512;
+		break;
+
+	case 0://left
+		speedX = 512;
+		break;
+
+	case 2://right
+		speedX = -512;
+		break;
+
+	case 3://down
+		speedY = -512;
 		break;
 	}
 }

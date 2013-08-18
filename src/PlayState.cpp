@@ -79,7 +79,7 @@ void PlayState::EventUpdate(App &app, const sf::Event &event)
 
 GameState *PlayState::Update(App &app)
 {
-	std::cout << 1/app.getFrameTime() << "\n";
+	std::cout << 1/app.getDeltaTime() << "\n";
 	camera->Update(app);
 	app.setView(*reinterpret_cast<sf::View*>(camera));
 

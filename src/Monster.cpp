@@ -14,13 +14,13 @@ Monster::~Monster(void)
 }
 
 #ifdef _SERVER
-void Monster::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera)
+void Monster::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList)
 #else
 void Monster::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
 #endif
 {
 #ifdef _SERVER
-	Creature::Update(app, world, packetDataList, camera);
+	Creature::Update(app, world, packetDataList);
 #else
 	Creature::Update(app, world, packetDataList, camera, eventHandler);
 #endif

@@ -18,7 +18,7 @@ Chunk::Chunk()
 			for (int y = 0; y < CHUNKHEIGHT; y++)
 			{
 				blockList[x][y][l].first = nullptr;
-				blockList[x][y][l].first = new BlockGravity(3);
+				//blockList[x][y][l].first = new BlockGravity(3);
 			}
 		}
 	}
@@ -116,5 +116,11 @@ Block *Chunk::getBlock(unsigned char layer, unsigned short x, unsigned short y)
 {
 	return blockList[x][y][layer].first;
 }
+
+std::pair<Block*, unsigned short> &Chunk::getBlockAndMetadata(unsigned short x, unsigned short y, unsigned short layer)
+{
+	return blockList[x][y][layer];
+}
+
 short Chunk::getMetadata(unsigned char layer, unsigned short x, unsigned short y) { return blockList[x][y][layer].second; }
 unsigned short Chunk::getBlockId(unsigned char layer, unsigned short x, unsigned short y) { return blockList[x][y][layer].first->getId(); }

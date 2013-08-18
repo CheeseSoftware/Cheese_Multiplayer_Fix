@@ -44,7 +44,7 @@ public:
 		float angle, float speed, float friction, std::string spriteName,
 		int spriteIndex, bool isClientControlling);
 #ifdef _SERVER
-	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera);
+	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
 #else
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
 #endif

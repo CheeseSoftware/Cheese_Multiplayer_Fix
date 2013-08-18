@@ -1,3 +1,4 @@
+#ifdef _SERVER
 #include <iostream>
 #include <string>
 #include <SFML\Network.hpp>
@@ -31,7 +32,7 @@ ServerState::~ServerState()
 GameState *ServerState::Update(App &app)
 {
 	//std::cout << "updates per second: " << 1/APP(app).getFrameTime() << std::endl;
-	std::queue<sf::Packet> *packetDataList = currentWorld->Update(app, tC, nullptr);
+	std::queue<sf::Packet> *packetDataList = currentWorld->Update(app, tC);
 	while (!packetDataList->empty())
 	{
 		sC->Broadcast(packetDataList->front());
@@ -178,3 +179,4 @@ void ServerState::ProcessPackets(void)
 		packets.pop();
 	}
 }
+#endif

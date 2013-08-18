@@ -12,6 +12,7 @@ public:
 	virtual std::string getTextureName();
 	virtual void OnEntityGravity(App &app, Entity *entity, float &xFriction, float&yFriction, float &speedX, float &speedY, unsigned short metadata);
 	virtual void getCreatureMovePossibilities(App &app, Creature *creature, float &horizontal, float &vertical, unsigned short metadata);
+	virtual void CreatureJump(App &app, Creature *creature, float &speedX, float &speedY, unsigned short metadata);
 	//virtual void getGravityModifierAngle()=0;
 	//virtual void getGravityStrength()=0;
 	//virtual void getFrictionStrength()=0;

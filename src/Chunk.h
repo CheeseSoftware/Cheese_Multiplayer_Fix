@@ -28,6 +28,7 @@ public:
 	Block *getHighestBlock(unsigned char x, unsigned char y);
 	Block *getBlock(unsigned char layer, unsigned short x, unsigned short y);
 	short getMetadata(unsigned char layer, unsigned short x, unsigned short y);
+	std::pair<Block*, unsigned short> &getBlockAndMetadata(unsigned short x, unsigned short y, unsigned short layer);
 	void setBlock(unsigned char layer, unsigned short x, unsigned short y, Block*);
 	void setMetadata(unsigned char layer, unsigned short x, unsigned short y, unsigned short metadata);
 	unsigned short getBlockId(unsigned char layer, unsigned short x, unsigned short y);

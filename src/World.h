@@ -6,6 +6,7 @@
 #include <list>
 #include <deque>
 #include <queue>
+#include <tuple>
 #include "App.h"
 #include <SFML\Network.hpp>
 #include "EventHandler.h"
@@ -44,6 +45,7 @@ private:
 	std::map<short, Player*> playerList;
 	std::map<std::pair<short,short>,Block*> BlockMap;
 	std::queue<sf::Packet> *packetDataList;
+	std::pair<std::tuple<long, long, unsigned short>, std::pair<Block*, unsigned short>*> lastBlock;
 #ifndef _SERVER
 	EventHandler eventHandler;
 #endif
@@ -53,7 +55,11 @@ public:
 	void EventUpdate(App &app, const sf::Event &event);
 	void Draw(App &app, TextureContainer &tC);
 #endif
+#ifdef _SERVER
+	std::queue<sf::Packet>* Update(App &app, TextureContainer &tC);
+#else
 	std::queue<sf::Packet>* Update(App &app, TextureContainer &tC, Camera *camera);
+#endif
 	void RegisterBlock(unsigned short key, std::function<Block*(unsigned short)> value);
 	void setBlock(long x, long y, long layer, unsigned short id);
 	void setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata);

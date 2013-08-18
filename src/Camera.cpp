@@ -22,7 +22,7 @@ void Camera::Update(App &app)
 	{
 		float deltaX = currentEntity->getX()+8-getCenter().x;
 		float deltaY = currentEntity->getY()+8-getCenter().y;
-		float speedFactor = atan(app.getFrameTime()*speed)*2/3.14159265358979323846264338327950288419;
+		float speedFactor = atan(app.getDeltaTime()*speed)*2/3.14159265358979323846264338327950288419;
 
 		move(deltaX*speedFactor,deltaY*speedFactor);
 	}

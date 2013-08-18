@@ -28,20 +28,19 @@ World::World()
 
 	for (int x = 0; x < 3; x++)
 	{ 
-	chunkMatrix.first.push_back(ChunkColumnType(std::deque<Chunk*>(),0));
-	for (int y = 0; y < 3; y++)
-	{
-	Chunk* chunk = new Chunk();
-	chunk->setBlock(2, 1, 1, new  BlockSolid(1));//(*getBlockType(1))(0));
-	chunkMatrix.first[x].first.push_back(chunk);
-	}
+		chunkMatrix.first.push_back(ChunkColumnType(std::deque<Chunk*>(),0));
+		for (int y = 0; y < 3; y++)
+		{
+			Chunk* chunk = new Chunk();
+			chunk->setBlock(2, 1, 1, new  BlockSolid(1));//(*getBlockType(1))(0));
+			chunkMatrix.first[x].first.push_back(chunk);
+		}
 	}
 
 	packetDataList = new std::queue<sf::Packet>();
 }
 
 #ifndef _SERVER
-
 void World::EventUpdate(App &app, const sf::Event &event)
 {
 	eventHandler.EventUpdate(app, event, this, packetDataList);
@@ -81,12 +80,16 @@ void World::Draw(App &app, TextureContainer &tC)
 }
 #endif
 
+#ifdef _SERVER
+std::queue<sf::Packet>* World::Update(App &app, TextureContainer &tC)
+#else
 std::queue<sf::Packet>* World::Update(App &app, TextureContainer &tC, Camera *camera)
+#endif
 {
 	for (Entity *entity : entityList)
 	{
 #ifdef _SERVER
-		entity->Update(app, this, packetDataList, camera);
+		entity->Update(app, this, packetDataList);
 #else
 		entity->Update(app, this, packetDataList, camera, eventHandler);
 #endif
@@ -95,7 +98,7 @@ std::queue<sf::Packet>* World::Update(App &app, TextureContainer &tC, Camera *ca
 	for(std::pair<short, Player*> pair : playerList)
 	{
 #ifdef _SERVER
-		pair.second->Update(app, this, packetDataList, camera);
+		pair.second->Update(app, this, packetDataList);
 #else
 		pair.second->Update(app, this, packetDataList, camera, eventHandler);
 #endif
@@ -257,7 +260,6 @@ MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, uns
 			return BlockPlace;
 		}
 	}
-
 	return NullMessage;
 }
 
@@ -290,6 +292,12 @@ MessageType World::setBlockMetadataClientOnly(long x, long y, long layer, unsign
 
 Block *World::getBlock(long x, long y, long layer)
 {
+	return getBlockAndMetadata(x, y, layer).first;
+	/*if (lastBlock.first._Equals(std::tuple<long, long, short>(x, y, layer)))
+	{
+		return lastBlock.second->first;
+	}
+
 	long xx = floor(x * 0.0625) + chunkMatrix.second + 1;
 
 	unsigned short xxx = x&0xF;
@@ -308,11 +316,16 @@ Block *World::getBlock(long x, long y, long layer)
 			}
 		}
 	}
-	return nullptr;
+	return nullptr;*/
 }
 
 std::pair<Block*, unsigned short> World::getBlockAndMetadata(long x, long y, long layer)
 {
+	if (lastBlock.first._Equals(std::tuple<long, long, short>(x, y, layer)))
+	{
+		return *lastBlock.second;
+	}
+
 	long xx = floor(x * 0.0625) + chunkMatrix.second + 1;
 
 	unsigned short xxx = x&0xF;
@@ -328,11 +341,14 @@ std::pair<Block*, unsigned short> World::getBlockAndMetadata(long x, long y, lon
 			if (it.first.at(yy) != nullptr)
 			{
 				Chunk* chunk = it.first.at(yy);//->getBlock(layer, xxx, yyy);
-				return std::pair<Block*, unsigned short>(chunk->getBlock(layer, xxx, yyy), chunk->getMetadata(layer, xxx, yyy));
+				return *(lastBlock = std::pair<std::tuple<long, long, unsigned short>, std::pair<Block*, unsigned short>*>
+					(std::tuple<long, long, unsigned short>(x, y, layer),
+					&chunk->getBlockAndMetadata(xxx, yyy, layer))).second;
+				//std::pair<Block*, unsigned short>(chunk->getBlock(layer, xxx, yyy), chunk->getMetadata(layer, xxx, yyy));
 			}
 		}
 	}
-	return std::pair<Block*, unsigned short>(nullptr, 0);;
+	return std::pair<Block*, unsigned short>(nullptr, 0);
 }
 
 void World::Expand(long x, long y, Chunk* chunk)

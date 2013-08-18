@@ -1,3 +1,4 @@
+#ifdef _SERVER
 #pragma once
 #include "gamestate.h"
 #include "TextureContainer.h"
@@ -22,3 +23,4 @@ public:
     virtual GameState *Update(App &app);
 	virtual void Draw(App &app) {}
 };
+#endif

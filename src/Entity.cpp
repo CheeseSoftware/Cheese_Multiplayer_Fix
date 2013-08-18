@@ -27,7 +27,7 @@ Entity::Entity(float x, float y, short sizeX, short sizeY,
 }
 
 #ifdef _SERVER
-void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera)
+void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList)
 #else
 void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &EventHandler)
 #endif
@@ -43,27 +43,27 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 	{
 
 
-		float speedXModifier = abs(speedX * app.getFrameTime());
+		float speedXModifier = abs(speedX * app.getDeltaTime());
 
-		float speedYModifier = abs(speedY * app.getFrameTime());
+		float speedYModifier = abs(speedY * app.getDeltaTime());
 
 
-		//float speedModifier = speedX * app.GetFrameTime();
+		//float speedModifier = speedX * app.getDeltaTime();
 
-		//float speedYModifier = abs(speedY * app.GetFrameTime());
+		//float speedYModifier = abs(speedY * app.getDeltaTime());
 		
-		//char speedXNegativeFactor = (speedX > 0)? 1:-1;
-		//char speedYNegativeFactor = (speedY > 0)? 1:-1;
+		char speedXNegativeFactor = (speedX > 0)? 1:-1;
+		char speedYNegativeFactor = (speedY > 0)? 1:-1;
 
 
 		//NEW FAILED PHYSICS D:  {
-		/*double speed = sqrt(pow(abs(speedX)*app.GetFrameTime(),2)+pow(abs(speedY)*app.GetFrameTime(),2));
+		//double speed = sqrt(pow(abs(speedX)*app.getDeltaTime(),2)+pow(abs(speedY)*app.getDeltaTime(),2));
 
-<<<<<<< HEAD
-		double speed = sqrt(pow(speedX*app.getFrameTime(),2)+pow(speedY*app.getFrameTime(),2));
-=======
-		double angle = atan(speedY/speedX);
->>>>>>> 2dbb0fccc9120629075f0f104405e4486369d95b
+//<<<<<<< HEAD
+		double speed = sqrt(pow(speedX*app.getDeltaTime(),2)+pow(speedY*app.getDeltaTime(),2));
+//=======
+		double angle = atan2(speedY, speedX);
+//>>>>>>> 2dbb0fccc9120629075f0f104405e4486369d95b
 
 		double deltaX = cos(angle);
 		double deltaY = sin(angle);
@@ -87,31 +87,64 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 				deltaY = 0;
 		}
 
-		if (CheckCollision(app, world, deltaX*speed, deltaY*speed))
+		/*if (CheckCollision(app, world, deltaX*speed, deltaY*speed))
 		{
 				x += deltaX*speed;
 				y += deltaY*speed;
+		}*/
+
+		while (speedXModifier >= 1 && speedYModifier >= 1)
+		{
+			if (CheckCollision(app, world, (float)speedXNegativeFactor, (float)speedYNegativeFactor))
+				break;
+
+			if (speedX != 0 && speedY != 0)
+			{
+				x += speedXNegativeFactor;
+				y += speedYNegativeFactor;
+
+				speedXModifier -= 1;
+				speedYModifier -= 1;
+			}
+			else
+			{
+				break;
+			}
 		}
 
-		/*while(speedXModifier > 1)
+		while(speedXModifier >= 1)
 		{
 			if (CheckCollision(app, world, (float)speedXNegativeFactor, 0))
 				break;
 
-			x += speedXNegativeFactor;
+			if (speedX != 0)
+			{
+				x += speedXNegativeFactor;
 
-			speedXModifier -= 1;
+				speedXModifier -= 1;
+			}
+			else
+			{
+				break;
+			}
 		}
 
-		while(speedYModifier > 1)
+		while(speedYModifier >= 1)
 		{
-			if (CheckCollision(app, world, 0, (float)speedXNegativeFactor))
+			if (CheckCollision(app, world, 0, (float)speedYNegativeFactor))
 				break;
 
-			y += speedYNegativeFactor;
+			if (speedY != 0)
+			{
+				y += speedYNegativeFactor;
 
-			speedYModifier -= 1;
-		}*/
+				speedYModifier -= 1;
+			}
+			else
+			{
+				break;
+			}
+		}
 
 		//if (!CheckCollision(app, world, speedXModifier*speedXNegativeFactor, speedYModifier*speedYNegativeFactor))
 		//{
@@ -120,13 +153,13 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 		//}
 		//else
 		//{
-		//CheckCollision(app, world, speedXModifier*speedXNegativeFactor, speedYModifier*speedYNegativeFactor);
+		CheckCollision(app, world, speedXModifier*speedXNegativeFactor, speedYModifier*speedYNegativeFactor);
 
-		/*if (speedX != 0)
+		if (speedX != 0)
 			x += speedXModifier*speedXNegativeFactor;
 
 		if (speedY != 0)
-			y += speedYModifier*speedYNegativeFactor;*/
+			y += speedYModifier*speedYNegativeFactor;
 
 
 			/*if (speedX != 0)
@@ -139,15 +172,15 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 		// } D: 
 
 		//> gammal fysikD:
-		CheckCollision(app, world, speedX * app.getFrameTime(), speedY * app.getFrameTime());
+		CheckCollision(app, world, speedX * app.getDeltaTime(), speedY * app.getDeltaTime());
 
-		x += speedX * app.getFrameTime();
-		y += speedY * app.getFrameTime();
+		//x += speedX * app.getDeltaTime();
+		//y += speedY * app.getDeltaTime();
 				//std::cout << x << " " << y << std::endl;
 		//< D:
 
-		speedX *= 1 - tan(xFriction*M_PI/2) * app.getFrameTime();
-		speedY *= 1 - tan(yFriction*M_PI/2) * app.getFrameTime();
+		speedX *= 1 - tan(xFriction*M_PI/2) * app.getDeltaTime();
+		speedY *= 1 - tan(yFriction*M_PI/2) * app.getDeltaTime();
 	}
 }
 
@@ -297,9 +330,15 @@ void Entity::Draw(App &app, TextureContainer &tC)
 	sf::Sprite *sprite = &(tC.getTextures(spriteName)[spriteIndex]);
 	if (sprite != nullptr)
 	{
-	    sprite->setPosition(sf::Vector2f(x, y));
-	    sprite->setRotation(angle);
-		app.draw(*sprite);
+		if ((int)x + app.getView().getCenter().x - (app.getSize().x>>1) <= 0)// &&
+			//(int)y + app.getView().getCenter().y - (app.getSize().y>>1) >= 0 &&
+			//(int)x + app.getView().getCenter().x + (app.getSize().x>>1) <= 0 &&
+			//(int)x + app.getView().getCenter().x + (app.getSize().x>>1) <= 0)
+		{
+			sprite->setPosition(sf::Vector2f(x, y));
+			sprite->setRotation(angle);
+			app.draw(*sprite);
+		}
 	}
 	else
 	{

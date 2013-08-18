@@ -16,12 +16,15 @@ class App
 {
 	sf::Clock frameTimer;
 	float frameTime;
+#ifdef _SERVER
 	float sleptTime;
+#endif
 public:
 #ifndef _SERVER
 	App(sf::VideoMode);
 #endif
 	float getFrameTime();
+	float getDeltaTime();
 
 	void Update();
 	sf::Clock &getFrameTimer();

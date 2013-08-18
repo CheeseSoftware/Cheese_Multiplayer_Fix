@@ -84,6 +84,11 @@ void Block::getCreatureMovePossibilities(App &app, Creature *creature, float &ho
 
 }
 
+void Block::CreatureJump(App &app, Creature *creature, float &speedX, float &speedY, unsigned short metadata)
+{
+
+}
+
 #ifndef _SERVER
 void Block::Draw(long posX, long posY, App &app, TextureContainer &tC, unsigned short metadata)
 {
