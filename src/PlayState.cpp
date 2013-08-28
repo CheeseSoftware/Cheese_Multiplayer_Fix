@@ -29,6 +29,8 @@ extern char** _argv;
 
 PlayState::PlayState(App &app)
 {
+	fpsClock.restart();
+
 	char* str_ip = "127.0.0.1";
 
 	if (_argc >= 2)
@@ -79,7 +81,11 @@ void PlayState::EventUpdate(App &app, const sf::Event &event)
 
 GameState *PlayState::Update(App &app)
 {
-	std::cout << 1/app.getDeltaTime() << "\n";
+	if (fpsClock.getElapsedTime().asMilliseconds() > 1000)
+	{
+		std::cout << 1/app.getDeltaTime() << "\n";
+		fpsClock.restart();
+	}
 	camera->Update(app);
 	app.setView(*reinterpret_cast<sf::View*>(camera));
 

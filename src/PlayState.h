@@ -19,6 +19,7 @@ class PlayState : public GameState
 	NoobishBlockMenu *noobishBlockMenu;//InGameUI *blockMenu;
 	Connection *connection;
 	EventHandler *eventHandler;
+    sf::Clock fpsClock;
 	void ProcessPackets();
 public:
 	PlayState(App &app);
