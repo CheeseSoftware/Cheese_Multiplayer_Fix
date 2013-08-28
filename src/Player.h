@@ -35,6 +35,7 @@ public:
 		bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name);
 
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
+	virtual void PhysicUpdate(World *world, float timeSpan);
 #endif
 
 #ifndef _SERVER

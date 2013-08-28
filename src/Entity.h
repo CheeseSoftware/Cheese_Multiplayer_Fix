@@ -37,6 +37,8 @@ protected:
 	int spriteIndex;
 	void FixateX();
 	void FixateY();
+
+	virtual inline void PhysicUpdate(World *world, float timeSpan);
 public:
     bool isClientControlling;
 
