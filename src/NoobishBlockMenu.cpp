@@ -26,6 +26,8 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, World *worl
 {
 	if(event.type == sf::Event::MouseButtonPressed)
 	{
+		int x = (int)(app.getView().getCenter().x-app.getView().getSize().x/2 + 256 + event.mouseButton.x)>>4;
+		int y = (int)(app.getView().getCenter().y-app.getView().getSize().y/2 + 256 + event.mouseButton.y)>>4;
 		if(event.key.code == sf::Mouse::Left)
 		{
 			if (event.mouseButton.y >= app.getSize().y-32)
@@ -40,20 +42,17 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, World *worl
 			}
 			else
 			{
-				int x = (int)(app.getView().getCenter().x-app.getView().getSize().x/2 + 256 + event.mouseButton.x)>>4;
-				int y = (int)(app.getView().getCenter().y-app.getView().getSize().y/2 + 256 + event.mouseButton.y)>>4;
 				int layer = (selected >= 80)? 1:0;
-
 				world->setBlockAndMetadata(x, y, blockMenu[layer][selected%80].first->getLayer(), blockMenu[layer][selected%80].first->getId(), blockMenu[layer][selected%80].second);
 			}
 		}
 		else if(event.key.code == sf::Mouse::Right)
 		{
+			Block* block = world->getBlock(x, y, 2);
+			if(block != nullptr)
+				block->OnRightClick(nullptr, world->getBlockAndMetadata(x, y, 1).second);
 			if (event.mouseButton.y < app.getSize().y-32)
 			{
-				int x = (int)(app.getView().getCenter().x-app.getView().getSize().x/2 + 256 + event.mouseButton.x)>>4;
-				int y = (int)(app.getView().getCenter().y-app.getView().getSize().y/2 + 256 + event.mouseButton.y)>>4;
-
 				world->setBlockAndMetadata(x, y, 2, 0, 0);
 			}
 		}

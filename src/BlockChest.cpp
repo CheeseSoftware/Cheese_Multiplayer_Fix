@@ -4,7 +4,7 @@
 BlockChest::BlockChest(unsigned short id) 
 	: Block(id)
 {
-
+	isDrawingInventory = false;
 }
 
 
@@ -40,4 +40,10 @@ bool BlockChest::isSolid()
 unsigned char BlockChest::getLayer()
 {
 	return 2;
+}
+
+void BlockChest::OnRightClick(Creature *creature, unsigned short metadata)
+{
+	isDrawingInventory = !isDrawingInventory;//temp
+	std::cout << "onrightclick" << std::endl;
 }

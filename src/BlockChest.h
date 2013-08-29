@@ -2,6 +2,8 @@
 #include "Block.h"
 class BlockChest : public Block
 {
+private:
+	bool isDrawingInventory;
 public:
 	BlockChest(unsigned short id);
 	~BlockChest(void);
@@ -11,5 +13,6 @@ public:
 	std::string getTextureName();
 	bool isSeeThrough();
 	bool isSolid();
+	void OnRightClick(Creature *creature, unsigned short metadata);
 };
 
