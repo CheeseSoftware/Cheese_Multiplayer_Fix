@@ -2,6 +2,7 @@
 #pragma once
 #include "App.h"
 
+class App;
 class Entity;
 
 class Camera : private sf::View
@@ -17,6 +18,10 @@ public:
 	void setSpeed(double speed);
 	sf::Vector2f getEntityPosition();
 	Entity *Camera::getEntity();
+	double getLeftX();
+	double getTopY();
+	double getRightX();
+	double getButtomY();
 };
 
 /*inline Camera& GetCamera(App &app)
