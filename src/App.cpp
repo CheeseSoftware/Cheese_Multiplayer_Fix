@@ -14,9 +14,9 @@ float App::getFrameTime()
 {
 	//std::cout << frameTime << " " << sleptTime << std::endl;
 #ifdef _SERVER
-	return (frameTime+sleptTime)/1000000;
+	return (frameTime+sleptTime);
 #else
-	return (frameTime)*0.000001;
+	return (frameTime);
 #endif
 }
 
@@ -24,12 +24,12 @@ float App::getDeltaTime()
 {
 
 	float frameTime2 = getFrameTime();
-	return ((frameTime2 > 0.01F)? 0.01F : frameTime2);
+	return ((frameTime2 > 0.1F)? 0.1F : frameTime2);
 }
 
 void App::Update()
 {
-	frameTime = frameTimer.getElapsedTime().asMicroseconds();
+	frameTime = frameTimer.getElapsedTime().asSeconds();
 
 #ifdef _SERVER
 	if (frameTime < MIN_FRAME_TIME)
