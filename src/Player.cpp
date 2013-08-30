@@ -98,7 +98,10 @@ Up:
 
 					Block *block = world->getBlock((long)x+8>>4, (long)y+8>>4, 2);
 					if (block != nullptr)
+					{
 						block->CreatureJump(app, this, xSpeed2, ySpeed2, world->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
+						block->OnEntityHover(app, this, xSpeed2, ySpeed2, speedX, speedY, world->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
+					}
 
 					if (CheckCollision(app, world, (xSpeed2 > 0)? -1:1, (ySpeed2 > 0)? -1:1))
 					{
@@ -108,16 +111,13 @@ Up:
 						if (speedY == 0)
 							speedY = ySpeed2;
 					}
-
-					block->OnEntityGravity(app, this, xSpeed2, ySpeed2, speedX, speedY, world->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
 				}
 				break;
 			case sf::Keyboard::Q:
 				{
-					break;
-					//350 är magiskt nummer av höjden på fönster/2. 576 är magist nummer för hälften av bredden. De ska fixas sen. 350/2 = 175, 576/2 = 288
-					//double angle = atan2((app.getView().GetCenter().y + app.GetInput().GetMouseY() - 256) - (app.getView().getEntityPosition().y+8), (app.getView().GetCenter().x + app.GetInput().GetMouseX() - 384) - (app.getView().getEntityPosition().x+8)) * 180 / 3.1415;
-					double angle = atan2((app.getView().getCenter().y + sf::Mouse::getPosition().y - 350- 175) - (y+8), (app.getView().getCenter().x + sf::Mouse::getPosition().x - 576 - 288) - (x+8)) * 180 / 3.1415926536;
+					float thing1 = (sf::Mouse::getPosition().y - app.getPosition().y) - app.getView().getSize().y/2;
+					float thing2 = (sf::Mouse::getPosition().x - app.getPosition().x) - app.getView().getSize().x/2;
+					double angle = atan2(thing1, thing2) * 180 / 3.1415926536;
 					if (angle < 0)
 						angle = angle + 360;
 
@@ -131,11 +131,8 @@ Up:
 						deltaSpeedY *= -1;
 
 
-					//Projectile *projectile = new Projectile(app.getView().getEntityPosition().x.getEntityPosition().y, 32, 32, -angle, 512, 0, "arrow.png", 0, false);
 					Projectile *projectile = new Projectile(x+8, y+8, 32, 32, angle, 1024, 0.03125F, "arrow.png", 0, false);
-					world->AddEntity(projectile);//new Projectile(sf::Vector2f(app.getView().getCreaturePosition().x+8.getCreaturePosition().y+8), (float)angle, 500, tC.getTextures("arroaaawb.png")[0]));
-					//cameraDelay = 0.25F;
-					//camera//app.getView().setCameraAt(*projectile);
+					world->AddEntity(projectile);
 				}
 				break;
 
