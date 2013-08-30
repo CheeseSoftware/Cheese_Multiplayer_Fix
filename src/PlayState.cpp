@@ -18,7 +18,8 @@
 #include "TextureContainer.h"
 #include "Connection.h"
 #include "NoobishBlockMenu.h"
-
+#include "BlockRegister.h"
+     
 namespace sf
 {
 	class RenderWindow;

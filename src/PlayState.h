@@ -3,6 +3,7 @@
 #include "App.h"
 #include "gamestate.h"
 #include <SFML\Graphics.hpp>
+#include "BlockRegister.h"
 
 class World;
 class InGameUI;
@@ -11,6 +12,7 @@ class EventHandler;
 class NoobishBlockMenu;
 class TextureContainer;
 class Connection;
+class BlockRegister;
 
 class PlayState : public GameState
 {
@@ -20,6 +22,7 @@ class PlayState : public GameState
 	Connection *connection;
 	EventHandler *eventHandler;
     sf::Clock fpsClock;
+	BlockRegister blockRegister; // surkod
 	void ProcessPackets();
 public:
 	PlayState(App &app);
