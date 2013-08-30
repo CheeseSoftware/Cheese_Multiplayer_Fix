@@ -81,7 +81,7 @@ void PlayState::EventUpdate(App &app, const sf::Event &event)
 
 GameState *PlayState::Update(App &app)
 {
-	if (fpsClock.getElapsedTime().asMilliseconds() > 1000)
+	if (fpsClock.getElapsedTime().asMilliseconds() > 100)
 	{
 		std::cout << 1/app.getFrameTime() << "\n";
 		fpsClock.restart();
@@ -108,7 +108,7 @@ GameState *PlayState::Update(App &app)
 void PlayState::Draw(App &app)
 {
 	currentWorld->Draw(app, *tC);
-	noobishBlockMenu->Draw(app, *tC);
+	noobishBlockMenu->Draw(app, *tC); // < orsakar lagg temp
 }
 
 void PlayState::ProcessPackets(void)
