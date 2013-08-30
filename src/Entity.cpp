@@ -56,7 +56,7 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 		//float speedModifier = speedX * app.getDeltaTime();
 
 		//float speedYModifier = abs(speedY * app.getDeltaTime());
-		
+
 		char speedXNegativeFactor = (speedX > 0)? 1:-1;
 		char speedYNegativeFactor = (speedY > 0)? 1:-1;
 
@@ -64,11 +64,11 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 		//NEW FAILED PHYSICS D:  {
 		//double speed = sqrt(pow(abs(speedX)*app.getDeltaTime(),2)+pow(abs(speedY)*app.getDeltaTime(),2));
 
-//<<<<<<< HEAD
+		//<<<<<<< HEAD
 		double speed = sqrt(pow(speedX*app.getDeltaTime(),2)+pow(speedY*app.getDeltaTime(),2));
-//=======
+		//=======
 		double angle = atan2(speedY, speedX);
-//>>>>>>> 2dbb0fccc9120629075f0f104405e4486369d95b
+		//>>>>>>> 2dbb0fccc9120629075f0f104405e4486369d95b
 
 		double deltaX = cos(angle);
 		double deltaY = sin(angle);
@@ -94,8 +94,8 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 
 		/*if (CheckCollision(app, world, deltaX*speed, deltaY*speed))
 		{
-				x += deltaX*speed;
-				y += deltaY*speed;
+		x += deltaX*speed;
+		y += deltaY*speed;
 		}*/
 
 		while (speedXModifier >= 1 && speedYModifier >= 1)
@@ -153,8 +153,8 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 
 		//if (!CheckCollision(app, world, speedXModifier*speedXNegativeFactor, speedYModifier*speedYNegativeFactor))
 		//{
-			//x += speedXModifier*speedXNegativeFactor;
-			//y += speedYModifier*speedYNegativeFactor;
+		//x += speedXModifier*speedXNegativeFactor;
+		//y += speedYModifier*speedYNegativeFactor;
 		//}
 		//else
 		//{
@@ -167,11 +167,11 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 			y += speedYModifier*speedYNegativeFactor;
 
 
-			/*if (speedX != 0)
-				x += speedXModifier*speedXNegativeFactor;
+		/*if (speedX != 0)
+		x += speedXModifier*speedXNegativeFactor;
 
-			if (speedY != 0)
-				y += speedYModifier*speedYNegativeFactor;*/
+		if (speedY != 0)
+		y += speedYModifier*speedYNegativeFactor;*/
 		//}
 
 		// } D: 
@@ -181,7 +181,7 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 
 		//x += speedX * app.getDeltaTime();
 		//y += speedY * app.getDeltaTime();
-				//std::cout << x << " " << y << std::endl;
+		//std::cout << x << " " << y << std::endl;
 		//< D:
 
 		speedX *= 1 - tan(xFriction*M_PI/2) * app.getDeltaTime();
@@ -241,55 +241,55 @@ bool Entity::CheckCollision(App &app, World *world, float speedX, float speedY)
 	return r;
 
 	/*bool solid[2][2] = {{
-		world->isBlockSolid((int)(x)>>4,(int)(y)>>4),
-		world->isBlockSolid((int)(x+15)>>4,(int)(y)>>4)},{
-		world->isBlockSolid((int)(x)>>4,(int)(y+16)>>4),
-		world->isBlockSolid((int)(x+15)>>4,(int)(y+16)>>4)}};
+	world->isBlockSolid((int)(x)>>4,(int)(y)>>4),
+	world->isBlockSolid((int)(x+15)>>4,(int)(y)>>4)},{
+	world->isBlockSolid((int)(x)>>4,(int)(y+16)>>4),
+	world->isBlockSolid((int)(x+15)>>4,(int)(y+16)>>4)}};
 
 	if (!solid[0][0] || !solid[1][0] || !solid[0][1] || !solid[1][1])
 	{
-		if (abs(speedX) > abs(speedY))
-		{
-			if (speedX > 0 && (solid[1][0] || solid[1][1]))//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
-			{
-				FixateX();
+	if (abs(speedX) > abs(speedY))
+	{
+	if (speedX > 0 && (solid[1][0] || solid[1][1]))//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
+	{
+	FixateX();
 
-				if (speedY > 0 && solid[1][1])//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
-					FixateY();
-				else if (solid[1][0])
-					FixateY();
-			}
-			else if (solid[0][0] || solid[0][1])
-			{
-				FixateX();
+	if (speedY > 0 && solid[1][1])//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
+	FixateY();
+	else if (solid[1][0])
+	FixateY();
+	}
+	else if (solid[0][0] || solid[0][1])
+	{
+	FixateX();
 
-				if (speedY > 0 && solid[0][1])//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
-					FixateY();
-				else if (solid[0][0])
-					FixateY();
-			}
-		}
-		else
-		{
-			if (speedY > 0 && (solid[0][1] || solid[1][1]))//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
-			{
-				FixateY();
+	if (speedY > 0 && solid[0][1])//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
+	FixateY();
+	else if (solid[0][0])
+	FixateY();
+	}
+	}
+	else
+	{
+	if (speedY > 0 && (solid[0][1] || solid[1][1]))//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
+	{
+	FixateY();
 
-				if (speedX > 0 && solid[1][1])//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
-					FixateX();
-				else if (solid[0][1])
-					FixateX();
-			}
-			else if (solid[0][0] || solid[1][0])
-			{
-				FixateY();
+	if (speedX > 0 && solid[1][1])//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
+	FixateX();
+	else if (solid[0][1])
+	FixateX();
+	}
+	else if (solid[0][0] || solid[1][0])
+	{
+	FixateY();
 
-				if (speedX > 0 && solid[1][0])//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
-					FixateX();
-				else if (solid[0][0])
-					FixateX();
-			}
-		}
+	if (speedX > 0 && solid[1][0])//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
+	FixateX();
+	else if (solid[0][0])
+	FixateX();
+	}
+	}
 	}*/
 }
 
@@ -299,28 +299,28 @@ void Entity::Collision(World *world)
 
 /*void Entity::FixateX()
 {
-	if (speedX > 0)
-	{
-		x = (int)x+4>>4<<4;
-	}
-	else
-	{
-		x = (int)(x+12)>>4<<4;
-	}
-	speedX = 0;
+if (speedX > 0)
+{
+x = (int)x+4>>4<<4;
+}
+else
+{
+x = (int)(x+12)>>4<<4;
+}
+speedX = 0;
 }
 
 void Entity::FixateY()
 {
-	if (speedY > 0)
-	{
-		y = (int)y+4>>4<<4;
-	}
-	else
-	{
-		y = (int)(y+12)>>4<<4;
-	}
-	speedY = 0;
+if (speedY > 0)
+{
+y = (int)y+4>>4<<4;
+}
+else
+{
+y = (int)(y+12)>>4<<4;
+}
+speedY = 0;
 }*/
 
 #ifndef _SERVER
@@ -335,10 +335,10 @@ void Entity::Draw(App &app, TextureContainer &tC)
 	sf::Sprite *sprite = &(tC.getTextures(spriteName)[spriteIndex]);
 	if (sprite != nullptr)
 	{
-		if ((int)x + app.getView().getCenter().x - (app.getSize().x>>1) <= 0)// &&
-			//(int)y + app.getView().getCenter().y - (app.getSize().y>>1) >= 0 &&
-			//(int)x + app.getView().getCenter().x + (app.getSize().x>>1) <= 0 &&
-			//(int)x + app.getView().getCenter().x + (app.getSize().x>>1) <= 0)
+		if(x + 16 >= (app.getView().getCenter().x - (app.getSize().x/2)) &&
+			x <= (app.getView().getCenter().x + (app.getSize().x/2))&&
+			y + 16 >= (app.getView().getCenter().y - (app.getSize().y/2)) &&
+			y <= (app.getView().getCenter().y + (app.getSize().y/2)))
 		{
 			sprite->setPosition(sf::Vector2f(x, y));
 			sprite->setRotation(angle);
@@ -354,8 +354,8 @@ void Entity::Draw(App &app, TextureContainer &tC)
 
 void Entity::setPosition(float X, float Y)
 {
-    x = X;
-    y = Y;
+	x = X;
+	y = Y;
 }
 
 sf::Vector2f Entity::getPosition() { return(sf::Vector2f(x, y)); }
