@@ -82,7 +82,7 @@ void PlayState::EventUpdate(App &app, const sf::Event &event)
 
 GameState *PlayState::Update(App &app)
 {
-	if (fpsClock.getElapsedTime().asMilliseconds() > 100)
+	if (fpsClock.getElapsedTime().asMilliseconds() > 5000)
 	{
 		std::cout << 1/app.getFrameTime() << "\n";
 		fpsClock.restart();

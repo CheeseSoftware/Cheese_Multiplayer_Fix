@@ -48,4 +48,22 @@ sf::Vector2f Camera::getEntityPosition()
 }
 
 Entity *Camera::getEntity() { return currentEntity; }
+
+double Camera::getLeftX()
+{
+	return getCenter().x - getSize().x/2;
+}
+double Camera::getTopY()
+{
+	return getCenter().y - getSize().y/2;
+}
+double Camera::getRightX()
+{
+	return getCenter().x + getSize().x/2;
+}
+double Camera::getButtomY()
+{
+	return getCenter().y + getSize().y/2;
+}
+
 #endif
