@@ -43,6 +43,7 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 	std::pair<Block*, unsigned short> blockAndMetadata = world->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
 	if (blockAndMetadata.first != nullptr)
 		blockAndMetadata.first->OnEntityHover(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
+	//(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
 
 	if (speedX != 0.0F || speedY != 0.0F)
 	{

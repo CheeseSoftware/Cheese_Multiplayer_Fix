@@ -45,7 +45,7 @@ PlayState::PlayState(App &app)
 
 
 
-	camera = new Camera(16);
+	camera = new Camera(8);
 	currentWorld = new World();
 	noobishBlockMenu = new NoobishBlockMenu(currentWorld);//InGameUI(app, tC, *currentWorld);
 	connection = new Connection(5001, ip);

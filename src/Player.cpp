@@ -8,7 +8,7 @@
 #include "Block.h"
 
 Player::Player(float X, float Y, short sizeX, short sizeY, bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name) 
-	: Creature(X, Y, sizeX, sizeY, 512, 0.5, spriteName, spriteIndex, IsClientControlling)
+	: Creature(X, Y, sizeX, sizeY, 1536, 0.5, spriteName, spriteIndex, IsClientControlling)
 {
 	name = Name;
 	cameraDelay = 0;
@@ -100,7 +100,6 @@ Up:
 					if (block != nullptr)
 					{
 						block->CreatureJump(app, this, xSpeed2, ySpeed2, world->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
-						block->OnEntityHover(app, this, xSpeed2, ySpeed2, speedX, speedY, world->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
 					}
 
 					if (CheckCollision(app, world, (xSpeed2 > 0)? -1:1, (ySpeed2 > 0)? -1:1))
@@ -111,6 +110,9 @@ Up:
 						if (speedY == 0)
 							speedY = ySpeed2;
 					}
+
+					if (block != nullptr)
+						block->OnEntityHover(app, this, xSpeed2, ySpeed2, speedX, speedY, world->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
 				}
 				break;
 			case sf::Keyboard::Q:
