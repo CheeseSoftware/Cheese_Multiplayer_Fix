@@ -18,6 +18,7 @@ class Chunk;
 class TextureContainer;
 class Camera;
 class EventHandler;
+class SimulationState;
 
 enum MessageType;
 
@@ -55,11 +56,9 @@ public:
 	void EventUpdate(App &app, const sf::Event &event);
 	void Draw(App &app, TextureContainer &tC);
 #endif
-#ifdef _SERVER
-	std::queue<sf::Packet>* Update(App &app, TextureContainer &tC);
-#else
-	std::queue<sf::Packet>* Update(App &app, TextureContainer &tC, Camera *camera);
-#endif
+
+	std::queue<sf::Packet>* Update(App &app, SimulationState *simulationState);
+
 	void RegisterBlock(unsigned short key, std::function<Block*(unsigned short)> value);
 	void setBlock(long x, long y, long layer, unsigned short id);
 	void setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata);

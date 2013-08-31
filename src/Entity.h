@@ -20,6 +20,7 @@ class TextureContainer;
 class World;
 class Camera;
 class EventHandler;
+class SimulationState;
 
 class Entity
 {
@@ -45,11 +46,12 @@ public:
 	Entity(float x, float y, short sizeX, short sizeY,
 		float angle, float speed, float friction, std::string spriteName,
 		int spriteIndex, bool isClientControlling);
-#ifdef _SERVER
+	virtual void Update(App &app, SimulationState *simulationState, std::queue<sf::Packet> *packetDataList);
+/*#ifdef _SERVER
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
 #else
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
-#endif
+#endif*/
 	
 #ifndef _SERVER
 	virtual void EventUpdate(App &app, const sf::Event &event, World *world, std::queue<sf::Packet> *packetDataList);

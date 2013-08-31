@@ -1,13 +1,16 @@
 #pragma once
 #include "App.h"
-#include "gamestate.h"
+#include "BlockRegister.h"
+#include "World.h"
+#include "TextureContainer.h"
+#include "Camera.h"
 
 class World;
 class Camera;
 class TextureContainer;
 class BlockRegister;
 
-class SimulationState : public GameState
+class SimulationState
 {
 protected:
 #ifndef _SERVER
@@ -22,10 +25,10 @@ public:
     //virtual void EventUpdate(App &app, const sf::Event &event);
     //virtual GameState *Update(App &app);
     //virtual void Draw(App &app);
-	inline World *getCurrentWorld();
-	inline TextureContainer &getTextureContainer();
+	inline World *getCurrentWorld() { return currentWorld; }
+	inline TextureContainer &getTextureContainer() { return *tC; }
 #ifndef _SERVER
-	inline Camera &getCamera();
+	inline Camera &getCamera() { return *camera; }
 #endif
-	inline BlockRegister &getBlockRegister();
+	inline BlockRegister &getBlockRegister() { *blockRegister; }
 };

@@ -1,6 +1,7 @@
 #include "Creature.h"
 #include "Block.h"
 #include "World.h"
+#include "SimulationState.h"
 
 #define PI 3.141592653589793238462643383279502884197169399375105820974944
 
@@ -11,27 +12,29 @@ Creature::Creature(float x, float y, short sizeX, short sizeY, float speed, floa
     vertical = 0;
 }
 
-#ifdef _SERVER
+/*#ifdef _SERVER
 void Creature::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList)
 #else
 void Creature::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
-#endif
+#endif*/
+void Creature::Update(App &app, SimulationState *simulationState, std::queue<sf::Packet> *packetDataList)
 {
 	float horizontal2 = horizontal;
 	float vertical2 = vertical;
 
-	std::pair<Block*, unsigned short> blockAndMetadata = world->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
+	std::pair<Block*, unsigned short> blockAndMetadata = simulationState->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);//simulationState->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
 	if (blockAndMetadata.first != nullptr)
 		blockAndMetadata.first->getCreatureMovePossibilities(app, this, horizontal2, vertical2, blockAndMetadata.second);
 
 	speedX += horizontal2 * app.getDeltaTime();
     speedY += vertical2 * app.getDeltaTime();
 
-#ifdef _SERVER
+	Entity::Update(app, simulationState, packetDataList);
+/*#ifdef _SERVER
 	Entity::Update(app, world, packetDataList);
 #else
 	Entity::Update(app, world, packetDataList, camera, eventHandler);
-#endif
+#endif*/
 }
 
 void Creature::CreatureMove(float x, float y, float speedX, float speedY, float angle, float horizontal, float vertical)

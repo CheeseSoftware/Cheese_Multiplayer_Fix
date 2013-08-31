@@ -14,11 +14,12 @@ public:
 	Projectile(float x, float y, short sizeX, short sizeY, float angle, float speed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling);
 	~Projectile(void);
 
-#ifdef _SERVER
+	virtual void Update(App &app, SimulationState *simulationState, std::queue<sf::Packet> *packetDataList);
+/*#ifdef _SERVER
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
 #else
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
-#endif
+#endif*/
 
 	virtual void Collision(World *world);
 	std::string getTextureName();

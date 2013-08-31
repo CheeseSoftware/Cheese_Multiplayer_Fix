@@ -29,13 +29,14 @@ public:
 	Player(float X, float Y, short sizeX, short sizeY,
 		bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name);
 
-	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
+	//virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
 #else
 	Player(float X, float Y, short sizeX, short sizeY,
 		bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name);
 
-	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
+	//virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
 #endif
+	virtual void Update(App &app, SimulationState *simulationState, std::queue<sf::Packet> *packetDataList);
 
 #ifndef _SERVER
 	virtual void EventUpdate(App &app, const sf::Event &event, World *world, std::queue<sf::Packet> *packetDataList);

@@ -91,7 +91,7 @@ GameState *PlayState::Update(App &app)
 	camera->Update(app);
 	app.setView(*reinterpret_cast<sf::View*>(camera));
 
-	std::queue<sf::Packet> *packetDataList = currentWorld->Update(app, *tC, camera);
+	std::queue<sf::Packet> *packetDataList = currentWorld->Update(app, this);
 	while (!packetDataList->empty())
 	{
 		connection->client->socket.send(packetDataList->front());

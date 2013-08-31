@@ -2,6 +2,7 @@
 #pragma once
 #include "App.h"
 #include "SimulationState.h"
+#include "GameState.h"
 //#include "BlockRegister.h"
 //#include "TextureContainer.h"
 //#include "NoobishBlockMenu.h"
@@ -18,7 +19,7 @@ class TextureContainer;
 class Connection;
 class BlockRegister;
 
-class PlayState : public SimulationState
+class PlayState : public GameState, public SimulationState
 {
 	//TextureContainer *tC;
 	//Camera *camera;

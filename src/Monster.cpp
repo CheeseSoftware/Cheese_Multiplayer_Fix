@@ -13,15 +13,17 @@ Monster::~Monster(void)
 {
 }
 
-#ifdef _SERVER
+/*#ifdef _SERVER
 void Monster::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList)
 #else
 void Monster::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
-#endif
+#endif*/
+void Monster::Update(App &app, SimulationState *simulationState, std::queue<sf::Packet> *packetDataList)
 {
-#ifdef _SERVER
+	Creature::Update(app, simulationState, packetDataList);
+/*#ifdef _SERVER
 	Creature::Update(app, world, packetDataList);
 #else
 	Creature::Update(app, world, packetDataList, camera, eventHandler);
-#endif
+#endif*/
 }

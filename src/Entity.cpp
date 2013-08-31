@@ -5,6 +5,7 @@
 #include "EventHandler.h"
 #include "TextureContainer.h"
 #include "World.h"
+#include "SimulationState.h"
 
 Entity::Entity(float x, float y, short sizeX, short sizeY,
 			   float angle, float speed, float friction, std::string spriteName,
@@ -31,16 +32,17 @@ void Entity::PhysicUpdate(World *world, float timeSpan)
 
 }
 
-#ifdef _SERVER
+/*#ifdef _SERVER
 void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList)
 #else
 void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &EventHandler)
-#endif
+#endif*/
+void Entity::Update(App &app, SimulationState *simulationState, std::queue<sf::Packet> *packetDataList)
 {
 	float xFriction = friction;
 	float yFriction = friction;
 
-	std::pair<Block*, unsigned short> blockAndMetadata = world->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
+	std::pair<Block*, unsigned short> blockAndMetadata = simulationState->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
 	if (blockAndMetadata.first != nullptr)
 		blockAndMetadata.first->OnEntityHover(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
 	//(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
@@ -78,7 +80,7 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 		{
 			while(speed >= 1)
 			{
-				if (CheckCollision(app, world, deltaX, deltaY))
+				if (CheckCollision(app, simulationState->getCurrentWorld(), deltaX, deltaY))
 					break;
 
 				x += deltaX;
@@ -101,7 +103,7 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 
 		while (speedXModifier >= 1 && speedYModifier >= 1)
 		{
-			if (CheckCollision(app, world, (float)speedXNegativeFactor, (float)speedYNegativeFactor))
+			if (CheckCollision(app, simulationState->getCurrentWorld(), (float)speedXNegativeFactor, (float)speedYNegativeFactor))
 				break;
 
 			if (speedX != 0 && speedY != 0)
@@ -120,7 +122,7 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 
 		while(speedXModifier >= 1)
 		{
-			if (CheckCollision(app, world, (float)speedXNegativeFactor, 0))
+			if (CheckCollision(app, simulationState->getCurrentWorld(), (float)speedXNegativeFactor, 0))
 				break;
 
 			if (speedX != 0)
@@ -137,7 +139,7 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 
 		while(speedYModifier >= 1)
 		{
-			if (CheckCollision(app, world, 0, (float)speedYNegativeFactor))
+			if (CheckCollision(app, simulationState->getCurrentWorld(), 0, (float)speedYNegativeFactor))
 				break;
 
 			if (speedY != 0)
@@ -159,7 +161,7 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 		//}
 		//else
 		//{
-		CheckCollision(app, world, speedXModifier*speedXNegativeFactor, speedYModifier*speedYNegativeFactor);
+		CheckCollision(app, simulationState->getCurrentWorld(), speedXModifier*speedXNegativeFactor, speedYModifier*speedYNegativeFactor);
 
 		if (speedX != 0)
 			x += speedXModifier*speedXNegativeFactor;
@@ -178,7 +180,7 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 		// } D: 
 
 		//> gammal fysikD:
-		CheckCollision(app, world, speedX * app.getDeltaTime(), speedY * app.getDeltaTime());
+		CheckCollision(app, simulationState->getCurrentWorld(), speedX * app.getDeltaTime(), speedY * app.getDeltaTime());
 
 		//x += speedX * app.getDeltaTime();
 		//y += speedY * app.getDeltaTime();

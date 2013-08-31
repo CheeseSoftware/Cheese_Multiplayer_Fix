@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "MessageType.h"
 #include "EventHandler.h"
+#include "SimulationState.h"
 #include <deque>
 
 
@@ -80,18 +81,14 @@ void World::Draw(App &app, TextureContainer &tC)
 }
 #endif
 
-#ifdef _SERVER
-std::queue<sf::Packet>* World::Update(App &app, TextureContainer &tC)
-#else
-std::queue<sf::Packet>* World::Update(App &app, TextureContainer &tC, Camera *camera)
-#endif
+std::queue<sf::Packet>* World::Update(App &app, SimulationState *simulationState)
 {
 	for (Entity *entity : entityList)
 	{
 #ifdef _SERVER
 		entity->Update(app, this, packetDataList);
 #else
-		entity->Update(app, this, packetDataList, camera, eventHandler);
+		entity->Update(app, simulationState, packetDataList);
 #endif
 	}
 
@@ -100,7 +97,7 @@ std::queue<sf::Packet>* World::Update(App &app, TextureContainer &tC, Camera *ca
 #ifdef _SERVER
 		pair.second->Update(app, this, packetDataList);
 #else
-		pair.second->Update(app, this, packetDataList, camera, eventHandler);
+		pair.second->Update(app, simulationState, packetDataList);
 #endif
 	}	
 

@@ -20,7 +20,7 @@ SimulationState::~SimulationState()
     //virtual void EventUpdate(App &app, const sf::Event &event);
     //virtual GameState *Update(App &app);
     //virtual void Draw(App &app);
-World *SimulationState::getCurrentWorld()
+/*World *SimulationState::getCurrentWorld()
 {
 	return currentWorld;
 }
@@ -40,4 +40,4 @@ Camera &SimulationState::getCamera()
 {
 	return *camera;
 }
-#endif
+#endif*/

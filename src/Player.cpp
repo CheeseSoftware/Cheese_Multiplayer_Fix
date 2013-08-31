@@ -6,6 +6,7 @@
 #include "MessageType.h"
 #include "App.h"
 #include "Block.h"
+#include "SimulationState.h"
 
 Player::Player(float X, float Y, short sizeX, short sizeY, bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name) 
 	: Creature(X, Y, sizeX, sizeY, 1536, 0.5, spriteName, spriteIndex, IsClientControlling)
@@ -25,20 +26,21 @@ Player::Player(float X, float Y, short sizeX, short sizeY, bool IsClientControll
 #endif
 }
 
-#ifdef _SERVER
+/*#ifdef _SERVER
 void Player::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList)
 #else
 void Player::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
-#endif
+#endif*/
+void Player::Update(App &app, SimulationState *simulationState, std::queue<sf::Packet> *packetDataList)
 {
 #ifndef _SERVER
 	if (isClientControlling)
 	{
-		if (camera->getEntity() != this)
+		if (simulationState->getCamera().getEntity() != this)
 		{
 			if (cameraDelay <= 0)
 			{
-				camera->setCameraAt(this);
+				simulationState->getCamera().setCameraAt(this);
 				cameraDelay = 0.5;
 			}
 			else
@@ -49,11 +51,12 @@ void Player::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 	}
 #endif
 
-#ifdef _SERVER
+	Creature::Update(app, simulationState, packetDataList);
+/*#ifdef _SERVER
 	Creature::Update(app, world, packetDataList);
 #else
 	Creature::Update(app, world, packetDataList, camera, eventHandler);
-#endif
+#endif*/
 }
 
 #ifndef _SERVER
