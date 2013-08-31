@@ -1,6 +1,11 @@
 #ifndef _SERVER
-#include "camera.h"
+#include "Camera.h"
 #include "Entity.h"
+
+/*Camera::Camera() : View(sf::FloatRect(200, 200, 300, 200))
+{
+	setSize(1152,720);
+}*/
 
 Camera::Camera(double speed) : View(sf::FloatRect(200, 200, 300, 200))
 {

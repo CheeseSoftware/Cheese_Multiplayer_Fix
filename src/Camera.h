@@ -11,6 +11,7 @@ private:
 	Entity *currentEntity;
 	double speed;
 public:
+	//Camera();
 	Camera(double speed);
 	~Camera(void);
 	void Update(App &app);

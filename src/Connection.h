@@ -13,6 +13,7 @@
 class Connection
 {
 public:
+	//>.<Connection();
 	Connection(int port, sf::IpAddress IP);
 	~Connection(void);
 	std::queue<sf::Packet*> packets;

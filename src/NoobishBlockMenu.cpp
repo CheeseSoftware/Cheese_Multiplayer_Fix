@@ -5,6 +5,11 @@
 #include "TextureContainer.h"
 #include <SFML\Network.hpp>
 
+/*//>.<NoobishBlockMenu::NoobishBlockMenu()
+{
+
+}*/
+
 NoobishBlockMenu::NoobishBlockMenu(World *world)
 {
 	selected = 0;

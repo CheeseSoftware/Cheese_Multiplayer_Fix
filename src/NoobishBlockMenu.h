@@ -17,6 +17,7 @@ class NoobishBlockMenu
 	int selected;
 	std::pair<Block*, unsigned short> **blockMenu;
 public:
+	//>.<NoobishBlockMenu();
 	NoobishBlockMenu(World *world);
 
 	void EventUpdate(App &app, const sf::Event &event, World *world);

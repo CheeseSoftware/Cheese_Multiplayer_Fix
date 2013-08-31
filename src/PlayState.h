@@ -1,9 +1,13 @@
 #ifndef _SERVER
 #pragma once
 #include "App.h"
-#include "gamestate.h"
+#include "SimulationState.h"
+//#include "BlockRegister.h"
+//#include "TextureContainer.h"
+//#include "NoobishBlockMenu.h"
+//#include "Connection.h"
+#include "EventHandler.h"
 #include <SFML\Graphics.hpp>
-#include "BlockRegister.h"
 
 class World;
 class InGameUI;
@@ -14,15 +18,16 @@ class TextureContainer;
 class Connection;
 class BlockRegister;
 
-class PlayState : public GameState
+class PlayState : public SimulationState
 {
-	TextureContainer *tC;
-	Camera *camera;
+	//TextureContainer *tC;
+	//Camera *camera;
 	NoobishBlockMenu *noobishBlockMenu;//InGameUI *blockMenu;
 	Connection *connection;
-	EventHandler *eventHandler;
+	EventHandler eventHandler;
     sf::Clock fpsClock;
-	BlockRegister blockRegister; // surkod
+	//BlockRegister *blockRegister; // surkod
+	//World *currentWorld;
 	void ProcessPackets();
 public:
 	PlayState(App &app);
@@ -30,6 +35,5 @@ public:
     virtual void EventUpdate(App &app, const sf::Event &event);
     virtual GameState *Update(App &app);
     virtual void Draw(App &app);
-	World* currentWorld;
 };
 #endif

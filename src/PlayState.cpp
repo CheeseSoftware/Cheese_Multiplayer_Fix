@@ -16,8 +16,8 @@
 #include "BlockBackground.h"
 #include "EventHandler.h"
 #include "TextureContainer.h"
-#include "Connection.h"
-#include "NoobishBlockMenu.h"
+#include "connection.h"
+#include "noobishBlockMenu.h"
 #include "BlockRegister.h"
      
 namespace sf
@@ -28,7 +28,7 @@ namespace sf
 extern int _argc;
 extern char** _argv;
 
-PlayState::PlayState(App &app)
+PlayState::PlayState(App &app) : SimulationState(app)
 {
 	fpsClock.restart();
 
@@ -45,13 +45,13 @@ PlayState::PlayState(App &app)
 
 
 
-	camera = new Camera(8);
-	currentWorld = new World();
+	//camera = new Camera(8);//camera.setSpeed(8);//camera = new Camera(8);
+	//currentWorld = new World();
 	noobishBlockMenu = new NoobishBlockMenu(currentWorld);//InGameUI(app, tC, *currentWorld);
 	connection = new Connection(5001, ip);
-	tC = new TextureContainer();
+	//tC = new TextureContainer();
 
-	app.setView(*reinterpret_cast<sf::View*>(camera));
+	//app.setView(*reinterpret_cast<sf::View*>(&camera));
 	//camera->setSize(sf::Vector2f(768, 512)); 
 
 	//Player *player = new Player(128, 128, 16, 16, true, "graywizard.png", 0, "Karl-Bertil");
@@ -69,7 +69,8 @@ PlayState::PlayState(App &app)
 
 PlayState::~PlayState()
 {
-	//delete camera;
+	//delete 
+	;
 	//delete currentWorld;
 	//delete blockMenu;
 }

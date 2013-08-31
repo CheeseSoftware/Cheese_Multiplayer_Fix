@@ -1,6 +1,6 @@
-#include "player.h"
+#include "Player.h"
 #include "World.h"
-#include "camera.h"
+#include "Camera.h"
 #include "Projectile.h"
 #include <tuple>
 #include "MessageType.h"

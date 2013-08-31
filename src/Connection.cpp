@@ -1,5 +1,10 @@
 #include "Connection.h"
 
+/*//>.<Connection::Connection()
+{
+
+}*/
+
 Connection::Connection(int port, sf::IpAddress IP)
 {
 	client = new Client();
@@ -9,7 +14,6 @@ Connection::Connection(int port, sf::IpAddress IP)
 		//thread->launch();
 	}
 }
-
 
 Connection::~Connection(void)
 {
