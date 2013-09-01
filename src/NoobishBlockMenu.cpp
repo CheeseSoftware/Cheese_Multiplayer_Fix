@@ -27,7 +27,7 @@ NoobishBlockMenu::NoobishBlockMenu(World *world)
 	}
 }
 
-void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, World *world)
+void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface)
 {
 	if(event.type == sf::Event::MouseButtonPressed)
 	{
@@ -48,17 +48,17 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, World *worl
 			else
 			{
 				int layer = (selected >= 80)? 1:0;
-				world->setBlockAndMetadata(x, y, blockMenu[layer][selected%80].first->getLayer(), blockMenu[layer][selected%80].first->getId(), blockMenu[layer][selected%80].second);
+				gameUtilityInterface->getCurrentWorld()->setBlockAndMetadata(x, y, blockMenu[layer][selected%80].first->getLayer(), blockMenu[layer][selected%80].first->getId(), blockMenu[layer][selected%80].second, gameUtilityInterface);
 			}
 		}
 		else if(event.key.code == sf::Mouse::Right)
 		{
-			Block* block = world->getBlock(x, y, 2);
+			Block* block = gameUtilityInterface->getCurrentWorld()->getBlock(x, y, 2);
 			if(block != nullptr)
-				block->OnRightClick(nullptr, world->getBlockAndMetadata(x, y, 1).second);
+				block->OnRightClick(nullptr, gameUtilityInterface->getCurrentWorld()->getBlockAndMetadata(x, y, 1).second);
 			if (event.mouseButton.y < app.getSize().y-32)
 			{
-				world->setBlockAndMetadata(x, y, 2, 0, 0);
+				gameUtilityInterface->getCurrentWorld()->setBlockAndMetadata(x, y, 2, 0, 0, gameUtilityInterface);
 			}
 		}
 	}

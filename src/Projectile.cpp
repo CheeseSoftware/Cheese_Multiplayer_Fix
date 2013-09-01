@@ -22,7 +22,7 @@ void Projectile::Update(App &app, World *world, std::queue<sf::Packet> *packetDa
 #else
 void Projectile::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
 #endif*/
-void Projectile::Update(App &app, SimulationState *simulationState, std::queue<sf::Packet> *packetDataList)
+void Projectile::Update(App &app, GameUtilityInterface *GameUtilityInterface, std::queue<sf::Packet> *packetDataList)
 { 
 	/*speed = sqrt(pow(abs(speedX),2)+pow(abs(speedY),2));
 	friction = 100/speed;
@@ -37,7 +37,7 @@ void Projectile::Update(App &app, SimulationState *simulationState, std::queue<s
 		//	angle += 180;
 	}
 
-	Entity::Update(app, simulationState, packetDataList);
+	Entity::Update(app, GameUtilityInterface);
 /*#ifdef _SERVER
 	Entity::Update(app, world, packetDataList);
 #else

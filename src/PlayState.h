@@ -1,7 +1,7 @@
 #ifndef _SERVER
 #pragma once
 #include "App.h"
-#include "SimulationState.h"
+#include "GameUtilityInterface.h"
 #include "GameState.h"
 //#include "BlockRegister.h"
 //#include "TextureContainer.h"
@@ -19,7 +19,7 @@ class TextureContainer;
 class Connection;
 class BlockRegister;
 
-class PlayState : public GameState, public SimulationState
+class PlayState : public GameState, public GameUtilityInterface
 {
 	//TextureContainer *tC;
 	//Camera *camera;
@@ -33,7 +33,7 @@ class PlayState : public GameState, public SimulationState
 public:
 	PlayState(App &app);
 	~PlayState();
-    virtual void EventUpdate(App &app, const sf::Event &event);
+    virtual void EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface);
     virtual GameState *Update(App &app);
     virtual void Draw(App &app);
 };

@@ -36,7 +36,7 @@ public:
 
 	//virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
 #endif
-	virtual void Update(App &app, SimulationState *simulationState, std::queue<sf::Packet> *packetDataList);
+	virtual void Update(App &app, GameUtilityInterface *GameUtilityInterface);
 
 #ifndef _SERVER
 	virtual void EventUpdate(App &app, const sf::Event &event, World *world, std::queue<sf::Packet> *packetDataList);

@@ -28,7 +28,7 @@ namespace sf
 extern int _argc;
 extern char** _argv;
 
-PlayState::PlayState(App &app) : SimulationState(app)
+PlayState::PlayState(App &app) : GameUtilityInterface(app)
 {
 	fpsClock.restart();
 
@@ -75,10 +75,10 @@ PlayState::~PlayState()
 	//delete blockMenu;
 }
 
-void PlayState::EventUpdate(App &app, const sf::Event &event)
+void PlayState::EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface)
 {
-	currentWorld->EventUpdate(app, event);
-	noobishBlockMenu->EventUpdate(app, event, currentWorld);
+	currentWorld->EventUpdate(app, event, gameUtilityInterface);
+	noobishBlockMenu->EventUpdate(app, event, gameUtilityInterface);
 }
 
 GameState *PlayState::Update(App &app)
@@ -91,17 +91,12 @@ GameState *PlayState::Update(App &app)
 	camera->Update(app);
 	app.setView(*reinterpret_cast<sf::View*>(camera));
 
-	std::queue<sf::Packet> *packetDataList = currentWorld->Update(app, this);
 	while (!packetDataList->empty())
 	{
 		connection->client->socket.send(packetDataList->front());
 		packetDataList->pop();
 	}
-	//delete packetDataList;
 
-
-	
-	//noobishBlockMenu->Update(app, tC, *currentWorld);
 	connection->Run();
 	ProcessPackets();
 	return this;
@@ -251,7 +246,7 @@ void PlayState::ProcessPackets(void)
 				sf::Uint16 id;
 				sf::Uint16 metadata;
 				*packet >> xPos >> yPos >> layer >> id >> metadata;
-				currentWorld->setBlockAndMetadataClientOnly(xPos, yPos, layer, id, metadata);
+				currentWorld->setBlockAndMetadataClientOnly(xPos, yPos, layer, id, metadata, this);
 			}
 			break;
 		case BlockMetadataChange:
@@ -261,7 +256,7 @@ void PlayState::ProcessPackets(void)
 				sf::Uint16 layer;
 				sf::Uint16 metadata;
 				*packet >> xPos >> yPos >> layer >> metadata;
-				currentWorld->setBlockMetadataClientOnly(xPos, yPos, layer, metadata);
+				currentWorld->setBlockMetadataClientOnly(xPos, yPos, layer, metadata, this);
 			}
 			break;
 			//std::cout << packetType << std::endl;

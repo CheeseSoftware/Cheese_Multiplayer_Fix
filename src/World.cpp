@@ -9,7 +9,7 @@
 #include "Player.h"
 #include "MessageType.h"
 #include "EventHandler.h"
-#include "SimulationState.h"
+#include "GameUtilityInterface.h"
 #include <deque>
 
 
@@ -37,14 +37,12 @@ World::World()
 			chunkMatrix.first[x].first.push_back(chunk);
 		}
 	}
-
-	packetDataList = new std::queue<sf::Packet>();
 }
 
 #ifndef _SERVER
-void World::EventUpdate(App &app, const sf::Event &event)
+void World::EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface)
 {
-	eventHandler.EventUpdate(app, event, this, packetDataList);
+	eventHandler.EventUpdate(app, event, gameUtilityInterface);
 	/*for (Entity *entity : entityList)
 	{
 		entity->EventUpdate(app, event, this, packetDataList);
@@ -81,28 +79,25 @@ void World::Draw(App &app, TextureContainer &tC)
 }
 #endif
 
-std::queue<sf::Packet>* World::Update(App &app, SimulationState *simulationState)
+void World::Update(App &app, GameUtilityInterface *gameUtilityInterface)
 {
 	for (Entity *entity : entityList)
 	{
 #ifdef _SERVER
-		entity->Update(app, this, packetDataList);
+		entity->Update(app, gameUtilityInterface);
 #else
-		entity->Update(app, simulationState, packetDataList);
+		entity->Update(app, gameUtilityInterface);
 #endif
 	}
 
 	for(std::pair<short, Player*> pair : playerList)
 	{
 #ifdef _SERVER
-		pair.second->Update(app, this, packetDataList);
+		pair.second->Update(app, gameUtilityInterface);
 #else
-		pair.second->Update(app, simulationState, packetDataList);
+		pair.second->Update(app, gameUtilityInterface);
 #endif
 	}	
-
-	return packetDataList;
-	packetDataList = new std::queue<sf::Packet>();
 }
 
 void World::RegisterBlock(unsigned short key, std::function<Block*(unsigned short)> value)
@@ -135,12 +130,12 @@ chunkMatrix.at(x).first.at(y)->Draw(x-(int)(GetCamera(app).GetCenter().x-GetCame
 //}
 //#endif
 
-void World::setBlock(long x, long y, long layer, unsigned short id)
+void World::setBlock(long x, long y, long layer, unsigned short id, GameUtilityInterface *gameUtilityInterface)
 {
-	setBlockAndMetadata(x, y, layer, id, 0);
+	setBlockAndMetadata(x, y, layer, id, 0, gameUtilityInterface);
 }
 
-void World::setBlockAndMetadata(long x, long y, long layer,  unsigned short id, unsigned short metadata)
+void World::setBlockAndMetadata(long x, long y, long layer,  unsigned short id, unsigned short metadata, GameUtilityInterface *gameUtilityInterface)
 {
 	/*if (setBlockAndMetadataClientOnly(x, y, layer, id, metadata))
 	{
@@ -154,7 +149,7 @@ void World::setBlockAndMetadata(long x, long y, long layer,  unsigned short id, 
 		setBlockMetadata(x, y, layer, metadata);
 	}*/
 
-	MessageType messageType = setBlockAndMetadataClientOnly(x, y, layer, id, metadata);
+	MessageType messageType = setBlockAndMetadataClientOnly(x, y, layer, id, metadata, gameUtilityInterface);
 
 	switch (messageType)
 	{
@@ -165,7 +160,7 @@ void World::setBlockAndMetadata(long x, long y, long layer,  unsigned short id, 
 		{
 			sf::Packet packet;
 			packet << (sf::Int16)BlockPlace << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)id << (sf::Uint16)metadata;
-			packetDataList->push(packet);
+			gameUtilityInterface->SendPacket(packet);
 		}
 		break;
 
@@ -173,7 +168,7 @@ void World::setBlockAndMetadata(long x, long y, long layer,  unsigned short id, 
 		{
 			sf::Packet packet;
 			packet << (sf::Int16)BlockMetadataChange << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)metadata;
-			packetDataList->push(packet);
+			gameUtilityInterface->SendPacket(packet);
 		}
 		break;
 
@@ -185,18 +180,18 @@ void World::setBlockAndMetadata(long x, long y, long layer,  unsigned short id, 
 	}
 }
 
-void World::setBlockMetadata(long x, long y, long layer, unsigned short metadata)
+void World::setBlockMetadata(long x, long y, long layer, unsigned short metadata, GameUtilityInterface *gameUtilityInterface)
 {
-	if (setBlockMetadataClientOnly(x, y, layer, metadata))
+	if (setBlockMetadataClientOnly(x, y, layer, metadata, gameUtilityInterface))
 	{
 		sf::Packet packet;
 		packet << (sf::Int16)BlockMetadataChange << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)metadata;
 
-		packetDataList->push(packet);
+		gameUtilityInterface->SendPacket(packet);
 	}
 }
 
-MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, unsigned short id, unsigned short metadata)
+MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtilityInterface *gameUtilityInterface)
 {
 	long xx = floor(x * 0.0625);
 
@@ -260,7 +255,7 @@ MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, uns
 	return NullMessage;
 }
 
-MessageType World::setBlockMetadataClientOnly(long x, long y, long layer, unsigned short metadata)
+MessageType World::setBlockMetadataClientOnly(long x, long y, long layer, unsigned short metadata, GameUtilityInterface *gameUtilityInterface)
 {
 	unsigned short xxx = x&0xF;//(x < 0)? (abs(x+1)&0xF)^0xF : x&0XF;
 	unsigned short yyy = y&0xF;//(y < 0)? y&0XF : y&0XF;

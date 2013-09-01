@@ -1,6 +1,7 @@
 #ifdef _SERVER
 #pragma once
-#include "gamestate.h"
+#include "GameUtilityInterface.h"
+#include "GameState.h"
 #include "TextureContainer.h"
 #include "ServerConnection.h"
 #include "Player.h"
@@ -10,7 +11,7 @@ class World;
 class InGameUI;
 class Camera;
 
-class ServerState : public GameState
+class ServerState : public GameState, public GameUtilityInterface
 {
 	World* currentWorld;
 	TextureContainer tC;

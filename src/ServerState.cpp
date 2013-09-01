@@ -13,10 +13,11 @@
 
 
 
-ServerState::ServerState(App &app)
+ServerState::ServerState(App &app) : GameUtilityInterface(app)
 {
 	currentWorld = new World();
 	sC = new ServerConnection(5001, currentWorld);
+	packetDataList = new std::queue<sf::Packet>();
 	//sC->Launch();
 	//unsigned short i = 1;
 
@@ -32,7 +33,6 @@ ServerState::~ServerState()
 GameState *ServerState::Update(App &app)
 {
 	//std::cout << "updates per second: " << 1/APP(app).getFrameTime() << std::endl;
-	std::queue<sf::Packet> *packetDataList = currentWorld->Update(app, tC);
 	while (!packetDataList->empty())
 	{
 		sC->Broadcast(packetDataList->front());
@@ -160,7 +160,7 @@ void ServerState::ProcessPackets(void)
 				sf::Uint16 id;
 				sf::Uint16 metadata;
 				*packet >> xPos >> yPos >> layer >> id >> metadata;
-				currentWorld->setBlockAndMetadata(xPos, yPos, layer, id, metadata);
+				currentWorld->setBlockAndMetadata(xPos, yPos, layer, id, metadata, this);
 			}
 			break;
 		case BlockMetadataChange:
@@ -170,7 +170,7 @@ void ServerState::ProcessPackets(void)
 				sf::Uint16 layer;
 				sf::Uint16 metadata;
 				*packet >> xPos >> yPos >> layer >> metadata;
-				currentWorld->setBlockMetadata(xPos, yPos, layer, metadata);
+				currentWorld->setBlockMetadata(xPos, yPos, layer, metadata, this);
 			}
 			break;
 		}

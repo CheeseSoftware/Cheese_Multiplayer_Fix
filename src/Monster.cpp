@@ -18,9 +18,9 @@ void Monster::Update(App &app, World *world, std::queue<sf::Packet> *packetDataL
 #else
 void Monster::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
 #endif*/
-void Monster::Update(App &app, SimulationState *simulationState, std::queue<sf::Packet> *packetDataList)
+void Monster::Update(App &app, GameUtilityInterface *GameUtilityInterface)
 {
-	Creature::Update(app, simulationState, packetDataList);
+	Creature::Update(app, GameUtilityInterface);
 /*#ifdef _SERVER
 	Creature::Update(app, world, packetDataList);
 #else

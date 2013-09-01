@@ -1,9 +1,9 @@
-#include "SimulationState.h"
+#include "GameUtilityInterface.h"
 #include "Camera.h"
 #include "World.h"
 #include "TextureContainer.h"
 
-SimulationState::SimulationState(App &app)
+GameUtilityInterface::GameUtilityInterface(App &app)
 {
 #ifndef _SERVER
 	camera = new Camera(8);//setSpeed(8);
@@ -12,7 +12,7 @@ SimulationState::SimulationState(App &app)
 	tC = new TextureContainer();
 #endif
 }
-SimulationState::~SimulationState()
+GameUtilityInterface::~GameUtilityInterface()
 {
 
 }
@@ -20,23 +20,23 @@ SimulationState::~SimulationState()
     //virtual void EventUpdate(App &app, const sf::Event &event);
     //virtual GameState *Update(App &app);
     //virtual void Draw(App &app);
-/*World *SimulationState::getCurrentWorld()
+/*World *GameUtilityInterface::getCurrentWorld()
 {
 	return currentWorld;
 }
 
-TextureContainer &SimulationState::getTextureContainer()
+TextureContainer &GameUtilityInterface::getTextureContainer()
 {
 	return *tC;
 }
 
-BlockRegister &SimulationState::getBlockRegister()
+BlockRegister &GameUtilityInterface::getBlockRegister()
 {
 	return *blockRegister;
 }
 
 #ifndef _SERVER
-Camera &SimulationState::getCamera()
+Camera &GameUtilityInterface::getCamera()
 {
 	return *camera;
 }

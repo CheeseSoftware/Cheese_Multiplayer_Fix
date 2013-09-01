@@ -20,7 +20,7 @@ class TextureContainer;
 class World;
 class Camera;
 class EventHandler;
-class SimulationState;
+class GameUtilityInterface;
 
 class Entity
 {
@@ -46,7 +46,7 @@ public:
 	Entity(float x, float y, short sizeX, short sizeY,
 		float angle, float speed, float friction, std::string spriteName,
 		int spriteIndex, bool isClientControlling);
-	virtual void Update(App &app, SimulationState *simulationState, std::queue<sf::Packet> *packetDataList);
+	virtual void Update(App &app, GameUtilityInterface *GameUtilityInterface);
 /*#ifdef _SERVER
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
 #else

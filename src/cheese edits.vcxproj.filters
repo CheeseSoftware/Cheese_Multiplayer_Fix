@@ -153,7 +153,7 @@
     <ClCompile Include="BlockChest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SimulationState.cpp">
+    <ClCompile Include="GameUtilityInterface.cpp">
       <Filter>Source Files\GameState</Filter>
     </ClCompile>
   </ItemGroup>
@@ -260,7 +260,7 @@
     <ClInclude Include="World.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
-    <ClInclude Include="SimulationState.h">
+    <ClInclude Include="GameUtilityInterface.h">
       <Filter>Header Files\GameState</Filter>
     </ClInclude>
   </ItemGroup>

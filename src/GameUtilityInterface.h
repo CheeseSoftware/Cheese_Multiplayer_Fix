@@ -10,7 +10,7 @@ class Camera;
 class TextureContainer;
 class BlockRegister;
 
-class SimulationState
+class GameUtilityInterface
 {
 protected:
 #ifndef _SERVER
@@ -19,14 +19,17 @@ protected:
 	TextureContainer *tC;
 	BlockRegister *blockRegister; // surkod
 	World *currentWorld;
+	std::queue<sf::Packet> *packetDataList;
 public:
-	SimulationState(App &app);
-	~SimulationState();
-    //virtual void EventUpdate(App &app, const sf::Event &event);
-    //virtual GameState *Update(App &app);
-    //virtual void Draw(App &app);
+	GameUtilityInterface(App &app);
+	~GameUtilityInterface();
+	//virtual void EventUpdate(App &app, const sf::Event &event);
+	//virtual GameState *Update(App &app);
+	//virtual void Draw(App &app);
 	inline World *getCurrentWorld() { return currentWorld; }
 	inline TextureContainer &getTextureContainer() { return *tC; }
+	inline std::queue<sf::Packet>* getPacketDataList() { return packetDataList; };
+	inline void SendPacket(sf::Packet p) { packetDataList->push(p); };
 #ifndef _SERVER
 	inline Camera &getCamera() { return *camera; }
 #endif
