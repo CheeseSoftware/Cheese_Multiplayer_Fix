@@ -4,6 +4,8 @@
 #include "TextureContainer.h"
 #include "camera.h"
 #include "App.h"
+#include "GameUtilityInterface.h"
+#include <typeinfo>
 
 #ifndef _SERVER
 #include <SFML\Graphics.hpp>
@@ -117,4 +119,9 @@ std::pair<Block*, unsigned short> &Chunk::getBlockAndMetadata(unsigned short x, 
 }
 
 short Chunk::getMetadata(unsigned char layer, unsigned short x, unsigned short y) { return blockList[x][y][layer].second; }
-unsigned short Chunk::getBlockId(unsigned char layer, unsigned short x, unsigned short y) { return blockList[x][y][layer].first->getId(); }
+
+unsigned short Chunk::getBlockId(unsigned char layer, unsigned short x, unsigned short y, GameUtilityInterface* gameUtilityInterface)
+{
+	return gameUtilityInterface->getBlockRegister().getBlockIdByTypeId(
+		typeid(*blockList[x][y][layer].first).hash_code());
+}

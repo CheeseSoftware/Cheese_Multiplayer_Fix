@@ -30,8 +30,9 @@ Block *BlockRegister::getBlockType(unsigned short id, unsigned short metadata)
 	return (id >= blockTypeList.size())? nullptr : blockTypeList[id](metadata);
 }
 
-unsigned short BlockRegister::getBlockIdByTypeId(size_t typeId, unsigned short metadata)
+unsigned short BlockRegister::getBlockIdByTypeId(size_t typeId)
 {
 	auto it = blockIdMap.find(typeId);//blockIdMapfind(typeId);
+	std::cout << it->second << " " << typeId << std::endl;
 	return (it == blockIdMap.end()) ? 0 : it->second;
 }

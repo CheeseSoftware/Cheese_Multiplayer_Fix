@@ -49,7 +49,11 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtility
 			else
 			{
 				int layer = (selected >= 80)? 1:0;
-				gameUtilityInterface->getCurrentWorld()->setBlockAndMetadata(x, y, blockMenu[layer][selected%80].first->getLayer(), blockMenu[layer][selected%80].first->getId(), blockMenu[layer][selected%80].second, gameUtilityInterface);
+				gameUtilityInterface->getCurrentWorld()->setBlockAndMetadata(x, y,
+					blockMenu[layer][selected%80].first->getLayer(),
+					gameUtilityInterface->getBlockRegister().getBlockIdByTypeId(typeid(*blockMenu[layer][selected%80].first).hash_code()),
+					blockMenu[layer][selected%80].second,
+					gameUtilityInterface);
 			}
 		}
 		else if(event.key.code == sf::Mouse::Right)

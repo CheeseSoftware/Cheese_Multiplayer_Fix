@@ -225,7 +225,7 @@ MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, uns
 				//printf(" %X %d %d\n", block, xxx, yyy);
 				if (block != nullptr)
 				{
-					if (block->getId() == id)
+					if (gameUtilityInterface->getBlockRegister().getBlockIdByTypeId(typeid(*block).hash_code()) == id)
 					{
 						if (c->getMetadata(layer, xxx, yyy) != metadata)
 						{

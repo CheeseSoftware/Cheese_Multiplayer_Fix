@@ -5,7 +5,6 @@
 
 Block::Block(unsigned short id)
 {
-	this->id = id;
 }
 
 std::function<Block*(unsigned short)> Block::RegisterBlock(const unsigned short id)
@@ -24,11 +23,6 @@ std::function<Block*(unsigned short)> Block::RegisterBlock(const unsigned short 
 	{
 		return [&](unsigned short metadata) { return this; };
 	}
-}
-
-unsigned short Block::getId()
-{
-	return id;
 }
 
 bool Block::isSeeThrough()

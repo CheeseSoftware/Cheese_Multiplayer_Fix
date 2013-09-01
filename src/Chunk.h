@@ -15,6 +15,7 @@ class Chunk;
 class TextureContainer;
 class Camera;
 class Block;
+class GameUtilityInterface;
 
 class Chunk
 {
@@ -31,7 +32,7 @@ public:
 	std::pair<Block*, unsigned short> &getBlockAndMetadata(unsigned short x, unsigned short y, unsigned short layer);
 	void setBlock(unsigned char layer, unsigned short x, unsigned short y, Block*);
 	void setMetadata(unsigned char layer, unsigned short x, unsigned short y, unsigned short metadata);
-	unsigned short getBlockId(unsigned char layer, unsigned short x, unsigned short y);
+	unsigned short getBlockId(unsigned char layer, unsigned short x, unsigned short y, GameUtilityInterface* gameUtilityInterface);
 #ifndef _SERVER
 	void Draw(long xPos, long yPos, App &app, TextureContainer &tC);
 #endif

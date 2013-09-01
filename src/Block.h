@@ -11,12 +11,8 @@ class EventHandler;
 
 class Block
 {
-private:
-	unsigned short id;
 public:
 	Block(unsigned short id);
-
-	unsigned short getId();
 
 	virtual std::function<Block*(unsigned short)> RegisterBlock(const unsigned short id);
 	virtual unsigned short getTextureId(App &app, unsigned short metadata)=0;

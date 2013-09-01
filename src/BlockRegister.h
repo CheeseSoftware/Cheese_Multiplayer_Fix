@@ -16,5 +16,5 @@ public:
 	BlockRegister();
 	void RegisterBlock(Block *block, size_t typeId);
 	Block *getBlockType(unsigned short id, unsigned short metadata);
-	unsigned short getBlockIdByTypeId(size_t typeId, unsigned short metadata);
+	unsigned short getBlockIdByTypeId(size_t typeId);
 };
