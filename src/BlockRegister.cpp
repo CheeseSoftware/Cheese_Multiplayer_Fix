@@ -1,24 +1,37 @@
 #include "BlockRegister.h"
 #include "TextureContainer.h"
 #include "Block.h"
+#include "BlockSolid.h"
+#include "BlockBackground.h"
+#include "BlockGravity.h"
+#include <typeinfo>
+#include <iostream>
 
 BlockRegister::BlockRegister()
 {
-	blockTypeList.emplace(0, nullptr);
+	std::cout << this << std::endl;
+	unsigned short i = 1;
+	//RegisterBlock(nullptr, 0);
+	blockTypeList.push_back(nullptr);
+	RegisterBlock(new BlockSolid(i), typeid(BlockSolid).hash_code()); i++;
+	RegisterBlock(new BlockBackground(i), typeid(BlockBackground).hash_code()); i++;
+	RegisterBlock(new BlockGravity(i), typeid(BlockGravity).hash_code()); i++;
 }
 
-void BlockRegister::RegisterBlock(TextureContainer tC, Block *block, size_t typeId)
+void BlockRegister::RegisterBlock(Block *block, size_t typeId)
 {
-	blockTypeList.emplace(typeId,block->RegisterBlock(blockTypeList.size()));
+	std::cout << blockTypeList.size() << std::endl;
+	blockIdMap.emplace(typeId, blockTypeList.size());
+	blockTypeList.push_back(block->RegisterBlock(blockTypeList.size()));
 }
 
 Block *BlockRegister::getBlockType(unsigned short id, unsigned short metadata)
 {
-	return (id > blockTypeList.size())? nullptr : blockTypeList[id](metadata);
+	return (id >= blockTypeList.size())? nullptr : blockTypeList[id](metadata);
 }
 
-Block *BlockRegister::getBlockTypeByTypeId(size_t typeId, unsigned short metadata)
+unsigned short BlockRegister::getBlockIdByTypeId(size_t typeId, unsigned short metadata)
 {
-	auto it = blockTypeList.find(typeId);
-	return (it == blockTypeList.end()) ? nullptr : it->second(metadata);
+	auto it = blockIdMap.find(typeId);//blockIdMapfind(typeId);
+	return (it == blockIdMap.end()) ? 0 : it->second;
 }

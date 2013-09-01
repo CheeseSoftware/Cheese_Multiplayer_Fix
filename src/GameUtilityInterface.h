@@ -33,5 +33,5 @@ public:
 #ifndef _SERVER
 	inline Camera &getCamera() { return *camera; }
 #endif
-	inline BlockRegister &getBlockRegister() { *blockRegister; }
+	inline BlockRegister &getBlockRegister() { return *blockRegister; }
 };

@@ -43,7 +43,7 @@ PlayState::PlayState(App &app) : GameUtilityInterface(app)
 	sf::IpAddress ip(str_ip);//std::string ip;
 	int port;
 
-	noobishBlockMenu = new NoobishBlockMenu(currentWorld);//InGameUI(app, tC, *currentWorld);
+	noobishBlockMenu = new NoobishBlockMenu(currentWorld, this);//InGameUI(app, tC, *currentWorld);
 	connection = new Connection(5001, ip);
 	
 }

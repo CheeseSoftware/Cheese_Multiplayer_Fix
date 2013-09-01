@@ -21,11 +21,11 @@
 //floor(camera.GetCenter().y-camera.GetHalfSize().y)
 World::World()
 {
-	unsigned short i = 1;
+	//unsigned short i = 1;
 
-	RegisterBlock(i,(new BlockSolid(i))->RegisterBlock(i));i++;
-	RegisterBlock(i,(new BlockBackground(i))->RegisterBlock(i));i++;
-	RegisterBlock(i,(new BlockGravity(i))->RegisterBlock(i));i++;
+	//RegisterBlock(i,(new BlockSolid(i))->RegisterBlock(i));i++;
+	//RegisterBlock(i,(new BlockBackground(i))->RegisterBlock(i));i++;
+	//RegisterBlock(i,(new BlockGravity(i))->RegisterBlock(i));i++;
 
 	for (int x = 0; x < 3; x++)
 	{ 
@@ -98,11 +98,6 @@ void World::Update(App &app, GameUtilityInterface *gameUtilityInterface)
 		pair.second->Update(app, gameUtilityInterface);
 #endif
 	}	
-}
-
-void World::RegisterBlock(unsigned short key, std::function<Block*(unsigned short)> value)
-{
-	blockTypeMap.emplace(key, value);
 }
 
 /*#ifndef _SERVER
@@ -247,7 +242,7 @@ MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, uns
 				}
 			}
 
-			c->setBlock(layer, xxx, yyy, getBlockType(id,metadata));
+			c->setBlock(layer, xxx, yyy, gameUtilityInterface->getBlockRegister().getBlockType(id, metadata));
 			c->setMetadata(layer, xxx, yyy, metadata);
 			return BlockPlace;
 		}
@@ -385,22 +380,6 @@ void World::Expand(long x, long y, Chunk* chunk)
 			it.first.push_back(nullptr);
 		}
 	}
-}
-
-void World::AddBlockType(unsigned short key, std::function<Block*(unsigned short)> value)
-{
-	blockTypeMap.emplace(key, value);
-}
-
-Block *World::getBlockType(unsigned short id, unsigned short metadata)
-{
-	auto it = blockTypeMap.find(id);
-	return (it == blockTypeMap.end())? nullptr : it->second(metadata);
-}
-
-std::map<unsigned short, std::function<Block*(unsigned short)>>& World::getBlockTypeMap()
-{
-	return blockTypeMap;
 }
 
 int World::AddEntity(Entity *entity)

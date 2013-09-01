@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "World.h"
 #include "TextureContainer.h"
+#include "BlockRegister.h"
 
 GameUtilityInterface::GameUtilityInterface(App &app)
 {

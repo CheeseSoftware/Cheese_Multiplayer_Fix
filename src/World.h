@@ -39,12 +39,9 @@ private:
 	short int sizeX;
 	short int sizeY;
 	ChunkMatrixType chunkMatrix;
-	//long chunkMatrixCenterRow;
-	//std::pair<std::deque<std::pair<std::deque<Chunk*>,long>>,long> chunkMatrix;
-	std::map<unsigned short, std::function<Block*(unsigned short)>> blockTypeMap;
 	std::vector<Entity*> entityList;
 	std::map<short, Player*> playerList;
-	std::map<std::pair<short,short>,Block*> BlockMap;
+	//std::map<std::pair<short,short>,Block*> BlockMap;
 	std::pair<std::tuple<long, long, unsigned short>, std::pair<Block*, unsigned short>*> lastBlock;
 #ifndef _SERVER
 	EventHandler eventHandler;
@@ -57,7 +54,6 @@ public:
 #endif
 
 	void Update(App &app, GameUtilityInterface *GameUtilityInterface);
-	void RegisterBlock(unsigned short key, std::function<Block*(unsigned short)> value);
 	void setBlock(long x, long y, long layer, unsigned short id, GameUtilityInterface *gameUtilityInterface);
 	void setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtilityInterface *gameUtilityInterface);
 	void setBlockMetadata(long x, long y, long layer, unsigned short metadata, GameUtilityInterface *gameUtilityInterface);
@@ -66,10 +62,7 @@ public:
 	Block *getBlock(long x, long y, long layer);
 	std::pair<Block*, unsigned short> getBlockAndMetadata(long x, long y, long layer);
 	void Expand(long x, long y, Chunk* chunk);
-	void AddBlockType(unsigned short, std::function<Block*(unsigned short)>);
 	bool isBlockSolid(long x, long y);
-	Block *getBlockType(unsigned short id, unsigned short metadata);
-	std::map<unsigned short, std::function<Block*(unsigned short)>>& getBlockTypeMap();
 	int AddEntity(Entity*);
 	void RemoveEntity(int id);
 	int AddPlayer(int id, Player*);

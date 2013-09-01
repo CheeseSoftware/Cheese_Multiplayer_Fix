@@ -19,7 +19,7 @@ class NoobishBlockMenu
 	std::pair<Block*, unsigned short> **blockMenu;
 public:
 	//>.<NoobishBlockMenu();
-	NoobishBlockMenu(World *world);
+	NoobishBlockMenu(World *world, GameUtilityInterface* gameUtilityInterface);
 
 	void EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface);
     void Draw(App &app, TextureContainer &tC);

@@ -4,13 +4,14 @@
 #include "Block.h"
 #include "TextureContainer.h"
 #include <SFML\Network.hpp>
+#include "BlockRegister.h"
 
 /*//>.<NoobishBlockMenu::NoobishBlockMenu()
 {
 
 }*/
 
-NoobishBlockMenu::NoobishBlockMenu(World *world)
+NoobishBlockMenu::NoobishBlockMenu(World *world, GameUtilityInterface* gameUtilityInterface)
 {
 	selected = 0;
 	blockMenu = new std::pair<Block*, unsigned short>*[2];
@@ -20,9 +21,9 @@ NoobishBlockMenu::NoobishBlockMenu(World *world)
 		for(int x = 0; x < 80; x++)
 		{
 			if (x < 50)
-				blockMenu[i][x] = std::pair<Block*, unsigned short>(world->getBlockType(1+i, x), x);
+				blockMenu[i][x] = std::pair<Block*, unsigned short>(gameUtilityInterface->getBlockRegister().getBlockType(1+i, x), x);
 			else
-				blockMenu[i][x] = std::pair<Block*, unsigned short>(world->getBlockType(3, x%4), x%4);
+				blockMenu[i][x] = std::pair<Block*, unsigned short>(gameUtilityInterface->getBlockRegister().getBlockType(3, x%4), x%4);
 		}
 	}
 }
