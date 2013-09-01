@@ -153,7 +153,7 @@ void ServerState::ProcessPackets(void)
 				sf::Uint16 id;
 				sf::Uint16 metadata;
 				*packet >> xPos >> yPos >> layer >> id >> metadata;
-				currentWorld->setBlockAndMetadata(xPos, yPos, layer, id, metadata, this)
+				currentWorld->setBlockAndMetadata(xPos, yPos, layer, id, metadata, this);
 			}
 			break;
 		case BlockMetadataChange:
