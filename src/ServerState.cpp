@@ -50,7 +50,7 @@ void ServerState::ProcessPackets(void)
 		sf::Packet* packet = data.first;
 		sf::Packet* originalPacket = new sf::Packet(*packet);
 		Client *client = data.second;
-		//Now process packets
+
 		sf::Uint16 packetType;
 		if(!(*packet >> packetType))
 			std::cout << "ERROR: Server could not extract data" << std::endl;
@@ -153,7 +153,7 @@ void ServerState::ProcessPackets(void)
 				sf::Uint16 id;
 				sf::Uint16 metadata;
 				*packet >> xPos >> yPos >> layer >> id >> metadata;
-				currentWorld->setBlockAndMetadata(xPos, yPos, layer, id, metadata, this);
+				currentWorld->setBlockAndMetadata(xPos, yPos, layer, id, metadata, this)
 			}
 			break;
 		case BlockMetadataChange:
