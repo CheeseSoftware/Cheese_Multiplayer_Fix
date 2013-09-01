@@ -39,10 +39,10 @@ public:
 	virtual void Update(App &app, GameUtilityInterface *GameUtilityInterface);
 
 #ifndef _SERVER
-	virtual void EventUpdate(App &app, const sf::Event &event, World *world, std::queue<sf::Packet> *packetDataList);
+	virtual void EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface);
     virtual void Draw(App &app, TextureContainer &tC);
 #endif
-    void KeyUpdate(bool Right, bool Down, bool Left, bool Up, std::queue<sf::Packet> *packetDataList);
+    void KeyUpdate(bool Right, bool Down, bool Left, bool Up, GameUtilityInterface* gameUtilityInterface);
 	void setCameraDelay(float delay);
 	virtual std::string getTextureName();
 	virtual char getTextureId();

@@ -15,14 +15,7 @@
 
 ServerState::ServerState(App &app) : GameUtilityInterface(app)
 {
-	currentWorld = new World();
 	sC = new ServerConnection(5001, currentWorld);
-	packetDataList = new std::queue<sf::Packet>();
-	//sC->Launch();
-	//unsigned short i = 1;
-
-	//currentWorld->RegisterBlock(i,(new BlockSolid(i))->RegisterBlock(i++));
-	//currentWorld->RegisterBlock(i,(new BlockBackground(i))->RegisterBlock(i++));
 }
 
 ServerState::~ServerState()

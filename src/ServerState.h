@@ -13,8 +13,6 @@ class Camera;
 
 class ServerState : public GameState, public GameUtilityInterface
 {
-	World* currentWorld;
-	TextureContainer tC;
 	ServerConnection* sC;
 	void ProcessPackets();
 public:

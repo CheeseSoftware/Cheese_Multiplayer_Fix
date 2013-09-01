@@ -69,6 +69,7 @@ void Entity::Update(App &app, GameUtilityInterface *GameUtilityInterface)
 
 		//<<<<<<< HEAD
 		double speed = sqrt(pow(speedX*app.getDeltaTime(),2)+pow(speedY*app.getDeltaTime(),2));
+
 		//=======
 		double angle = atan2(speedY, speedX);
 		//>>>>>>> 2dbb0fccc9120629075f0f104405e4486369d95b
@@ -328,7 +329,7 @@ speedY = 0;
 
 #ifndef _SERVER
 
-void Entity::EventUpdate(App &app, const sf::Event &event, World *world, std::queue<sf::Packet> *packetDataList)
+void Entity::EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface)
 {
 
 }

@@ -61,7 +61,7 @@ void Player::Update(App &app, GameUtilityInterface *GameUtilityInterface)
 
 #ifndef _SERVER
 
-void Player::EventUpdate(App &app, const sf::Event &event, World *world, std::queue<sf::Packet> *packetDataList)
+void Player::EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface)
 {
 	if (isClientControlling)
 	{
@@ -99,13 +99,13 @@ Up:
 					float xSpeed2 = 0;
 					float ySpeed2 = 0;
 
-					Block *block = world->getBlock((long)x+8>>4, (long)y+8>>4, 2);
+					Block *block = gameUtilityInterface->getCurrentWorld()->getBlock((long)x+8>>4, (long)y+8>>4, 2);
 					if (block != nullptr)
 					{
-						block->CreatureJump(app, this, xSpeed2, ySpeed2, world->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
+						block->CreatureJump(app, this, xSpeed2, ySpeed2, gameUtilityInterface->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
 					}
 
-					if (CheckCollision(app, world, (xSpeed2 > 0)? -1:1, (ySpeed2 > 0)? -1:1))
+					if (CheckCollision(app, gameUtilityInterface->getCurrentWorld(), (xSpeed2 > 0)? -1:1, (ySpeed2 > 0)? -1:1))
 					{
 						if (speedX == 0)
 							speedX = xSpeed2;
@@ -115,7 +115,7 @@ Up:
 					}
 
 					if (block != nullptr)
-						block->OnEntityHover(app, this, xSpeed2, ySpeed2, speedX, speedY, world->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
+						block->OnEntityHover(app, this, xSpeed2, ySpeed2, speedX, speedY, gameUtilityInterface->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
 				}
 				break;
 			case sf::Keyboard::Q:
@@ -137,7 +137,7 @@ Up:
 
 
 					Projectile *projectile = new Projectile(x+8, y+8, 32, 32, angle, 1024, 0.03125F, "arrow.png", 0, false);
-					world->AddEntity(projectile);
+					gameUtilityInterface->getCurrentWorld()->AddEntity(projectile);
 				}
 				break;
 
@@ -214,7 +214,7 @@ UpR:
 			}
 			break;
 		}
-		KeyUpdate(rDown, dDown, lDown, uDown, packetDataList);
+		KeyUpdate(rDown, dDown, lDown, uDown, gameUtilityInterface);
 	}
 }
 
@@ -226,7 +226,7 @@ void Player::Draw(App &app, TextureContainer &tC)
 }
 #endif
 
-void Player::KeyUpdate(bool Right, bool Down, bool Left, bool Up, std::queue<sf::Packet> *packetDataList)
+void Player::KeyUpdate(bool Right, bool Down, bool Left, bool Up, GameUtilityInterface* gameUtilityInterface)
 {
 	if (Right != right || Down != down || Left != left || Up != up)
 	{
@@ -252,7 +252,7 @@ void Player::KeyUpdate(bool Right, bool Down, bool Left, bool Up, std::queue<sf:
 		{
 			sf::Packet packet;
 			packet << (sf::Uint16)PlayerMove << x << y << speedX << speedY << angle << horizontal << vertical;
-			packetDataList->push(packet);
+			gameUtilityInterface->SendPacket(packet);
 		}
 	}
 }

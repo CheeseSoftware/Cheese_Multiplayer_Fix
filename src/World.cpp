@@ -407,7 +407,7 @@ int World::AddEntity(Entity *entity)
 {
 	entityList.push_back(entity);
 #ifndef _SERVER
-	eventHandler.AddEventCallback(entity,[entity] (App& a, const sf::Event& e, World* w, std::queue<sf::Packet>* pdl) { entity->EventUpdate(a, e, w, pdl); });
+	eventHandler.AddEventCallback(entity,[entity] (App& a, const sf::Event& e, GameUtilityInterface* gUtil) { entity->EventUpdate(a, e, gUtil); });
 #endif
 	return 0;
 }
@@ -424,7 +424,7 @@ int World::AddPlayer(int id, Player *player)
 	{
 		playerList.insert(std::pair<short, Player*>(id, player));
 #ifndef _SERVER
-		eventHandler.AddEventCallback(player,[player] (App& a, const sf::Event& e, World* w, std::queue<sf::Packet>* pdl) { player->EventUpdate(a, e, w, pdl); });
+		eventHandler.AddEventCallback(player,[player] (App& a, const sf::Event& e, GameUtilityInterface* gUtil) { player->EventUpdate(a, e, gUtil); });
 #endif
 	}
 	else

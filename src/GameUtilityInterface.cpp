@@ -8,9 +8,11 @@ GameUtilityInterface::GameUtilityInterface(App &app)
 #ifndef _SERVER
 	camera = new Camera(8);//setSpeed(8);
 	app.setView(*reinterpret_cast<sf::View*>(camera));
-	currentWorld = new World();
-	tC = new TextureContainer();
 #endif
+	tC = new TextureContainer();
+	currentWorld = new World();
+	packetDataList = new std::queue<sf::Packet>();
+	blockRegister = new BlockRegister();
 }
 GameUtilityInterface::~GameUtilityInterface()
 {

@@ -54,7 +54,7 @@ public:
 #endif*/
 	
 #ifndef _SERVER
-	virtual void EventUpdate(App &app, const sf::Event &event, World *world, std::queue<sf::Packet> *packetDataList);
+	virtual void EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface);
     virtual void Draw(App &app, TextureContainer &tC);
 #endif
 	virtual bool CheckCollision(App &app, World *world, float speedX, float speedY);
