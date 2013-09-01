@@ -33,7 +33,7 @@ class PlayState : public GameState, public GameUtilityInterface
 public:
 	PlayState(App &app);
 	~PlayState();
-    virtual void EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface);
+    virtual void EventUpdate(App &app, const sf::Event &event);
     virtual GameState *Update(App &app);
     virtual void Draw(App &app);
 };

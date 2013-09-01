@@ -75,10 +75,10 @@ PlayState::~PlayState()
 	//delete blockMenu;
 }
 
-void PlayState::EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface)
+void PlayState::EventUpdate(App &app, const sf::Event &event)
 {
-	currentWorld->EventUpdate(app, event, gameUtilityInterface);
-	noobishBlockMenu->EventUpdate(app, event, gameUtilityInterface);
+	currentWorld->EventUpdate(app, event, this);
+	noobishBlockMenu->EventUpdate(app, event, this);
 }
 
 GameState *PlayState::Update(App &app)
