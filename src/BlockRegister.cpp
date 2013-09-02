@@ -4,18 +4,21 @@
 #include "BlockSolid.h"
 #include "BlockBackground.h"
 #include "BlockGravity.h"
+#include "BlockChest.h"
 #include <typeinfo>
 #include <iostream>
+
 
 BlockRegister::BlockRegister()
 {
 	std::cout << this << std::endl;
-	unsigned short i = 1;
 	//RegisterBlock(nullptr, 0);
+	unsigned short i;
 	blockTypeList.push_back(nullptr);
 	RegisterBlock(new BlockSolid(i), typeid(BlockSolid).hash_code()); i++;
 	RegisterBlock(new BlockBackground(i), typeid(BlockBackground).hash_code()); i++;
 	RegisterBlock(new BlockGravity(i), typeid(BlockGravity).hash_code()); i++;
+	RegisterBlock(new BlockChest(i), typeid(BlockChest).hash_code()); i++;
 }
 
 void BlockRegister::RegisterBlock(Block *block, size_t typeId)
@@ -25,8 +28,17 @@ void BlockRegister::RegisterBlock(Block *block, size_t typeId)
 	blockTypeList.push_back(block->RegisterBlock(blockTypeList.size()));
 }
 
+#ifndef _SERVER
+	void RegisterBlockTextures(TextureContainer &Tc)
+	{
+
+	}
+#endif
+
 Block *BlockRegister::getBlockType(unsigned short id, unsigned short metadata)
 {
+	if (id == 0)
+		return nullptr;
 	return (id >= blockTypeList.size())? nullptr : blockTypeList[id](metadata);
 }
 
