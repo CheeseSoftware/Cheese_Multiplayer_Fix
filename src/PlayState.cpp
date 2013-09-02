@@ -45,7 +45,8 @@ PlayState::PlayState(App &app) : GameUtilityInterface(app)
 
 	noobishBlockMenu = new NoobishBlockMenu(currentWorld, this);//InGameUI(app, tC, *currentWorld);
 	connection = new Connection(5001, ip);
-	
+
+	blockRegister->RegisterBlockTextures(*tC);
 }
 
 PlayState::~PlayState()
