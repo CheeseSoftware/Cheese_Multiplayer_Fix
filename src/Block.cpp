@@ -86,9 +86,9 @@ void Block::CreatureJump(App &app, Creature *creature, float &speedX, float &spe
 }
 
 #ifndef _SERVER
-void Block::Draw(long posX, long posY, App &app, GameUtilitiyInterface *gameUtilitiyInterface, unsigned short metadata)
+void Block::Draw(long posX, long posY, App &app, GameUtilityInterface *gameUtilityInterface, unsigned short metadata)
 {
-	/*sf::Sprite *&&tempSprite = */gameUtilitiyInterface->getBlockRegister().getBlockTextures(this)[getTextureId(app, metadata); //&(tC.getTextures(getTextureName())[getTextureId(app, metadata)]);
+	sf::Sprite *tempSprite = &gameUtilityInterface->getBlockRegister().getBlockTextures(this)[getTextureId(app, metadata)]; //&(tC.getTextures(getTextureName())[getTextureId(app, metadata)]);
 	if (tempSprite != nullptr)
 	{
 		tempSprite->setPosition(posX, posY);

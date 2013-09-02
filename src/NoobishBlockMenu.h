@@ -4,6 +4,8 @@
 #include "App.h"
 #include "GameUtilityInterface.h"
 
+#pragma once
+
 class World;
 class TextureContainer;
 class Block;
@@ -22,6 +24,6 @@ public:
 	NoobishBlockMenu(World *world, GameUtilityInterface* gameUtilityInterface);
 
 	void EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface);
-    void Draw(App &app, TextureContainer &tC);
+    void Draw(App &app, GameUtilityInterface *gameUtilityInterface);
 };
 #endif

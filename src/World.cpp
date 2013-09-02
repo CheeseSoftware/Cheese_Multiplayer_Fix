@@ -54,7 +54,7 @@ void World::EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* 
 	}*/
 }
 
-void World::Draw(App &app, TextureContainer &tC)
+void World::Draw(App &app, GameUtilityInterface *gameUtilityInterface)
 {
 	for (int x = 0; x < chunkMatrix.first.size(); x++)
 	{
@@ -62,7 +62,7 @@ void World::Draw(App &app, TextureContainer &tC)
 		{
 			if (chunkMatrix.first[x].first[y] != nullptr)
 			{
-				chunkMatrix.first[x].first[y]->Draw(x-chunkMatrix.second, y-chunkMatrix.first[x].second, app, tC);
+				chunkMatrix.first[x].first[y]->Draw(x-chunkMatrix.second, y-chunkMatrix.first[x].second, app, gameUtilityInterface);
 			}
 		}
 	}
@@ -101,7 +101,7 @@ void World::Update(App &app, GameUtilityInterface *gameUtilityInterface)
 }
 
 /*#ifndef _SERVER
-void World::Draw(App &app, TextureContainer &tC)
+void World::Draw(App &app, GameUtilityInterface *gameUtilityInterface)
 {
 for (auto chunkColumn : chunkMatrix.first)
 {
@@ -520,7 +520,7 @@ playerList[i]->Update(app, *this);
 }
 
 #ifndef _SERVER
-void World::Draw(App &app, TextureContainer &tC)
+void World::Draw(App &app, GameUtilityInterface *gameUtilityInterface)
 {
 float cameraX = (*reinterpret_cast<const Camera*>(&app.GetView())).GetCenter().x;
 float cameraY = GetCamera(app).GetCenter().y;

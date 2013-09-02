@@ -5,6 +5,7 @@
 #include "TextureContainer.h"
 #include <SFML\Network.hpp>
 #include "BlockRegister.h"
+#include "GameUtilityInterface.h"
 
 /*//>.<NoobishBlockMenu::NoobishBlockMenu()
 {
@@ -70,13 +71,17 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtility
 
 }
 
-void NoobishBlockMenu::Draw(App &app, TextureContainer &tC)
+void NoobishBlockMenu::Draw(App &app, GameUtilityInterface *gameUtilityInterface)
 {
 	for (int j = 0; j < 2; j++)
 	{
 		for(int i = 0; i < 80; ++i)
 		{
-			blockMenu[j][i].first->Draw(app.getView().getCenter().x - app.getSize().x/2 + (i<<4), (int)app.getView().getCenter().y + app.getSize().y/2 -32+16*j, app, tC, blockMenu[j][i].second);
+			blockMenu[j][i].first->Draw(app.getView().getCenter().x - app.getSize().x/2 + (i<<4),
+				(int)app.getView().getCenter().y + app.getSize().y/2 -32+16*j,
+				app,
+				gameUtilityInterface,
+				blockMenu[j][i].second);
 		}
 	}
 }

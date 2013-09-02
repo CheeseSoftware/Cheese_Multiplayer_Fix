@@ -50,7 +50,7 @@ public:
 	World();
 #ifndef _SERVER
 	void EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface);
-	void Draw(App &app, TextureContainer &tC);
+	void Draw(App &app, GameUtilityInterface *gameUtilityInterface);
 #endif
 
 	void Update(App &app, GameUtilityInterface *GameUtilityInterface);

@@ -1,4 +1,5 @@
 #ifndef _SERVER
+#pragma once
 #include <SFML\Audio.hpp>
 #include <vector>
 #include <map>

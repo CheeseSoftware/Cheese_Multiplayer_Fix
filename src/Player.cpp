@@ -218,10 +218,10 @@ UpR:
 	}
 }
 
-void Player::Draw(App &app, TextureContainer &tC)
+void Player::Draw(App &app, GameUtilityInterface *gameUtilityInterface)
 {
 
-	inventory->Draw(16, 16, app, tC); 
+	inventory->Draw(16, 16, app, gameUtilityInterface->getTextureContainer()); 
 	Creature::Draw(app, gameUtilityInterface);
 }
 #endif

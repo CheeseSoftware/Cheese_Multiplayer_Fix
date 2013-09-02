@@ -17,6 +17,7 @@ BlockRegister::BlockRegister()
 	//RegisterBlock(nullptr, 0);
 	unsigned short i;
 	blockTypeList.push_back(nullptr);
+	blockList.push_back(nullptr);
 	RegisterBlock(new BlockSolid(i), typeid(BlockSolid).hash_code()); i++;
 	RegisterBlock(new BlockBackground(i), typeid(BlockBackground).hash_code()); i++;
 	RegisterBlock(new BlockGravity(i), typeid(BlockGravity).hash_code()); i++;
@@ -34,8 +35,9 @@ void BlockRegister::RegisterBlock(Block *block, size_t typeId)
 #ifndef _SERVER
 void BlockRegister::RegisterBlockTextures(TextureContainer &Tc)
 {
-	blockTextureList.reserve(blockList.size());
-	for (int i = 0; i < blockList.size(); i++)
+	blockTextureList.reserve(blockTypeList.size());
+	blockTextureList.push_back(nullptr);
+	for (int i = 1; i < blockTypeList.size(); i++)
 	{
 		blockTextureList.push_back(Tc.getTextures(blockList[i]->getTextureName()));
 	}
@@ -52,13 +54,13 @@ Block *BlockRegister::getBlockType(unsigned short id, unsigned short metadata)
 #ifndef _SERVER
 sf::Sprite *BlockRegister::getBlockTextures(Block *block)
 {
-	return blockTextureList[getBlockIdByTypeId(typeid(*block).hash_code)];
+	return blockTextureList[getBlockIdByTypeId(typeid(*block).hash_code())];
 }
 #endif
 
 unsigned short BlockRegister::getBlockIdByTypeId(size_t typeId)
 {
 	auto it = blockIdMap.find(typeId);//blockIdMapfind(typeId);
-	std::cout << it->second << " " << typeId << std::endl;
+	//std::cout << it->second << " " << typeId << std::endl;
 	return (it == blockIdMap.end()) ? 0 : it->second;
 }

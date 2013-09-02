@@ -40,7 +40,7 @@ public:
 
 #ifndef _SERVER
 	virtual void EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface);
-    virtual void Draw(App &app, TextureContainer &tC);
+    virtual void Draw(App &app, GameUtilityInterface *gameUtilityInterface);
 #endif
     void KeyUpdate(bool Right, bool Down, bool Left, bool Up, GameUtilityInterface* gameUtilityInterface);
 	void setCameraDelay(float delay);

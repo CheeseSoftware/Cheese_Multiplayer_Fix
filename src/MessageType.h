@@ -1,3 +1,5 @@
+#pragma once
+
 #define stringify ( name ) # name
 
 enum MessageType

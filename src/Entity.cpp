@@ -334,9 +334,9 @@ void Entity::EventUpdate(App &app, const sf::Event &event, GameUtilityInterface*
 
 }
 
-void Entity::Draw(App &app, TextureContainer &tC)
+void Entity::Draw(App &app, GameUtilityInterface *gameUtilityInterface)
 {
-	sf::Sprite *sprite = &(tC.getTextures(spriteName)[spriteIndex]);
+	sf::Sprite *sprite = &(gameUtilityInterface->getTextureContainer().getTextures(spriteName)[spriteIndex]);
 	if (sprite != nullptr)
 	{
 		if(x + 16 >= (app.getView().getCenter().x - (app.getSize().x/2)) &&

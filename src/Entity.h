@@ -55,7 +55,7 @@ public:
 	
 #ifndef _SERVER
 	virtual void EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface);
-    virtual void Draw(App &app, TextureContainer &tC);
+    virtual void Draw(App &app, GameUtilityInterface *gameUtilityInterface);
 #endif
 	virtual bool CheckCollision(App &app, World *world, float speedX, float speedY);
 	virtual void Collision(World *world);
