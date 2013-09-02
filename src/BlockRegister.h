@@ -12,6 +12,7 @@ namespace sf { class Sprite; }
 class BlockRegister
 {
 	std::map<size_t, unsigned short> blockIdMap;
+	std::vector<Block*> blockList;
 	std::vector<std::function<Block*(unsigned short)>> blockTypeList;
 	std::vector<sf::Sprite*> blockTextureList;
 public:
@@ -21,5 +22,8 @@ public:
 	void RegisterBlockTextures(TextureContainer &Tc);
 #endif
 	Block *getBlockType(unsigned short id, unsigned short metadata);
+#ifndef _SERVER
+	sf::Sprite *getBlockTextures(Block *block);
+#endif
 	unsigned short getBlockIdByTypeId(size_t typeId);
 };

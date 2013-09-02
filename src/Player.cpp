@@ -222,7 +222,7 @@ void Player::Draw(App &app, TextureContainer &tC)
 {
 
 	inventory->Draw(16, 16, app, tC); 
-	Creature::Draw(app, tC);
+	Creature::Draw(app, gameUtilityInterface);
 }
 #endif
 

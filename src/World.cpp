@@ -69,12 +69,12 @@ void World::Draw(App &app, TextureContainer &tC)
 
 	for (Entity *entity : entityList)
 	{
-		entity->Draw(app, tC);
+		entity->Draw(app, gameUtilityInterface);
 	}
 
 	for(std::pair<short, Player*> pair : playerList)
 	{
-		pair.second->Draw(app, tC);
+		pair.second->Draw(app, gameUtilityInterface);
 	}
 }
 #endif

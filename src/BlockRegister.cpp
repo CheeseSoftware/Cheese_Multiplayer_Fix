@@ -7,7 +7,9 @@
 #include "BlockChest.h"
 #include <typeinfo>
 #include <iostream>
-
+#ifndef _SERVER
+#include "App.h"
+#endif
 
 BlockRegister::BlockRegister()
 {
@@ -24,15 +26,20 @@ BlockRegister::BlockRegister()
 void BlockRegister::RegisterBlock(Block *block, size_t typeId)
 {
 	std::cout << blockTypeList.size() << std::endl;
+	blockList.push_back(block);
 	blockIdMap.emplace(typeId, blockTypeList.size());
 	blockTypeList.push_back(block->RegisterBlock(blockTypeList.size()));
 }
 
 #ifndef _SERVER
-	void RegisterBlockTextures(TextureContainer &Tc)
+void BlockRegister::RegisterBlockTextures(TextureContainer &Tc)
+{
+	blockTextureList.reserve(blockList.size());
+	for (int i = 0; i < blockList.size(); i++)
 	{
-
+		blockTextureList.push_back(Tc.getTextures(blockList[i]->getTextureName()));
 	}
+}
 #endif
 
 Block *BlockRegister::getBlockType(unsigned short id, unsigned short metadata)
@@ -41,6 +48,13 @@ Block *BlockRegister::getBlockType(unsigned short id, unsigned short metadata)
 		return nullptr;
 	return (id >= blockTypeList.size())? nullptr : blockTypeList[id](metadata);
 }
+
+#ifndef _SERVER
+sf::Sprite *BlockRegister::getBlockTextures(Block *block)
+{
+	return blockTextureList[getBlockIdByTypeId(typeid(*block).hash_code)];
+}
+#endif
 
 unsigned short BlockRegister::getBlockIdByTypeId(size_t typeId)
 {
