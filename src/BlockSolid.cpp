@@ -14,8 +14,3 @@ unsigned short BlockSolid::getTextureId(App &app, unsigned short metadata)
 {
 	return metadata;
 }
-
-unsigned char BlockSolid::getLayer()
-{
-	return 2;
-}

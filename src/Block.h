@@ -13,6 +13,7 @@ class GameUtilityInterface;
 class Block
 {
 public:
+	Block();
 	Block(unsigned short id);
 
 	virtual std::function<Block*(unsigned short)> RegisterBlock(const unsigned short id);
@@ -20,7 +21,7 @@ public:
 	virtual unsigned char getLayer()=0;
 	virtual std::string getTextureName()=0;
 	virtual bool isSeeThrough();
-	virtual bool isSolid();
+	virtual bool isSolid()=0;
 	virtual bool isUnique();
 	virtual void OnCreate(unsigned short metadata, EventHandler &eventHandler);
 	virtual void OnRemove();

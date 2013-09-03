@@ -5,6 +5,11 @@
 #include "GameUtilityInterface.h"
 #include "BlockRegister.h"
 
+Block::Block()
+{
+
+}
+
 Block::Block(unsigned short id)
 {
 }
@@ -30,11 +35,6 @@ std::function<Block*(unsigned short)> Block::RegisterBlock(const unsigned short 
 bool Block::isSeeThrough()
 {
 	return false;
-}
-
-bool Block::isSolid()
-{
-	return true;
 }
 
 bool Block::isUnique()

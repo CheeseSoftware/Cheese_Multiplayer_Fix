@@ -1,13 +1,12 @@
 #pragma once
 #include "Block.h"
+#include "IGravity.h"
 
-class BlockGravity : public Block
+class BlockGravity : public Block, IGravity
 {
 public:
 	BlockGravity(unsigned short id);
 	virtual unsigned short getTextureId(App &app, unsigned short metadata);
-	virtual unsigned char getLayer();
-	virtual bool isSolid();
 	virtual bool isSeeThrough();
 	virtual std::string getTextureName();
 	virtual void OnEntityHover(App &app, Entity *entity, float &xFriction, float&yFriction, float &speedX, float &speedY, unsigned short metadata);
