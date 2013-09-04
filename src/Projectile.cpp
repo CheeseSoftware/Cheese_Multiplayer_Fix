@@ -22,7 +22,7 @@ void Projectile::Update(App &app, World *world, std::queue<sf::Packet> *packetDa
 #else
 void Projectile::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
 #endif*/
-void Projectile::Update(App &app, GameUtilityInterface *GameUtilityInterface, std::queue<sf::Packet> *packetDataList)
+void Projectile::Update(App &app, GameUtilityInterface *GameUtilityInterface)
 { 
 	/*speed = sqrt(pow(abs(speedX),2)+pow(abs(speedY),2));
 	friction = 100/speed;

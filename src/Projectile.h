@@ -14,7 +14,7 @@ public:
 	Projectile(float x, float y, short sizeX, short sizeY, float angle, float speed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling);
 	~Projectile(void);
 
-	virtual void Update(App &app, GameUtilityInterface *GameUtilityInterface, std::queue<sf::Packet> *packetDataList);
+	virtual void Update(App &app, GameUtilityInterface *GameUtilityInterface);
 /*#ifdef _SERVER
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
 #else
