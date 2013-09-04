@@ -44,7 +44,7 @@ PlayState::PlayState(App &app) : GameUtilityInterface(app)
 	int port;
 
 	noobishBlockMenu = new NoobishBlockMenu(currentWorld, this);//InGameUI(app, tC, *currentWorld);
-	connection = new Connection(5001, ip);
+	connection = new Connection(80, ip);
 
 	blockRegister->RegisterBlockTextures(*tC);
 }

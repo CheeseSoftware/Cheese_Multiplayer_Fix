@@ -317,6 +317,9 @@
     <ClInclude Include="IGravity.h">
       <Filter>Header Files\Block\Gravity</Filter>
     </ClInclude>
+    <ClInclude Include="IEntityHealth.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet1.props" />
