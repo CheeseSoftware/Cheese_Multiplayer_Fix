@@ -212,6 +212,7 @@
     <ClInclude Include="EntityRegister.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="IEntityHealth.h" />
     <ClInclude Include="IGravity.h" />
     <ClInclude Include="IUnique.h" />
     <ClInclude Include="InGameUI.h" />

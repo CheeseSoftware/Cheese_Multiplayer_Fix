@@ -1,7 +1,8 @@
 #include "Block.h"
 
-class ISolid : Block
+class ISolid : virtual Block
 {
+public:
 	virtual bool isSolid();
 	virtual unsigned char getLayer();
 };

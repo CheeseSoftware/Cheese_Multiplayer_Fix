@@ -12,16 +12,6 @@ unsigned short BlockGravity::getTextureId(App &app, unsigned short metadata)
 	return metadata;
 }
 
-unsigned char BlockGravity::getLayer()
-{
-	return 2;
-}
-
-bool BlockGravity::isSolid()
-{
-	return false;
-}
-
 bool BlockGravity::isSeeThrough()
 {
 	return true;

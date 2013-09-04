@@ -15,13 +15,3 @@ unsigned short BlockBackground::getTextureId(App &app, unsigned short metadata)
 {
 	return metadata;
 }
-
-bool BlockBackground::isSolid()
-{
-	return false;
-}
-
-unsigned char BlockBackground::getLayer()
-{
-	return 0;
-}
