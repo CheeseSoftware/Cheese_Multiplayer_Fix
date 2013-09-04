@@ -2,7 +2,7 @@
 #include "Block.h"
 #include "IGravity.h"
 
-class BlockGravity : public Block, IGravity
+class BlockGravity : public virtual Block, public virtual IGravity
 {
 public:
 	BlockGravity(unsigned short id);

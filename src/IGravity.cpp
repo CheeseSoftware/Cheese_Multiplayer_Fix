@@ -1,11 +1,11 @@
 #include "IGravity.h"
 
-unsigned char getLayer()
+unsigned char IGravity::getLayer()
 {
 	return 2;
 }
 
-bool isSolid()
+bool IGravity::isSolid()
 {
 	return false;
 }

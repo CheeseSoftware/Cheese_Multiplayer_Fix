@@ -1,6 +1,6 @@
 #include "Block.h"
 
-class IBackground : Block
+class IBackground : virtual Block
 {
 public:
 	virtual unsigned char getLayer();

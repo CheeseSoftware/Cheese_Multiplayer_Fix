@@ -2,7 +2,7 @@
 #include "Block.h"
 #include "ISolid.h"
 
-class BlockSolid : public Block, public ISolid
+class BlockSolid : public virtual Block, public virtual ISolid
 {
 public:
 	BlockSolid(unsigned short id);

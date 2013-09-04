@@ -1,6 +1,6 @@
 #include "block.h"
 
-class IUnique : Block
+class IUnique : virtual Block
 {
 public:
 	virtual bool isUnique();

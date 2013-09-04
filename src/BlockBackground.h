@@ -2,7 +2,7 @@
 #include "Block.h"
 #include "IBackground.h"
 
-class BlockBackground : public Block, IBackground
+class BlockBackground : public virtual Block, public virtual IBackground
 {
 public:
 	BlockBackground(unsigned short id);

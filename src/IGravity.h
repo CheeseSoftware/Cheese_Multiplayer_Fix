@@ -1,6 +1,6 @@
 #include "Block.h"
 
-class IGravity
+class IGravity : virtual Block
 {
 public:
 	virtual unsigned char getLayer();
