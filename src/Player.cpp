@@ -94,7 +94,7 @@ Up:
 				break;
 
 			case sf::Keyboard::Space:
-				if (speedX == 0 || speedY == 0)
+				if (true)//(speedX == 0 || speedY == 0)
 				{
 					float xSpeed2 = 0;
 					float ySpeed2 = 0;
@@ -104,6 +104,11 @@ Up:
 					{
 						block->CreatureJump(app, this, xSpeed2, ySpeed2, gameUtilityInterface->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
 					}
+
+					if (xSpeed2 != 0 && speedX != 0)
+						break;
+					else if (ySpeed2 != 0 && speedY != 0)
+						break;
 
 					if (CheckCollision(app, gameUtilityInterface->getCurrentWorld(), (xSpeed2 > 0)? -1:1, (ySpeed2 > 0)? -1:1))
 					{
