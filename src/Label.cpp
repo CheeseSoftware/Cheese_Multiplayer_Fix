@@ -4,7 +4,7 @@
 #include "GameState.h"
 
 
-Label::Label(int x, int y, int width, int height, std::function<void()> &clickEvent) : MenuItem(x, y, width, height, clickEvent)
+Label::Label(int x, int y, int width, int height, std::function<GameState*(App&)> &clickEvent, std::string text) : MenuItem(x, y, width, height, clickEvent)
 {
 
 }
@@ -15,15 +15,9 @@ Label::~Label()
 
 }
 
-void Label::EventUpdate(sf::Event &event, App &app)
+GameState *Label::EventUpdate(App& app, const sf::Event& event, GameUtilityInterface* gameUtilityInterface)
 {
-	MenuItem::EventUpdate(event, app);
-}
-
-GameState *Label::Update(App &app)
-{
-	MenuItem::Update(app);
-	return 0;
+	return MenuItem::EventUpdate(app, event, gameUtilityInterface);
 }
 
 void Label::Draw(App &app)

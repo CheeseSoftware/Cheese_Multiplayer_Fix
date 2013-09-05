@@ -1,8 +1,8 @@
 #pragma once
 #include "Block.h"
-#include "IGravity.h"
+#include "GravityBlock.h"
 
-class BlockGravity : public virtual Block, public virtual IGravity
+class BlockGravity : public virtual Block, public GravityBlock
 {
 public:
 	BlockGravity(unsigned short id);

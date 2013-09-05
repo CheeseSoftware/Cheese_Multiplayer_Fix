@@ -1,6 +1,6 @@
 #include "Block.h"
 
-class ISolid : virtual Block
+class SolidBlock : virtual Block
 {
 public:
 	virtual bool isSolid();
