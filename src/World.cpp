@@ -417,6 +417,7 @@ void World::RemovePlayer(int id)
 	auto it = playerList.find(id);
 	if(it != playerList.end())
 	{
+		eventHandler.RemoveEventCallback(playerList[id]);
 		delete(it->second);
 		playerList.erase(id);
 	}
