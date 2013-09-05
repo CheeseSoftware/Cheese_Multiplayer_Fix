@@ -1,3 +1,4 @@
+#ifndef _SERVER
 #include "ITextItem.h"
 #include <SFML\Graphics.hpp>
 
@@ -11,3 +12,4 @@ void ITextItem::Draw(App &app)
 {
 	app.draw(text);
 }
+#endif

@@ -1,3 +1,4 @@
+#ifndef _SERVER
 #include <SFML\Graphics.hpp>
 #include "MenuItem.h"
 #include "Label.h"
@@ -24,3 +25,4 @@ void Label::Draw(App &app)
 {
 
 }
+#endif

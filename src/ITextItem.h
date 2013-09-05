@@ -1,3 +1,4 @@
+#ifndef _SERVER
 #include "MenuItem.h"
 
 namespace sf { class Text; }
@@ -9,3 +10,4 @@ public:
 	ITextItem(sf::Text text);
 	virtual void Draw(App &app);
 };
+#endif

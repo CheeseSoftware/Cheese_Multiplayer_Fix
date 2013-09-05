@@ -1,3 +1,4 @@
+#ifndef _SERVER
 #pragma once
 
 #ifndef Label_H_INCLUDED
@@ -20,4 +21,5 @@ public:
     virtual void Draw(App &app);
 };
 
+#endif
 #endif
