@@ -20,7 +20,7 @@ class TextureContainer;
 class World;
 class Camera;
 class EventHandler;
-class GameUtilityInterface;
+class GameUtility;
 
 class Entity
 {
@@ -46,7 +46,7 @@ public:
 	Entity(float x, float y, short sizeX, short sizeY,
 		float angle, float speed, float friction, std::string spriteName,
 		int spriteIndex, bool isClientControlling);
-	virtual void Update(App &app, GameUtilityInterface *GameUtilityInterface);
+	virtual void Update(App &app, GameUtility *GameUtility);
 /*#ifdef _SERVER
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
 #else
@@ -54,8 +54,8 @@ public:
 #endif*/
 	
 #ifndef _SERVER
-	virtual void EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface);
-    virtual void Draw(App &app, GameUtilityInterface *gameUtilityInterface);
+	virtual void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
+    virtual void Draw(App &app, GameUtility *gameUtility);
 #endif
 	virtual bool CheckCollision(App &app, World *world, float speedX, float speedY);
 	virtual void Collision(World *world);

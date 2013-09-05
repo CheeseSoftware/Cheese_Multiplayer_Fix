@@ -16,9 +16,9 @@ Label::~Label()
 
 }
 
-GameState *Label::EventUpdate(App& app, const sf::Event& event, GameUtilityInterface* gameUtilityInterface)
+GameState *Label::EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility)
 {
-	return MenuItem::EventUpdate(app, event, gameUtilityInterface);
+	return MenuItem::EventUpdate(app, event, gameUtility);
 }
 
 void Label::Draw(App &app)

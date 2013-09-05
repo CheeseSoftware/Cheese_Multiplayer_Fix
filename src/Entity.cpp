@@ -5,7 +5,7 @@
 #include "EventHandler.h"
 #include "TextureContainer.h"
 #include "World.h"
-#include "GameUtilityInterface.h"
+#include "GameUtility.h"
 
 Entity::Entity(float x, float y, short sizeX, short sizeY,
 			   float angle, float speed, float friction, std::string spriteName,
@@ -37,12 +37,12 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 #else
 void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &EventHandler)
 #endif*/
-void Entity::Update(App &app, GameUtilityInterface *GameUtilityInterface)
+void Entity::Update(App &app, GameUtility *GameUtility)
 {
 	float xFriction = friction;
 	float yFriction = friction;
 
-	std::pair<Block*, unsigned short> blockAndMetadata = GameUtilityInterface->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
+	std::pair<Block*, unsigned short> blockAndMetadata = GameUtility->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
 	if (blockAndMetadata.first != nullptr)
 		blockAndMetadata.first->OnEntityHover(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
 	//(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
@@ -81,7 +81,7 @@ void Entity::Update(App &app, GameUtilityInterface *GameUtilityInterface)
 		{
 			while(speed >= 1)
 			{
-				if (CheckCollision(app, GameUtilityInterface->getCurrentWorld(), deltaX, deltaY))
+				if (CheckCollision(app, GameUtility->getCurrentWorld(), deltaX, deltaY))
 					break;
 
 				x += deltaX;
@@ -104,7 +104,7 @@ void Entity::Update(App &app, GameUtilityInterface *GameUtilityInterface)
 
 		while (speedXModifier >= 1 && speedYModifier >= 1)
 		{
-			if (CheckCollision(app, GameUtilityInterface->getCurrentWorld(), (float)speedXNegativeFactor, (float)speedYNegativeFactor))
+			if (CheckCollision(app, GameUtility->getCurrentWorld(), (float)speedXNegativeFactor, (float)speedYNegativeFactor))
 				break;
 
 			if (speedX != 0 && speedY != 0)
@@ -123,7 +123,7 @@ void Entity::Update(App &app, GameUtilityInterface *GameUtilityInterface)
 
 		while(speedXModifier >= 1)
 		{
-			if (CheckCollision(app, GameUtilityInterface->getCurrentWorld(), (float)speedXNegativeFactor, 0))
+			if (CheckCollision(app, GameUtility->getCurrentWorld(), (float)speedXNegativeFactor, 0))
 				break;
 
 			if (speedX != 0)
@@ -140,7 +140,7 @@ void Entity::Update(App &app, GameUtilityInterface *GameUtilityInterface)
 
 		while(speedYModifier >= 1)
 		{
-			if (CheckCollision(app, GameUtilityInterface->getCurrentWorld(), 0, (float)speedYNegativeFactor))
+			if (CheckCollision(app, GameUtility->getCurrentWorld(), 0, (float)speedYNegativeFactor))
 				break;
 
 			if (speedY != 0)
@@ -162,7 +162,7 @@ void Entity::Update(App &app, GameUtilityInterface *GameUtilityInterface)
 		//}
 		//else
 		//{
-		CheckCollision(app, GameUtilityInterface->getCurrentWorld(), speedXModifier*speedXNegativeFactor, speedYModifier*speedYNegativeFactor);
+		CheckCollision(app, GameUtility->getCurrentWorld(), speedXModifier*speedXNegativeFactor, speedYModifier*speedYNegativeFactor);
 
 		if (speedX != 0)
 			x += speedXModifier*speedXNegativeFactor;
@@ -181,7 +181,7 @@ void Entity::Update(App &app, GameUtilityInterface *GameUtilityInterface)
 		// } D: 
 
 		//> gammal fysikD:
-		CheckCollision(app, GameUtilityInterface->getCurrentWorld(), speedX * app.getDeltaTime(), speedY * app.getDeltaTime());
+		CheckCollision(app, GameUtility->getCurrentWorld(), speedX * app.getDeltaTime(), speedY * app.getDeltaTime());
 
 		//x += speedX * app.getDeltaTime();
 		//y += speedY * app.getDeltaTime();
@@ -329,14 +329,14 @@ speedY = 0;
 
 #ifndef _SERVER
 
-void Entity::EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface)
+void Entity::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility)
 {
 
 }
 
-void Entity::Draw(App &app, GameUtilityInterface *gameUtilityInterface)
+void Entity::Draw(App &app, GameUtility *gameUtility)
 {
-	sf::Sprite *sprite = &(gameUtilityInterface->getTextureContainer().getTextures(spriteName)[spriteIndex]);
+	sf::Sprite *sprite = &(gameUtility->getTextureContainer().getTextures(spriteName)[spriteIndex]);
 	if (sprite != nullptr)
 	{
 		if(x + 16 >= (app.getView().getCenter().x - (app.getSize().x/2)) &&

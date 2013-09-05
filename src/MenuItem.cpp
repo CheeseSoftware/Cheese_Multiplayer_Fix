@@ -25,7 +25,7 @@ MenuItem::~MenuItem()
 
 }
 
-GameState *MenuItem::EventUpdate(App& app, const sf::Event& event, GameUtilityInterface* gameUtilityInterface)
+GameState *MenuItem::EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility)
 {
     if (event.type == sf::Event::MouseMoved)
     {

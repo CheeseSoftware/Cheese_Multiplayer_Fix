@@ -9,7 +9,7 @@
 #include "Player.h"
 #include "MessageType.h"
 #include "EventHandler.h"
-#include "GameUtilityInterface.h"
+#include "GameUtility.h"
 #include <deque>
 
 
@@ -40,9 +40,9 @@ World::World()
 }
 
 #ifndef _SERVER
-void World::EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface)
+void World::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility)
 {
-	eventHandler.EventUpdate(app, event, gameUtilityInterface);
+	eventHandler.EventUpdate(app, event, gameUtility);
 	/*for (Entity *entity : entityList)
 	{
 		entity->EventUpdate(app, event, this, packetDataList);
@@ -54,7 +54,7 @@ void World::EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* 
 	}*/
 }
 
-void World::Draw(App &app, GameUtilityInterface *gameUtilityInterface)
+void World::Draw(App &app, GameUtility *gameUtility)
 {
 	for (int x = 0; x < chunkMatrix.first.size(); x++)
 	{
@@ -62,46 +62,46 @@ void World::Draw(App &app, GameUtilityInterface *gameUtilityInterface)
 		{
 			if (chunkMatrix.first[x].first[y] != nullptr)
 			{
-				chunkMatrix.first[x].first[y]->Draw(x-chunkMatrix.second, y-chunkMatrix.first[x].second, app, gameUtilityInterface);
+				chunkMatrix.first[x].first[y]->Draw(x-chunkMatrix.second, y-chunkMatrix.first[x].second, app, gameUtility);
 			}
 		}
 	}
 
 	for (Entity *entity : entityList)
 	{
-		entity->Draw(app, gameUtilityInterface);
+		entity->Draw(app, gameUtility);
 	}
 
 	for(std::pair<short, Player*> pair : playerList)
 	{
-		pair.second->Draw(app, gameUtilityInterface);
+		pair.second->Draw(app, gameUtility);
 	}
 }
 #endif
 
-void World::Update(App &app, GameUtilityInterface *gameUtilityInterface)
+void World::Update(App &app, GameUtility *gameUtility)
 {
 	for (Entity *entity : entityList)
 	{
 #ifdef _SERVER
-		entity->Update(app, gameUtilityInterface);
+		entity->Update(app, gameUtility);
 #else
-		entity->Update(app, gameUtilityInterface);
+		entity->Update(app, gameUtility);
 #endif
 	}
 
 	for(std::pair<short, Player*> pair : playerList)
 	{
 #ifdef _SERVER
-		pair.second->Update(app, gameUtilityInterface);
+		pair.second->Update(app, gameUtility);
 #else
-		pair.second->Update(app, gameUtilityInterface);
+		pair.second->Update(app, gameUtility);
 #endif
 	}	
 }
 
 /*#ifndef _SERVER
-void World::Draw(App &app, GameUtilityInterface *gameUtilityInterface)
+void World::Draw(App &app, GameUtility *gameUtility)
 {
 for (auto chunkColumn : chunkMatrix.first)
 {
@@ -125,12 +125,12 @@ chunkMatrix.at(x).first.at(y)->Draw(x-(int)(GetCamera(app).GetCenter().x-GetCame
 //}
 //#endif
 
-void World::setBlock(long x, long y, long layer, unsigned short id, GameUtilityInterface *gameUtilityInterface)
+void World::setBlock(long x, long y, long layer, unsigned short id, GameUtility *gameUtility)
 {
-	setBlockAndMetadata(x, y, layer, id, 0, gameUtilityInterface);
+	setBlockAndMetadata(x, y, layer, id, 0, gameUtility);
 }
 
-void World::setBlockAndMetadata(long x, long y, long layer,  unsigned short id, unsigned short metadata, GameUtilityInterface *gameUtilityInterface)
+void World::setBlockAndMetadata(long x, long y, long layer,  unsigned short id, unsigned short metadata, GameUtility *gameUtility)
 {
 	/*if (setBlockAndMetadataClientOnly(x, y, layer, id, metadata))
 	{
@@ -144,7 +144,7 @@ void World::setBlockAndMetadata(long x, long y, long layer,  unsigned short id, 
 		setBlockMetadata(x, y, layer, metadata);
 	}*/
 
-	MessageType messageType = setBlockAndMetadataClientOnly(x, y, layer, id, metadata, gameUtilityInterface);
+	MessageType messageType = setBlockAndMetadataClientOnly(x, y, layer, id, metadata, gameUtility);
 
 	switch (messageType)
 	{
@@ -155,7 +155,7 @@ void World::setBlockAndMetadata(long x, long y, long layer,  unsigned short id, 
 		{
 			sf::Packet packet;
 			packet << (sf::Int16)BlockPlace << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)id << (sf::Uint16)metadata;
-			gameUtilityInterface->SendPacket(packet);
+			gameUtility->SendPacket(packet);
 		}
 		break;
 
@@ -163,7 +163,7 @@ void World::setBlockAndMetadata(long x, long y, long layer,  unsigned short id, 
 		{
 			sf::Packet packet;
 			packet << (sf::Int16)BlockMetadataChange << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)metadata;
-			gameUtilityInterface->SendPacket(packet);
+			gameUtility->SendPacket(packet);
 		}
 		break;
 
@@ -175,18 +175,18 @@ void World::setBlockAndMetadata(long x, long y, long layer,  unsigned short id, 
 	}
 }
 
-void World::setBlockMetadata(long x, long y, long layer, unsigned short metadata, GameUtilityInterface *gameUtilityInterface)
+void World::setBlockMetadata(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility)
 {
-	if (setBlockMetadataClientOnly(x, y, layer, metadata, gameUtilityInterface))
+	if (setBlockMetadataClientOnly(x, y, layer, metadata, gameUtility))
 	{
 		sf::Packet packet;
 		packet << (sf::Int16)BlockMetadataChange << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)metadata;
 
-		gameUtilityInterface->SendPacket(packet);
+		gameUtility->SendPacket(packet);
 	}
 }
 
-MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtilityInterface *gameUtilityInterface)
+MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility)
 {
 	long xx = floor(x * 0.0625);
 
@@ -225,7 +225,7 @@ MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, uns
 				//printf(" %X %d %d\n", block, xxx, yyy);
 				if (block != nullptr)
 				{
-					if (gameUtilityInterface->getBlockRegister().getBlockIdByTypeId(typeid(*block).hash_code()) == id)
+					if (gameUtility->getBlockRegister().getBlockIdByTypeId(typeid(*block).hash_code()) == id)
 					{
 						if (c->getMetadata(layer, xxx, yyy) != metadata)
 						{
@@ -242,7 +242,7 @@ MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, uns
 				}
 			}
 
-			c->setBlock(layer, xxx, yyy, gameUtilityInterface->getBlockRegister().getBlockType(id, metadata));
+			c->setBlock(layer, xxx, yyy, gameUtility->getBlockRegister().getBlockType(id, metadata));
 			c->setMetadata(layer, xxx, yyy, metadata);
 			return BlockPlace;
 		}
@@ -250,7 +250,7 @@ MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, uns
 	return NullMessage;
 }
 
-MessageType World::setBlockMetadataClientOnly(long x, long y, long layer, unsigned short metadata, GameUtilityInterface *gameUtilityInterface)
+MessageType World::setBlockMetadataClientOnly(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility)
 {
 	unsigned short xxx = x&0xF;//(x < 0)? (abs(x+1)&0xF)^0xF : x&0XF;
 	unsigned short yyy = y&0xF;//(y < 0)? y&0XF : y&0XF;
@@ -386,7 +386,7 @@ int World::AddEntity(Entity *entity)
 {
 	entityList.push_back(entity);
 #ifndef _SERVER
-	eventHandler.AddEventCallback(entity,[entity] (App& a, const sf::Event& e, GameUtilityInterface* gUtil) { entity->EventUpdate(a, e, gUtil); });
+	eventHandler.AddEventCallback(entity,[entity] (App& a, const sf::Event& e, GameUtility* gUtil) { entity->EventUpdate(a, e, gUtil); });
 #endif
 	return 0;
 }
@@ -403,7 +403,7 @@ int World::AddPlayer(int id, Player *player)
 	{
 		playerList.insert(std::pair<short, Player*>(id, player));
 #ifndef _SERVER
-		eventHandler.AddEventCallback(player,[player] (App& a, const sf::Event& e, GameUtilityInterface* gUtil) { player->EventUpdate(a, e, gUtil); });
+		eventHandler.AddEventCallback(player,[player] (App& a, const sf::Event& e, GameUtility* gUtil) { player->EventUpdate(a, e, gUtil); });
 #endif
 	}
 	else
@@ -523,7 +523,7 @@ playerList[i]->Update(app, *this);
 }
 
 #ifndef _SERVER
-void World::Draw(App &app, GameUtilityInterface *gameUtilityInterface)
+void World::Draw(App &app, GameUtility *gameUtility)
 {
 float cameraX = (*reinterpret_cast<const Camera*>(&app.GetView())).GetCenter().x;
 float cameraY = GetCamera(app).GetCenter().y;

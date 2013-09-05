@@ -2,7 +2,7 @@
 #pragma once
 #include <stack>
 #include "App.h"
-#include "GameUtilityInterface.h"
+#include "GameUtility.h"
 
 #pragma once
 
@@ -21,9 +21,9 @@ class NoobishBlockMenu
 	std::pair<Block*, unsigned short> **blockMenu;
 public:
 	//>.<NoobishBlockMenu();
-	NoobishBlockMenu(World *world, GameUtilityInterface* gameUtilityInterface);
+	NoobishBlockMenu(World *world, GameUtility* gameUtility);
 
-	void EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface);
-    void Draw(App &app, GameUtilityInterface *gameUtilityInterface);
+	void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
+    void Draw(App &app, GameUtility *gameUtility);
 };
 #endif

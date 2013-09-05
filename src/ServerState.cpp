@@ -13,7 +13,7 @@
 
 
 
-ServerState::ServerState(App &app) : GameUtilityInterface(app)
+ServerState::ServerState(App &app) : GameUtility(app)
 {
 	sC = new ServerConnection(5001, currentWorld);
 }

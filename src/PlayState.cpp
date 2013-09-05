@@ -28,7 +28,7 @@ namespace sf
 extern int _argc;
 extern char** _argv;
 
-PlayState::PlayState(App &app) : GameUtilityInterface(app)
+PlayState::PlayState(App &app) : GameUtility(app)
 {
 	fpsClock.restart();
 
@@ -44,7 +44,7 @@ PlayState::PlayState(App &app) : GameUtilityInterface(app)
 	int port;
 
 	noobishBlockMenu = new NoobishBlockMenu(currentWorld, this);//InGameUI(app, tC, *currentWorld);
-	connection = new Connection(80, ip);
+	connection = new Connection(5001, ip);
 
 	blockRegister->RegisterBlockTextures(*tC);
 }

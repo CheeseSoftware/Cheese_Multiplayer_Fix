@@ -17,7 +17,7 @@ public:
 
 	Label(int x, int y, int width, int height, std::function<GameState*(App&)> &clickEvent, std::string text);
 	~Label();
-	virtual GameState *EventUpdate(App& app, const sf::Event& event, GameUtilityInterface* gameUtilityInterface);
+	virtual GameState *EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility);
     virtual void Draw(App &app);
 };
 

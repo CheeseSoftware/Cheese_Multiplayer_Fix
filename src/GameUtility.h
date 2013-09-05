@@ -10,7 +10,7 @@ class Camera;
 class TextureContainer;
 class BlockRegister;
 
-class GameUtilityInterface
+class GameUtility
 {
 protected:
 #ifndef _SERVER
@@ -21,8 +21,8 @@ protected:
 	World *currentWorld;
 	std::queue<sf::Packet> *packetDataList;
 public:
-	GameUtilityInterface(App &app);
-	~GameUtilityInterface();
+	GameUtility(App &app);
+	~GameUtility();
 	//virtual void EventUpdate(App &app, const sf::Event &event);
 	//virtual GameState *Update(App &app);
 	//virtual void Draw(App &app);

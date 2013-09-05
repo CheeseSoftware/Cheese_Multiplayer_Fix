@@ -190,7 +190,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ServerConnection.cpp" />
     <ClCompile Include="ServerState.cpp" />
-    <ClCompile Include="GameUtilityInterface.cpp" />
+    <ClCompile Include="GameUtility.cpp" />
     <ClCompile Include="SoundHandler.cpp" />
     <ClCompile Include="TextureContainer.cpp" />
     <ClCompile Include="World.cpp" />
@@ -234,7 +234,7 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ServerConnection.h" />
     <ClInclude Include="ServerState.h" />
-    <ClInclude Include="GameUtilityInterface.h" />
+    <ClInclude Include="GameUtility.h" />
     <ClInclude Include="SoundHandler.h" />
     <ClInclude Include="TextureContainer.h" />
     <ClInclude Include="World.h" />

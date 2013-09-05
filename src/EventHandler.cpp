@@ -3,15 +3,15 @@
 #include "App.h"
 #include "World.h"
 
-void EventHandler::EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface)
+void EventHandler::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility)
 {
 	for (auto it : callbackList)
 	{
-		it.second(app, event, gameUtilityInterface);
+		it.second(app, event, gameUtility);
 	}
 }
 
-void EventHandler::AddEventCallback(void* source, std::function<void(App&, const sf::Event&, GameUtilityInterface*)> callback)
+void EventHandler::AddEventCallback(void* source, std::function<void(App&, const sf::Event&, GameUtility*)> callback)
 {
 	callbackList.emplace(source, callback);
 }

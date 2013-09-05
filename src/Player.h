@@ -36,13 +36,13 @@ public:
 
 	//virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
 #endif
-	virtual void Update(App &app, GameUtilityInterface *GameUtilityInterface);
+	virtual void Update(App &app, GameUtility *GameUtility);
 
 #ifndef _SERVER
-	virtual void EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface);
-    virtual void Draw(App &app, GameUtilityInterface *gameUtilityInterface);
+	virtual void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
+    virtual void Draw(App &app, GameUtility *gameUtility);
 #endif
-    void KeyUpdate(bool Right, bool Down, bool Left, bool Up, GameUtilityInterface* gameUtilityInterface);
+    void KeyUpdate(bool Right, bool Down, bool Left, bool Up, GameUtility* gameUtility);
 	void setCameraDelay(float delay);
 	virtual std::string getTextureName();
 	virtual char getTextureId();

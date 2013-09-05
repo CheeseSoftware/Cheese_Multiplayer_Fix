@@ -8,7 +8,7 @@ class World;
 class Entity;
 class Creature;
 class EventHandler;
-class GameUtilityInterface;
+class GameUtility;
 
 class Block
 {
@@ -33,6 +33,6 @@ public:
 	virtual void CreatureJump(App &app, Creature *creature, float &speedX, float &speedY, unsigned short metadata);
 	//virtual char getSubTextureId() = 0;
 #ifndef _SERVER
-	void Draw(long posX, long posY, App &app, GameUtilityInterface *gameUtilityInterface, unsigned short metadata);
+	void Draw(long posX, long posY, App &app, GameUtility *gameUtility, unsigned short metadata);
 #endif
 };

@@ -23,7 +23,7 @@ float App::getFrameTime()
 float App::getDeltaTime()
 {
 
-	float frameTime2 = getFrameTime();
+	float frameTime2 = getFrameTime()*2;
 	return ((frameTime2 > 0.1)? 0.1 : frameTime2);
 }
 

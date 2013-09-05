@@ -1,6 +1,6 @@
 #ifdef _SERVER
 #pragma once
-#include "GameUtilityInterface.h"
+#include "GameUtility.h"
 #include "GameState.h"
 #include "TextureContainer.h"
 #include "ServerConnection.h"
@@ -11,7 +11,7 @@ class World;
 class InGameUI;
 class Camera;
 
-class ServerState : public GameState, public GameUtilityInterface
+class ServerState : public GameState, public GameUtility
 {
 	ServerConnection* sC;
 	void ProcessPackets();

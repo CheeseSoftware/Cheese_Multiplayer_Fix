@@ -22,6 +22,6 @@ public:
 	//virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
 #endif
 
-	virtual void Update(App &app, GameUtilityInterface *GameUtilityInterface);
+	virtual void Update(App &app, GameUtility *GameUtility);
 	void CreatureMove(float x, float y, float speedX, float speedY, float angle, float horizontal, float vertical);
 };
