@@ -14,7 +14,7 @@ class Camera;
 class ServerState : public GameState, public GameUtility
 {
 	ServerConnection* sC;
-	void ProcessPackets();
+	void ProcessPackets(GameUtility *gameUtility);
 public:
 	ServerState(App &app);
 	~ServerState();

@@ -242,7 +242,7 @@ MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, uns
 				}
 			}
 
-			c->setBlock(layer, xxx, yyy, gameUtility->getBlockRegister().getBlockType(id, metadata));
+			c->setBlock(layer, xxx, yyy, gameUtility->getBlockRegister().getBlockType(id));
 			c->setMetadata(layer, xxx, yyy, metadata);
 			return BlockPlace;
 		}

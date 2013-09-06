@@ -21,7 +21,7 @@ public:
 #ifndef _SERVER
 	void RegisterBlockTextures(TextureContainer &Tc);
 #endif
-	Block *getBlockType(unsigned short id, unsigned short metadata);
+	Block *getBlockType(unsigned short id);
 #ifndef _SERVER
 	sf::Sprite *getBlockTextures(Block *block);
 #endif
