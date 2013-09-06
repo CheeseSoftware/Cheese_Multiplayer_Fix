@@ -29,7 +29,7 @@ class PlayState : public GameState, public GameUtility
     sf::Clock fpsClock;
 	//BlockRegister *blockRegister; // surkod
 	//World *currentWorld;
-	void ProcessPackets();
+	void ProcessPackets(GameUtility *gameUtility);
 public:
 	PlayState(App &app);
 	~PlayState();

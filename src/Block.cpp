@@ -4,6 +4,7 @@
 #include "TextureContainer.h"
 #include "GameUtility.h"
 #include "BlockRegister.h"
+#include "MessageType.h"
 
 Block::Block()
 {
@@ -85,14 +86,46 @@ void Block::CreatureJump(App &app, Creature *creature, float &speedX, float &spe
 
 }
 
-Block *Block::OnReceive(GameUtility*, sf::Packet*)
+Block *Block::OnReceive(sf::Packet* packet, GameUtility* gameUtility)
 {
+	sf::Int32 xPos;
+	sf::Int32 yPos;
+	sf::Uint16 layer;
+	sf::Uint16 id;
+	sf::Uint16 metadata;
+	*packet >> xPos >> yPos >> layer >> id >> metadata;
+	gameUtility->getCurrentWorld()->setBlockAndMetadata(xPos, yPos, layer, id, metadata, gameUtility);
 	return nullptr;
 }
 
-sf::Packet *Block::OnSend(GameUtility*)
+sf::Packet Block::OnSend(sf::Int16 packetType, long x, long y, short layer, short id, short metadata, GameUtility* gameUtility)
 {
-	return nullptr;
+	sf::Packet packet = sf::Packet();
+	switch (packetType)
+	{
+	case NullMessage:
+		break;
+
+	case BlockPlace:
+		{
+			std::cout << "client/server set " << x << " " << y << " " << layer << " " << id << " " << metadata << std::endl;
+			packet << (sf::Int16)BlockPlace << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)id << (sf::Uint16)metadata;
+		}
+		break;
+
+	case BlockMetadataChange:
+		{
+			packet << (sf::Int16)BlockMetadataChange << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)metadata;
+		}
+		break;
+
+	default:
+		{
+			std::cout << "Unexpected Messagetype: " << packetType << "\n";
+		}
+		break;
+	}
+	return packet;
 }
 
 #ifndef _SERVER

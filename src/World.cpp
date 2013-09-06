@@ -130,7 +130,7 @@ void World::setBlock(long x, long y, long layer, unsigned short id, GameUtility 
 	setBlockAndMetadata(x, y, layer, id, 0, gameUtility);
 }
 
-void World::setBlockAndMetadata(long x, long y, long layer,  unsigned short id, unsigned short metadata, GameUtility *gameUtility)
+void World::setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility)
 {
 	/*if (setBlockAndMetadataClientOnly(x, y, layer, id, metadata))
 	{
@@ -145,34 +145,7 @@ void World::setBlockAndMetadata(long x, long y, long layer,  unsigned short id, 
 	}*/
 
 	MessageType messageType = setBlockAndMetadataClientOnly(x, y, layer, id, metadata, gameUtility);
-
-	switch (messageType)
-	{
-	case NullMessage:
-		break;
-
-	case BlockPlace:
-		{
-			sf::Packet packet;
-			packet << (sf::Int16)BlockPlace << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)id << (sf::Uint16)metadata;
-			gameUtility->SendPacket(packet);
-		}
-		break;
-
-	case BlockMetadataChange:
-		{
-			sf::Packet packet;
-			packet << (sf::Int16)BlockMetadataChange << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)metadata;
-			gameUtility->SendPacket(packet);
-		}
-		break;
-
-	default:
-		{
-			std::cout << "Unexpected Messagetype: " << messageType << "\n";
-		}
-		break;
-	}
+	gameUtility->SendPacket(gameUtility->getBlockRegister().getBlockType(id)->OnSend(messageType, x, y, layer, id, metadata, gameUtility));
 }
 
 void World::setBlockMetadata(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility)
@@ -181,7 +154,6 @@ void World::setBlockMetadata(long x, long y, long layer, unsigned short metadata
 	{
 		sf::Packet packet;
 		packet << (sf::Int16)BlockMetadataChange << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)metadata;
-
 		gameUtility->SendPacket(packet);
 	}
 }

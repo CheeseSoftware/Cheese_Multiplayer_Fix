@@ -44,7 +44,7 @@ PlayState::PlayState(App &app) : GameUtility(app)
 	int port;
 
 	noobishBlockMenu = new NoobishBlockMenu(currentWorld, this);//InGameUI(app, tC, *currentWorld);
-	connection = new Connection(80, ip);
+	connection = new Connection(5001, ip);
 
 	blockRegister->RegisterBlockTextures(*tC);
 }
@@ -81,7 +81,7 @@ GameState *PlayState::Update(App &app)
 	}
 
 	connection->Run();
-	ProcessPackets();
+	ProcessPackets(this);
 	return this;
 }
 
@@ -91,7 +91,7 @@ void PlayState::Draw(App &app)
 	noobishBlockMenu->Draw(app, this); // < orsakar lagg temp
 }
 
-void PlayState::ProcessPackets(void)
+void PlayState::ProcessPackets(GameUtility *gameUtility)
 {
 	connection->globalMutex.lock();
 	std::queue<sf::Packet*> packets = connection->packets;
@@ -105,8 +105,10 @@ void PlayState::ProcessPackets(void)
 		sf::Uint16 packetType;
 		sf::Uint16 wtf;
 		if(!(*packet >> packetType))
-			std::cout << "ERROR: Client could not extract data" << std::endl;
+			std::cout << "ERROR: Client could not extract data: data left? " << !packet->endOfPacket() << std::endl;
 		//std::cout << "Client got packet " << packetType << " wtf?: " << wtf << std::endl;
+
+		sf::Packet* const originalPacket = new sf::Packet(*packet);
 
 		switch(packetType)
 		{
@@ -229,7 +231,8 @@ void PlayState::ProcessPackets(void)
 				sf::Uint16 id;
 				sf::Uint16 metadata;
 				*packet >> xPos >> yPos >> layer >> id >> metadata;
-				currentWorld->setBlockAndMetadataClientOnly(xPos, yPos, layer, id, metadata, this);
+				std::cout << "client received " << xPos << " " << yPos << " " << layer << " " << id << " " << metadata << std::endl;
+				Block* temp = blockRegister->getBlockType(id)->OnReceive(originalPacket, gameUtility);
 			}
 			break;
 		case BlockMetadataChange:
@@ -239,12 +242,13 @@ void PlayState::ProcessPackets(void)
 				sf::Uint16 layer;
 				sf::Uint16 metadata;
 				*packet >> xPos >> yPos >> layer >> metadata;
-				currentWorld->setBlockMetadataClientOnly(xPos, yPos, layer, metadata, this);
+				currentWorld->setBlockMetadata(xPos, yPos, layer, metadata, this);
 			}
 			break;
 			//std::cout << packetType << std::endl;
 		}
 		delete packet;
+		delete originalPacket;
 		packets.pop();
 	}
 }

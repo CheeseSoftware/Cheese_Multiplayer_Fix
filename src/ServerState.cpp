@@ -15,7 +15,7 @@
 
 ServerState::ServerState(App &app) : GameUtility(app)
 {
-	sC = new ServerConnection(80, currentWorld);
+	sC = new ServerConnection(5001, currentWorld);
 }
 
 ServerState::~ServerState()
@@ -48,12 +48,13 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 	{
 		auto data = packets.front();
 		sf::Packet* packet = data.first;
-		sf::Packet* originalPacket = new sf::Packet(*packet);
 		Client *client = data.second;
 
 		sf::Uint16 packetType;
 		if(!(*packet >> packetType))
 			std::cout << "ERROR: Server could not extract data" << std::endl;
+
+		sf::Packet* const originalPacket = new sf::Packet(*packet);
 
 		switch(packetType)
 		{
@@ -153,8 +154,8 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				sf::Uint16 id;
 				sf::Uint16 metadata;
 				*packet >> xPos >> yPos >> layer >> id >> metadata;
-				Block* temp = blockRegister->getBlockType(id)->OnReceive(gameUtility, packet);
-				currentWorld->setBlockAndMetadata(xPos, yPos, layer, id, metadata, this);
+				std::cout << "server received " << xPos << " " << yPos << " " << layer << " " << id << " " << metadata << std::endl;
+				Block* temp = blockRegister->getBlockType(id)->OnReceive(originalPacket, gameUtility);
 			}
 			break;
 		case BlockMetadataChange:
