@@ -85,6 +85,16 @@ void Block::CreatureJump(App &app, Creature *creature, float &speedX, float &spe
 
 }
 
+Block *Block::OnReceive(GameUtility*, sf::Packet*)
+{
+	return nullptr;
+}
+
+sf::Packet *Block::OnSend(GameUtility*)
+{
+	return nullptr;
+}
+
 #ifndef _SERVER
 void Block::Draw(long posX, long posY, App &app, GameUtility *gameUtility, unsigned short metadata)
 {
