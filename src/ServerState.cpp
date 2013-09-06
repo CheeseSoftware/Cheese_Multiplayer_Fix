@@ -15,7 +15,7 @@
 
 ServerState::ServerState(App &app) : GameUtility(app)
 {
-	sC = new ServerConnection(5001, currentWorld);
+	sC = new ServerConnection(80, currentWorld);
 }
 
 ServerState::~ServerState()
