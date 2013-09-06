@@ -14,5 +14,6 @@ public:
 	bool isSeeThrough();
 	bool isSolid();
 	void OnRightClick(Creature *creature, unsigned short metadata);
+	void BlockChest::OnEntityTouch(Entity *entity, unsigned short metadata);
 };
 

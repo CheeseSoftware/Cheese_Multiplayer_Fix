@@ -14,7 +14,7 @@ BlockChest::~BlockChest(void)
 
 std::string BlockChest::getTextureName()
 {
-	return "BlockChest.png";
+	return "BlockSolid.png";
 }
 
 unsigned short BlockChest::getTextureId(App &app, unsigned short metadata)
@@ -34,7 +34,7 @@ bool BlockChest::isSeeThrough()
 
 bool BlockChest::isSolid()
 {
-	return(true);
+	return(false);
 }
 
 unsigned char BlockChest::getLayer()
@@ -46,4 +46,9 @@ void BlockChest::OnRightClick(Creature *creature, unsigned short metadata)
 {
 	isDrawingInventory = !isDrawingInventory;//temp
 	std::cout << "onrightclick" << std::endl;
+}
+
+void BlockChest::OnEntityTouch(Entity *entity, unsigned short metadata)
+{
+	std::cout << "entityovermeD:" << std::endl;
 }

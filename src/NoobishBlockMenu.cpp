@@ -24,7 +24,7 @@ NoobishBlockMenu::NoobishBlockMenu(World *world, GameUtility* gameUtility)
 			if (x < 50)
 				blockMenu[i][x] = std::pair<Block*, unsigned short>(gameUtility->getBlockRegister().getBlockType(1+i), x);
 			else
-				blockMenu[i][x] = std::pair<Block*, unsigned short>(gameUtility->getBlockRegister().getBlockType(3), x%4);
+				blockMenu[i][x] = std::pair<Block*, unsigned short>(gameUtility->getBlockRegister().getBlockType(4), x%4);
 		}
 	}
 }

@@ -94,7 +94,11 @@ Block *Block::OnReceive(sf::Packet* packet, GameUtility* gameUtility)
 	sf::Uint16 id;
 	sf::Uint16 metadata;
 	*packet >> xPos >> yPos >> layer >> id >> metadata;
+#ifdef _SERVER
 	gameUtility->getCurrentWorld()->setBlockAndMetadata(xPos, yPos, layer, id, metadata, gameUtility);
+#else
+	gameUtility->getCurrentWorld()->setBlockAndMetadataClientOnly(xPos, yPos, layer, id, metadata, gameUtility);
+#endif
 	return nullptr;
 }
 

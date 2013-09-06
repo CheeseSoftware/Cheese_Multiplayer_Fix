@@ -145,7 +145,14 @@ void World::setBlockAndMetadata(long x, long y, long layer, unsigned short id, u
 	}*/
 
 	MessageType messageType = setBlockAndMetadataClientOnly(x, y, layer, id, metadata, gameUtility);
-	gameUtility->SendPacket(gameUtility->getBlockRegister().getBlockType(id)->OnSend(messageType, x, y, layer, id, metadata, gameUtility));
+	if(id != 0)
+		gameUtility->SendPacket(gameUtility->getBlockRegister().getBlockType(id)->OnSend(messageType, x, y, layer, id, metadata, gameUtility));
+	else
+	{
+		sf::Packet packet;
+		packet << (sf::Int16)BlockPlace << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)id << (sf::Uint16)metadata;
+		gameUtility->SendPacket(packet);
+	}
 }
 
 void World::setBlockMetadata(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility)
@@ -300,7 +307,8 @@ std::pair<Block*, unsigned short> World::getBlockAndMetadata(long x, long y, lon
 			if (it.first.at(yy) != nullptr)
 			{
 				Chunk* chunk = it.first.at(yy);//->getBlock(layer, xxx, yyy);
-				return *(lastBlock = std::pair<std::tuple<long, long, unsigned short>, std::pair<Block*, unsigned short>*>
+				return *(lastBlock = std::pair<std::tuple<long, long, unsigned short>, 
+					std::pair<Block*, unsigned short>*>
 					(std::tuple<long, long, unsigned short>(x, y, layer),
 					&chunk->getBlockAndMetadata(xxx, yyy, layer))).second;
 				//std::pair<Block*, unsigned short>(chunk->getBlock(layer, xxx, yyy), chunk->getMetadata(layer, xxx, yyy));

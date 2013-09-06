@@ -107,10 +107,10 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				}
 				/*else if(type == 1) //Player has left
 				{
-					currentWorld->RemovePlayer(client->ID);
-					send.Clear();
-					send << packetType << type << (sf::Uint16)client->ID;
-					std::cout << client->IP << " has left" << std::endl;
+				currentWorld->RemovePlayer(client->ID);
+				send.Clear();
+				send << packetType << type << (sf::Uint16)client->ID;
+				std::cout << client->IP << " has left" << std::endl;
 				}*/
 
 				sC->Broadcast(send);
@@ -155,7 +155,10 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				sf::Uint16 metadata;
 				*packet >> xPos >> yPos >> layer >> id >> metadata;
 				std::cout << "server received " << xPos << " " << yPos << " " << layer << " " << id << " " << metadata << std::endl;
-				Block* temp = blockRegister->getBlockType(id)->OnReceive(originalPacket, gameUtility);
+				if(id != 0)
+					Block* temp = blockRegister->getBlockType(id)->OnReceive(originalPacket, gameUtility);
+				else
+					gameUtility->getCurrentWorld()->setBlockAndMetadata(xPos, yPos, layer, 0, metadata, gameUtility);
 			}
 			break;
 		case BlockMetadataChange:

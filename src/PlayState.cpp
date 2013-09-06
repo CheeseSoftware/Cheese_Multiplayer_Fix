@@ -19,7 +19,7 @@
 #include "connection.h"
 #include "noobishBlockMenu.h"
 #include "BlockRegister.h"
-     
+
 namespace sf
 {
 	class RenderWindow;
@@ -123,7 +123,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 					sf::Int16 sizeY;
 
 					if(!(*packet >> ID  >> xPos >> yPos >> sizeX >> sizeY)) {}
-						//std::cout << "ERROR: Client could not extract data" << std::endl;
+					//std::cout << "ERROR: Client could not extract data" << std::endl;
 					else
 					{
 						Player *player = new Player(xPos, yPos, 16, 16, false, "graywizard.png", 0, "temp");
@@ -232,7 +232,11 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				sf::Uint16 metadata;
 				*packet >> xPos >> yPos >> layer >> id >> metadata;
 				std::cout << "client received " << xPos << " " << yPos << " " << layer << " " << id << " " << metadata << std::endl;
-				Block* temp = blockRegister->getBlockType(id)->OnReceive(originalPacket, gameUtility);
+
+				if(id != 0)
+					Block* temp = blockRegister->getBlockType(id)->OnReceive(originalPacket, gameUtility);
+				else
+					gameUtility->getCurrentWorld()->setBlockAndMetadataClientOnly(xPos, yPos, layer, id, metadata, gameUtility);
 			}
 			break;
 		case BlockMetadataChange:
