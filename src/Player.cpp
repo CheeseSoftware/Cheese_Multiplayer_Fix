@@ -6,7 +6,7 @@
 #include "MessageType.h"
 #include "App.h"
 #include "Block.h"
-#include "GameUtilityInterface.h"
+#include "GameUtility.h"
 
 Player::Player(float X, float Y, short sizeX, short sizeY, bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name) 
 	: Creature(X, Y, sizeX, sizeY, 1536, 0.5, spriteName, spriteIndex, IsClientControlling)
@@ -31,16 +31,16 @@ void Player::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 #else
 void Player::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
 #endif*/
-void Player::Update(App &app, GameUtilityInterface *GameUtilityInterface)
+void Player::Update(App &app, GameUtility *GameUtility)
 {
 #ifndef _SERVER
 	if (isClientControlling)
 	{
-		if (GameUtilityInterface->getCamera().getEntity() != this)
+		if (GameUtility->getCamera().getEntity() != this)
 		{
 			if (cameraDelay <= 0)
 			{
-				GameUtilityInterface->getCamera().setCameraAt(this);
+				GameUtility->getCamera().setCameraAt(this);
 				cameraDelay = 0.5;
 			}
 			else
@@ -51,7 +51,7 @@ void Player::Update(App &app, GameUtilityInterface *GameUtilityInterface)
 	}
 #endif
 
-	Creature::Update(app, GameUtilityInterface);
+	Creature::Update(app, GameUtility);
 /*#ifdef _SERVER
 	Creature::Update(app, world, packetDataList);
 #else
@@ -61,7 +61,7 @@ void Player::Update(App &app, GameUtilityInterface *GameUtilityInterface)
 
 #ifndef _SERVER
 
-void Player::EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface)
+void Player::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility)
 {
 	if (isClientControlling)
 	{
@@ -94,18 +94,23 @@ Up:
 				break;
 
 			case sf::Keyboard::Space:
-				if (speedX == 0 || speedY == 0)
+				if (true)//(speedX == 0 || speedY == 0)
 				{
 					float xSpeed2 = 0;
 					float ySpeed2 = 0;
 
-					Block *block = gameUtilityInterface->getCurrentWorld()->getBlock((long)x+8>>4, (long)y+8>>4, 2);
+					Block *block = gameUtility->getCurrentWorld()->getBlock((long)x+8>>4, (long)y+8>>4, 2);
 					if (block != nullptr)
 					{
-						block->CreatureJump(app, this, xSpeed2, ySpeed2, gameUtilityInterface->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
+						block->CreatureJump(app, this, xSpeed2, ySpeed2, gameUtility->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
 					}
 
-					if (CheckCollision(app, gameUtilityInterface->getCurrentWorld(), (xSpeed2 > 0)? -1:1, (ySpeed2 > 0)? -1:1))
+					if (xSpeed2 != 0 && speedX != 0)
+						break;
+					else if (ySpeed2 != 0 && speedY != 0)
+						break;
+
+					if (CheckCollision(app, gameUtility->getCurrentWorld(), (xSpeed2 > 0)? -1:1, (ySpeed2 > 0)? -1:1))
 					{
 						if (speedX == 0)
 							speedX = xSpeed2;
@@ -115,7 +120,7 @@ Up:
 					}
 
 					if (block != nullptr)
-						block->OnEntityHover(app, this, xSpeed2, ySpeed2, speedX, speedY, gameUtilityInterface->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
+						block->OnEntityHover(app, this, xSpeed2, ySpeed2, speedX, speedY, gameUtility->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
 				}
 				break;
 			case sf::Keyboard::Q:
@@ -137,7 +142,7 @@ Up:
 
 
 					Projectile *projectile = new Projectile(x+8, y+8, 32, 32, angle, 1024, 0.03125F, "arrow.png", 0, false);
-					gameUtilityInterface->getCurrentWorld()->AddEntity(projectile);
+					gameUtility->getCurrentWorld()->AddEntity(projectile);
 				}
 				break;
 
@@ -214,19 +219,19 @@ UpR:
 			}
 			break;
 		}
-		KeyUpdate(rDown, dDown, lDown, uDown, gameUtilityInterface);
+		KeyUpdate(rDown, dDown, lDown, uDown, gameUtility);
 	}
 }
 
-void Player::Draw(App &app, GameUtilityInterface *gameUtilityInterface)
+void Player::Draw(App &app, GameUtility *gameUtility)
 {
 
-	inventory->Draw(16, 16, app, gameUtilityInterface->getTextureContainer()); 
-	Creature::Draw(app, gameUtilityInterface);
+	inventory->Draw(16, 16, app, gameUtility->getTextureContainer()); 
+	Creature::Draw(app, gameUtility);
 }
 #endif
 
-void Player::KeyUpdate(bool Right, bool Down, bool Left, bool Up, GameUtilityInterface* gameUtilityInterface)
+void Player::KeyUpdate(bool Right, bool Down, bool Left, bool Up, GameUtility* gameUtility)
 {
 	if (Right != right || Down != down || Left != left || Up != up)
 	{
@@ -252,7 +257,7 @@ void Player::KeyUpdate(bool Right, bool Down, bool Left, bool Up, GameUtilityInt
 		{
 			sf::Packet packet;
 			packet << (sf::Uint16)PlayerMove << x << y << speedX << speedY << angle << horizontal << vertical;
-			gameUtilityInterface->SendPacket(packet);
+			gameUtility->SendPacket(packet);
 		}
 	}
 }

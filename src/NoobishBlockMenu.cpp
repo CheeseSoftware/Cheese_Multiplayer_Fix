@@ -5,14 +5,14 @@
 #include "TextureContainer.h"
 #include <SFML\Network.hpp>
 #include "BlockRegister.h"
-#include "GameUtilityInterface.h"
+#include "GameUtility.h"
 
 /*//>.<NoobishBlockMenu::NoobishBlockMenu()
 {
 
 }*/
 
-NoobishBlockMenu::NoobishBlockMenu(World *world, GameUtilityInterface* gameUtilityInterface)
+NoobishBlockMenu::NoobishBlockMenu(World *world, GameUtility* gameUtility)
 {
 	selected = 0;
 	blockMenu = new std::pair<Block*, unsigned short>*[2];
@@ -22,14 +22,14 @@ NoobishBlockMenu::NoobishBlockMenu(World *world, GameUtilityInterface* gameUtili
 		for(int x = 0; x < 80; x++)
 		{
 			if (x < 50)
-				blockMenu[i][x] = std::pair<Block*, unsigned short>(gameUtilityInterface->getBlockRegister().getBlockType(1+i, x), x);
+				blockMenu[i][x] = std::pair<Block*, unsigned short>(gameUtility->getBlockRegister().getBlockType(1+i, x), x);
 			else
-				blockMenu[i][x] = std::pair<Block*, unsigned short>(gameUtilityInterface->getBlockRegister().getBlockType(3, x%4), x%4);
+				blockMenu[i][x] = std::pair<Block*, unsigned short>(gameUtility->getBlockRegister().getBlockType(3, x%4), x%4);
 		}
 	}
 }
 
-void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface)
+void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility)
 {
 	if(event.type == sf::Event::MouseButtonPressed)
 	{
@@ -50,28 +50,28 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtility
 			else
 			{
 				int layer = (selected >= 80)? 1:0;
-				gameUtilityInterface->getCurrentWorld()->setBlockAndMetadata(x, y,
+				gameUtility->getCurrentWorld()->setBlockAndMetadata(x, y,
 					blockMenu[layer][selected%80].first->getLayer(),
-					gameUtilityInterface->getBlockRegister().getBlockIdByTypeId(typeid(*blockMenu[layer][selected%80].first).hash_code()),
+					gameUtility->getBlockRegister().getBlockIdByTypeId(typeid(*blockMenu[layer][selected%80].first).hash_code()),
 					blockMenu[layer][selected%80].second,
-					gameUtilityInterface);
+					gameUtility);
 			}
 		}
 		else if(event.key.code == sf::Mouse::Right)
 		{
-			Block* block = gameUtilityInterface->getCurrentWorld()->getBlock(x, y, 2);
+			Block* block = gameUtility->getCurrentWorld()->getBlock(x, y, 2);
 			if(block != nullptr)
-				block->OnRightClick(nullptr, gameUtilityInterface->getCurrentWorld()->getBlockAndMetadata(x, y, 1).second);
+				block->OnRightClick(nullptr, gameUtility->getCurrentWorld()->getBlockAndMetadata(x, y, 1).second);
 			if (event.mouseButton.y < app.getSize().y-32)
 			{
-				gameUtilityInterface->getCurrentWorld()->setBlockAndMetadata(x, y, 2, 0, 0, gameUtilityInterface);
+				gameUtility->getCurrentWorld()->setBlockAndMetadata(x, y, 2, 0, 0, gameUtility);
 			}
 		}
 	}
 
 }
 
-void NoobishBlockMenu::Draw(App &app, GameUtilityInterface *gameUtilityInterface)
+void NoobishBlockMenu::Draw(App &app, GameUtility *gameUtility)
 {
 	for (int j = 0; j < 2; j++)
 	{
@@ -80,7 +80,7 @@ void NoobishBlockMenu::Draw(App &app, GameUtilityInterface *gameUtilityInterface
 			blockMenu[j][i].first->Draw(app.getView().getCenter().x - app.getSize().x/2 + (i<<4),
 				(int)app.getView().getCenter().y + app.getSize().y/2 -32+16*j,
 				app,
-				gameUtilityInterface,
+				gameUtility,
 				blockMenu[j][i].second);
 		}
 	}

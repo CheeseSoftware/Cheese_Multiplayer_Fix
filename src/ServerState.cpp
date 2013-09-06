@@ -13,9 +13,9 @@
 
 
 
-ServerState::ServerState(App &app) : GameUtilityInterface(app)
+ServerState::ServerState(App &app) : GameUtility(app)
 {
-	sC = new ServerConnection(5001, currentWorld);
+	sC = new ServerConnection(80, currentWorld);
 }
 
 ServerState::~ServerState()
@@ -33,11 +33,11 @@ GameState *ServerState::Update(App &app)
 	}
 	//delete packetDataList;
 	sC->Run();
-	ProcessPackets();
+	ProcessPackets(this);
 	return this;
 }
 
-void ServerState::ProcessPackets(void)
+void ServerState::ProcessPackets(GameUtility *gameUtility)
 {
 	//sC->globalMutex.lock();
 	auto packets = sC->packets;
@@ -153,6 +153,7 @@ void ServerState::ProcessPackets(void)
 				sf::Uint16 id;
 				sf::Uint16 metadata;
 				*packet >> xPos >> yPos >> layer >> id >> metadata;
+				Block* temp = blockRegister->getBlockType(id)->OnReceive(gameUtility, packet);
 				currentWorld->setBlockAndMetadata(xPos, yPos, layer, id, metadata, this);
 			}
 			break;

@@ -170,10 +170,11 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityRegister.cpp" />
     <ClCompile Include="EventHandler.cpp" />
-    <ClCompile Include="IBackground.cpp" />
-    <ClCompile Include="IGravity.cpp" />
-    <ClCompile Include="ISolid.cpp" />
-    <ClCompile Include="IUnique.cpp" />
+    <ClCompile Include="BackgroundBlock.cpp" />
+    <ClCompile Include="GravityBlock.cpp" />
+    <ClCompile Include="SolidBlock.cpp" />
+    <ClCompile Include="ITextItem.cpp" />
+    <ClCompile Include="UniqueBlock.cpp" />
     <ClCompile Include="InGameUI.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Label.cpp" />
@@ -189,14 +190,14 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ServerConnection.cpp" />
     <ClCompile Include="ServerState.cpp" />
-    <ClCompile Include="GameUtilityInterface.cpp" />
+    <ClCompile Include="GameUtility.cpp" />
     <ClCompile Include="SoundHandler.cpp" />
     <ClCompile Include="TextureContainer.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
-    <ClInclude Include="IBackground.h" />
+    <ClInclude Include="BackgroundBlock.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockBackground.h" />
     <ClInclude Include="BlockChest.h" />
@@ -213,11 +214,13 @@
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="IEntityHealth.h" />
-    <ClInclude Include="IGravity.h" />
-    <ClInclude Include="IUnique.h" />
+    <ClInclude Include="GravityBlock.h" />
+    <ClInclude Include="IInputItem.h" />
+    <ClInclude Include="ITextItem.h" />
+    <ClInclude Include="UniqueBlock.h" />
     <ClInclude Include="InGameUI.h" />
     <ClInclude Include="Inventory.h" />
-    <ClInclude Include="ISolid.h" />
+    <ClInclude Include="SolidBlock.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Menu.h" />
@@ -231,7 +234,7 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ServerConnection.h" />
     <ClInclude Include="ServerState.h" />
-    <ClInclude Include="GameUtilityInterface.h" />
+    <ClInclude Include="GameUtility.h" />
     <ClInclude Include="SoundHandler.h" />
     <ClInclude Include="TextureContainer.h" />
     <ClInclude Include="World.h" />

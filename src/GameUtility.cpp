@@ -1,10 +1,10 @@
-#include "GameUtilityInterface.h"
+#include "GameUtility.h"
 #include "Camera.h"
 #include "World.h"
 #include "TextureContainer.h"
 #include "BlockRegister.h"
 
-GameUtilityInterface::GameUtilityInterface(App &app)
+GameUtility::GameUtility(App &app)
 {
 #ifndef _SERVER
 	camera = new Camera(8);//setSpeed(8);
@@ -15,7 +15,7 @@ GameUtilityInterface::GameUtilityInterface(App &app)
 	packetDataList = new std::queue<sf::Packet>();
 	blockRegister = new BlockRegister();
 }
-GameUtilityInterface::~GameUtilityInterface()
+GameUtility::~GameUtility()
 {
 
 }
@@ -23,23 +23,23 @@ GameUtilityInterface::~GameUtilityInterface()
     //virtual void EventUpdate(App &app, const sf::Event &event);
     //virtual GameState *Update(App &app);
     //virtual void Draw(App &app);
-/*World *GameUtilityInterface::getCurrentWorld()
+/*World *GameUtility::getCurrentWorld()
 {
 	return currentWorld;
 }
 
-TextureContainer &GameUtilityInterface::getTextureContainer()
+TextureContainer &GameUtility::getTextureContainer()
 {
 	return *tC;
 }
 
-BlockRegister &GameUtilityInterface::getBlockRegister()
+BlockRegister &GameUtility::getBlockRegister()
 {
 	return *blockRegister;
 }
 
 #ifndef _SERVER
-Camera &GameUtilityInterface::getCamera()
+Camera &GameUtility::getCamera()
 {
 	return *camera;
 }

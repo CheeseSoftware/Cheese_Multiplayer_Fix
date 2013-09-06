@@ -18,7 +18,7 @@ class Chunk;
 class TextureContainer;
 class Camera;
 class EventHandler;
-class GameUtilityInterface;
+class GameUtility;
 
 enum MessageType;
 
@@ -49,16 +49,16 @@ private:
 public:
 	World();
 #ifndef _SERVER
-	void EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface);
-	void Draw(App &app, GameUtilityInterface *gameUtilityInterface);
+	void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
+	void Draw(App &app, GameUtility *gameUtility);
 #endif
 
-	void Update(App &app, GameUtilityInterface *GameUtilityInterface);
-	void setBlock(long x, long y, long layer, unsigned short id, GameUtilityInterface *gameUtilityInterface);
-	void setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtilityInterface *gameUtilityInterface);
-	void setBlockMetadata(long x, long y, long layer, unsigned short metadata, GameUtilityInterface *gameUtilityInterface);
-	MessageType setBlockAndMetadataClientOnly(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtilityInterface *gameUtilityInterface);
-	MessageType setBlockMetadataClientOnly(long x, long y, long layer, unsigned short metadata, GameUtilityInterface *gameUtilityInterface);
+	void Update(App &app, GameUtility *GameUtility);
+	void setBlock(long x, long y, long layer, unsigned short id, GameUtility *gameUtility);
+	void setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility);
+	void setBlockMetadata(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility);
+	MessageType setBlockAndMetadataClientOnly(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility);
+	MessageType setBlockMetadataClientOnly(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility);
 	Block *getBlock(long x, long y, long layer);
 	std::pair<Block*, unsigned short> getBlockAndMetadata(long x, long y, long layer);
 	void Expand(long x, long y, Chunk* chunk);

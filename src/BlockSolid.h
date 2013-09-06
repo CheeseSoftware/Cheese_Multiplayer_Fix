@@ -1,8 +1,8 @@
 #pragma once
 #include "Block.h"
-#include "ISolid.h"
+#include "SolidBlock.h"
 
-class BlockSolid : public virtual Block, public virtual ISolid
+class BlockSolid : public virtual Block, public SolidBlock
 {
 public:
 	BlockSolid(unsigned short id);

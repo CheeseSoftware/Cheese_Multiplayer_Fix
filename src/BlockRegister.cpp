@@ -44,11 +44,11 @@ void BlockRegister::RegisterBlockTextures(TextureContainer &Tc)
 }
 #endif
 
-Block *BlockRegister::getBlockType(unsigned short id, unsigned short metadata)
+Block *BlockRegister::getBlockType(unsigned short id)
 {
 	if (id == 0)
 		return nullptr;
-	return (id >= blockTypeList.size())? nullptr : blockTypeList[id](metadata);
+	return (id >= blockTypeList.size()) ? nullptr : blockTypeList[id](0);
 }
 
 #ifndef _SERVER

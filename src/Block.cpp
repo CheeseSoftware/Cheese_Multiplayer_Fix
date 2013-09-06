@@ -2,7 +2,7 @@
 #include <typeinfo>
 #include "Block.h"
 #include "TextureContainer.h"
-#include "GameUtilityInterface.h"
+#include "GameUtility.h"
 #include "BlockRegister.h"
 
 Block::Block()
@@ -85,10 +85,20 @@ void Block::CreatureJump(App &app, Creature *creature, float &speedX, float &spe
 
 }
 
-#ifndef _SERVER
-void Block::Draw(long posX, long posY, App &app, GameUtilityInterface *gameUtilityInterface, unsigned short metadata)
+Block *Block::OnReceive(GameUtility*, sf::Packet*)
 {
-	sf::Sprite *tempSprite = &gameUtilityInterface->getBlockRegister().getBlockTextures(this)[getTextureId(app, metadata)]; //&(tC.getTextures(getTextureName())[getTextureId(app, metadata)]);
+	return nullptr;
+}
+
+sf::Packet *Block::OnSend(GameUtility*)
+{
+	return nullptr;
+}
+
+#ifndef _SERVER
+void Block::Draw(long posX, long posY, App &app, GameUtility *gameUtility, unsigned short metadata)
+{
+	sf::Sprite *tempSprite = &gameUtility->getBlockRegister().getBlockTextures(this)[getTextureId(app, metadata)]; //&(tC.getTextures(getTextureName())[getTextureId(app, metadata)]);
 	if (tempSprite != nullptr)
 	{
 		tempSprite->setPosition(posX, posY);

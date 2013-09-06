@@ -165,9 +165,6 @@
     <ClCompile Include="SoundHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameUtilityInterface.cpp">
-      <Filter>Source Files\GameState</Filter>
-    </ClCompile>
     <ClCompile Include="BlockRegister.cpp">
       <Filter>Source Files\Register</Filter>
     </ClCompile>
@@ -186,17 +183,23 @@
     <ClCompile Include="BlockChest.cpp">
       <Filter>Source Files\Block\Unique</Filter>
     </ClCompile>
-    <ClCompile Include="IBackground.cpp">
+    <ClCompile Include="ITextItem.cpp">
+      <Filter>Source Files\MenuItem</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundBlock.cpp">
       <Filter>Source Files\Block\Background</Filter>
     </ClCompile>
-    <ClCompile Include="IUnique.cpp">
-      <Filter>Source Files\Block\Unique</Filter>
+    <ClCompile Include="GravityBlock.cpp">
+      <Filter>Source Files\Block\Gravity</Filter>
     </ClCompile>
-    <ClCompile Include="ISolid.cpp">
+    <ClCompile Include="SolidBlock.cpp">
       <Filter>Source Files\Block\Solid</Filter>
     </ClCompile>
-    <ClCompile Include="IGravity.cpp">
-      <Filter>Source Files\Block\Gravity</Filter>
+    <ClCompile Include="UniqueBlock.cpp">
+      <Filter>Source Files\Block\Unique</Filter>
+    </ClCompile>
+    <ClCompile Include="GameUtility.cpp">
+      <Filter>Source Files\GameState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -284,9 +287,6 @@
     <ClInclude Include="World.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
-    <ClInclude Include="GameUtilityInterface.h">
-      <Filter>Header Files\GameState</Filter>
-    </ClInclude>
     <ClInclude Include="BlockRegister.h">
       <Filter>Header Files\Register</Filter>
     </ClInclude>
@@ -305,20 +305,29 @@
     <ClInclude Include="BlockChest.h">
       <Filter>Header Files\Block\Unique</Filter>
     </ClInclude>
-    <ClInclude Include="IBackground.h">
-      <Filter>Header Files\Block\Background</Filter>
-    </ClInclude>
-    <ClInclude Include="IUnique.h">
-      <Filter>Header Files\Block\Unique</Filter>
-    </ClInclude>
-    <ClInclude Include="ISolid.h">
-      <Filter>Header Files\Block\Solid</Filter>
-    </ClInclude>
-    <ClInclude Include="IGravity.h">
-      <Filter>Header Files\Block\Gravity</Filter>
-    </ClInclude>
     <ClInclude Include="IEntityHealth.h">
       <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="ITextItem.h">
+      <Filter>Header Files\MenuItem</Filter>
+    </ClInclude>
+    <ClInclude Include="IInputItem.h">
+      <Filter>Header Files\MenuItem</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundBlock.h">
+      <Filter>Header Files\Block\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityBlock.h">
+      <Filter>Header Files\Block\Gravity</Filter>
+    </ClInclude>
+    <ClInclude Include="SolidBlock.h">
+      <Filter>Header Files\Block\Solid</Filter>
+    </ClInclude>
+    <ClInclude Include="UniqueBlock.h">
+      <Filter>Header Files\Block\Unique</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUtility.h">
+      <Filter>Header Files\GameState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

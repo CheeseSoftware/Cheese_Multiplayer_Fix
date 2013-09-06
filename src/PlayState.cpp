@@ -28,7 +28,7 @@ namespace sf
 extern int _argc;
 extern char** _argv;
 
-PlayState::PlayState(App &app) : GameUtilityInterface(app)
+PlayState::PlayState(App &app) : GameUtility(app)
 {
 	fpsClock.restart();
 

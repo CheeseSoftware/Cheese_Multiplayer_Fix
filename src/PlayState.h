@@ -1,7 +1,7 @@
 #ifndef _SERVER
 #pragma once
 #include "App.h"
-#include "GameUtilityInterface.h"
+#include "GameUtility.h"
 #include "GameState.h"
 //#include "BlockRegister.h"
 //#include "TextureContainer.h"
@@ -19,7 +19,7 @@ class TextureContainer;
 class Connection;
 class BlockRegister;
 
-class PlayState : public GameState, public GameUtilityInterface
+class PlayState : public GameState, public GameUtility
 {
 	//TextureContainer *tC;
 	//Camera *camera;

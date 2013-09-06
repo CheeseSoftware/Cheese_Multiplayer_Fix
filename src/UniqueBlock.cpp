@@ -1,4 +1,4 @@
-#include "IUnique.h"
+#include "UniqueBlock.h"
 
 bool isUnique()
 {

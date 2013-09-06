@@ -9,14 +9,14 @@
 
 class App;
 class World;
-class GameUtilityInterface;
+class GameUtility;
 
 class EventHandler
 {
-	std::map<void*,std::function<void(App&, const sf::Event&, GameUtilityInterface*)>> callbackList;
+	std::map<void*,std::function<void(App&, const sf::Event&, GameUtility*)>> callbackList;
 public:
-	void EventUpdate(App &app, const sf::Event &event, GameUtilityInterface* gameUtilityInterface);
-	void AddEventCallback(void *source, std::function<void(App&, const sf::Event&, GameUtilityInterface*)> callback);
+	void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
+	void AddEventCallback(void *source, std::function<void(App&, const sf::Event&, GameUtility*)> callback);
 	void RemoveEventCallback(void *source);
 };
 #endif

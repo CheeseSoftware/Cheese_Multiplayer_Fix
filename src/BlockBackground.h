@@ -1,8 +1,8 @@
 #pragma once
 #include "Block.h"
-#include "IBackground.h"
+#include "BackgroundBlock.h"
 
-class BlockBackground : public virtual Block, public virtual IBackground
+class BlockBackground : public virtual Block, public BackgroundBlock
 {
 public:
 	BlockBackground(unsigned short id);
