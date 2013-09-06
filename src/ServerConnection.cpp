@@ -115,7 +115,6 @@ void ServerConnection::Receive()
 				if (status == sf::Socket::Done)
 				{
 					//globalMutex.Lock();
-					std::cout << "received message server";
 					packets.push(std::pair<sf::Packet*, Client*>(received, client));
 					//globalMutex.Unlock();
 					// Extract the message and display it
