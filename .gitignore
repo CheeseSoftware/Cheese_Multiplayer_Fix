@@ -40,6 +40,8 @@ local.properties
 *.suo
 *.user
 *.sln.docstates
+*.tlog
+*.exe
 
 # Build results
 
