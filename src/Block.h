@@ -2,6 +2,7 @@
 #include <iostream>
 #include <functional>
 #include "App.h" //#include <SFML/Graphics.hpp>
+#include <SFML\Network.hpp>
 
 class TextureContainer;
 class World;
@@ -31,6 +32,8 @@ public:
 	virtual void OnEntityHover(App &app, Entity *entity, float &xFriction, float&yFriction, float &speedX, float &speedY, unsigned short metadata);
 	virtual void getCreatureMovePossibilities(App &app, Creature *creature, float &horizontal, float &vertical, unsigned short metadata);
 	virtual void CreatureJump(App &app, Creature *creature, float &speedX, float &speedY, unsigned short metadata);
+	virtual Block *OnReceive(GameUtilityInterface*);
+	virtual sf::Packet *OnSend(GameUtilityInterface*);
 	//virtual char getSubTextureId() = 0;
 #ifndef _SERVER
 	void Draw(long posX, long posY, App &app, GameUtility *gameUtility, unsigned short metadata);
