@@ -1,6 +1,7 @@
+#pragma once
 #include "block.h"
 
-class UniqueBlock : virtual Block
+class UniqueBlock : public virtual Block
 {
 public:
 	virtual bool isUnique();

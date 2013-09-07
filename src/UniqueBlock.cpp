@@ -1,6 +1,6 @@
 #include "UniqueBlock.h"
 
-bool isUnique()
+bool UniqueBlock::isUnique()
 {
 	return true;
 }

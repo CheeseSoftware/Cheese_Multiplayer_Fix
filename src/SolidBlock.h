@@ -1,6 +1,7 @@
+#pragma once
 #include "Block.h"
 
-class SolidBlock : virtual Block
+class SolidBlock : public virtual Block
 {
 public:
 	virtual bool isSolid();

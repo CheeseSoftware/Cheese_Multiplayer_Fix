@@ -20,16 +20,16 @@ std::function<Block*(unsigned short)> Block::RegisterBlock(const unsigned short 
 	std::cout << typeid(*this).name() << '(' << typeid(*this).hash_code() << ") registered with blockId " << id << ".\n";
 	if (isUnique())
 	{
-		return [&](unsigned short metadata)
+		return [&](unsigned short metadata) -> Block*
 		{
-			Block *block = (Block*)malloc(sizeof(*this));
+			Block* block = static_cast<Block*>(malloc(sizeof(*this)));
 			*block = *this;
 			return block;
 		};
 	}
 	else
 	{
-		return [&](unsigned short metadata) { return this; };
+		return [&](unsigned short metadata) -> Block* { return this; };
 	}
 }
 

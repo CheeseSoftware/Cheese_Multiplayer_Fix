@@ -22,25 +22,11 @@ unsigned short BlockChest::getTextureId(App &app, unsigned short metadata)
 	return metadata;
 }
 
-unsigned short BlockChest::getId()
-{
-	return 3;
-}
-
 bool BlockChest::isSeeThrough()
 {
 	return(false);
 }
 
-bool BlockChest::isSolid()
-{
-	return(false);
-}
-
-unsigned char BlockChest::getLayer()
-{
-	return 2;
-}
 
 void BlockChest::OnRightClick(Creature *creature, unsigned short metadata)
 {

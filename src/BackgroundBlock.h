@@ -1,3 +1,4 @@
+#pragma once
 #include "Block.h"
 
 class BackgroundBlock : virtual Block
