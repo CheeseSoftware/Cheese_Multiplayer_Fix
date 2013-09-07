@@ -11,8 +11,8 @@ TextureContainer::TextureContainer(void)
 	AddSpriteSheet("BlockSolid.png", 16, 16);
 	AddSpriteSheet("BlockGravity.png", 16, 16);
 	AddSpriteSheet("arrow.png", 32, 8);
-
 	AddSpriteSheet("graywizard.png", 16, 26);
+	AddSpriteSheet("smileys.png", 16, 16);
 }
 
 
@@ -37,9 +37,11 @@ bool TextureContainer::AddSpriteSheet(std::string fileName, int spriteWidth, int
 	sf::Sprite *sprite = new sf::Sprite[width*height*height];
 	sf::Image *tempImage;
 
-	for (int y = 0; y < width; y++)
+	std::cout << width << " " << height << std::endl;
+
+	for (int y = 0; y < height; y++)
 	{
-		for (int x = 0; x < height; x++)
+		for (int x = 0; x < width; x++)
 		{
 			tempImage = new sf::Image();
 			tempImage->create(spriteWidth, spriteHeight);

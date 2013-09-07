@@ -292,7 +292,7 @@ std::pair<Block*, unsigned short> World::getBlockAndMetadata(long x, long y, lon
 		return *lastBlock.second;
 	}
 
-	long xx = floor(x * 0.0625) + chunkMatrix.second + 1;
+	long xx = floor(x * 0.0625) + chunkMatrix.second+1;
 
 	unsigned short xxx = x&0xF;
 	unsigned short yyy = y&0xF;
@@ -300,7 +300,7 @@ std::pair<Block*, unsigned short> World::getBlockAndMetadata(long x, long y, lon
 	if (isColumnInsideChunkMatrix(xx))
 	{
 		auto it = chunkMatrix.first.at(xx);
-		long yy = floor(y * 0.0625) + it.second + 1;
+		long yy = floor(y * 0.0625) + it.second+1;
 
 		if (isChunkInsideChunkColumn(yy,it.first))
 		{

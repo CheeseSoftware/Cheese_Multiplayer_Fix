@@ -23,6 +23,8 @@ NoobishBlockMenu::NoobishBlockMenu(World *world, GameUtility* gameUtility)
 		{
 			if (x < 50)
 				blockMenu[i][x] = std::pair<Block*, unsigned short>(gameUtility->getBlockRegister().getBlockType(1+i), x);
+			else if (x < 54)
+				blockMenu[i][x] = std::pair<Block*, unsigned short>(gameUtility->getBlockRegister().getBlockType(3), x%4);
 			else
 				blockMenu[i][x] = std::pair<Block*, unsigned short>(gameUtility->getBlockRegister().getBlockType(4), x%4);
 		}
@@ -59,9 +61,9 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtility
 		}
 		else if(event.key.code == sf::Mouse::Right)
 		{
-			Block* block = gameUtility->getCurrentWorld()->getBlock(x, y, 2);
+			Block* block = gameUtility->getCurrentWorld()->getBlock(x-16, y-16, 2);
 			if(block != nullptr)
-				block->OnRightClick(nullptr, gameUtility->getCurrentWorld()->getBlockAndMetadata(x, y, 1).second);
+				block->OnRightClick(nullptr, gameUtility->getCurrentWorld()->getBlockAndMetadata(x-16, y-16, 1).second);
 			if (event.mouseButton.y < app.getSize().y-32)
 			{
 				gameUtility->getCurrentWorld()->setBlockAndMetadata(x, y, 2, 0, 0, gameUtility);

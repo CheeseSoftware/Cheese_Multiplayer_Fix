@@ -88,7 +88,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 					*packet >> xPos >> yPos;
 
 					//Add the player to the server world
-					currentWorld->AddPlayer(client->ID, new Player(xPos, yPos, 16, 16, true, "graywizard.png", 0, "temp"));
+					currentWorld->AddPlayer(client->ID, new Player(xPos, yPos, 14, 14, true, "smileys.png", 0, "temp"));
 
 					// Send the init message
 					// Players

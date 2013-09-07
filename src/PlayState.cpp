@@ -126,7 +126,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 					//std::cout << "ERROR: Client could not extract data" << std::endl;
 					else
 					{
-						Player *player = new Player(xPos, yPos, 16, 16, false, "graywizard.png", 0, "temp");
+						Player *player = new Player(xPos, yPos, 14, 14, false, "smileys.png", 0, "temp");
 						currentWorld->AddPlayer(ID, player);
 					}
 				}
@@ -178,7 +178,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				if(type == 0)
 				{
 					*packet >> xPos >> yPos >> clientID;
-					Player* temp = new Player(xPos, yPos, 16, 16, false, "graywizard.png", 0, "temp");
+					Player* temp = new Player(xPos, yPos, 14, 14, false, "smileys.png", 0, "temp");
 					std::cout << "Added player -> clientid received " << clientID << " this clientid " << connection->client->ID << std::endl;
 
 					if(clientID == connection->client->ID)

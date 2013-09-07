@@ -99,10 +99,10 @@ Up:
 					float xSpeed2 = 0;
 					float ySpeed2 = 0;
 
-					Block *block = gameUtility->getCurrentWorld()->getBlock((long)x+8>>4, (long)y+8>>4, 2);
+					Block *block = gameUtility->getCurrentWorld()->getBlock((long)x>>4, (long)y>>4, 2);
 					if (block != nullptr)
 					{
-						block->CreatureJump(app, this, xSpeed2, ySpeed2, gameUtility->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
+						block->CreatureJump(app, this, xSpeed2, ySpeed2, gameUtility->getCurrentWorld()->getBlockAndMetadata((long)x>>4, (long)y>>4, 2).second);
 					}
 
 					if (xSpeed2 != 0 && speedX != 0)
@@ -120,14 +120,16 @@ Up:
 					}
 
 					if (block != nullptr)
-						block->OnEntityHover(app, this, xSpeed2, ySpeed2, speedX, speedY, gameUtility->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4, (long)y+8>>4, 2).second);
+						block->OnEntityHover(app, this, xSpeed2, ySpeed2, speedX, speedY, gameUtility->getCurrentWorld()->getBlockAndMetadata((long)x>>4, (long)y>>4, 2).second);
 				}
 				break;
 			case sf::Keyboard::Q:
 				{
-					float thing1 = (sf::Mouse::getPosition().y - app.getPosition().y) - app.getView().getSize().y/2;
-					float thing2 = (sf::Mouse::getPosition().x - app.getPosition().x) - app.getView().getSize().x/2;
-					double angle = atan2(thing1, thing2) * 180 / 3.1415926536;
+					float deltaX = (sf::Mouse::getPosition().x - app.getPosition().x + app.getView().getCenter().x - app.getView().getSize().x/2) - x;
+					float deltaY = (sf::Mouse::getPosition().y - app.getPosition().y + app.getView().getCenter().y - app.getView().getSize().y/2) - y;
+
+					double angle = atan2(deltaY, deltaX) * 180 / 3.1415926536;
+
 					if (angle < 0)
 						angle = angle + 360;
 
@@ -141,7 +143,7 @@ Up:
 						deltaSpeedY *= -1;
 
 
-					Projectile *projectile = new Projectile(x+8, y+8, 32, 32, angle, 1024, 0.03125F, "arrow.png", 0, false);
+					Projectile *projectile = new Projectile(x+(sizeX>>1), y+(sizeY>>1), 32, 32, angle, 1024, 0.03125F, "arrow.png", 0, false);
 					gameUtility->getCurrentWorld()->AddEntity(projectile);
 				}
 				break;
@@ -269,7 +271,7 @@ void Player::setCameraDelay(float delay)
 
 std::string Player::getTextureName()
 {
-	return "graywizard.png";
+	return "smileys.png";
 }
 
 char Player::getTextureId()

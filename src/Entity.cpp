@@ -42,7 +42,11 @@ void Entity::Update(App &app, GameUtility *GameUtility)
 	float xFriction = friction;
 	float yFriction = friction;
 
-	std::pair<Block*, unsigned short> blockAndMetadata = GameUtility->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
+	std::pair<Block*, unsigned short> blockAndMetadata = GameUtility->getCurrentWorld()->getBlockAndMetadata(
+		(long)x + ((long)sizeY>>1) >>4L,
+		(long)y + ((long)sizeY>>1) >>4L,
+		2);
+
 	if (blockAndMetadata.first != nullptr)
 		blockAndMetadata.first->OnEntityHover(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
 	//(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
@@ -200,10 +204,10 @@ bool Entity::CheckCollision(App &app, World *world, float speedX, float speedY)
 	if (speedX == 0 && speedY == 0)
 		return false;
 
-	if (world->isBlockSolid((int)(x+1+speedX)>>4,(int)(y+1)>>4) ||
-		world->isBlockSolid((int)(x+14+speedX)>>4,(int)(y+1)>>4) ||
-		world->isBlockSolid((int)(x+1+speedX)>>4,(int)(y+14)>>4) ||
-		world->isBlockSolid((int)(x+14+speedX)>>4,(int)(y+14)>>4))
+	if (world->isBlockSolid((int)(x-(sizeX>>1)+speedX)>>4,(int)(y-(sizeY>>1))>>4) ||
+		world->isBlockSolid((int)(x+(sizeX>>1)+speedX)>>4,(int)(y-(sizeY>>1))>>4) ||
+		world->isBlockSolid((int)(x-(sizeX>>1)+speedX)>>4,(int)(y+(sizeY>>1))>>4) ||
+		world->isBlockSolid((int)(x+(sizeX>>1)+speedX)>>4,(int)(y+(sizeY>>1))>>4))
 	{
 		this->speedX = 0;
 		speedX = 0;
@@ -211,10 +215,10 @@ bool Entity::CheckCollision(App &app, World *world, float speedX, float speedY)
 		r = true;
 	}
 
-	if (world->isBlockSolid((int)(x+1)>>4,(int)(y+1+speedY)>>4) ||
-		world->isBlockSolid((int)(x+14)>>4,(int)(y+1+speedY)>>4) ||
-		world->isBlockSolid((int)(x+1)>>4,(int)(y+14+speedY)>>4) ||
-		world->isBlockSolid((int)(x+14)>>4,(int)(y+14+speedY)>>4))
+	if (world->isBlockSolid((int)(x-(sizeX>>1))>>4,(int)(y-(sizeY>>1)+speedY)>>4) ||
+		world->isBlockSolid((int)(x+(sizeX>>1))>>4,(int)(y-(sizeY>>1)+speedY)>>4) ||
+		world->isBlockSolid((int)(x-(sizeX>>1))>>4,(int)(y+(sizeY>>1)+speedY)>>4) ||
+		world->isBlockSolid((int)(x+(sizeX>>1))>>4,(int)(y+(sizeY>>1)+speedY)>>4))
 	{
 		this->speedY = 0;
 		speedY = 0;
@@ -222,10 +226,10 @@ bool Entity::CheckCollision(App &app, World *world, float speedX, float speedY)
 		r = true;
 	}
 
-	if (world->isBlockSolid((int)(x+1+speedX)>>4,(int)(y+1+speedY)>>4) ||
-		world->isBlockSolid((int)(x+14+speedX)>>4,(int)(y+1+speedY)>>4) ||
-		world->isBlockSolid((int)(x+1+speedX)>>4,(int)(y+14+speedY)>>4) ||
-		world->isBlockSolid((int)(x+14+speedX)>>4,(int)(y+14+speedY)>>4))
+	if (world->isBlockSolid((int)(x-(sizeX>>1)+speedX)>>4,(int)(y-(sizeY>>1)+speedY)>>4) ||
+		world->isBlockSolid((int)(x+(sizeX>>1)+speedX)>>4,(int)(y-(sizeY>>1)+speedY)>>4) ||
+		world->isBlockSolid((int)(x-(sizeX>>1)+speedX)>>4,(int)(y+(sizeY>>1)+speedY)>>4) ||
+		world->isBlockSolid((int)(x+(sizeX>>1)+speedX)>>4,(int)(y+(sizeY>>1)+speedY)>>4))
 	{
 		if (abs(this->speedX) > abs(this->speedY))
 		{
@@ -339,12 +343,19 @@ void Entity::Draw(App &app, GameUtility *gameUtility)
 	sf::Sprite *sprite = &(gameUtility->getTextureContainer().getTextures(spriteName)[spriteIndex]);
 	if (sprite != nullptr)
 	{
-		if(x + 16 >= (app.getView().getCenter().x - (app.getSize().x/2)) &&
-			x <= (app.getView().getCenter().x + (app.getSize().x/2))&&
-			y + 16 >= (app.getView().getCenter().y - (app.getSize().y/2)) &&
-			y <= (app.getView().getCenter().y + (app.getSize().y/2)))
+		if(	x + sizeX*0.5 >=
+				(app.getView().getCenter().x - (app.getSize().x/2)) &&
+
+			x - sizeX*0.5 <=
+				(app.getView().getCenter().x + (app.getSize().x/2))&&
+
+			y + sizeY*0.5 >=
+				(app.getView().getCenter().y - (app.getSize().y/2)) &&
+
+			y - sizeY*0.5 <= 
+				(app.getView().getCenter().y + (app.getSize().y/2)))
 		{
-			sprite->setPosition(sf::Vector2f(x, y));
+			sprite->setPosition(sf::Vector2f(x-(sizeX>>1), y-(sizeY>>1)));
 			sprite->setRotation(angle);
 			app.draw(*sprite);
 		}
