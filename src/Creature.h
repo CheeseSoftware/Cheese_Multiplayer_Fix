@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity.h"
+#include "Projectile.h"
 #include <SFML\Network.hpp>
 
 class TextureContainer;
@@ -22,6 +23,7 @@ public:
 	//virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
 #endif
 
-	virtual void Update(App &app, GameUtility *GameUtility);
+	virtual void Update(App &app, GameUtility *gameUtility);
 	void CreatureMove(float x, float y, float speedX, float speedY, float angle, float horizontal, float vertical);
+	virtual void OnProjectileHit(App &app, GameUtility *gameUtility, Projectile *projectile, float damage);
 };

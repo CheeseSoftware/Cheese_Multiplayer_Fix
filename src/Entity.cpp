@@ -43,8 +43,8 @@ void Entity::Update(App &app, GameUtility *GameUtility)
 	float yFriction = friction;
 
 	std::pair<Block*, unsigned short> blockAndMetadata = GameUtility->getCurrentWorld()->getBlockAndMetadata(
-		(long)x + ((long)sizeY>>1) >>4L,
-		(long)y + ((long)sizeY>>1) >>4L,
+		(long)x>>4L,
+		(long)y>>4L,
 		2);
 
 	if (blockAndMetadata.first != nullptr)
@@ -204,10 +204,10 @@ bool Entity::CheckCollision(App &app, World *world, float speedX, float speedY)
 	if (speedX == 0 && speedY == 0)
 		return false;
 
-	if (world->isBlockSolid((int)(x-(sizeX>>1)+speedX)>>4,(int)(y-(sizeY>>1))>>4) ||
-		world->isBlockSolid((int)(x+(sizeX>>1)+speedX)>>4,(int)(y-(sizeY>>1))>>4) ||
-		world->isBlockSolid((int)(x-(sizeX>>1)+speedX)>>4,(int)(y+(sizeY>>1))>>4) ||
-		world->isBlockSolid((int)(x+(sizeX>>1)+speedX)>>4,(int)(y+(sizeY>>1))>>4))
+	if (world->isBlockSolid((int)(x-(sizeX>>1)+speedX+0.5F)>>4,(int)(y-(sizeY>>1)+0.5F)>>4) ||
+		world->isBlockSolid((int)(x+(sizeX>>1)+speedX-0.5F)>>4,(int)(y-(sizeY>>1)+0.5F)>>4) ||
+		world->isBlockSolid((int)(x-(sizeX>>1)+speedX+0.5F)>>4,(int)(y+(sizeY>>1)-0.5F)>>4) ||
+		world->isBlockSolid((int)(x+(sizeX>>1)+speedX-0.5F)>>4,(int)(y+(sizeY>>1)-0.5F)>>4))
 	{
 		this->speedX = 0;
 		speedX = 0;
@@ -215,10 +215,10 @@ bool Entity::CheckCollision(App &app, World *world, float speedX, float speedY)
 		r = true;
 	}
 
-	if (world->isBlockSolid((int)(x-(sizeX>>1))>>4,(int)(y-(sizeY>>1)+speedY)>>4) ||
-		world->isBlockSolid((int)(x+(sizeX>>1))>>4,(int)(y-(sizeY>>1)+speedY)>>4) ||
-		world->isBlockSolid((int)(x-(sizeX>>1))>>4,(int)(y+(sizeY>>1)+speedY)>>4) ||
-		world->isBlockSolid((int)(x+(sizeX>>1))>>4,(int)(y+(sizeY>>1)+speedY)>>4))
+	if (world->isBlockSolid((int)(x-(sizeX>>1)+0.5F)>>4,(int)(y-(sizeY>>1)+speedY+0.5F)>>4) ||
+		world->isBlockSolid((int)(x+(sizeX>>1)-0.5F)>>4,(int)(y-(sizeY>>1)+speedY+0.5F)>>4) ||
+		world->isBlockSolid((int)(x-(sizeX>>1)+0.5F)>>4,(int)(y+(sizeY>>1)+speedY-0.5F)>>4) ||
+		world->isBlockSolid((int)(x+(sizeX>>1)-0.5F)>>4,(int)(y+(sizeY>>1)+speedY-0.5F)>>4))
 	{
 		this->speedY = 0;
 		speedY = 0;
@@ -226,10 +226,10 @@ bool Entity::CheckCollision(App &app, World *world, float speedX, float speedY)
 		r = true;
 	}
 
-	if (world->isBlockSolid((int)(x-(sizeX>>1)+speedX)>>4,(int)(y-(sizeY>>1)+speedY)>>4) ||
-		world->isBlockSolid((int)(x+(sizeX>>1)+speedX)>>4,(int)(y-(sizeY>>1)+speedY)>>4) ||
-		world->isBlockSolid((int)(x-(sizeX>>1)+speedX)>>4,(int)(y+(sizeY>>1)+speedY)>>4) ||
-		world->isBlockSolid((int)(x+(sizeX>>1)+speedX)>>4,(int)(y+(sizeY>>1)+speedY)>>4))
+	if (world->isBlockSolid((int)(x-(sizeX>>1)+speedX+0.5F)>>4,(int)(y-(sizeY>>1)+speedY+0.5F)>>4) ||
+		world->isBlockSolid((int)(x+(sizeX>>1)+speedX-0.5F)>>4,(int)(y-(sizeY>>1)+speedY+0.5F)>>4) ||
+		world->isBlockSolid((int)(x-(sizeX>>1)+speedX+0.5F)>>4,(int)(y+(sizeY>>1)+speedY-0.5F)>>4) ||
+		world->isBlockSolid((int)(x+(sizeX>>1)+speedX-0.5F)>>4,(int)(y+(sizeY>>1)+speedY-0.5F)>>4))
 	{
 		if (abs(this->speedX) > abs(this->speedY))
 		{

@@ -9,7 +9,7 @@
 #include "GameUtility.h"
 
 Player::Player(float X, float Y, short sizeX, short sizeY, bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name) 
-	: Creature(X, Y, sizeX, sizeY, 1536, 0.5, spriteName, spriteIndex, IsClientControlling)
+	: Creature(X, Y, sizeX, sizeY, 1024, 0.25, spriteName, spriteIndex, IsClientControlling)
 {
 	name = Name;
 	cameraDelay = 0;

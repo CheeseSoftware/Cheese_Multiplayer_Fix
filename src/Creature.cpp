@@ -47,3 +47,8 @@ void Creature::CreatureMove(float x, float y, float speedX, float speedY, float 
 	this->horizontal = horizontal;
 	this->vertical = vertical;
 }
+
+void Creature::OnProjectileHit(App &app, GameUtility *gameUtility, Projectile *projectile, float damage)
+{
+
+}

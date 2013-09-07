@@ -59,6 +59,14 @@ PlayState::~PlayState()
 
 void PlayState::EventUpdate(App &app, const sf::Event &event)
 {
+	if (event.type == sf::Event::Resized)
+		reinterpret_cast<sf::View*>(camera)->setSize(sf::Vector2f(//->setViewport(sf::FloatRect(0.f, 0.f,
+			app.getSize().x,
+            app.getSize().y));
+		//App.SetView(camera = sf::View(sf::FloatRect(0.f, 0.f,
+        //                static_cast<float>(App.GetWidth()),
+        //                static_cast<float>(App.GetHeight()))));
+
 	currentWorld->EventUpdate(app, event, this);
 	noobishBlockMenu->EventUpdate(app, event, this);
 }
@@ -126,7 +134,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 					//std::cout << "ERROR: Client could not extract data" << std::endl;
 					else
 					{
-						Player *player = new Player(xPos, yPos, 14, 14, false, "smileys.png", 0, "temp");
+						Player *player = new Player(xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
 						currentWorld->AddPlayer(ID, player);
 					}
 				}
@@ -178,7 +186,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				if(type == 0)
 				{
 					*packet >> xPos >> yPos >> clientID;
-					Player* temp = new Player(xPos, yPos, 14, 14, false, "smileys.png", 0, "temp");
+					Player* temp = new Player(xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
 					std::cout << "Added player -> clientid received " << clientID << " this clientid " << connection->client->ID << std::endl;
 
 					if(clientID == connection->client->ID)

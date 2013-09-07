@@ -56,9 +56,22 @@ void World::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtili
 
 void World::Draw(App &app, GameUtility *gameUtility)
 {
-	for (int x = 0; x < chunkMatrix.first.size(); x++)
+	int minX = (int)gameUtility->getCamera().getLeftX()-255>>8;
+	int minY = (int)gameUtility->getCamera().getTopY()-255>>8;
+	int maxX = INT_MAX;//(int)gameUtility->getCamera().getRightX()+511>>8;
+	int maxY;
+
+	minX = (minX < 0)? 0 : minX;
+	minY = (minY < 0)? 0 : minY;
+	maxX = (maxX < chunkMatrix.first.size())? maxX : chunkMatrix.first.size();
+
+	for (int x = minX; x < maxX; x++)
 	{
-		for (int y = 0; y < chunkMatrix.first[x].first.size(); y++)
+		maxY = INT_MAX;//(int)gameUtility->getCamera().getButtomY()+511>>8;
+		maxY = (maxY < chunkMatrix.first[x].first.size())?
+			maxY : chunkMatrix.first[x].first.size();
+
+		for (int y = minY; y < maxY; y++)
 		{
 			if (chunkMatrix.first[x].first[y] != nullptr)
 			{
