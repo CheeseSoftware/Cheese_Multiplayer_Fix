@@ -54,7 +54,7 @@ void World::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtili
 	}*/
 }
 
-void World::Draw(App &app, GameUtility *gameUtility)
+void World::Draw(App &app, GameUtility *gameUtility) // >.<
 {
 	int minX = (int)gameUtility->getCamera().getLeftX()-255>>8;
 	int minY = (int)gameUtility->getCamera().getTopY()-255>>8;
