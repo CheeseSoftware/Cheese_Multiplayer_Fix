@@ -23,7 +23,7 @@ public:
 
 	virtual void Collision(World *world);
 	std::string getTextureName();
-	char getTextureId();
+	short getTextureId();
 	/*virtual void Draw(App &app);
 	void Rotate(float degrees);
 	void setAngle(float angle);

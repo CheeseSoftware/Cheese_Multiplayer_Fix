@@ -9,6 +9,7 @@
 #include "BlockSolid.h"
 #include "BlockBackground.h"
 #include "App.h"
+#include "Packet.h"
 #include <SFML\Graphics.hpp>
 
 

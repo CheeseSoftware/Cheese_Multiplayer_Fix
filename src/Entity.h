@@ -60,14 +60,15 @@ public:
 	virtual bool CheckCollision(App &app, World *world, float speedX, float speedY);
 	virtual void Collision(World *world);
 	virtual std::string getTextureName()=0;
-	virtual char getTextureId()=0;
+	virtual short getTextureId()=0;
     void setPosition(float x, float y);
 	sf::Vector2f getPosition();
+	void setSize(float x, float y);
 	sf::Vector2f getSize();
     void setX(float x);
     void setY(float y);
     float getX();
     float getY();
-	float getAngle();
 	void setAngle(float angle);
+	float getAngle();
 };

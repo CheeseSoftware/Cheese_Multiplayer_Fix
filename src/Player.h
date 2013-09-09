@@ -45,5 +45,5 @@ public:
     void KeyUpdate(bool Right, bool Down, bool Left, bool Up, GameUtility* gameUtility);
 	void setCameraDelay(float delay);
 	virtual std::string getTextureName();
-	virtual char getTextureId();
+	virtual short getTextureId();
 };
