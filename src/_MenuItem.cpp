@@ -1,4 +1,4 @@
-#ifndef _SERVER
+/*#ifndef _SERVER
 #include <SFML/Graphics.hpp>
 #include "MenuItem.h"
 #include "GameState.h"
@@ -57,5 +57,5 @@ GameState *MenuItem::EventUpdate(App& app, const sf::Event& event, GameUtility* 
 
 	clicked = false;
 	return 0;
-}*/
-#endif // !_SERVER
+}
+#endif // !_SERVER*/

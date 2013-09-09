@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #ifndef _SERVER
 
 #ifndef MENUITEM_H_INCLUDED
@@ -33,4 +33,4 @@ public:
 };
 
 #endif // MENUITEM_H_INCLUDED
-#endif // !_SERVER
+#endif // !_SERVER*/

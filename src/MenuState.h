@@ -4,13 +4,13 @@
 #define MENUSTATE_H_INCLUDED
 
 #include <vector>
-#include "MenuItem.h"
+//#include "MenuItem.h"
 #include "GameState.h"
 
 class MenuState : public GameState
 {
 protected:
-    std::vector<MenuItem*> menuItems;
+    //std::vector<MenuItem*> menuItems;
 public:
 	MenuState();
 	~MenuState();

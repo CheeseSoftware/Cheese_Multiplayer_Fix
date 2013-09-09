@@ -16,14 +16,8 @@
     <Filter Include="Source Files\GameState">
       <UniqueIdentifier>{8d961622-9744-4b8d-88e2-2e15c5b8f18c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\MenuItem">
-      <UniqueIdentifier>{d67e6eff-4c36-46d4-9172-79e4f64a853b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\GameState">
       <UniqueIdentifier>{8e08149d-26ad-409e-a997-116c3f9b76cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\MenuItem">
-      <UniqueIdentifier>{dd9bcfa3-0c6d-4383-acd0-d0b5b944d868}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Block">
       <UniqueIdentifier>{8beaf456-f2b3-4503-8e4b-9dd746bd2619}</UniqueIdentifier>
@@ -85,16 +79,16 @@
     <Filter Include="Source Files\Block\Unique">
       <UniqueIdentifier>{36d31630-fb15-44cc-bb79-ab8a5cf623a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{dd9bcfa3-0c6d-4383-acd0-d0b5b944d868}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{d67e6eff-4c36-46d4-9172-79e4f64a853b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuItem.cpp">
-      <Filter>Source Files\MenuItem</Filter>
-    </ClCompile>
-    <ClCompile Include="Label.cpp">
-      <Filter>Source Files\MenuItem</Filter>
     </ClCompile>
     <ClCompile Include="PlayState.cpp">
       <Filter>Source Files\GameState</Filter>
@@ -131,9 +125,6 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InGameUI.cpp">
-      <Filter>Source Files\MenuItem</Filter>
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
       <Filter>Source Files\Entity</Filter>
@@ -183,9 +174,6 @@
     <ClCompile Include="BlockChest.cpp">
       <Filter>Source Files\Block\Unique</Filter>
     </ClCompile>
-    <ClCompile Include="ITextItem.cpp">
-      <Filter>Source Files\MenuItem</Filter>
-    </ClCompile>
     <ClCompile Include="BackgroundBlock.cpp">
       <Filter>Source Files\Block\Background</Filter>
     </ClCompile>
@@ -201,14 +189,35 @@
     <ClCompile Include="GameUtility.cpp">
       <Filter>Source Files\GameState</Filter>
     </ClCompile>
+    <ClCompile Include="NormalItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionItem.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="_InGameUI.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_ITextItem.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="_MenuItem.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TextInputItem.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Selectable.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MenuItem.h">
-      <Filter>Header Files\MenuItem</Filter>
-    </ClInclude>
-    <ClInclude Include="Label.h">
-      <Filter>Header Files\MenuItem</Filter>
-    </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>Header Files\Entity\Creature</Filter>
     </ClInclude>
@@ -244,9 +253,6 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InGameUI.h">
-      <Filter>Header Files\MenuItem</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Header Files\Entity</Filter>
@@ -308,12 +314,6 @@
     <ClInclude Include="IEntityHealth.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="ITextItem.h">
-      <Filter>Header Files\MenuItem</Filter>
-    </ClInclude>
-    <ClInclude Include="IInputItem.h">
-      <Filter>Header Files\MenuItem</Filter>
-    </ClInclude>
     <ClInclude Include="BackgroundBlock.h">
       <Filter>Header Files\Block\Background</Filter>
     </ClInclude>
@@ -331,6 +331,42 @@
     </ClInclude>
     <ClInclude Include="HitProjectile.h">
       <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="TextInputItem.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TextItem.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionItem.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMenuItem.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="_MenuItem.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_ITextItem.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_IInputItem.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="_InGameUI.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Selectable.h">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
