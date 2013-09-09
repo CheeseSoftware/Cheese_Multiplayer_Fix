@@ -53,7 +53,7 @@ void Projectile::Collision(World *world)
 }
 
 std::string Projectile::getTextureName() { return "arrow.png"; }
-char Projectile::getTextureId() { return 0; }
+short Projectile::getTextureId() { return 0; }
 
 /*void Projectile::Draw(App &app)
 {

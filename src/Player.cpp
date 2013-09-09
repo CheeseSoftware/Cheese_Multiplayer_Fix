@@ -274,7 +274,7 @@ std::string Player::getTextureName()
 	return "smileys.png";
 }
 
-char Player::getTextureId()
+short Player::getTextureId()
 {
 	return 0;
 }

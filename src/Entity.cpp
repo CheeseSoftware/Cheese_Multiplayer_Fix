@@ -344,16 +344,16 @@ void Entity::Draw(App &app, GameUtility *gameUtility)
 	if (sprite != nullptr)
 	{
 		if(	x + sizeX*0.5 >=
-				(app.getView().getCenter().x - (app.getSize().x/2)) &&
+			(app.getView().getCenter().x - (app.getSize().x/2)) &&
 
 			x - sizeX*0.5 <=
-				(app.getView().getCenter().x + (app.getSize().x/2))&&
+			(app.getView().getCenter().x + (app.getSize().x/2))&&
 
 			y + sizeY*0.5 >=
-				(app.getView().getCenter().y - (app.getSize().y/2)) &&
+			(app.getView().getCenter().y - (app.getSize().y/2)) &&
 
 			y - sizeY*0.5 <= 
-				(app.getView().getCenter().y + (app.getSize().y/2)))
+			(app.getView().getCenter().y + (app.getSize().y/2)))
 		{
 			sprite->setPosition(sf::Vector2f(x-(sizeX>>1), y-(sizeY>>1)));
 			sprite->setRotation(angle);
@@ -367,17 +367,16 @@ void Entity::Draw(App &app, GameUtility *gameUtility)
 }
 #endif
 
-void Entity::setPosition(float X, float Y)
-{
-	x = X;
-	y = Y;
-}
-
+void Entity::setPosition(float X, float Y) { x = X; y = Y; }
 sf::Vector2f Entity::getPosition() { return(sf::Vector2f(x, y)); }
+
 void Entity::setX(float X) { x = X; }
 void Entity::setY(float Y) { y = Y; }
 float Entity::getX() { return x; }
 float Entity::getY() { return y; }
+
+void Entity::setSize(float x, float y) { sizeX = x; sizeY = y; }
 sf::Vector2f Entity::getSize() { return sf::Vector2f(sizeX, sizeY); }
+
 void Entity::setAngle(float angle) {this->angle = angle; }
 float Entity::getAngle() { return angle;  }
