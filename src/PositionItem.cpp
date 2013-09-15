@@ -68,6 +68,6 @@ namespace gui
 
 		clicked = false;
 		return 0;
-	}*/
-/*}
+	}*//*
+}
 #endif // !_SERVER*/

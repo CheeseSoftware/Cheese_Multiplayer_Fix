@@ -1,8 +1,11 @@
-/*#pragma once
+#pragma once
 
 #include "App.h"
-#include "GameUtility.h"
-#include "GameState.h"
+//#include "GameUtility.h"
+//#include "GameState.h"
+
+class GameState;
+class GameUtility;
 
 namespace gui
 {
@@ -17,4 +20,4 @@ namespace gui
 		virtual void OnRightClick(App &app,GameUtility *GameUtility)=0;
 		virtual void Draw(App &app, int x, int y)=0;
 	};
-}*/
+}

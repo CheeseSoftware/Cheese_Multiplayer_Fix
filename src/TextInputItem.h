@@ -2,7 +2,7 @@
 
 namespace gui
 {
-	class InputItem : public virtual TextItem
+	class TextInputItem : public virtual TextItem
 	{
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility);
 	};

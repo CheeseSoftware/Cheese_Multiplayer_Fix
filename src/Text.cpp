@@ -6,7 +6,7 @@
 
 namespace gui
 {
-	Text::Text(std::string text) : TextItem(text)
+	Text::Text(sf::Text text) : TextItem(text)
 	{
 
 	}

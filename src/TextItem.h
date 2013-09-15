@@ -1,4 +1,6 @@
-/*ifndef _SERVER
+/*#pragma once
+#ifndef _SERVER
+
 #include "IMenuItem.h"
 
 namespace sf { class Text; }

@@ -6,6 +6,10 @@ namespace gui
 	{
 	protected:
 		bool selected;
+		bool down;
+		bool clicked;
+
+		std::function<GameState*(App&)> clickEvent;
 	public:
 		virtual bool getSelected();
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility);
