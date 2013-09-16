@@ -10,7 +10,7 @@
 #include <math.h>
 #include "World.h"
 #include "Camera.h"
-#include "InGameUI.h"
+//#include "InGameUI.h"
 #include "Player.h"
 #include "BlockSolid.h"
 #include "BlockBackground.h"

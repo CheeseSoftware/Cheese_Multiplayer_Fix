@@ -1,7 +1,8 @@
 #pragma once
+#ifdef MENUIDIOTI
 #ifndef _SERVER
 
-/*#include <functional>
+#include <functional>
 #include "App.h"
 #include "IMenuItem.h"
 #include "Selectable.h"
@@ -19,7 +20,6 @@ namespace gui
 		int width;
 		int height;
 
-
 		PositionItem();
 	public:
 		PositionItem(int x, int y, int width, int height);
@@ -28,7 +28,8 @@ namespace gui
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility);
 		//virtual void OnClick(App&, const sf::Event&, GameUtility*);
 		//virtual GameState *Update(App &app);
-		virtual void OnLeftClick(
+		virtual void OnLeftClick(App &app,GameUtility *gameUtility, const sf::Event &event);
+		virtual void OnRightClick(App &app, GameUtility *gameUtility, const sf::Event &event);
 
 		virtual void Draw(App &app);
 		virtual void Draw(App &app, int x, int y)=0;
@@ -36,3 +37,4 @@ namespace gui
 }
 
 #endif // !_SERVER*/*/
+#endif

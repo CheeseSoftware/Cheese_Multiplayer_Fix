@@ -1,4 +1,5 @@
-/*#ifndef _SERVER
+#ifdef MENUIDIOTI
+#ifndef _SERVER
 #include <SFML/Graphics.hpp>
 #include "PositionItem.h"
 #include "GameState.h"
@@ -38,14 +39,19 @@ namespace gui
 			if (event.key.code == sf::Mouse::Left && selected)
 			{
 				down = true;
+				selected = true;
 			}
 		}
 		else if (event.type == sf::Event::MouseButtonReleased)
 		{
 			if (event.key.code == sf::Mouse::Left)
 			{
-				clicked |= down;
-				down = false;
+				if (down)
+				{
+					clicked = true;
+					OnLeftClick(app, gameUtility, event);
+					down = false;
+				}
 			}
 		}
 
@@ -53,6 +59,11 @@ namespace gui
 	}
 
 	void PositionItem::OnLeftClick(App &app, GameUtility *gameUtility)
+	{
+		selected = true;
+	}
+
+	virtual void OnRightClick(App &app, GameUtility *gameUtility)
 	{
 		selected = true;
 	}
@@ -68,6 +79,7 @@ namespace gui
 
 		clicked = false;
 		return 0;
-	}*//*
+	}*/
 }
-#endif // !_SERVER*/
+#endif // !_SERVER
+#endif

@@ -1,4 +1,8 @@
-/*#include "IMenuItem.h"
+#pragma once
+#ifdef MENUIDIOTI
+#include <functional>
+#include "IMenuItem.h"
+
 
 namespace gui
 {
@@ -9,11 +13,15 @@ namespace gui
 		bool down;
 		bool clicked;
 
-		std::function<GameState*(App&)> clickEvent;
+		std::function<GameState*(App&)> onClickEvent;
+
+		Selectable(std::function<GameState*(App&)> onClickEvent)
 	public:
 		virtual bool getSelected();
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility);
-		virtual void OnLeftClick(App &app,GameUtility *gameUtility);
+		virtual void OnLeftClick(App &app,GameUtility *gameUtility, const sf::Event &event);
+		virtual void OnRightClick(App &app, GameUtility *gameUtility, const sf::Event &event);
 		void Unselect();
 	};
-}*/
+}
+#endif

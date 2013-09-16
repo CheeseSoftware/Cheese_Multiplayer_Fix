@@ -1,4 +1,5 @@
-/*#include "Selectable.h"
+#ifdef MENUIDIOTI
+#include "Selectable.h"
 
 namespace gui
 {
@@ -15,7 +16,7 @@ namespace gui
 			{
 				Unselect();
 			}
-		}*//*
+		}*/
 
 		return nullptr;
 	}
@@ -23,10 +24,12 @@ namespace gui
 	void Selectable::OnLeftClick(App &app, GameUtility *gameUtility)
 	{
 		selected = true;
+		callback
 	}
 
 	void Selectable::Unselect()
 	{
 		selected = false;
 	}
-}*/
+}
+#endif
