@@ -1,4 +1,5 @@
-/*#pragma once
+#ifdef MENUIDIOTI
+#pragma once
 #ifndef _SERVER
 
 #include <SFML/Graphics.hpp>
@@ -21,4 +22,5 @@ namespace gui
 	};
 }
 
-#endif*/
+#endif
+#endif

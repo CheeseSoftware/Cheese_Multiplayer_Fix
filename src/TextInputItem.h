@@ -1,4 +1,5 @@
-/*#include "TextItem.h"
+#ifdef MENUIDIOTI
+#include "TextItem.h"
 
 namespace gui
 {
@@ -6,4 +7,5 @@ namespace gui
 	{
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility);
 	};
-}*/
+}
+#endif

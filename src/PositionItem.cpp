@@ -14,10 +14,10 @@ namespace gui
 
 	PositionItem::PositionItem(int x, int y, int width, int height, std::function<GameState*(App&)> &clickEvent)
 	{
-		this->x = x; this->y = y;
+		this->x = x;
+		this->y = y;
 		this->width = width;
 		this->height = height;
-		this->clickEvent = clickEvent;
 		selected = false;
 		down = false;
 		clicked = false;

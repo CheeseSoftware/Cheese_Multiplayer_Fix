@@ -1,4 +1,5 @@
-/*#pragma once
+#ifdef MENUIDIOTI
+#pragma once
 #ifndef _SERVER
 
 #include "IMenuItem.h"
@@ -15,4 +16,5 @@ namespace gui
 		virtual void Draw(App &app, int x, int y);
 	};
 }
-#endif*/
+#endif
+#endif

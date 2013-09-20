@@ -3,6 +3,11 @@
 
 namespace gui
 {
+	Selectable::Selectable(std::function<GameState*(App&)> onClickEvent)
+	{
+		this->onClickEvent = onClickEvent;
+	}
+
 	bool Selectable::getSelected()
 	{
 		return selected;
@@ -21,10 +26,15 @@ namespace gui
 		return nullptr;
 	}
 
-	void Selectable::OnLeftClick(App &app, GameUtility *gameUtility)
+	void Selectable::OnLeftClick(App &app, GameUtility *gameUtility, const sf::Event &event)
 	{
 		selected = true;
-		callback
+		onClickEvent(app, gameUtility, event);
+	}
+
+	void Selectable::OnRightClick(App &app, GameUtility *gameUtility, const sf::Event &event)
+	{
+		selected = true;
 	}
 
 	void Selectable::Unselect()

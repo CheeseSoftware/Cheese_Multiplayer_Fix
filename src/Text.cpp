@@ -1,4 +1,5 @@
-/*#ifndef _SERVER
+#ifdef MENUIDIOTI
+#ifndef _SERVER
 #include <SFML\Graphics.hpp>
 #include "IMenuItem.h"
 #include "Text.h"
@@ -27,4 +28,5 @@ namespace gui
 
 	}
 }
-#endif*/
+#endif
+#endif

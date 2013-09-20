@@ -1,4 +1,5 @@
-/*#include "TextInputItem.h"
+#ifdef MENUIDIOTI
+#include "TextInputItem.h"
 #include "PositionItem.h"
 
 namespace gui
@@ -7,9 +8,10 @@ namespace gui
 	{
 		if (event.type == sf::Event::TextEntered)
 		{
-			text.setString(text.getString() + event.text.);
+			text.setString(text.getString() + event.text.unicode);
 		}
 
-		return PositionItem::EventUpdate(app, event, gameUtility);
+		return TextItem::EventUpdate(app, event, gameUtility);
 	}
-}*/
+}
+#endif

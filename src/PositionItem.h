@@ -12,7 +12,7 @@ class GameState;
 
 namespace gui
 {
-	class PositionItem : public virtual IMenuItem, public virtual Selectable
+	class PositionItem : public virtual Selectable
 	{
 	protected:
 		int x;
