@@ -192,8 +192,8 @@ void Entity::Update(App &app, GameUtility *GameUtility)
 		//std::cout << x << " " << y << std::endl;
 		//< D:
 
-		speedX *= 1 - tan(xFriction*M_PI/2) * app.getDeltaTime();
-		speedY *= 1 - tan(yFriction*M_PI/2) * app.getDeltaTime();
+		speedX *= 1 - pow(xFriction, app.getDeltaTime()/1000);//tan(xFriction*M_PI/2) * app.getDeltaTime();
+		speedY *= 1 - pow(yFriction, app.getDeltaTime()/1000);//tan(yFriction*M_PI/2) * app.getDeltaTime();
 	}
 }
 
