@@ -9,20 +9,26 @@
 
 #define APP(a) (*reinterpret_cast<App*>(&a))
 
-class App
-#ifndef _SERVER
-	: public sf::RenderWindow
+#ifdef _SERVER
+#define SERVER(...) __VA_ARGS__
+#define CLIENT(VOID)
+#else
+#define SERVER(VOID)
+#define CLIENT(...) __VA_ARGS__
 #endif
+
+class App
+CLIENT(: public sf::RenderWindow)
 {
 	sf::Clock frameTimer;
 	float frameTime;
-#ifdef _SERVER
-	float sleptTime;
-#endif
+SERVER(
+	float sleptTime;)
+
 public:
-#ifndef _SERVER
-	App(sf::VideoMode);
-#endif
+CLIENT(
+	App(sf::VideoMode);)
+
 	float getFrameTime();
 	float getDeltaTime();
 

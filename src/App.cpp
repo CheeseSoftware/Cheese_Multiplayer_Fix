@@ -3,12 +3,11 @@
 
 #define MIN_FRAME_TIME 0.00390625F
 
-#ifndef _SERVER
+CLIENT(
 App::App(sf::VideoMode videoMode) : sf::RenderWindow(videoMode, "Cheese Multiplayer - Alpha")//tgui::Window(videoMode, "Cheese Multiplayer - Alpha")
 {
 	//globalFont.loadFromFile("TGUI/Fonts/DejaVuSans.ttf");
-}
-#endif
+})
 
 float App::getFrameTime()
 {
@@ -31,7 +30,7 @@ void App::Update()
 {
 	frameTime = frameTimer.getElapsedTime().asSeconds();
 
-#ifdef _SERVER
+SERVER(
 	if (frameTime < MIN_FRAME_TIME)
 	{
 		sleptTime = MIN_FRAME_TIME-frameTime;
@@ -40,8 +39,7 @@ void App::Update()
 	else
 	{
 		sleptTime = 0;
-	}
-#endif
+	})
 
 	frameTimer.restart();
 }
