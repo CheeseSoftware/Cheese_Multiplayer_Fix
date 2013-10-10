@@ -1,8 +1,9 @@
+#include <tuple>
+
 #include "Player.h"
 #include "World.h"
 #include "Camera.h"
 #include "Projectile.h"
-#include <tuple>
 #include "MessageType.h"
 #include "App.h"
 #include "Block.h"

@@ -43,7 +43,7 @@ bool Block::isUnique()
 	return false;
 }
 
-void Block::OnCreate(unsigned short metadata, EventHandler &eventHandler)
+void Block::OnCreate(unsigned short metadata, EventHandler<GameUtility*> &eventHandler)
 {
 
 }

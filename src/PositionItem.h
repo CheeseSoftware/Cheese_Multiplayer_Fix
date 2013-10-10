@@ -20,9 +20,8 @@ namespace gui
 		int width;
 		int height;
 
-		PositionItem();
 	public:
-		PositionItem(int x, int y, int width, int height);
+		PositionItem(int x, int y, int width, int height, std::function<GameState*(App&)> &clickEvent);
 		~PositionItem();
 
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility);

@@ -8,7 +8,7 @@ class TextureContainer;
 class World;
 class Entity;
 class Creature;
-class EventHandler;
+template<class T> class EventHandler;
 class GameUtility;
 
 class Block
@@ -24,7 +24,7 @@ public:
 	virtual bool isSeeThrough();
 	virtual bool isSolid()=0;
 	virtual bool isUnique();
-	virtual void OnCreate(unsigned short metadata, EventHandler &eventHandler);
+	virtual void OnCreate(unsigned short metadata, EventHandler<GameUtility*> &eventHandler);
 	virtual void OnRemove();
 	virtual void OnRightClick(Creature *creature, unsigned short metadata);
 	virtual void OnEntityTouch(Entity *entity, unsigned short metadata);

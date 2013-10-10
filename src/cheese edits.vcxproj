@@ -121,7 +121,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;SFML_STATIC;MENUIDIOTI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -169,7 +169,8 @@
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityRegister.cpp" />
-    <ClCompile Include="EventHandler.cpp" />
+    <ClCompile Include="Eventhandler.cpp" />
+    <ClCompile Include="EventHandler_.cpp" />
     <ClCompile Include="BackgroundBlock.cpp" />
     <ClCompile Include="GravityBlock.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -177,16 +178,13 @@
     <ClCompile Include="PositionItem.cpp" />
     <ClCompile Include="Selectable.cpp" />
     <ClCompile Include="SolidBlock.cpp" />
-    <ClCompile Include="_ITextItem.cpp" />
     <ClCompile Include="TextInputItem.cpp" />
     <ClCompile Include="UniqueBlock.cpp" />
-    <ClCompile Include="_InGameUI.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="_MenuItem.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="NoobishBlockMenu.cpp" />
@@ -216,28 +214,25 @@
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityRegister.h" />
-    <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="Eventhandler.h" />
+    <ClInclude Include="EventHandler_.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="HitProjectile.h" />
     <ClInclude Include="IEntityHealth.h" />
     <ClInclude Include="GravityBlock.h" />
     <ClInclude Include="Selectable.h" />
-    <ClInclude Include="_IInputItem.h" />
     <ClInclude Include="IMenuItem.h" />
     <ClInclude Include="Item.h" />
-    <ClInclude Include="_ITextItem.h" />
     <ClInclude Include="NormalItem.h" />
     <ClInclude Include="PositionItem.h" />
     <ClInclude Include="TextInputItem.h" />
     <ClInclude Include="TextItem.h" />
     <ClInclude Include="UniqueBlock.h" />
-    <ClInclude Include="_InGameUI.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="SolidBlock.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Menu.h" />
-    <ClInclude Include="_MenuItem.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="MessageType.h" />
     <ClInclude Include="Monster.h" />

@@ -3,7 +3,7 @@
 
 namespace gui
 {
-	Selectable::Selectable(std::function<GameState*(App&)> onClickEvent)
+	Selectable::Selectable(std::function<GameState*(App&, GameUtility *gameUtility, const sf::Event)> onClickEvent)
 	{
 		this->onClickEvent = onClickEvent;
 	}

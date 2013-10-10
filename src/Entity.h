@@ -19,7 +19,7 @@ enum MessageType;
 class TextureContainer;
 class World;
 class Camera;
-class EventHandler;
+template<class T> class EventHandler;
 class GameUtility;
 
 class Entity

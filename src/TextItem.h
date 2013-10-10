@@ -10,8 +10,9 @@ namespace gui
 {
 	class TextItem : public virtual IMenuItem
 	{
-	public:
+	protected:
 		sf::Text text;
+	public:
 		TextItem(sf::Text text);
 		virtual void Draw(App &app, int x, int y);
 	};

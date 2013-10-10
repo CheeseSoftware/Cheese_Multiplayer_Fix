@@ -13,7 +13,7 @@
 class World;
 class InGameUI;
 class Camera;
-class EventHandler;
+template<class T> class EventHandler;
 class NoobishBlockMenu;
 class TextureContainer;
 class Connection;
@@ -25,7 +25,7 @@ class PlayState : public GameState, public GameUtility
 	//Camera *camera;
 	NoobishBlockMenu *noobishBlockMenu;//InGameUI *blockMenu;
 	Connection *connection;
-	EventHandler eventHandler;
+	EventHandler<GameUtility*> eventHandler;
     sf::Clock fpsClock;
 	//BlockRegister *blockRegister; // surkod
 	//World *currentWorld;

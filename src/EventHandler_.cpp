@@ -1,9 +1,8 @@
-#ifdef f_SERVER
+#ifdef _SERVERdsr
 #include "EventHandler.h"
 #include "App.h"
 #include "World.h"
 
-template<class T>
 void EventHandler::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility)
 {
 	for (auto it : callbackList)
@@ -12,14 +11,11 @@ void EventHandler::EventUpdate(App &app, const sf::Event &event, GameUtility* ga
 	}
 }
 
-
-template<class T>
 void EventHandler::AddEventCallback(void* source, std::function<void(App&, const sf::Event&, GameUtility*)> callback)
 {
 	callbackList.emplace(source, callback);
 }
 
-template<class T>
 void EventHandler::RemoveEventCallback(void* source)
 {
 	auto it = callbackList.find(source);

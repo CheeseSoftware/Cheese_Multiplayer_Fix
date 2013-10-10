@@ -378,9 +378,9 @@ void World::Expand(long x, long y, Chunk* chunk)
 int World::AddEntity(Entity *entity)
 {
 	entityList.push_back(entity);
-#ifndef _SERVER
+CLIENT(
 	eventHandler.AddEventCallback(entity,[entity] (App& a, const sf::Event& e, GameUtility* gUtil) { entity->EventUpdate(a, e, gUtil); });
-#endif
+)
 	return 0;
 }
 
@@ -395,9 +395,9 @@ int World::AddPlayer(int id, Player *player)
 	if(it == playerList.end())
 	{
 		playerList.insert(std::pair<short, Player*>(id, player));
-#ifndef _SERVER
+SERVER(
 		eventHandler.AddEventCallback(player,[player] (App& a, const sf::Event& e, GameUtility* gUtil) { player->EventUpdate(a, e, gUtil); });
-#endif
+)
 	}
 	else
 		std::cout << "Attempt to add player that already exists! " << id << std::endl;
@@ -410,9 +410,9 @@ void World::RemovePlayer(int id)
 	auto it = playerList.find(id);
 	if(it != playerList.end())
 	{
-#ifndef _SERVER
+CLIENT(
 		eventHandler.RemoveEventCallback(playerList[id]);
-#endif
+)
 		delete(it->second);
 		playerList.erase(id);
 	}

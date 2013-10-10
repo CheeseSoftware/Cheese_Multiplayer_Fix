@@ -150,9 +150,6 @@
     <ClCompile Include="NoobishBlockMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EventHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SoundHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -195,17 +192,8 @@
     <ClCompile Include="PositionItem.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="_InGameUI.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_ITextItem.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="_MenuItem.cpp">
-      <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="Text.cpp">
       <Filter>Source Files\GUI</Filter>
@@ -215,6 +203,12 @@
     </ClCompile>
     <ClCompile Include="Selectable.cpp">
       <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EventHandler_.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Eventhandler.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -284,9 +278,6 @@
     <ClInclude Include="NoobishBlockMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EventHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SoundHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -344,29 +335,23 @@
     <ClInclude Include="IMenuItem.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="_MenuItem.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="NormalItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="_ITextItem.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_IInputItem.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="_InGameUI.h">
-      <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Selectable.h">
       <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="EventHandler_.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Eventhandler.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

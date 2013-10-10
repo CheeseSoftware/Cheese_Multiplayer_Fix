@@ -6,7 +6,7 @@
 
 class TextureContainer;
 class Entity;
-class EventHandler;
+template<class T> class EventHandler;
 
 class EntityRegister
 {
