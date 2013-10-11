@@ -18,7 +18,7 @@ namespace gui
 
 	}
 
-	GameState *Text::EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility)
+	GameState *Text::EventUpdate(App& app, const sf::Event& event, GameState* gameState)
 	{
 		return nullptr;
 	}

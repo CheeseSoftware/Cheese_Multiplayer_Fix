@@ -19,7 +19,7 @@ class TextureContainer;
 class Connection;
 class BlockRegister;
 
-class PlayState : public GameState, public GameUtility
+class PlayState : public GameUtility
 {
 	//TextureContainer *tC;
 	//Camera *camera;

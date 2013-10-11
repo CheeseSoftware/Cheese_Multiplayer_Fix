@@ -3,7 +3,7 @@
 
 namespace gui
 {
-	Selectable::Selectable(std::function<GameState*(App&, GameUtility *gameUtility, const sf::Event)> onClickEvent)
+	Selectable::Selectable(std::function<GameState*(App&, GameState *gameState, const sf::Event)> onClickEvent)
 	{
 		this->onClickEvent = onClickEvent;
 	}
@@ -13,7 +13,7 @@ namespace gui
 		return selected;
 	}
 
-	GameState *Selectable::EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility)
+	GameState *Selectable::EventUpdate(App& app, const sf::Event& event, GameState* gameState)
 	{
 		/*if (event.type == sf::Event::MouseButtonPressed)
 		{
@@ -26,10 +26,10 @@ namespace gui
 		return nullptr;
 	}
 
-	void Selectable::OnLeftClick(App &app, GameUtility *gameUtility, const sf::Event &event)
+	void Selectable::OnLeftClick(App &app, GameState *gameState, const sf::Event &event)
 	{
 		selected = true;
-		onClickEvent(app, gameUtility, event);
+		onClickEvent(app, gameState, event);
 	}
 
 	void Selectable::OnRightClick(App &app, GameUtility *gameUtility, const sf::Event &event)

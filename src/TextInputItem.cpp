@@ -4,14 +4,14 @@
 
 namespace gui
 {
-	GameState *TextInputItem::EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility)
+	GameState *TextInputItem::EventUpdate(App& app, const sf::Event& event, GameState* gameState)
 	{
 		if (event.type == sf::Event::TextEntered)
 		{
 			text.setString(text.getString() + event.text.unicode);
 		}
 
-		return TextItem::EventUpdate(app, event, gameUtility);
+		return TextItem::EventUpdate(app, event, gameState);
 	}
 }
 #endif

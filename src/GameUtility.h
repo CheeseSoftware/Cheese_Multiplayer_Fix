@@ -1,16 +1,17 @@
 #pragma once
 #include "App.h"
 #include "BlockRegister.h"
-#include "World.h"
-#include "TextureContainer.h"
 #include "Camera.h"
+#include "GameState.h"
+#include "TextureContainer.h"
+#include "World.h"
 
 class World;
 class Camera;
 class TextureContainer;
 class BlockRegister;
 
-class GameUtility
+class GameUtility : public virtual GameState
 {
 protected:
 #ifndef _SERVER

@@ -29,7 +29,7 @@ namespace gui
 
 	}
 
-	GameState *PositionItem::EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility)
+	GameState *PositionItem::EventUpdate(App& app, const sf::Event& event, GameState* gameState)
 	{
 		if (event.type == sf::Event::MouseMoved)
 		{
@@ -50,7 +50,7 @@ namespace gui
 				if (down)
 				{
 					clicked = true;
-					OnLeftClick(app, gameUtility, event);
+					OnLeftClick(app, gameState, event);
 					down = false;
 				}
 			}
@@ -59,12 +59,12 @@ namespace gui
 		return nullptr;
 	}
 
-	void PositionItem::OnLeftClick(App &app,GameUtility *gameUtility, const sf::Event &event)
+	void PositionItem::OnLeftClick(App &app, GameState *gameState, const sf::Event &event)
 	{
 		selected = true;
 	}
 
-	void PositionItem::OnRightClick(App &app, GameUtility *gameUtility, const sf::Event &event)
+	void PositionItem::OnRightClick(App &app, GameState *gameState, const sf::Event &event)
 	{
 		selected = true;
 	}

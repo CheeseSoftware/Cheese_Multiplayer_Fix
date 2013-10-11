@@ -9,20 +9,19 @@
 
 #include "App.h"
 
-//class App;
 class World;
 class GameUtility;
 
-template<class T> //auto(App&, const sf::Event&, GameUtility*)
+template<class T>
 class EventHandler
 {
-	std::map<void*,std::function<void(App&, const sf::Event&, T)>> callbackList;
+	std::map<void*,std::function<void(App&, const sf::Event&, T)>> callbackList; 
 public:
-	void EventUpdate(App&, const sf::Event&, T t)
+	void EventUpdate(App& app, const sf::Event& event, T t)
 	{
 		for (auto it : callbackList)
 		{
-			it.second(app, event, gameUtility);
+			it.second(app, event, t);
 		}
 	}
 	void AddEventCallback(void *source, std::function<void(App&, const sf::Event&, T)> callback)

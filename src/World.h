@@ -18,7 +18,7 @@ class Chunk;
 class TextureContainer;
 class Camera;
 template<class T> class EventHandler;
-class GameUtility;
+class GameState;
 
 enum MessageType;
 
@@ -44,7 +44,7 @@ private:
 	//std::map<std::pair<short,short>,Block*> BlockMap;
 	std::pair<std::tuple<long, long, unsigned short>, std::pair<Block*, unsigned short>*> lastBlock;
 #ifndef _SERVER
-	EventHandler<GameUtility*> eventHandler;
+	EventHandler<GameState*> eventHandler;
 #endif
 public:
 	World();

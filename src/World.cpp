@@ -40,7 +40,7 @@ World::World()
 }
 
 #ifndef _SERVER
-void World::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility)
+void World::EventUpdate(App &app, const sf::Event &event, GameUtility *gameUtility)
 {
 	eventHandler.EventUpdate(app, event, gameUtility);
 	/*for (Entity *entity : entityList)
