@@ -32,7 +32,7 @@ namespace gui
 		onClickEvent(app, gameState, event);
 	}
 
-	void Selectable::OnRightClick(App &app, GameUtility *gameUtility, const sf::Event &event)
+	void Selectable::OnRightClick(App &app, GameState *gameState, const sf::Event &event)
 	{
 		selected = true;
 	}

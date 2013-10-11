@@ -379,7 +379,7 @@ int World::AddEntity(Entity *entity)
 {
 	entityList.push_back(entity);
 CLIENT(
-	eventHandler.AddEventCallback(entity,[entity] (App& a, const sf::Event& e, GameUtility* gUtil) { entity->EventUpdate(a, e, gUtil); });
+	eventHandler.AddEventCallback(entity,[entity] (App& a, const sf::Event& e, GameState* gUtil) { entity->EventUpdate(a, e, reinterpret_cast<GameUtility*>(gUtil)); });
 )
 	return 0;
 }

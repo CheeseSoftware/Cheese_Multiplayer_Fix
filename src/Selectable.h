@@ -19,8 +19,8 @@ namespace gui
 	public:
 		virtual bool getSelected();
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameState* gameState);
-		virtual void OnLeftClick(App &app,GameUtility *gameUtility, const sf::Event &event);
-		virtual void OnRightClick(App &app, GameUtility *gameUtility, const sf::Event &event);
+		virtual void OnLeftClick(App &app, GameState *gameState, const sf::Event &event);
+		virtual void OnRightClick(App &app, GameState *gameState, const sf::Event &event);
 		void Unselect();
 	};
 }
