@@ -21,14 +21,14 @@ namespace gui
 		int height;
 
 	public:
-		PositionItem(int x, int y, int width, int height, std::function<GameState*(App&)> &clickEvent);
+		PositionItem(int x, int y, int width, int height, std::function<GameState*(App&, const sf::Event&, GameState *gameState)> &clickEvent);
 		~PositionItem();
 
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameState* gameState);
 		//virtual void OnClick(App&, const sf::Event&, GameUtility*);
 		//virtual GameState *Update(App &app);
-		virtual void OnLeftClick(App &app, GameState *gameState, const sf::Event &event);
-		virtual void OnRightClick(App &app, GameState *gameState, const sf::Event &event);
+		virtual void OnLeftClick(App &app, const sf::Event &event, GameState *gameState);
+		virtual void OnRightClick(App &app, const sf::Event &event, GameState *gameState);
 
 		virtual void Draw(App &app);
 		virtual void Draw(App &app, int x, int y)=0;

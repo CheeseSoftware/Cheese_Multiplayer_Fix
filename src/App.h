@@ -4,10 +4,9 @@
 #include <SFML\System.hpp>
 #else
 #include <SFML\Graphics.hpp>
-//#include <TGUI/TGUI.hpp>
 #endif
 
-#define APP(a) (*reinterpret_cast<App*>(&a))
+//#define APP(a) (*reinterpret_cast<App*>(&a))
 
 #ifdef _SERVER
 #define SERVER(...) __VA_ARGS__

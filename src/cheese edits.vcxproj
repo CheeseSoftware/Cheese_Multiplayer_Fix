@@ -179,6 +179,7 @@
     <ClCompile Include="Selectable.cpp" />
     <ClCompile Include="SolidBlock.cpp" />
     <ClCompile Include="TextInputItem.cpp" />
+    <ClCompile Include="TextItem.cpp" />
     <ClCompile Include="UniqueBlock.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Text.cpp" />
