@@ -13,14 +13,14 @@ namespace gui
 		bool down;
 		bool clicked;
 
-		std::function<GameState*(App&, GameState *gameState, const sf::Event)> onClickEvent;
+		std::function<GameState*(App&, const sf::Event&, GameState *gameState)> onClickEvent;
 
-		Selectable(std::function<GameState*(App&, GameState *gameState, const sf::Event)> onClickEvent);
+		Selectable(std::function<GameState*(App&, const sf::Event&, GameState *gameState)> onClickEvent);
 	public:
 		virtual bool getSelected();
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameState* gameState);
-		virtual void OnLeftClick(App &app, GameState *gameState, const sf::Event &event);
-		virtual void OnRightClick(App &app, GameState *gameState, const sf::Event &event);
+		virtual void OnLeftClick(App &app, const sf::Event &event, GameState *gameState);
+		virtual void OnRightClick(App &app, const sf::Event &event, GameState *gameState);
 		void Unselect();
 	};
 }

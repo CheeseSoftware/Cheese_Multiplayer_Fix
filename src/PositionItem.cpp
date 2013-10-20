@@ -12,7 +12,7 @@ namespace gui
 	 
 	}*/
 
-	PositionItem::PositionItem(int x, int y, int width, int height, std::function<GameState*(App&)> &clickEvent)
+	PositionItem::PositionItem(int x, int y, int width, int height, std::function<GameState*(App&, const sf::Event&, GameState *gameState)> &clickEvent)
 		: Selectable(clickEvent)
 	{
 		this->x = x;
@@ -50,7 +50,7 @@ namespace gui
 				if (down)
 				{
 					clicked = true;
-					OnLeftClick(app, gameState, event);
+					OnLeftClick(app, event, gameState);
 					down = false;
 				}
 			}
@@ -59,12 +59,12 @@ namespace gui
 		return nullptr;
 	}
 
-	void PositionItem::OnLeftClick(App &app, GameState *gameState, const sf::Event &event)
+	void PositionItem::OnLeftClick(App &app, const sf::Event &event, GameState *gameState)
 	{
 		selected = true;
 	}
 
-	void PositionItem::OnRightClick(App &app, GameState *gameState, const sf::Event &event)
+	void PositionItem::OnRightClick(App &app, const sf::Event &event, GameState *gameState)
 	{
 		selected = true;
 	}

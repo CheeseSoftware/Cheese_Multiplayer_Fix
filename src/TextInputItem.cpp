@@ -1,6 +1,7 @@
 #ifdef MENUIDIOTI
 #include "TextInputItem.h"
 #include "PositionItem.h"
+#include "GameState.h"
 
 namespace gui
 {
@@ -11,7 +12,7 @@ namespace gui
 			text.setString(text.getString() + event.text.unicode);
 		}
 
-		return TextItem::EventUpdate(app, event, gameState);
+		return nullptr;//TextItem::EventUpdate(app, event, gameState);
 	}
 }
 #endif

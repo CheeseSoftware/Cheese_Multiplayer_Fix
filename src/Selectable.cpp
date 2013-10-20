@@ -1,9 +1,10 @@
 #ifdef MENUIDIOTI
 #include "Selectable.h"
+#include "GameState.h"
 
 namespace gui
 {
-	Selectable::Selectable(std::function<GameState*(App&, GameState *gameState, const sf::Event)> onClickEvent)
+	Selectable::Selectable(std::function<GameState*(App&, const sf::Event&, GameState *gameState)> onClickEvent)
 	{
 		this->onClickEvent = onClickEvent;
 	}
@@ -26,13 +27,13 @@ namespace gui
 		return nullptr;
 	}
 
-	void Selectable::OnLeftClick(App &app, GameState *gameState, const sf::Event &event)
+	void Selectable::OnLeftClick(App &app, const sf::Event &event, GameState *gameState)
 	{
 		selected = true;
-		onClickEvent(app, gameState, event);
+		onClickEvent(app, event, gameState);
 	}
 
-	void Selectable::OnRightClick(App &app, GameState *gameState, const sf::Event &event)
+	void Selectable::OnRightClick(App &app, const sf::Event &event, GameState *gameState)
 	{
 		selected = true;
 	}
