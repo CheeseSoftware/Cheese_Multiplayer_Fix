@@ -13,7 +13,7 @@
 class World;
 class InGameUI;
 class Camera;
-template<class T> class EventHandler;
+//template<class T> class EventHandler;
 class NoobishBlockMenu;
 class TextureContainer;
 class Connection;

@@ -379,7 +379,7 @@ int World::AddEntity(Entity *entity)
 {
 	entityList.push_back(entity);
 CLIENT(
-	eventHandler.AddEventCallback(entity,[entity] (App& a, const sf::Event& e, GameState* gUtil) { entity->EventUpdate(a, e, reinterpret_cast<GameUtility*>(gUtil)); });
+	//eventHandler.AddEventCallback(entity,[entity] (App& a, const sf::Event& e, GameState* gUtil) { entity->EventUpdate(a, e, reinterpret_cast<GameUtility*>(gUtil)); });
 )
 	return 0;
 }
@@ -396,7 +396,7 @@ int World::AddPlayer(int id, Player *player)
 	{
 		playerList.insert(std::pair<short, Player*>(id, player));
 SERVER(
-		eventHandler.AddEventCallback(player,[player] (App& a, const sf::Event& e, GameUtility* gUtil) { player->EventUpdate(a, e, gUtil); });
+		//eventHandler.AddEventCallback(player,[player] (App& a, const sf::Event& e, GameUtility* gUtil) { player->EventUpdate(a, e, gUtil); });
 )
 	}
 	else
@@ -411,7 +411,7 @@ void World::RemovePlayer(int id)
 	if(it != playerList.end())
 	{
 CLIENT(
-		eventHandler.RemoveEventCallback(playerList[id]);
+		//eventHandler.RemoveEventCallback(playerList[id]);
 )
 		delete(it->second);
 		playerList.erase(id);

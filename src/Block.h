@@ -8,7 +8,7 @@ class TextureContainer;
 class World;
 class Entity;
 class Creature;
-template<class T> class EventHandler;
+#include "EventHandler.h"//template<class T> class EventHandler;
 class GameUtility;
 
 class Block

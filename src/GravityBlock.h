@@ -1,7 +1,7 @@
 #pragma once
 #include "Block.h"
 
-class GravityBlock : virtual Block
+class GravityBlock : public virtual Block
 {
 public:
 	virtual unsigned char getLayer();

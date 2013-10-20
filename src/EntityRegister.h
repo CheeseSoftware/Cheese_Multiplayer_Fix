@@ -6,7 +6,7 @@
 
 class TextureContainer;
 class Entity;
-template<class T> class EventHandler;
+#include "EventHandler.h"//template<class T> class EventHandler;
 
 class EntityRegister
 {
