@@ -1,6 +1,7 @@
-#include "App.h"
+
 
 #ifndef _SERVER
+//#include <functional>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include "PlayState.h"
@@ -8,6 +9,11 @@
 #include "ServerState.h"
 
 #endif
+#include "App.h"
+
+//CLIENT(
+void RenderingThread(App *app, GameState *gameState);
+//)
 
 int _argc;
 char** _argv;
@@ -37,7 +43,12 @@ int main(int argc, char** argv)
 	GameState *oldState;
 
 	//app.SetFramerateLimit(6);
+
 #ifndef _SERVER
+	app.setActive(false);
+	sf::Thread renderingThread(std::bind(&RenderingThread, &app, gameState));
+	renderingThread.launch();
+
 	while (app.isOpen())
 	{
 		sf::Event event;
@@ -60,17 +71,22 @@ int main(int argc, char** argv)
 			delete oldState;
 		}
 
-#ifndef _SERVER
-		app.clear();
-
-		gameState->Draw(app);
-
 		app.Update();
-		app.display();
-#else
-		app.Update();
-#endif
 	}
 
 	return 0;
 }
+
+//CLIENT(
+void RenderingThread(App *app, GameState *gameState)
+{
+	while(app->isOpen())
+	{
+		app->clear();
+
+		gameState->Draw(*app);
+
+		//app->Update();
+		app->display();
+	}
+}//)
