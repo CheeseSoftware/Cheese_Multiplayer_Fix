@@ -24,7 +24,11 @@ public:
 	virtual bool isSeeThrough();
 	virtual bool isSolid()=0;
 	virtual bool isUnique();
+#ifndef _SERVER
 	virtual void OnCreate(unsigned short metadata, EventHandler<GameUtility*> &eventHandler);
+#else
+	virtual void OnCreate(unsigned short metadata);
+#endif
 	virtual void OnRemove();
 	virtual void OnRightClick(Creature *creature, unsigned short metadata);
 	virtual void OnEntityTouch(Entity *entity, unsigned short metadata);

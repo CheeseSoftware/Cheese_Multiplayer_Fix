@@ -76,6 +76,7 @@ GameState *PlayState::Update(App &app)
 	if (fpsClock.getElapsedTime().asMilliseconds() > 5000)
 	{
 		std::cout << 1/app.getFrameTime() << "\n";
+		std::cout << 1/app.getDeltaTime() << "\n";
 		fpsClock.restart();
 	}
 	camera->Update(app);

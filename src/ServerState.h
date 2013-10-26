@@ -11,7 +11,7 @@ class World;
 class InGameUI;
 class Camera;
 
-class ServerState : public GameState, public GameUtility
+class ServerState : public GameUtility
 {
 	ServerConnection* sC;
 	void ProcessPackets(GameUtility *gameUtility);

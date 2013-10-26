@@ -395,8 +395,8 @@ int World::AddPlayer(int id, Player *player)
 	if(it == playerList.end())
 	{
 		playerList.insert(std::pair<short, Player*>(id, player));
-SERVER(
-		//eventHandler.AddEventCallback(player,[player] (App& a, const sf::Event& e, GameUtility* gUtil) { player->EventUpdate(a, e, gUtil); });
+CLIENT(
+		eventHandler.AddEventCallback(player,[player] (App& a, const sf::Event& e, GameUtility* gUtil) { player->EventUpdate(a, e, gUtil); });
 )
 	}
 	else

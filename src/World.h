@@ -19,6 +19,7 @@ class TextureContainer;
 class Camera;
 //template<class T> class EventHandler;
 class GameState;
+class GameUtility;
 
 enum MessageType;
 
