@@ -83,19 +83,19 @@ void BlockGravity::CreatureJump(App &app, Creature *creature, float &speedX, flo
 	switch(metadata&0x0003)
 	{
 	case 1://up
-		speedY = 512;
+		speedY = 400;
 		break;
 
 	case 0://left
-		speedX = 512;
+		speedX = 400;
 		break;
 
 	case 2://right
-		speedX = -512;
+		speedX = -400;
 		break;
 
 	case 3://down
-		speedY = -512;
+		speedY = -400;
 		break;
 	}
 }
