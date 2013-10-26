@@ -4,12 +4,14 @@ class TextureContainer;
 #ifndef TEXTURECONTAINER_H_INCLUDED
 #define TEXTURECONTAINER_H_INCLUDED
 
-#include "App.h"
-
 #include <map>
 #include <string>
 #include <vector>
-CLIENT( #include <SFML\Graphics.hpp> )
+#ifndef _SERVER
+#include <SFML\Graphics.hpp>
+#endif
+
+#include "App.h"
 
 class TextureContainer
 {
