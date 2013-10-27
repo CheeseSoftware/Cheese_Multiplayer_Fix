@@ -75,8 +75,7 @@ GameState *PlayState::Update(App &app)
 {
 	if (fpsClock.getElapsedTime().asMilliseconds() > 5000)
 	{
-		std::cout << 1/app.getFrameTime() << "\n";
-		std::cout << 1/app.getDeltaTime() << "\n";
+		std::cout << "fps: " << 1/app.getFrameTime() << "\n";
 		fpsClock.restart();
 	}
 	camera->Update(app);
@@ -97,7 +96,7 @@ GameState *PlayState::Update(App &app)
 void PlayState::Draw(App &app)
 {
 	currentWorld->Draw(app, this);
-	noobishBlockMenu->Draw(app, this); // < orsakar lagg temp
+	//noobishBlockMenu->Draw(app, this); // < orsakar lagg temp
 }
 
 void PlayState::ProcessPackets(GameUtility *gameUtility)

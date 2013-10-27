@@ -11,7 +11,7 @@
 #include "EventHandler.h"
 #include "GameUtility.h"
 #include <deque>
-
+#include <mutex>
 
 #define getChunkMatrixIndexX(x) (int)abs(x>>4 + chunkMatrix.second)
 #define getChunkColumnIndexY(y,x_it) (int)abs(y>>4 + x_it.second)
@@ -42,7 +42,11 @@ World::World()
 #ifndef _SERVER
 void World::EventUpdate(App &app, const sf::Event &event, GameUtility *gameUtility)
 {
+	//entityListLock.lock(); //std::cout << "entitylist locked!\n";
+	//playerListLock.lock(); //std::cout << "playerlist locked!\n";
 	eventHandler.EventUpdate(app, event, gameUtility);
+	//playerListLock.unlock(); //std::cout << "playerlist unlocked!\n";
+	//entityListLock.unlock(); //std::cout << "entitylist unlocked!\n";
 	/*for (Entity *entity : entityList)
 	{
 		entity->EventUpdate(app, event, this, packetDataList);
@@ -56,6 +60,7 @@ void World::EventUpdate(App &app, const sf::Event &event, GameUtility *gameUtili
 
 void World::Draw(App &app, GameUtility *gameUtility) // >.<
 {
+	chunkMatrixLock.lock(); //std::cout << "chunkmatrix locked!\n";
 	int minX = (int)gameUtility->getCamera().getLeftX()-255>>8;
 	int minY = (int)gameUtility->getCamera().getTopY()-255>>8;
 	int maxX = INT_MAX;//(int)gameUtility->getCamera().getRightX()+511>>8;
@@ -80,20 +85,27 @@ void World::Draw(App &app, GameUtility *gameUtility) // >.<
 		}
 	}
 
+	chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
+
+	entityListLock.lock(); //std::cout << "entitylist locked!\n";
 	for (Entity *entity : entityList)
 	{
 		entity->Draw(app, gameUtility);
 	}
+	entityListLock.unlock(); //std::cout << "entitylist unlocked!\n";
 
+	playerListLock.lock(); //std::cout << "playerlist locked!\n";
 	for(std::pair<short, Player*> pair : playerList)
 	{
 		pair.second->Draw(app, gameUtility);
 	}
+	playerListLock.unlock(); //std::cout << "playerlist unlocked!\n";
 }
 #endif
 
 void World::Update(App &app, GameUtility *gameUtility)
 {
+	//entityListLock.lock(); //std::cout << "entitylist locked!\n";
 	for (Entity *entity : entityList)
 	{
 #ifdef _SERVER
@@ -102,7 +114,9 @@ void World::Update(App &app, GameUtility *gameUtility)
 		entity->Update(app, gameUtility);
 #endif
 	}
+	//entityListLock.unlock(); //std::cout << "entitylist unlocked!\n";
 
+	//playerListLock.lock(); //std::cout << "playerlist locked!\n";
 	for(std::pair<short, Player*> pair : playerList)
 	{
 #ifdef _SERVER
@@ -110,7 +124,8 @@ void World::Update(App &app, GameUtility *gameUtility)
 #else
 		pair.second->Update(app, gameUtility);
 #endif
-	}	
+	}
+	//playerListLock.lock(); //std::cout << "playerlist locked!\n";
 }
 
 /*#ifndef _SERVER
@@ -145,6 +160,7 @@ void World::setBlock(long x, long y, long layer, unsigned short id, GameUtility 
 
 void World::setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility)
 {
+	//chunkMatrixLock.lock(); //std::cout << "chunkmatrix locked!\n";
 	/*if (setBlockAndMetadataClientOnly(x, y, layer, id, metadata))
 	{
 		sf::Packet packet;
@@ -166,20 +182,24 @@ void World::setBlockAndMetadata(long x, long y, long layer, unsigned short id, u
 		packet << (sf::Int16)BlockPlace << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)id << (sf::Uint16)metadata;
 		gameUtility->SendPacket(packet);
 	}
+	//chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 }
 
 void World::setBlockMetadata(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility)
 {
+	//chunkMatrixLock.lock(); //std::cout << "chunkmatrix locked!\n";
 	if (setBlockMetadataClientOnly(x, y, layer, metadata, gameUtility))
 	{
 		sf::Packet packet;
 		packet << (sf::Int16)BlockMetadataChange << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)metadata;
 		gameUtility->SendPacket(packet);
 	}
+	//chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 }
 
 MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility)
 {
+	chunkMatrixLock.lock(); //std::cout << "chunkmatrix locked!\n";
 	long xx = floor(x * 0.0625);
 
 	unsigned short xxx = x&0xF;//(x < 0)? (abs(x+1)&0xF)^0xF : x&0XF;
@@ -207,7 +227,10 @@ MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, uns
 			if (c == nullptr)
 			{
 				if (id == 0)
+				{
+					chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 					return NullMessage;
+				}
 
 				c = it.first.at(yy + it.second) = new Chunk();
 			}
@@ -222,28 +245,34 @@ MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, uns
 						if (c->getMetadata(layer, xxx, yyy) != metadata)
 						{
 							c->setMetadata(layer, xxx, yyy, metadata);
+							chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 							return BlockMetadataChange;
 						}
 
+						chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 						return NullMessage;
 					}
 				}
 				else if (id == 0)
 				{
+					chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 					return NullMessage;
 				}
 			}
 
 			c->setBlock(layer, xxx, yyy, gameUtility->getBlockRegister().getBlockType(id));
 			c->setMetadata(layer, xxx, yyy, metadata);
+			chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 			return BlockPlace;
 		}
 	}
+	chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 	return NullMessage;
 }
 
 MessageType World::setBlockMetadataClientOnly(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility)
 {
+	chunkMatrixLock.lock(); //std::cout << "chunkmatrix locked!\n";
 	unsigned short xxx = x&0xF;//(x < 0)? (abs(x+1)&0xF)^0xF : x&0XF;
 	unsigned short yyy = y&0xF;//(y < 0)? y&0XF : y&0XF;
 
@@ -261,17 +290,22 @@ MessageType World::setBlockMetadataClientOnly(long x, long y, long layer, unsign
 				if (c->getMetadata(layer, xxx, yyy) != metadata)
 				{
 					c->setMetadata(layer, xxx, yyy, metadata);
+					chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 					return BlockMetadataChange;
 				}
 			}
 		}
 	}
+	chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 	return NullMessage;
 }
 
 Block *World::getBlock(long x, long y, long layer)
 {
-	return getBlockAndMetadata(x, y, layer).first;
+	//chunkMatrixLock.lock(); //std::cout << "chunkmatrix locked!\n";
+	Block *block = getBlockAndMetadata(x, y, layer).first;
+	//chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
+	return block;
 	/*if (lastBlock.first._Equals(std::tuple<long, long, short>(x, y, layer)))
 	{
 		return lastBlock.second->first;
@@ -300,8 +334,10 @@ Block *World::getBlock(long x, long y, long layer)
 
 std::pair<Block*, unsigned short> World::getBlockAndMetadata(long x, long y, long layer)
 {
+	//chunkMatrixLock.lock(); //std::cout << "chunkmatrix locked!\n";
 	if (lastBlock.first._Equals(std::tuple<long, long, short>(x, y, layer)))
 	{
+	//	chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 		return *lastBlock.second;
 	}
 
@@ -320,6 +356,7 @@ std::pair<Block*, unsigned short> World::getBlockAndMetadata(long x, long y, lon
 			if (it.first.at(yy) != nullptr)
 			{
 				Chunk* chunk = it.first.at(yy);//->getBlock(layer, xxx, yyy);
+				//chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 				return *(lastBlock = std::pair<std::tuple<long, long, unsigned short>, 
 					std::pair<Block*, unsigned short>*>
 					(std::tuple<long, long, unsigned short>(x, y, layer),
@@ -328,11 +365,13 @@ std::pair<Block*, unsigned short> World::getBlockAndMetadata(long x, long y, lon
 			}
 		}
 	}
+	//chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 	return std::pair<Block*, unsigned short>(nullptr, 0);
 }
 
 void World::Expand(long x, long y, Chunk* chunk)
 {
+	//chunkMatrixLock.lock(); //std::cout << "chunkmatrix locked!\n";
 	//std::cout << sizeof(int);
 	long xx = x + chunkMatrix.second;
 	if (xx < 0)
@@ -373,14 +412,18 @@ void World::Expand(long x, long y, Chunk* chunk)
 			it.first.push_back(nullptr);
 		}
 	}
+
+	//chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 }
 
 int World::AddEntity(Entity *entity)
 {
+	entityListLock.lock(); //std::cout << "entitylist locked!\n";
 	entityList.push_back(entity);
 CLIENT(
 	//eventHandler.AddEventCallback(entity,[entity] (App& a, const sf::Event& e, GameState* gUtil) { entity->EventUpdate(a, e, reinterpret_cast<GameUtility*>(gUtil)); });
 )
+entityListLock.unlock(); //std::cout << "entitylist unlocked!\n";
 	return 0;
 }
 
@@ -391,6 +434,7 @@ void World::RemoveEntity(int id)
 
 int World::AddPlayer(int id, Player *player)
 {
+	playerListLock.lock(); //std::cout << "playerlist locked!\n";
 	auto it = playerList.find(id);
 	if(it == playerList.end())
 	{
@@ -402,11 +446,13 @@ CLIENT(
 	else
 		std::cout << "Attempt to add player that already exists! " << id << std::endl;
 
+	playerListLock.unlock(); //std::cout << "playerlist unlocked!\n";
 	return 0;
 }
 
 void World::RemovePlayer(int id)
 {
+	playerListLock.lock(); //std::cout << "playerlist locked!\n";
 	auto it = playerList.find(id);
 	if(it != playerList.end())
 	{
@@ -418,19 +464,24 @@ CLIENT(
 	}
 	else
 		std::cout << "Attempt to remove player that doesn't exist! " << id << std::endl;
+	playerListLock.unlock(); //std::cout << "playerlist unlocked!\n";
 }
 
 Player* World::GetPlayer(int id)
 {
+	//playerListLock.lock(); //std::cout << "playerlist locked!\n";
 	auto it = playerList.find(id);
+	//playerListLock.unlock(); //std::cout << "playerlist unlocked!\n";
 	return (it == playerList.end()) ? nullptr : it->second;
 }
 
 void World::SetPlayer(int id, Player *player)
 {
+	playerListLock.lock(); //std::cout << "playerlist locked!\n";
 	delete(playerList.find(id)->second);
 	playerList.erase(id);
 	playerList.insert(std::pair<short, Player*>(id, player));
+	playerListLock.unlock(); //std::cout << "playerlist unlocked!\n";
 }
 
 bool World::isBlockSolid(long x,long y)

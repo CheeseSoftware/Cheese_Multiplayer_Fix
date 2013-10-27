@@ -7,6 +7,7 @@
 #include <deque>
 #include <queue>
 #include <tuple>
+#include <mutex>
 #include "App.h"
 #include <SFML\Network.hpp>
 #include "EventHandler.h"
@@ -40,8 +41,11 @@ private:
 	short int sizeX;
 	short int sizeY;
 	ChunkMatrixType chunkMatrix;
+	std::mutex chunkMatrixLock;
 	std::vector<Entity*> entityList;
+	std::mutex entityListLock;
 	std::map<short, Player*> playerList;
+	std::mutex playerListLock;
 	//std::map<std::pair<short,short>,Block*> BlockMap;
 	std::pair<std::tuple<long, long, unsigned short>, std::pair<Block*, unsigned short>*> lastBlock;
 #ifndef _SERVER

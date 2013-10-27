@@ -245,9 +245,6 @@
     <ClInclude Include="Chunk.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
-    <ClInclude Include="TextureContainer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -355,6 +352,9 @@
     </ClInclude>
     <ClInclude Include="Eventhandler.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureContainer.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

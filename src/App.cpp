@@ -13,7 +13,7 @@ float App::getFrameTime()
 {
 	//std::cout << frameTime << " " << sleptTime << std::endl;
 #ifdef _SERVER
-	return (frameTime+sleptTime);
+	return (frameTime/*+sleptTime*/);
 #else
 	return (frameTime);
 #endif
@@ -31,7 +31,7 @@ void App::Update()
 	_sleep(1);
 	frameTime = frameTimer.getElapsedTime().asSeconds();
 
-SERVER(
+/*SERVER(
 	if (frameTime < MIN_FRAME_TIME)
 	{
 		sleptTime = MIN_FRAME_TIME-frameTime;
@@ -40,7 +40,7 @@ SERVER(
 	else
 	{
 		sleptTime = 0;
-	})
+	})*/
 
 	frameTimer.restart();
 }
