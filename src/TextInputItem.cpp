@@ -9,7 +9,7 @@ namespace gui
 	{
 		if (event.type == sf::Event::TextEntered)
 		{
-			text.setString(text.getString() + event.text.unicode);
+			text->setString(text->getString() + event.text.unicode);
 		}
 
 		return nullptr;//TextItem::EventUpdate(app, event, gameState);

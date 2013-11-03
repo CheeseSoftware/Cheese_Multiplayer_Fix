@@ -121,7 +121,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;SFML_STATIC;MENUIDIOTI_AV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;SFML_STATIC;MENUIDIOTI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -172,8 +172,11 @@
     <ClCompile Include="Eventhandler.cpp" />
     <ClCompile Include="EventHandler_.cpp" />
     <ClCompile Include="BackgroundBlock.cpp" />
+    <ClCompile Include="GraphicalContainer.cpp" />
     <ClCompile Include="GravityBlock.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Label.cpp" />
+    <ClCompile Include="MenuItemContainer.cpp" />
     <ClCompile Include="NormalItem.cpp" />
     <ClCompile Include="PositionItem.cpp" />
     <ClCompile Include="Selectable.cpp" />
@@ -218,9 +221,12 @@
     <ClInclude Include="Eventhandler.h" />
     <ClInclude Include="EventHandler_.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="GraphicalContainer.h" />
     <ClInclude Include="HitProjectile.h" />
     <ClInclude Include="IEntityHealth.h" />
     <ClInclude Include="GravityBlock.h" />
+    <ClInclude Include="Label.h" />
+    <ClInclude Include="MenuItemContainer.h" />
     <ClInclude Include="Selectable.h" />
     <ClInclude Include="IMenuItem.h" />
     <ClInclude Include="Item.h" />

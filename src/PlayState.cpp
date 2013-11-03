@@ -96,7 +96,7 @@ GameState *PlayState::Update(App &app)
 void PlayState::Draw(App &app)
 {
 	currentWorld->Draw(app, this);
-	//noobishBlockMenu->Draw(app, this); // < orsakar lagg temp
+	noobishBlockMenu->Draw(app, this); // < orsakar lagg temp
 }
 
 void PlayState::ProcessPackets(GameUtility *gameUtility)

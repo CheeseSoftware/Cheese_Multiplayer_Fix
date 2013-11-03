@@ -8,12 +8,12 @@ namespace sf { class Text; }
 
 namespace gui
 {
-	class TextItem : public virtual IMenuItem
+	class TextItem : public IMenuItem
 	{
 	protected:
-		sf::Text text;
+		sf::Text *text;
 	public:
-		TextItem(sf::Text text);
+		TextItem(sf::Text *text);
 		virtual void Draw(App &app, int x, int y);
 	};
 }

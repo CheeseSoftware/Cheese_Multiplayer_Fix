@@ -7,7 +7,7 @@
 
 namespace gui
 {
-	Text::Text(sf::Text text) : TextItem(text)
+	Text::Text(sf::Text *text) : TextItem(text)
 	{
 
 	}
@@ -21,11 +21,6 @@ namespace gui
 	GameState *Text::EventUpdate(App& app, const sf::Event& event, GameState* gameState)
 	{
 		return nullptr;
-	}
-
-	void Text::Draw(App &app)
-	{
-
 	}
 }
 #endif

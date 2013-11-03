@@ -120,6 +120,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 			}
 		case PlayerMove:
 			{
+				break;
 				float xPos;
 				float yPos;
 				float speedX;

@@ -4,9 +4,9 @@
 
 namespace gui
 {
-	Selectable::Selectable(std::function<GameState*(App&, const sf::Event&, GameState *gameState)> onClickEvent)
+	Selectable::Selectable(ClickEvent ClickEvent)
 	{
-		this->onClickEvent = onClickEvent;
+		onClickEvent = ClickEvent;
 	}
 
 	bool Selectable::getSelected()

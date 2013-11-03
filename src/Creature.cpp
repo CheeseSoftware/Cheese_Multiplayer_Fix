@@ -26,8 +26,8 @@ void Creature::Update(App &app, GameUtility *GameUtility)
 	if (blockAndMetadata.first != nullptr)
 		blockAndMetadata.first->getCreatureMovePossibilities(app, this, horizontal2, vertical2, blockAndMetadata.second);
 
-	speedX += horizontal2 * app.getDeltaTime();
-    speedY += vertical2 * app.getDeltaTime();
+	speedX += horizontal2 * app.getDeltaTime() * (pow(1-friction, app.getDeltaTime()));
+    speedY += vertical2 * app.getDeltaTime() * (pow(1-friction, app.getDeltaTime()));
 
 	Entity::Update(app, GameUtility);
 /*#ifdef _SERVER

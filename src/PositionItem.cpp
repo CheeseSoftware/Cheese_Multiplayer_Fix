@@ -1,4 +1,4 @@
-#ifdef MENUIDIOTI
+/*#ifdef MENUIDIOTI
 #ifndef _SERVER
 #include <SFML/Graphics.hpp>
 #include "PositionItem.h"
@@ -10,9 +10,9 @@ namespace gui
 	/*PositionItem::PositionItem()
 	{
 	 
-	}*/
+	}* /
 
-	PositionItem::PositionItem(int x, int y, int width, int height, std::function<GameState*(App&, const sf::Event&, GameState *gameState)> &clickEvent)
+	PositionItem::PositionItem(int x, int y, int width, int height, ClickEvent &clickEvent)
 		: Selectable(clickEvent)
 	{
 		this->x = x;
@@ -71,7 +71,7 @@ namespace gui
 
 	void PositionItem::Draw(App &app)
 	{
-		Draw(app, x, y);
+		IMenuItem::Draw(app, x, y);
 	}
 	/*GameState *PositionItem::Update(App &app)
 	{
@@ -80,7 +80,7 @@ namespace gui
 
 		clicked = false;
 		return 0;
-	}*/
+	}* /
 }
 #endif // !_SERVER
-#endif
+#endif*/

@@ -4,7 +4,8 @@
 //#include <functional>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include "PlayState.h"
+#include "MainMenu.h" //#include "PlayState.h" //
+//#include "MainMenu.h"
 #else
 #include "ServerState.h"
 
@@ -34,7 +35,7 @@ int main(int argc, char** argv)
 
 	App app(sf::VideoMode(1152,720));
 
-	GameState *gameState = new PlayState((const PlayState&)app);
+	GameState *gameState = new MainMenu();//new PlayState((const PlayState&)app);//
 #else
 	App app;
 	GameState *gameState = new ServerState(app);

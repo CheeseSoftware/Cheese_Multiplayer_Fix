@@ -6,6 +6,8 @@
 
 namespace gui
 {
+	typedef std::function<GameState*(App&, const sf::Event&, GameState *gameState)> ClickEvent;
+
 	class Selectable : public virtual IMenuItem
 	{
 	protected:
@@ -13,9 +15,9 @@ namespace gui
 		bool down;
 		bool clicked;
 
-		std::function<GameState*(App&, const sf::Event&, GameState *gameState)> onClickEvent;
+		ClickEvent onClickEvent;
 
-		Selectable(std::function<GameState*(App&, const sf::Event&, GameState *gameState)> onClickEvent);
+		Selectable(ClickEvent clickEvent);
 	public:
 		virtual bool getSelected();
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameState* gameState);

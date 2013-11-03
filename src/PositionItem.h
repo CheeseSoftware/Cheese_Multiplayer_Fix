@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #ifdef MENUIDIOTI
 #ifndef _SERVER
 
@@ -21,7 +21,7 @@ namespace gui
 		int height;
 
 	public:
-		PositionItem(int x, int y, int width, int height, std::function<GameState*(App&, const sf::Event&, GameState *gameState)> &clickEvent);
+		PositionItem(int x, int y, int width, int height, ClickEvent &clickEvent);
 		~PositionItem();
 
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameState* gameState);
@@ -31,9 +31,9 @@ namespace gui
 		virtual void OnRightClick(App &app, const sf::Event &event, GameState *gameState);
 
 		virtual void Draw(App &app);
-		virtual void Draw(App &app, int x, int y)=0;
+		//virtual void Draw(App &app, int x, int y)=0;
 	};
 }
 
-#endif // !_SERVER*/*/
-#endif
+#endif // !_SERVER* /* /
+#endif*/

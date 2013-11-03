@@ -6,17 +6,22 @@
 #include <vector>
 //#include "MenuItem.h"
 #include "GameState.h"
+#include "EventHandler.h"
+#include "MenuItemContainer.h"
 
 class MenuState : public GameState
 {
 protected:
     //std::vector<MenuItem*> menuItems;
+	//std::vector<PositionItem> menuItems;
+	//EventHandler<GameState*> eventHandler;
+	gui::MenuItemContainer *menuItemContainer;
 public:
 	MenuState();
 	~MenuState();
     //virtual void Initialize();
     virtual void EventUpdate(App &app, const sf::Event &event);
-    virtual GameState *Update(App &app);
+    virtual GameState *Update(App &app)=0;
     virtual void Draw(App &app);
     //virtual void Shutdown();
 };
