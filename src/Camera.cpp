@@ -1,4 +1,6 @@
 #ifndef _SERVER
+#include <math.h>
+
 #include "Camera.h"
 #include "Entity.h"
 
@@ -27,8 +29,11 @@ void Camera::Update(App &app)
 	{
 		float deltaX = currentEntity->getX()+8-getCenter().x;
 		float deltaY = currentEntity->getY()+8-getCenter().y;
-		float speedFactor = speed*app.getDeltaTime();//pow(speed, app.getDeltaTime());//atan(app.getDeltaTime()*speed)*2/3.14159265358979323846264338327950288419F;
-		speedFactor = (speedFactor*speed > 1.f)? 1.f/speed:speedFactor;
+<<<<<<< HEAD
+		float speedFactor = atan(app.getDeltaTime()*speed)*2/3.14159265358979323846264338327950288419F;
+=======
+		float speedFactor = pow(speed, app.getDeltaTime());//atan(app.getDeltaTime()*speed)*2/3.14159265358979323846264338327950288419;
+>>>>>>> sfml 2.1
 
 		move(deltaX*speedFactor,deltaY*speedFactor);
 	}
