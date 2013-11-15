@@ -17,17 +17,24 @@ void Creature::Update(App &app, World *world, std::queue<sf::Packet> *packetData
 #else
 void Creature::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
 #endif*/
-void Creature::Update(App &app, GameUtility *GameUtility)
+void Creature::PhysicUpdate(App &app, World *world, float timeSpan)
 {
 	float horizontal2 = horizontal;
 	float vertical2 = vertical;
 
-	std::pair<Block*, unsigned short> blockAndMetadata = GameUtility->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);//GameUtility->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
+	std::pair<Block*, unsigned short> blockAndMetadata = world->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);//GameUtility->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
 	if (blockAndMetadata.first != nullptr)
 		blockAndMetadata.first->getCreatureMovePossibilities(app, this, horizontal2, vertical2, blockAndMetadata.second);
 
 	speedX += horizontal2 * app.getDeltaTime() * (pow(1-friction, app.getDeltaTime()));
     speedY += vertical2 * app.getDeltaTime() * (pow(1-friction, app.getDeltaTime()));
+
+	Entity::PhysicUpdate(app, world, timeSpan);
+}
+
+void Creature::Update(App &app, GameUtility *GameUtility)
+{
+	
 
 	Entity::Update(app, GameUtility);
 /*#ifdef _SERVER

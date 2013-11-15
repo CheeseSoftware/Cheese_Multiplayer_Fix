@@ -39,7 +39,7 @@ protected:
 	void FixateX();
 	void FixateY();
 
-	virtual inline void PhysicUpdate(World *world, float timeSpan);
+	virtual inline void PhysicUpdate(App &app, World *world, float timeSpan);
 public:
     bool isClientControlling;
 

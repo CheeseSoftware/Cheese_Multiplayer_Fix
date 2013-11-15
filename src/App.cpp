@@ -23,12 +23,12 @@ float App::getDeltaTime()
 {
 
 	float frameTime2 = getFrameTime();
-	return ((frameTime2 > 0.1F)? 0.1F : frameTime2);
+	return ((frameTime2 > 0.02F)? 0.02F : frameTime2);
 }
 
 void App::Update()
 {
-	_sleep(1);
+	_sleep(0.01);
 	frameTime = frameTimer.getElapsedTime().asSeconds();
 
 /*SERVER(

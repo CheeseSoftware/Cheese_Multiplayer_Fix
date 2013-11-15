@@ -27,9 +27,21 @@ Entity::Entity(float x, float y, short sizeX, short sizeY,
 	this->spriteIndex = spriteIndex;
 }
 
-void Entity::PhysicUpdate(World *world, float timeSpan)
+void Entity::PhysicUpdate(App &app, World *world, float timeSpan)
 {
+	float xFriction = friction;
+	float yFriction = friction;
 
+	std::pair<Block*, unsigned short> blockAndMetadata = world->getBlockAndMetadata(
+		(long)x>>4L,
+		(long)y>>4L,
+		2);
+
+	if (blockAndMetadata.first != nullptr)
+		blockAndMetadata.first->OnEntityHover(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
+
+	speedX *= pow(1.0-xFriction,app.getDeltaTime());//pow(1-xFriction, app.getDeltaTime());//tan(xFriction*M_PI/2) * app.getDeltaTime();
+	speedY *= pow(1.0-yFriction,app.getDeltaTime());//pow(1-yFriction, app.getDeltaTime());//tan(yFriction*M_PI/2) * app.getDeltaTime();
 }
 
 /*#ifdef _SERVER
@@ -39,22 +51,11 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 #endif*/
 void Entity::Update(App &app, GameUtility *GameUtility)
 {
-	float xFriction = friction;
-	float yFriction = friction;
-
-	std::pair<Block*, unsigned short> blockAndMetadata = GameUtility->getCurrentWorld()->getBlockAndMetadata(
-		(long)x>>4L,
-		(long)y>>4L,
-		2);
-
-	if (blockAndMetadata.first != nullptr)
-		blockAndMetadata.first->OnEntityHover(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
 	//(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
+	PhysicUpdate(app, GameUtility->getCurrentWorld(), app.getDeltaTime());
 
 	if (speedX != 0.0F || speedY != 0.0F)
 	{
-
-
 		float speedXModifier = abs(speedX * app.getDeltaTime());
 
 		float speedYModifier = abs(speedY * app.getDeltaTime());

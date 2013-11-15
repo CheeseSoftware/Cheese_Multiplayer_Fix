@@ -144,7 +144,7 @@ Up:
 						deltaSpeedY *= -1;
 
 
-					Projectile *projectile = new Projectile(x+(sizeX>>1), y+(sizeY>>1), 32, 32, angle, 1024, 0.03125F, "arrow.png", 0, false);
+					Projectile *projectile = new Projectile(x+(sizeX>>1), y+(sizeY>>1), 32, 32, angle, 10240, 0.03125F, "arrow.png", 0, false);
 					gameUtility->getCurrentWorld()->AddEntity(projectile);
 				}
 				break;

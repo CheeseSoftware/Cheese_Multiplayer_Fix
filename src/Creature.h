@@ -12,6 +12,8 @@ class Creature : public Entity
 protected:
     float horizontal;
     float vertical;
+
+	virtual inline void PhysicUpdate(App &app, World *world, float timeSpan);
 public:
 SERVER(
 	Creature(float x, float y, short sizeX, short sizeY, float speed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling);

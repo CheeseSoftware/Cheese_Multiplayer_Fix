@@ -31,7 +31,7 @@ void Camera::Update(App &app)
 		float deltaY = currentEntity->getY()+8-getCenter().y;
 		float speedFactor = pow(speed, app.getDeltaTime());//atan(app.getDeltaTime()*speed)*2/3.14159265358979323846264338327950288419;
 
-		move(deltaX*speedFactor,deltaY*speedFactor);
+		move(deltaX, deltaY);//move(deltaX*speedFactor,deltaY*speedFactor);
 	}
 }
 
