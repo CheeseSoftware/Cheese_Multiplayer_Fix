@@ -72,5 +72,5 @@ public:
 	void setAngle(float angle);
 	float getAngle();
 private:
-	virtual float getDeltaFriction(App &app, float xFriction, float yFriction);
+	//virtual float getDeltaFriction(App &app, float xFriction, float yFriction);
 };
