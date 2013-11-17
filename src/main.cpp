@@ -4,7 +4,8 @@
 //#include <functional>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include "PlayState.h" //#include "MainMenu.h" //
+#include "PlayState.h"
+#include "MainMenu.h" //
 //#include "MainMenu.h"
 #else
 #include "ServerState.h"
@@ -35,7 +36,7 @@ int main(int argc, char** argv)
 
 	App app(sf::VideoMode(1152,720));
 
-	GameState *gameState = new PlayState((const PlayState&)app);//new MainMenu();//
+	GameState *gameState = new MainMenu();//new PlayState((const PlayState&)app);//
 #else
 	App app;
 	GameState *gameState = new ServerState(app);
@@ -46,9 +47,9 @@ int main(int argc, char** argv)
 	//app.SetFramerateLimit(6);
 
 #ifndef _SERVER
-	app.setActive(false);
+	/*app.setActive(false);
 	sf::Thread renderingThread(std::bind(&RenderingThread, &app, gameState));
-	renderingThread.launch();
+	renderingThread.launch();*/
 
 	while (app.isOpen())
 	{
@@ -73,6 +74,8 @@ int main(int argc, char** argv)
 		}
 
 		app.Update();
+
+		RenderingThread(&app, gameState);
 	}
 
 	return 0;
@@ -81,7 +84,7 @@ int main(int argc, char** argv)
 CLIENT(
 void RenderingThread(App *app, GameState *gameState)
 {
-	while(app->isOpen())
+	//while(app->isOpen())
 	{
 		app->clear();
 

@@ -232,6 +232,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="NormalItem.h" />
     <ClInclude Include="PositionItem.h" />
+    <ClInclude Include="TextBox.h" />
     <ClInclude Include="TextInputItem.h" />
     <ClInclude Include="TextItem.h" />
     <ClInclude Include="UniqueBlock.h" />

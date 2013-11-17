@@ -11,17 +11,6 @@
 MainMenu::MainMenu() : MenuState()//void MainMenu::Initialize()
 {
 
-	lambda = [this]()
-	{
-		std::cout << "XD";
-	};
-
- //   menuItems.push_back(new Label(13,37,16,16,lambda));
-    std::cout << "TESTING" << std::endl;
-	//menuItems.push_back(new gui::Label(0, 0,
-	//	[&](App& app, const sf::Event& event, GameState *gameState) { return nullptr; },
-	//	"lol")); //GameState*(App&, const sf::Event&, GameState *gameState)
-
 	sf::Font *font = new sf::Font;
 	if (!font->loadFromFile("font.ttf"))
 		throw "font.ttf not found";

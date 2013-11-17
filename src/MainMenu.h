@@ -10,10 +10,6 @@
 
 class MainMenu : public MenuState
 {
-private:
-    sf::Image Image;
-    sf::Sprite *sprite;
-	std::function<void()> lambda;
 public:
 	MainMenu();
     ~MainMenu();

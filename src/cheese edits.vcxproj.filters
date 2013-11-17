@@ -380,6 +380,9 @@
     <ClInclude Include="GraphicalContainer.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet1.props" />
