@@ -31,9 +31,9 @@ void Connection::Run()
 
 bool Connection::Connect(sf::IpAddress ip, int port)
 {
-	if(client->socket.connect(ip, port, sf::Time(sf::seconds(5))) == sf::Socket::Done)
+	if(client->socket->connect(ip, port, sf::Time(sf::seconds(5))) == sf::Socket::Done)
 	{
-		client->socket.setBlocking(false);
+		client->socket->setBlocking(false);
 		std::cout << "Connected to " << ip << " : " << port << std::endl;
 		return(true);
 	}
@@ -49,7 +49,7 @@ void Connection::Receive()
 	if(&client->socket != nullptr)
 	{
 		sf::Packet *received = new sf::Packet();
-		sf::Socket::Status status = client->socket.receive(*received);
+		sf::Socket::Status status = client->socket->receive(*received);
 		if (status == sf::Socket::Done)
 		{
 			globalMutex.lock();

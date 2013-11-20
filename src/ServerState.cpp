@@ -64,7 +64,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				float ping = client->pingClock.getElapsedTime().asMilliseconds();
 				client->pingClock.restart();
 				client->ping = ping;
-				//std::cout << "Client " << client->ID << " has ping " << ping << std::endl;
+				std::cout << "Client " << client->ID << " has ping " << ping << std::endl;
 			}
 			break;
 		case KickMessage: //server kicks client (type, string message)
@@ -100,7 +100,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 						if(temp != nullptr)
 							send << (sf::Int16)pair.first << (sf::Int16)temp->getPosition().x << (sf::Int16)temp->getPosition().y << (sf::Int16)temp->getSize().x << (sf::Int16)temp->getSize().y;
 					}
-					client->socket.send(send);
+					client->socket->send(send);
 
 					send.clear();
 					send << packetType << type << xPos << yPos << clientidtemp;
