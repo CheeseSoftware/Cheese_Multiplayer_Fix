@@ -33,7 +33,7 @@ void ServerConnection::Run(void)
 	if(ElapsedTime > 1000)
 	{
 		pingTimeout.restart();
-		PingClients();
+		//PingClients();
 	}
 }
 
@@ -47,7 +47,7 @@ void ServerConnection::PingClients(void)
 		{
 			std::cout << "Client " << client->ID << " has ping " << client->ping << std::endl;
 			sf::Packet send;
-			sf::Uint16 ping = PingMessage;
+			sf::Uint16 ping = Ping;
 			send << ping;
 			client->socket->send(send);
 			client->pingClock.restart();
@@ -108,11 +108,10 @@ void ServerConnection::Accept()
 				lockObject.unlock();
 				selector.add(*client->socket);
 
-				//Send initial init-packet to all clients
-				sf::Packet packet;
-				sf::Uint16 clientid = ClientID;
-				packet << clientid << freeClientId;
-				client->socket->send(packet);
+				//Send initial init-packet to the client
+				//sf::Packet packet = sf::Packet();
+				//packet << (sf::Uint16)PlayerJoin << (sf::Uint16)freeClientId << (sf::Uint16)0 << (sf::Uint16)0;
+				//client->socket->send(packet);
 
 				std::cout << client->socket->getRemoteAddress() << " connected on socket " << freeClientId << std::endl;
 			}
@@ -184,7 +183,7 @@ void ServerConnection::KickClient(int ID, std::string reason)
 		std::cout << "Kicked client: " << ID << " Reason: " << reason << std::endl;
 
 		send.clear();
-		send << (sf::Uint16)PlayerJoinLeft << (sf::Uint16)1 << (sf::Uint16)ID;
+		send << (sf::Uint16) PlayerLeft << (sf::Uint16)ID;
 		Broadcast(send);
 		//std::cout << ip << " has left" << std::endl;
 	}

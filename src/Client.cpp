@@ -10,5 +10,9 @@ Client::Client()
 
 Client::~Client()
 {
+	if (socket != nullptr)
+	{
+		socket->disconnect();
+	}
 	delete socket;
 }

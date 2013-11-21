@@ -57,7 +57,12 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 
 		switch(packetType)
 		{
-		case PingMessage: //measure ping between sent 1 and received 1 (type)
+		case RequestInit:
+			{
+
+			}
+			break;
+		case Ping: //Get client ping
 			{
 				sf::Time ping = client->pingClock.getElapsedTime();
 				float totalPing = ping.asMilliseconds();
@@ -65,57 +70,41 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				client->isMeasuringPing = false;
 			}
 			break;
-		case KickMessage: //server kicks client (type, string ftfftfffffffffmessage)
-
-			break;
-		case PlayerJoinLeft:
+		case Kick: //Server has kicked client (Client receiver only)
 			{
-				sf::Uint16 type;
+			}
+			break;
+		case PlayerJoin: //A player has joined or left the server
+			{
+				sf::Uint16 clientId = client->ID;
+				std::cout << "client joined blabla " << clientId << std::endl;
 				float xPos;
 				float yPos;
-
-				//std::cout << "Server got PlayerJoinLeft " << packetType << " " << type << " " << xPos << " " << yPos << " " << client->ID << std::endl;
-
 				sf::Packet send;
-				sf::Uint16 packetTypeTemp = PlayerJoinLeft;
-				sf::Uint16 clientidtemp = client->ID;
-
-				*packet >> type;
-
-				if(type == 0) //Player has joined
+				if(!(*packet >> xPos >> yPos))
+					std::cout << "ERROR: Server could not extract data: PlayerJoin" << std::endl;
+				currentWorld->AddPlayer(client->ID, new Player(xPos, yPos, 16, 16, true, "smileys.png", 0, "temp"));
+				send << (sf::Uint16) Init << clientId;
+				for(std::pair<int, Client*> pair : sC->clients)
 				{
-					*packet >> xPos >> yPos;
-
-					//Add the player to the server world
-					currentWorld->AddPlayer(client->ID, new Player(xPos, yPos, 14, 14, true, "smileys.png", 0, "temp"));
-
-					// Send the init message
-					// Players
-					send << (sf::Uint16) InitMessage;
-					for(std::pair<int, Client*> pair : sC->clients)
-					{
-						Player* temp = currentWorld->GetPlayer(pair.first);
-						if(temp != nullptr)
-							send << (sf::Int16)pair.first << (sf::Int16)temp->getPosition().x << (sf::Int16)temp->getPosition().y << (sf::Int16)temp->getSize().x << (sf::Int16)temp->getSize().y;
-					}
-					client->socket->send(send);
-
-					send.clear();
-					send << packetType << type << xPos << yPos << clientidtemp;
-
+					Player* temp = currentWorld->GetPlayer(pair.first);
+					send << (sf::Int16)pair.first << (float)temp->getPosition().x << (float)temp->getPosition().y << (sf::Int16)temp->getSize().x << (sf::Int16)temp->getSize().y;
 				}
-				/*else if(type == 1) //Player has left
-				{
-				currentWorld->RemovePlayer(client->ID);
-				send.Clear();
-				send << packetType << type << (sf::Uint16)client->ID;
-				std::cout << client->IP << " has left" << std::endl;
-				}*/
-
+				client->socket->send(send);
+				send.clear();
+				send << packetType << clientId << xPos << yPos;
 				sC->Broadcast(send);
-				//std::cout << "Server sent PlayerJoinLeft " << packetType << " " << type << " " << xPos << " " << yPos << " " << clientidtemp << std::endl;
 				break;
 			}
+		case PlayerLeft:
+			{
+				sf::Packet send;
+				currentWorld->RemovePlayer(client->ID);
+				send.clear();
+				send << (sf::Uint16)PlayerLeft << (sf::Uint16)client->ID;
+				sC->Broadcast(send);
+			}
+			break;
 		case PlayerMove:
 			{
 				float xPos;
@@ -129,18 +118,12 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				Player* p = currentWorld->GetPlayer(client->ID);
 				if (p != nullptr)
 				{
-					//Broadcast playermove data
 					sf::Packet packet;
 					sf::Int16 clientid = client->ID;
-					packet << (sf::Uint16)PlayerMove << clientid << xPos << yPos << speedX << speedY << angle << horizontal << vertical;
+					if(!(packet << (sf::Uint16)PlayerMove << clientid << xPos << yPos << speedX << speedY << angle << horizontal << vertical))
+						std::cout << "ERROR: Server could not extract data: PlayerMove" << std::endl;
 					sC->Broadcast(packet);
-
-					//Move player in server world
 					p->CreatureMove(xPos, yPos, speedX, speedY, angle, horizontal, vertical);
-					//Send world data in radius around player
-					/*int chunkX = xPos * 0.00390625;
-					int chunkY = yPos * 0.00390625;
-					currentWorld->get*/
 				}
 			}
 			break;
@@ -151,8 +134,8 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				sf::Uint16 layer;
 				sf::Uint16 id;
 				sf::Uint16 metadata;
-				*packet >> xPos >> yPos >> layer >> id >> metadata;
-				//std::cout << "server received " << xPos << " " << yPos << " " << layer << " " << id << " " << metadata << std::endl;
+				if(!(*packet >> xPos >> yPos >> layer >> id >> metadata))
+					std::cout << "ERROR: Server could not extract data: BlockPlace" << std::endl;
 				if(id != 0)
 					Block* temp = blockRegister->getBlockType(id)->OnReceive(originalPacket, gameUtility);
 				else
@@ -165,7 +148,8 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				sf::Int32 yPos;
 				sf::Uint16 layer;
 				sf::Uint16 metadata;
-				*packet >> xPos >> yPos >> layer >> metadata;
+				if(!(*packet >> xPos >> yPos >> layer >> metadata))
+					std::cout << "ERROR: Server could not extract data: BlockMetadataChange" << std::endl;
 				currentWorld->setBlockMetadata(xPos, yPos, layer, metadata, this);
 			}
 			break;

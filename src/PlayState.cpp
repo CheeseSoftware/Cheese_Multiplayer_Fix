@@ -82,12 +82,12 @@ GameState *PlayState::Update(App &app)
 {
 	if (fpsClock.getElapsedTime().asMilliseconds() > 500)
 	{
-		std::cout << "fps: " << 1/app.getFrameTime() << "\n";
+		//std::cout << "fps: " << 1/app.getFrameTime() << "\n";
 		fpsClock.restart();
 	}
 	else if (1/app.getFrameTime() < 50.f)
 	{
-		std::cout << "fps: " << 1/app.getFrameTime() << " LOW FPS!\n";
+		//std::cout << "fps: " << 1/app.getFrameTime() << " LOW FPS!\n";
 		fpsClock.restart();
 	}
 
@@ -130,98 +130,85 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 		sf::Uint16 packetType;
 		sf::Uint16 wtf;
 		if(!(*packet >> packetType))
-			std::cout << "ERROR: Client could not extract data: data left? " << !packet->endOfPacket() << std::endl;
+			std::cout << "ERROR: Client could not extract data: Packet type " << !packet->endOfPacket() << std::endl;
 		//std::cout << "Client got packet " << packetType << " wtf?: " << wtf << std::endl;
 
 		sf::Packet* const originalPacket = new sf::Packet(*packet);
 
 		switch(packetType)
 		{
-		case InitMessage:
+		case Init:
 			{
+				std::cout << "init" << std::endl;
+				sf::Int16 myId;
+				if(!(*packet >> myId))
+					std::cout << "ERROR: Client could not extract data: Init, myId" << std::endl;
+				connection->client->ID = myId;
 				while(!packet->endOfPacket())
 				{
-					sf::Int16 ID;
+					sf::Int16 clientId;
 					float xPos;
 					float yPos;
 					sf::Int16 sizeX;
 					sf::Int16 sizeY;
 
-					if(!(*packet >> ID  >> xPos >> yPos >> sizeX >> sizeY)) {}
-					//std::cout << "ERROR: Client could not extract data" << std::endl;
+					if(!(*packet >> clientId  >> xPos >> yPos >> sizeX >> sizeY))
+						std::cout << "ERROR: Client could not extract data: InitMessage" << std::endl;
 					else
 					{
 						Player *player = new Player(xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
-						currentWorld->AddPlayer(ID, player);
+						std::cout << "added client " << clientId << std::endl;
+						if(clientId == connection->client->ID)
+						{
+							std::cout << "the client is me" << std::endl;
+							player->isClientControlling = true;
+							camera->setCameraAt(player);
+						}
+						currentWorld->AddPlayer(clientId, player);
 					}
 				}
 			}
 			break;
-		case ClientID:
-			{
-				sf::Uint16 ID;
-				sf::Uint16 blabla;
-				if(!(*packet >> blabla >> ID))
-					std::cout << "ERROR: Client could not extract data" << std::endl;
-				connection->client->ID = ID;
-				std::cout << "My ID is now " << ID << std::endl;
-				sf::Packet send;
-				sf::Uint16 packetType = PlayerJoinLeft;
-				sf::Uint16 type = 0;
-				float xPos = 0;
-				float yPos = 0;
-				send << packetType << type << xPos << yPos;
-				connection->client->socket->send(send);
-				std::cout << "Client sent PlayerJoinLeft " << packetType << " " << type << " " << xPos << " " << yPos << " " << connection->client->ID << std::endl;
-			}
-			break;
-		case PingMessage: //measure ping between sent 1 and received 1 (type)
+		case Ping: //measure ping between sent 1 and received 1 (type)
 			{
 				sf::Packet packet;
-				sf::Uint16 type = PingMessage;
+				sf::Uint16 type = Ping;
 				packet << type;
 				connection->client->socket->send(packet);
 			}
 			break;
-		case KickMessage: //server kicks client (type, string message)
-
-			break;
-		case PlayerJoinLeft:
+		case Kick: //server kicks client (type, string message)
 			{
-				sf::Uint16 type;
-				sf::Uint16 packetType;
+				//cout the kick msg and forcefully shut downXD
+			}
+			break;
+		case PlayerJoin:
+			{
+				sf::Uint16 clientId;
 				float xPos;
 				float yPos;
-				sf::Uint16 clientID;
-				*packet >> type;
-
-				//std::cout << "Client got PlayerJoinLeft " << packetType << " " << type << " " << xPos << " " << yPos << " " << clientID << std::endl;
-				if(type == 0)
+				if(!(*packet >> clientId >> xPos >> yPos))
+					std::cout << "ERROR: Client could not extract data: PlayerJoin" << std::endl;
+				Player* player = new Player(xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
+				/*if(clientId == connection->client->ID)
 				{
-					*packet >> xPos >> yPos >> clientID;
-					Player* temp = new Player(xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
-					std::cout << "Added player -> clientid received " << clientID << " this clientid " << connection->client->ID << std::endl;
-
-					if(clientID == connection->client->ID)
-					{
-						temp->isClientControlling = true;
-						std::cout << "Camera set" << std::endl;
-						camera->setCameraAt(temp);
-					}
-
-					currentWorld->AddPlayer(clientID, temp);
-				}
-				else if(type == 1)
-				{
-					*packet >> clientID;
-					currentWorld->RemovePlayer(clientID);
-					std::cout << "Client " << clientID << " has left" << std::endl;
-				}
-				break;
+					player->isClientControlling = true;
+					camera->setCameraAt(player);
+				}*/
+				currentWorld->AddPlayer(clientId, player);
 			}
+			break;
+		case PlayerLeft:
+			{
+				sf::Uint16 clientId;
+				if(!(*packet >> clientId))
+					std::cout << "ERROR: Client could not extract data: PlayerLeft" << std::endl;
+				currentWorld->RemovePlayer(clientId);
+				std::cout << "Client " << clientId << " has left" << std::endl;
+			}
+			break;
 		case PlayerMove:
 			{
-				//std::cout << "Client got playermove" << std::endl;
 				sf::Int16 ID;
 				float xPos;
 				float yPos;
@@ -230,17 +217,12 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				float angle;
 				float horizontal;
 				float vertical;
-				*packet >> ID  >> xPos >> yPos >> speedX >> speedY >> angle >> horizontal >> vertical;
+				if(!(*packet >> ID  >> xPos >> yPos >> speedX >> speedY >> angle >> horizontal >> vertical))
+					std::cout << "ERROR: Client could not extract data: PlayerMove" << std::endl;
 				Player* p = currentWorld->GetPlayer(ID);
 				if (p != nullptr && ID != connection->client->ID)
 				{
 					p->CreatureMove(xPos, yPos, speedX, speedY, angle, horizontal, vertical);
-					//Player* temp = new Player(xPos, yPos, 16, 16, true, "graywizard.png", 0, "temp");
-					//temp->setSpeedX(speedX);
-					//temp->setSpeedY(speedY);
-					//temp->setAngle(angle);
-					//currentWorld->SetPlayer(client->ID, temp);
-					//std::cout << "Moved player! :D" << std::endl;
 				}
 			}
 			break;
@@ -251,7 +233,8 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				sf::Uint16 layer;
 				sf::Uint16 id;
 				sf::Uint16 metadata;
-				*packet >> xPos >> yPos >> layer >> id >> metadata;
+				if(!(*packet >> xPos >> yPos >> layer >> id >> metadata))
+					std::cout << "ERROR: Client could not extract data: BlockPlace" << std::endl;
 				std::cout << "client received " << xPos << " " << yPos << " " << layer << " " << id << " " << metadata << std::endl;
 
 				if(id != 0)
@@ -266,7 +249,8 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				sf::Int32 yPos;
 				sf::Uint16 layer;
 				sf::Uint16 metadata;
-				*packet >> xPos >> yPos >> layer >> metadata;
+				if(!(*packet >> xPos >> yPos >> layer >> metadata))
+					std::cout << "ERROR: Client could not extract data: BlockMetadataChange" << std::endl;
 				currentWorld->setBlockMetadata(xPos, yPos, layer, metadata, this);
 			}
 			break;
