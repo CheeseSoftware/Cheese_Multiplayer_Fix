@@ -92,7 +92,7 @@ GameState *PlayState::Update(App &app)
 
 	while (!packetDataList->empty())
 	{
-		connection->client->socket.send(packetDataList->front());
+		connection->client->socket->send(packetDataList->front());
 		packetDataList->pop();
 	}
 
@@ -162,7 +162,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				float xPos = 0;
 				float yPos = 0;
 				send << packetType << type << xPos << yPos;
-				connection->client->socket.send(send);
+				connection->client->socket->send(send);
 				std::cout << "Client sent PlayerJoinLeft " << packetType << " " << type << " " << xPos << " " << yPos << " " << connection->client->ID << std::endl;
 			}
 			break;
@@ -173,7 +173,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 					sf::Packet packet;
 					sf::Uint16 type = 1;
 					packet << type;
-					connection->client->socket.send(packet);
+					connection->client->socket->send(packet);
 
 				}
 			}

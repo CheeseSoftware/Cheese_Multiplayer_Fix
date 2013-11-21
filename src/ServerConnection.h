@@ -19,12 +19,13 @@ public:
 
 	sf::Mutex globalMutex;
 	std::queue<std::pair<sf::Packet*, Client*>> packets;
-	long int maxClients;
+	//long int maxClients;
 	std::map<int, Client*> clients;
 private:
 	void PingClients();
 	void Accept();
 	void Receive();
+	int GetFreeClientId();
 	//sf::TcpSocket s;
 	sf::IpAddress localIP;
 	sf::IpAddress publicIP;

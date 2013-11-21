@@ -36,7 +36,11 @@ int main(int argc, char** argv)
 
 	App app(sf::VideoMode(1152,720));
 
+<<<<<<< HEAD
 	GameState *gameState = new PlayState((const PlayState&)app);//new MainMenu();//
+=======
+	GameState *gameState = new PlayState((const PlayState&)app);//GameState *gameState = new MainMenu();//
+>>>>>>> f0ba7668233bf68b02f4eb55c95bca3676d4af6c
 #else
 	App app;
 	GameState *gameState = new ServerState(app);
@@ -74,8 +78,14 @@ int main(int argc, char** argv)
 		}
 
 		app.Update();
+<<<<<<< HEAD
 
 		CLIENT(RenderingThread(&app, gameState);)
+=======
+#ifndef _SERVER
+		RenderingThread(&app, gameState);
+#endif
+>>>>>>> f0ba7668233bf68b02f4eb55c95bca3676d4af6c
 	}
 
 	return 0;
