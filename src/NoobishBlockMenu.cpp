@@ -36,8 +36,8 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtility
 {
 	if(event.type == sf::Event::MouseButtonPressed)
 	{
-		int x = (int)(app.getView().getCenter().x-app.getView().getSize().x/2 + 256 + event.mouseButton.x)>>4;
-		int y = (int)(app.getView().getCenter().y-app.getView().getSize().y/2 + 256 + event.mouseButton.y)>>4;
+		int x = (int)(gameUtility->getCamera().getLeftX() + event.mouseButton.x)>>4;
+		int y = (int)(gameUtility->getCamera().getTopY() + event.mouseButton.y)>>4;
 		if(event.key.code == sf::Mouse::Left)
 		{
 			if (event.mouseButton.y >= app.getSize().y-32)
@@ -79,11 +79,7 @@ void NoobishBlockMenu::Draw(App &app, GameUtility *gameUtility)
 	{
 		for(int i = 0; i < 80; ++i)
 		{
-			blockMenu[j][i].first->Draw((long)floor(0.5+gameUtility->getCamera().getLeftX()) + (i<<4),
-				(long)floor(0.5+gameUtility->getCamera().getButtomY()) -32+16*j,
-				app,
-				gameUtility,
-				blockMenu[j][i].second);
+			blockMenu[j][i].first->Draw(i<<4, app.getSize().y -32+16*j, app, gameUtility, blockMenu[j][i].second);
 		}
 	}
 }

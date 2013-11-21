@@ -200,7 +200,7 @@ void World::setBlockMetadata(long x, long y, long layer, unsigned short metadata
 MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility)
 {
 	chunkMatrixLock.lock(); //std::cout << "chunkmatrix locked!\n";
-	long xx = floor(x * 0.0625);
+	long xx = floor(x * 0.0625)+1;
 
 	unsigned short xxx = x&0xF;//(x < 0)? (abs(x+1)&0xF)^0xF : x&0XF;
 	unsigned short yyy = y&0xF;//(y < 0)? y&0XF : y&0XF;
@@ -212,7 +212,7 @@ MessageType World::setBlockAndMetadataClientOnly(long x, long y, long layer, uns
 	}
 	{
 		//std::cout << "NU?\n";
-		long yy = floor(y * 0.0625);
+		long yy = floor(y * 0.0625)+1;
 
 		//if (!isChunkInsideChunkColumn(yy + it.second,it.first))
 		{
@@ -276,11 +276,11 @@ MessageType World::setBlockMetadataClientOnly(long x, long y, long layer, unsign
 	unsigned short xxx = x&0xF;//(x < 0)? (abs(x+1)&0xF)^0xF : x&0XF;
 	unsigned short yyy = y&0xF;//(y < 0)? y&0XF : y&0XF;
 
-	long xx = floor(x * 0.0625);
+	long xx = floor(x * 0.0625)+1;
 	if (isColumnInsideChunkMatrix(xx))
 	{
 		auto &it = chunkMatrix.first.at(xx);
-		long yy = floor(y * 0.0625);
+		long yy = floor(y * 0.0625)+1;
 		if (isChunkInsideChunkColumn(yy,it.first))
 		{
 			Chunk *c = it.first.at(yy);

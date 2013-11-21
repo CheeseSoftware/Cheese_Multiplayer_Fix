@@ -28,7 +28,9 @@ namespace sf
 extern int _argc;
 extern char** _argv;
 
-PlayState::PlayState(App &app) : GameUtility(app)
+PlayState::PlayState(App &app)
+	: GameUtility(app)
+	, hudView(sf::FloatRect(0.f, 0.f, (float)app.getSize().x, (float)app.getSize().y))
 {
 	fpsClock.restart();
 
@@ -60,9 +62,14 @@ PlayState::~PlayState()
 void PlayState::EventUpdate(App &app, const sf::Event &event)
 {
 	if (event.type == sf::Event::Resized)
+	{
 		reinterpret_cast<sf::View*>(camera)->setSize(sf::Vector2f(//->setViewport(sf::FloatRect(0.f, 0.f,
 		app.getSize().x,
 		app.getSize().y));
+
+		hudView.setSize(app.getSize().x, app.getSize().y);
+	}
+
 	//App.SetView(camera = sf::View(sf::FloatRect(0.f, 0.f,
 	//                static_cast<float>(App.GetWidth()),
 	//                static_cast<float>(App.GetHeight()))));
@@ -88,7 +95,7 @@ GameState *PlayState::Update(App &app)
 	currentWorld->Update(app, this);
 
 	camera->Update(app);
-	app.setView(*reinterpret_cast<sf::View*>(camera));
+	
 
 	while (!packetDataList->empty())
 	{
@@ -103,7 +110,9 @@ GameState *PlayState::Update(App &app)
 
 void PlayState::Draw(App &app)
 {
+	app.setView(*reinterpret_cast<sf::View*>(camera));
 	currentWorld->Draw(app, this);
+	app.setView(hudView);
 	noobishBlockMenu->Draw(app, this); // < orsakar lagg temp
 }
 

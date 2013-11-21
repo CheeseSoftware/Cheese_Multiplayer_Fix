@@ -27,6 +27,7 @@ class PlayState : public GameUtility
 	Connection *connection;
 	EventHandler<GameUtility*> eventHandler;
     sf::Clock fpsClock;
+	sf::View hudView;
 	//BlockRegister *blockRegister; // surkod
 	//World *currentWorld;
 	void ProcessPackets(GameUtility *gameUtility);
