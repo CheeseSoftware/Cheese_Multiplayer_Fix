@@ -61,11 +61,11 @@ void PlayState::EventUpdate(App &app, const sf::Event &event)
 {
 	if (event.type == sf::Event::Resized)
 		reinterpret_cast<sf::View*>(camera)->setSize(sf::Vector2f(//->setViewport(sf::FloatRect(0.f, 0.f,
-			app.getSize().x,
-            app.getSize().y));
-		//App.SetView(camera = sf::View(sf::FloatRect(0.f, 0.f,
-        //                static_cast<float>(App.GetWidth()),
-        //                static_cast<float>(App.GetHeight()))));
+		app.getSize().x,
+		app.getSize().y));
+	//App.SetView(camera = sf::View(sf::FloatRect(0.f, 0.f,
+	//                static_cast<float>(App.GetWidth()),
+	//                static_cast<float>(App.GetHeight()))));
 
 	currentWorld->EventUpdate(app, event, this);
 	noobishBlockMenu->EventUpdate(app, event, this);
@@ -83,8 +83,8 @@ GameState *PlayState::Update(App &app)
 		std::cout << "fps: " << 1/app.getFrameTime() << " LOW FPS!\n";
 		fpsClock.restart();
 	}
-	
-	
+
+
 	currentWorld->Update(app, this);
 
 	camera->Update(app);
@@ -168,14 +168,10 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 			break;
 		case PingMessage: //measure ping between sent 1 and received 1 (type)
 			{
-				if (packetType == 1)
-				{
-					sf::Packet packet;
-					sf::Uint16 type = 1;
-					packet << type;
-					connection->client->socket->send(packet);
-
-				}
+				sf::Packet packet;
+				sf::Uint16 type = PingMessage;
+				packet << type;
+				connection->client->socket->send(packet);
 			}
 			break;
 		case KickMessage: //server kicks client (type, string message)
