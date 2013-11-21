@@ -7,8 +7,7 @@
 GameUtility::GameUtility(App &app)
 {
 #ifndef _SERVER
-	camera = new Camera(8);//setSpeed(8);
-	app.setView(*reinterpret_cast<sf::View*>(camera));
+	camera = new Camera(2048);//setSpeed(8);
 #endif
 	tC = new TextureContainer();
 	currentWorld = new World();

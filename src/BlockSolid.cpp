@@ -1,16 +1,16 @@
 #include "BlockSolid.h"
 
-BlockSolid::BlockSolid(unsigned short id) : Block(id)
+BlockSolid::BlockSolid(const unsigned short id) : Block(id)
 {
 
 }
 
-std::string BlockSolid::getTextureName()
+const char *const BlockSolid::getTextureName() const
 {
 	return "BlockSolid.png";
 }
 
-unsigned short BlockSolid::getTextureId(App &app, unsigned short metadata)
+unsigned short BlockSolid::getTextureId(App &app, const unsigned short metadata) const
 {
 	return metadata;
 }

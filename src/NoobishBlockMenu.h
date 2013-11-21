@@ -18,6 +18,7 @@ namespace sf
 class NoobishBlockMenu
 {
 	int selected;
+	int layer;
 	std::pair<Block*, unsigned short> **blockMenu;
 public:
 	//>.<NoobishBlockMenu();

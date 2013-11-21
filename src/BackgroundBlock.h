@@ -4,6 +4,6 @@
 class BackgroundBlock : public virtual Block
 {
 public:
-	virtual unsigned char getLayer();
-	virtual bool isSolid();
+	virtual unsigned char getLayer() const;
+	virtual bool isSolid() const;
 };

@@ -24,7 +24,7 @@ BlockRegister::BlockRegister()
 	RegisterBlock(new BlockChest(i), typeid(BlockChest).hash_code()); i++;
 }
 
-void BlockRegister::RegisterBlock(Block *block, size_t typeId)
+void BlockRegister::RegisterBlock(Block *block, const size_t typeId)
 {
 	std::cout << blockTypeList.size() << std::endl;
 	blockList.push_back(block);
@@ -44,7 +44,7 @@ void BlockRegister::RegisterBlockTextures(TextureContainer &Tc)
 }
 #endif
 
-Block *BlockRegister::getBlockType(unsigned short id)
+Block *BlockRegister::getBlockType(const unsigned short id)
 {
 	if (id == 0)
 		return nullptr;
@@ -52,13 +52,13 @@ Block *BlockRegister::getBlockType(unsigned short id)
 }
 
 #ifndef _SERVER
-sf::Sprite *BlockRegister::getBlockTextures(Block *block)
+sf::Sprite *BlockRegister::getBlockTextures(const Block *block)
 {
 	return blockTextureList[getBlockIdByTypeId(typeid(*block).hash_code())];
 }
 #endif
 
-unsigned short BlockRegister::getBlockIdByTypeId(size_t typeId)
+unsigned short BlockRegister::getBlockIdByTypeId(const size_t typeId)
 {
 	auto it = blockIdMap.find(typeId);//blockIdMapfind(typeId);
 	//std::cout << it->second << " " << typeId << std::endl;

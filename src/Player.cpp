@@ -10,7 +10,7 @@
 #include "GameUtility.h"
 
 Player::Player(float X, float Y, short sizeX, short sizeY, bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name) 
-	: Creature(X, Y, sizeX, sizeY, 1024, 0.25, spriteName, spriteIndex, IsClientControlling)
+	: Creature(X, Y, sizeX, sizeY, 1024, 0.75, spriteName, spriteIndex, IsClientControlling)
 {
 	name = Name;
 	cameraDelay = 0;
@@ -270,7 +270,7 @@ void Player::setCameraDelay(float delay)
 	cameraDelay = delay;
 }
 
-std::string Player::getTextureName()
+const char *const Player::getTextureName()
 {
 	return "smileys.png";
 }

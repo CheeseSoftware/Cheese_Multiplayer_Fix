@@ -1,11 +1,11 @@
 #include "BackgroundBlock.h"
 
-unsigned char BackgroundBlock::getLayer()
+unsigned char BackgroundBlock::getLayer() const
 {
 	return 0;
 }
 
-bool BackgroundBlock::isSolid()
+bool BackgroundBlock::isSolid() const
 {
 	return false;
 }

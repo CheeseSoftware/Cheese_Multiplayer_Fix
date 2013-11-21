@@ -15,7 +15,7 @@ Block::Block(unsigned short id)
 {
 }
 
-std::function<Block*(unsigned short)> Block::RegisterBlock(const unsigned short id)
+std::function<Block*(const unsigned short)> Block::RegisterBlock(const unsigned short id)
 {
 	std::cout << typeid(*this).name() << '(' << typeid(*this).hash_code() << ") registered with blockId " << id << ".\n";
 	if (isUnique())
@@ -33,20 +33,20 @@ std::function<Block*(unsigned short)> Block::RegisterBlock(const unsigned short 
 	}
 }
 
-bool Block::isSeeThrough()
+bool Block::isSeeThrough() const
 {
 	return false;
 }
 
-bool Block::isUnique()
+bool Block::isUnique() const
 {
 	return false;
 }
 
 #ifndef _SERVER
-void Block::OnCreate(unsigned short metadata, EventHandler<GameUtility*> &eventHandler)
+void Block::OnCreate(const unsigned short metadata, EventHandler<GameUtility*> &eventHandler)
 #else
-void Block::OnCreate(unsigned short metadata)
+void Block::OnCreate(const unsigned short metadata)
 #endif
 {
 
@@ -60,32 +60,32 @@ void Block::OnRemove()
 	}
 }
 
-void Block::OnRightClick(Creature *creature, unsigned short metadata)
+void Block::OnRightClick(Creature *creature, const unsigned short metadata)
 {
 
 }
 
-void Block::OnEntityTouch(Entity *entity, unsigned short metadata)
+void Block::OnEntityTouch(Entity *entity, const unsigned short metadata)
 {
 
 }
 
-void Block::OnEntitySlide(Entity *entity, float &friction, unsigned short metadata)
+void Block::OnEntitySlide(Entity *entity, float &friction, const unsigned short metadata)
 {
 
 }
 
-void Block::OnEntityHover(App &app, Entity *entity, float &xFriction, float&yFriction, float &speedX, float &speedY, unsigned short metadata)
+void Block::OnEntityHover(App &app, Entity *entity, float &xFriction, float&yFriction, float &speedX, float &speedY, const unsigned short metadata)
 {
 
 }
 
-void Block::getCreatureMovePossibilities(App &app, Creature *creature, float &horizontal, float &vertical, unsigned short metadata)
+void Block::getCreatureMovePossibilities(App &app, Creature *creature, float &horizontal, float &vertical, const unsigned short metadata)
 {
 
 }
 
-void Block::CreatureJump(App &app, Creature *creature, float &speedX, float &speedY, unsigned short metadata)
+void Block::CreatureJump(App &app, Creature *creature, float &speedX, float &speedY, const unsigned short metadata)
 {
 
 }
@@ -137,7 +137,7 @@ sf::Packet Block::OnSend(sf::Int16 packetType, long x, long y, short layer, shor
 }
 
 #ifndef _SERVER
-void Block::Draw(long posX, long posY, App &app, GameUtility *gameUtility, unsigned short metadata)
+void Block::Draw(const long posX, const long posY, App &app, GameUtility *gameUtility, const unsigned short metadata)
 {
 	sf::Sprite *tempSprite = &gameUtility->getBlockRegister().getBlockTextures(this)[getTextureId(app, metadata)]; //&(tC.getTextures(getTextureName())[getTextureId(app, metadata)]);
 	if (tempSprite != nullptr)

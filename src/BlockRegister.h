@@ -17,13 +17,13 @@ class BlockRegister
 	std::vector<sf::Sprite*> blockTextureList;
 public:
 	BlockRegister();
-	void RegisterBlock(Block *block, size_t typeId);
+	void RegisterBlock(Block *block, const size_t typeId);
 #ifndef _SERVER
 	void RegisterBlockTextures(TextureContainer &Tc);
 #endif
-	Block *getBlockType(unsigned short id);
+	Block *getBlockType(const unsigned short id);
 #ifndef _SERVER
-	sf::Sprite *getBlockTextures(Block *block);
+	sf::Sprite *getBlockTextures(const Block *block);
 #endif
-	unsigned short getBlockIdByTypeId(size_t typeId);
+	unsigned short getBlockIdByTypeId(const size_t typeId);
 };

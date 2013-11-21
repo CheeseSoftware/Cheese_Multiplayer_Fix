@@ -17,6 +17,14 @@ Camera::Camera(double speed) : View(sf::FloatRect(200, 200, 300, 200))
 	setSize(1152,720);// temporära magiska nummer
 }
 
+Camera::Camera(int speed) : View(sf::FloatRect(200, 200, 300, 200))
+{
+	this->speed = 1.f - 1.f/(float)speed;
+	currentEntity = nullptr;
+
+	setSize(1152,720);// temporära magiska nummer
+}
+
 
 Camera::~Camera(void)
 {
@@ -29,9 +37,11 @@ void Camera::Update(App &app)
 	{
 		float deltaX = currentEntity->getX()+8-getCenter().x;
 		float deltaY = currentEntity->getY()+8-getCenter().y;
-		float speedFactor = pow(speed, app.getDeltaTime());//atan(app.getDeltaTime()*speed)*2/3.14159265358979323846264338327950288419;
+		float speedFactor = 1.f-pow(1.f-speed, app.getDeltaTime());//atan(app.getDeltaTime()*speed)*2/3.14159265358979323846264338327950288419;
 
-		move(deltaX, deltaY);//move(deltaX*speedFactor,deltaY*speedFactor);
+		//speedFactor = (speedFactor > 1.f)? 1.f : speedFactor;
+
+		move(deltaX*speedFactor,deltaY*speedFactor);
 	}
 }
 
@@ -44,6 +54,11 @@ void Camera::setCameraAt(Entity *entity)
 void Camera::setSpeed(double speed)
 {
 	this->speed = speed;
+}
+
+void Camera::setSpeed(int speed)
+{
+	this->speed = 1.f - 1.f/(float)speed;
 }
 
 sf::Vector2f Camera::getEntityPosition()

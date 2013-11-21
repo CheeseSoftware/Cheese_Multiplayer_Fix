@@ -6,15 +6,15 @@ class BlockChest : public SolidBlock
 private:
 	bool isDrawingInventory;
 public:
-	BlockChest(unsigned short id);
+	BlockChest(const unsigned short id);
 	~BlockChest(void);
 	//unsigned short getId();
-	unsigned short getTextureId(App &app, unsigned short metadata);
+	virtual unsigned short getTextureId(App &app, const unsigned short metadata) const;
 	//unsigned char getLayer();
-	std::string getTextureName();
-	bool isSeeThrough();
+	virtual const char *const getTextureName() const;
+	virtual bool isSeeThrough() const;
 	//bool isSolid();
-	void OnRightClick(Creature *creature, unsigned short metadata);
-	void BlockChest::OnEntityTouch(Entity *entity, unsigned short metadata);
+	virtual void OnRightClick(Creature *creature, const unsigned short metadata);
+	virtual void BlockChest::OnEntityTouch(Entity *entity, const unsigned short metadata);
 };
 

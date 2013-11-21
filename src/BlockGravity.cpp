@@ -2,27 +2,27 @@
 #include "Entity.h"
 #include "Creature.h"
 
-BlockGravity::BlockGravity(unsigned short id) : Block(id)
+BlockGravity::BlockGravity(const unsigned short id) : Block(id)
 {
 
 }
 
-unsigned short BlockGravity::getTextureId(App &app, unsigned short metadata)
+unsigned short BlockGravity::getTextureId(App &app, const unsigned short metadata) const
 {
 	return metadata;
 }
 
-bool BlockGravity::isSeeThrough()
+bool BlockGravity::isSeeThrough() const
 {
 	return true;
 }
 
-std::string BlockGravity::getTextureName()
+const char *const BlockGravity::getTextureName() const
 {
 	return "BlockGravity.png";
 }
 
-void BlockGravity::OnEntityHover(App &app, Entity *entity, float &xFriction, float&yFriction, float &speedX, float &speedY, unsigned short metadata)
+void BlockGravity::OnEntityHover(App &app, Entity *entity, float &xFriction, float&yFriction, float &speedX, float &speedY, const unsigned short metadata)
 {
 	float strength = (1.0F+(metadata>>3)/2.0F)*app.getDeltaTime()*2000.0F;
 
@@ -56,7 +56,7 @@ void BlockGravity::OnEntityHover(App &app, Entity *entity, float &xFriction, flo
 	}
 }
 
-void BlockGravity::getCreatureMovePossibilities(App &app, Creature *creature, float &horizontal, float &vertical, unsigned short metadata)
+void BlockGravity::getCreatureMovePossibilities(App &app, Creature *creature, float &horizontal, float &vertical, const unsigned short metadata)
 {
 	switch(metadata&0x0003)
 	{
@@ -78,7 +78,7 @@ void BlockGravity::getCreatureMovePossibilities(App &app, Creature *creature, fl
 	}
 }
 
-void BlockGravity::CreatureJump(App &app, Creature *creature, float &speedX, float &speedY, unsigned short metadata)
+void BlockGravity::CreatureJump(App &app, Creature *creature, float &speedX, float &speedY, const unsigned short metadata)
 {
 	switch(metadata&0x0003)
 	{

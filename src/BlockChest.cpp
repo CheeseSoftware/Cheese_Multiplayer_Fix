@@ -12,29 +12,29 @@ BlockChest::~BlockChest(void)
 {
 }
 
-std::string BlockChest::getTextureName()
+const char *const BlockChest::getTextureName() const
 {
 	return "BlockSolid.png";
 }
 
-unsigned short BlockChest::getTextureId(App &app, unsigned short metadata)
+unsigned short BlockChest::getTextureId(App &app, unsigned short metadata) const
 {
 	return metadata;
 }
 
-bool BlockChest::isSeeThrough()
+bool BlockChest::isSeeThrough() const
 {
 	return(false);
 }
 
 
-void BlockChest::OnRightClick(Creature *creature, unsigned short metadata)
+void BlockChest::OnRightClick(Creature *creature, const unsigned short metadata)
 {
 	isDrawingInventory = !isDrawingInventory;//temp
 	std::cout << "onrightclick" << std::endl;
 }
 
-void BlockChest::OnEntityTouch(Entity *entity, unsigned short metadata)
+void BlockChest::OnEntityTouch(Entity *entity, const unsigned short metadata)
 {
 	std::cout << "entityovermeD:" << std::endl;
 }

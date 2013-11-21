@@ -12,11 +12,13 @@ private:
 	double speed;
 public:
 	//Camera();
-	Camera(double speed);
+	Camera(const double speed);
+	Camera(const int speed);
 	~Camera(void);
 	void Update(App &app);
 	void setCameraAt(Entity *entity);
-	void setSpeed(double speed);
+	void setSpeed(const double speed);
+	void setSpeed(const int speed);
 	sf::Vector2f getEntityPosition();
 	Entity *Camera::getEntity();
 	double getLeftX();

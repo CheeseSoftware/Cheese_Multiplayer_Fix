@@ -5,8 +5,8 @@
 class BlockSolid : public virtual Block, public SolidBlock
 {
 public:
-	BlockSolid(unsigned short id);
-	virtual unsigned short getTextureId(App &app, unsigned short metadata);
-	virtual std::string getTextureName();
+	BlockSolid(const unsigned short id);
+	virtual unsigned short getTextureId(App &app, unsigned short metadata) const;
+	virtual const char *const getTextureName() const;
 };
 

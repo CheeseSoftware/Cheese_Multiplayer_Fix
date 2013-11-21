@@ -73,14 +73,22 @@ void PlayState::EventUpdate(App &app, const sf::Event &event)
 
 GameState *PlayState::Update(App &app)
 {
-	if (fpsClock.getElapsedTime().asMilliseconds() > 5000)
+	if (fpsClock.getElapsedTime().asMilliseconds() > 500)
 	{
 		std::cout << "fps: " << 1/app.getFrameTime() << "\n";
 		fpsClock.restart();
 	}
+	else if (1/app.getFrameTime() < 50.f)
+	{
+		std::cout << "fps: " << 1/app.getFrameTime() << " LOW FPS!\n";
+		fpsClock.restart();
+	}
+	
+	
+	currentWorld->Update(app, this);
+
 	camera->Update(app);
 	app.setView(*reinterpret_cast<sf::View*>(camera));
-	currentWorld->Update(app, this);
 
 	while (!packetDataList->empty())
 	{

@@ -1,11 +1,11 @@
 #include "SolidBlock.h"
 
-bool SolidBlock::isSolid()
+bool SolidBlock::isSolid() const
 {
 	return true;
 }
 
-unsigned char SolidBlock::getLayer()
+unsigned char SolidBlock::getLayer() const
 {
 	return 2;
 }

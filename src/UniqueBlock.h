@@ -4,5 +4,5 @@
 class UniqueBlock : public virtual Block
 {
 public:
-	virtual bool isUnique();
+	virtual bool isUnique() const;
 };

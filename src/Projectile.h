@@ -22,7 +22,7 @@ public:
 #endif*/
 
 	virtual void Collision(World *world);
-	std::string getTextureName();
+	const char *const getTextureName();
 	short getTextureId();
 	/*virtual void Draw(App &app);
 	void Rotate(float degrees);

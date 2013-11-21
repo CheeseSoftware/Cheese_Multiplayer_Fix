@@ -59,7 +59,7 @@ public:
 #endif
 	virtual bool CheckCollision(App &app, World *world, float speedX, float speedY);
 	virtual void Collision(World *world);
-	virtual std::string getTextureName()=0;
+	virtual const char *const getTextureName()=0;
 	virtual short getTextureId()=0;
     void setPosition(float x, float y);
 	sf::Vector2f getPosition();

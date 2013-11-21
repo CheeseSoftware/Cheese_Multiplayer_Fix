@@ -13,8 +13,9 @@
 }*/
 
 NoobishBlockMenu::NoobishBlockMenu(World *world, GameUtility* gameUtility)
+	: selected(0)
+	, layer(0)
 {
-	selected = 0;
 	blockMenu = new std::pair<Block*, unsigned short>*[2];
 	for(int i = 0; i < 2; i++)
 	{
@@ -44,14 +45,13 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtility
 				std::cout << "den gamla storkossan är: " << selected << std::endl;
 				//if (event.mouseButton.x <= 80*16)
 				{
-					int layer = (event.mouseButton.x >= app.getSize().y-16)? 1:0;
+					layer = (event.mouseButton.y >= app.getSize().y-16)? 1:0;
 					selected = event.mouseButton.x>>4;
 					std::cout << "den nya storkossan är: " << selected << std::endl;
 				}
 			}
 			else
 			{
-				int layer = (selected >= 80)? 1:0;
 				gameUtility->getCurrentWorld()->setBlockAndMetadata(x, y,
 					blockMenu[layer][selected%80].first->getLayer(),
 					gameUtility->getBlockRegister().getBlockIdByTypeId(typeid(*blockMenu[layer][selected%80].first).hash_code()),
@@ -79,8 +79,8 @@ void NoobishBlockMenu::Draw(App &app, GameUtility *gameUtility)
 	{
 		for(int i = 0; i < 80; ++i)
 		{
-			blockMenu[j][i].first->Draw(app.getView().getCenter().x - app.getSize().x/2 + (i<<4),
-				(int)app.getView().getCenter().y + app.getSize().y/2 -32+16*j,
+			blockMenu[j][i].first->Draw((long)floor(0.5+gameUtility->getCamera().getLeftX()) + (i<<4),
+				(long)floor(0.5+gameUtility->getCamera().getButtomY()) -32+16*j,
 				app,
 				gameUtility,
 				blockMenu[j][i].second);

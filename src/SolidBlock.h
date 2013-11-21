@@ -4,6 +4,6 @@
 class SolidBlock : public virtual Block
 {
 public:
-	virtual bool isSolid();
-	virtual unsigned char getLayer();
+	virtual bool isSolid() const;
+	virtual unsigned char getLayer() const;
 };

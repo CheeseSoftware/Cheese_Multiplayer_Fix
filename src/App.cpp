@@ -28,7 +28,6 @@ float App::getDeltaTime()
 
 void App::Update()
 {
-	_sleep(0.01);
 	frameTime = frameTimer.getElapsedTime().asSeconds();
 
 /*SERVER(

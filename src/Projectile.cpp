@@ -52,7 +52,7 @@ void Projectile::Collision(World *world)
 	speedY = 0;
 }
 
-std::string Projectile::getTextureName() { return "arrow.png"; }
+const char *const Projectile::getTextureName() { return "arrow.png"; }
 short Projectile::getTextureId() { return 0; }
 
 /*void Projectile::Draw(App &app)
