@@ -13,7 +13,8 @@ public:
 	sf::TcpSocket *socket;
 	sf::Uint16 ID;
 	std::string name;
-	sf::Uint16 ping;
+	float ping;
 	sf::Clock pingClock;
+	bool isMeasuringPing;
 };
 

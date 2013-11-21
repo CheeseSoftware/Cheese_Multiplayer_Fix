@@ -1,10 +1,5 @@
 #include "Connection.h"
 
-/*//>.<Connection::Connection()
-{
-
-}*/
-
 Connection::Connection(int port, sf::IpAddress IP)
 {
 	client = new Client();
@@ -55,10 +50,6 @@ void Connection::Receive()
 			globalMutex.lock();
 			packets.push(received);
 			globalMutex.unlock();
-		}
-		else if(status == sf::Socket::Disconnected)
-		{
-			//Socket is disconnected, cout will spam >.<
 		}
 	}
 }

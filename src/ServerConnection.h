@@ -17,7 +17,7 @@ public:
 	void KickClient(int ID, std::string reason);
 	virtual void Run();
 
-	sf::Mutex globalMutex;
+	sf::Mutex lockObject;
 	std::queue<std::pair<sf::Packet*, Client*>> packets;
 	//long int maxClients;
 	std::map<int, Client*> clients;
@@ -31,6 +31,7 @@ private:
 	sf::IpAddress publicIP;
 	sf::Clock pingTimeout;
 	sf::TcpListener s;
+	sf::SocketSelector selector;
 	World* currentWorld;
 };
 

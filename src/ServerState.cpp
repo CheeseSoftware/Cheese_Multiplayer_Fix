@@ -32,7 +32,6 @@ GameState *ServerState::Update(App &app)
 		sC->Broadcast(packetDataList->front());
 		packetDataList->pop();
 	}
-	//delete packetDataList;
 	sC->Run();
 	ProcessPackets(this);
 	return this;
@@ -40,10 +39,8 @@ GameState *ServerState::Update(App &app)
 
 void ServerState::ProcessPackets(GameUtility *gameUtility)
 {
-	//sC->globalMutex.lock();
 	auto packets = sC->packets;
 	sC->packets = std::queue<std::pair<sf::Packet*, Client*>>();
-	//sC->globalMutex.unlock();
 
 	while(packets.size() > 0)
 	{
@@ -54,6 +51,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 		sf::Uint16 packetType;
 		if(!(*packet >> packetType))
 			std::cout << "ERROR: Server could not extract data" << std::endl;
+		//std::cout << "packettype " << packetType << std::endl;
 
 		sf::Packet* const originalPacket = new sf::Packet(*packet);
 
@@ -61,13 +59,13 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 		{
 		case PingMessage: //measure ping between sent 1 and received 1 (type)
 			{
-				float ping = client->pingClock.getElapsedTime().asMilliseconds();
-				client->pingClock.restart();
-				client->ping = ping;
-				std::cout << "Client " << client->ID << " has ping " << ping << std::endl;
+				sf::Time ping = client->pingClock.getElapsedTime();
+				float totalPing = ping.asMilliseconds();
+				client->ping = totalPing;
+				client->isMeasuringPing = false;
 			}
 			break;
-		case KickMessage: //server kicks client (type, string message)
+		case KickMessage: //server kicks client (type, string ftfftfffffffffmessage)
 
 			break;
 		case PlayerJoinLeft:
@@ -120,7 +118,6 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 			}
 		case PlayerMove:
 			{
-				break;
 				float xPos;
 				float yPos;
 				float speedX;
@@ -140,7 +137,6 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 
 					//Move player in server world
 					p->CreatureMove(xPos, yPos, speedX, speedY, angle, horizontal, vertical);
-
 					//Send world data in radius around player
 					/*int chunkX = xPos * 0.00390625;
 					int chunkY = yPos * 0.00390625;
@@ -156,7 +152,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				sf::Uint16 id;
 				sf::Uint16 metadata;
 				*packet >> xPos >> yPos >> layer >> id >> metadata;
-				std::cout << "server received " << xPos << " " << yPos << " " << layer << " " << id << " " << metadata << std::endl;
+				//std::cout << "server received " << xPos << " " << yPos << " " << layer << " " << id << " " << metadata << std::endl;
 				if(id != 0)
 					Block* temp = blockRegister->getBlockType(id)->OnReceive(originalPacket, gameUtility);
 				else
