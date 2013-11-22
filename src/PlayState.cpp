@@ -66,8 +66,8 @@ void PlayState::EventUpdate(App &app, const sf::Event &event)
 	if (event.type == sf::Event::Resized)
 	{
 		reinterpret_cast<sf::View*>(camera)->setSize(sf::Vector2f(//->setViewport(sf::FloatRect(0.f, 0.f,
-		app.getSize().x,
-		app.getSize().y));
+			app.getSize().x,
+			app.getSize().y));
 
 		hudView.setSize(app.getSize().x, app.getSize().y);
 	}
@@ -97,7 +97,7 @@ GameState *PlayState::Update(App &app)
 	currentWorld->Update(app, this);
 
 	camera->Update(app);
-	
+
 
 	while (!packetDataList->empty())
 	{
@@ -194,8 +194,8 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				Player* player = new Player(xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
 				/*if(clientId == connection->client->ID)
 				{
-					player->isClientControlling = true;
-					camera->setCameraAt(player);
+				player->isClientControlling = true;
+				camera->setCameraAt(player);
 				}*/
 				currentWorld->AddPlayer(clientId, player);
 			}
@@ -254,6 +254,21 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				if(!(*packet >> xPos >> yPos >> layer >> metadata))
 					std::cout << "ERROR: Client could not extract data: BlockMetadataChange" << std::endl;
 				currentWorld->setBlockMetadata(xPos, yPos, layer, metadata, this);
+			}
+			break;
+		case Chunks:
+			{
+				while(!packet->endOfPacket())
+				{
+					sf::Uint16 blockId;
+					sf::Uint16 blockMetadata;
+					sf::Int32 x;
+					sf::Int32 y;
+					sf::Uint16 layer;
+					*packet >> blockId >> blockMetadata >> x >> y >> layer;
+					//std::cout << "received X:" << x << " Y:" << y << std::endl;
+					currentWorld->setBlockAndMetadata(x, y, layer, blockId, blockMetadata, gameUtility);
+				}
 			}
 			break;
 			//std::cout << packetType << std::endl;

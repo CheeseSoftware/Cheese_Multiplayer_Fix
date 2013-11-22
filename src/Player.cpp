@@ -54,17 +54,13 @@ void Player::Update(App &app, GameUtility *GameUtility)
 	currentChunkYOld = currentChunkY;
 	currentChunkX = floor(x/256);
 	currentChunkY = floor(y/256);
-	if(currentChunkX != currentChunkXOld || currentChunkY != currentChunkYOld)
+	if(GameUtility->getCurrentWorld() != nullptr && currentChunkX != currentChunkXOld || currentChunkY != currentChunkYOld)
 	{
 		//Now request chunks from server! We have moved to a different chunk!
 		std::cout << "chunk is X:" << currentChunkX << " Y:" << currentChunkY << std::endl;
-		for(int x = currentChunkX - 2; x < currentChunkX + 2; x++)
-		{
-			for(int y = currentChunkY - 2; y < currentChunkY + 2; y++)
-			{
-
-			}
-		}
+		sf::Packet chunkPacket = sf::Packet();
+		chunkPacket << (sf::Uint16)RequestChunks << (sf::Int32)currentChunkX << (sf::Int32) currentChunkY;
+		GameUtility->SendPacket(chunkPacket);
 	}
 #endif
 

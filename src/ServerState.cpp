@@ -157,6 +157,33 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				currentWorld->setBlockMetadata(xPos, yPos, layer, metadata, this);
 			}
 			break;
+		case RequestChunks:
+			{
+				sf::Int32 currentChunkX;
+				sf::Int32 currentChunkY;
+				*packet >> currentChunkX >> currentChunkY;
+				sf::Packet sendChunksPacket = sf::Packet();
+				sendChunksPacket << (sf::Uint16) Chunks;
+				for(int layer = 0; layer < 6; layer++)
+				{
+					for(int x = currentChunkX*16 - 5*16; x < currentChunkX*16 + 5*16; x++)
+					{
+						for(int y = currentChunkY*16 - 5*16; y < currentChunkY*16 + 5*16; y++)
+						{
+							std::pair<Block*, unsigned short> currentBlock = currentWorld->getBlockAndMetadata(x, y, layer);
+							if(currentBlock.first != nullptr)
+							{
+								sf::Uint16 blockId = blockRegister->getBlockIdByTypeId(typeid(*currentBlock.first).hash_code());
+								sf::Uint16 blockMetadata = currentBlock.second;
+								sendChunksPacket << blockId << blockMetadata << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer;
+							}
+
+						}
+					}
+				}
+				client->socket->send(sendChunksPacket);
+			}
+			break;
 		}
 		delete packet;
 		delete originalPacket;
