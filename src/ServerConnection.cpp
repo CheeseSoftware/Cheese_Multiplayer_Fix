@@ -1,4 +1,5 @@
 #include "ServerConnection.h"
+#include "Player.h"
 
 ServerConnection::ServerConnection(int port, World *world)
 {
@@ -33,7 +34,7 @@ void ServerConnection::Run(void)
 	if(ElapsedTime > 1000)
 	{
 		pingTimeout.restart();
-		//PingClients();
+		PingClients();
 	}
 }
 
@@ -100,18 +101,13 @@ void ServerConnection::Accept()
 				//Accept the client
 				Client *client = new Client();
 				client->socket = tempSocket;
+				selector.add(*client->socket);
 				client->pingClock = sf::Clock();
 				client->socket->setBlocking(false);
 				client->ID = freeClientId;
 				lockObject.lock();
 				clients.insert(std::pair<int, Client*>(freeClientId, client));
 				lockObject.unlock();
-				selector.add(*client->socket);
-
-				//Send initial init-packet to the client
-				//sf::Packet packet = sf::Packet();
-				//packet << (sf::Uint16)PlayerJoin << (sf::Uint16)freeClientId << (sf::Uint16)0 << (sf::Uint16)0;
-				//client->socket->send(packet);
 
 				std::cout << client->socket->getRemoteAddress() << " connected on socket " << freeClientId << std::endl;
 			}

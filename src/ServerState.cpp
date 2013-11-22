@@ -50,7 +50,8 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 
 		sf::Uint16 packetType;
 		if(!(*packet >> packetType))
-			std::cout << "ERROR: Server could not extract data" << std::endl;
+			std::cout << "fishexception at serverstate where there is a variable called packetType but only the first instance!";
+		//throw("ERROR: Server could not extract data");
 		//std::cout << "packettype " << packetType << std::endl;
 
 		sf::Packet* const originalPacket = new sf::Packet(*packet);
@@ -59,7 +60,17 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 		{
 		case RequestInit:
 			{
-
+				Player *joined = new Player(0, 0, 16, 16, false, "smileys.png", 0, "temp");
+				currentWorld->AddPlayer(client->ID, joined);
+				sf::Packet send;
+				send << (sf::Uint16) Init << (sf::Uint16)client->ID;
+				for(std::pair<int, Client*> pair : sC->clients)
+				{
+					Player* temp = currentWorld->GetPlayer(pair.first);
+					if(temp != nullptr)
+						send << (sf::Int16)pair.first << (float)temp->getPosition().x << (float)temp->getPosition().y << (sf::Int16)temp->getSize().x << (sf::Int16)temp->getSize().y;
+				}
+				client->socket->send(send);
 			}
 			break;
 		case Ping: //Get client ping
@@ -84,14 +95,6 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				if(!(*packet >> xPos >> yPos))
 					std::cout << "ERROR: Server could not extract data: PlayerJoin" << std::endl;
 				currentWorld->AddPlayer(client->ID, new Player(xPos, yPos, 16, 16, true, "smileys.png", 0, "temp"));
-				send << (sf::Uint16) Init << clientId;
-				for(std::pair<int, Client*> pair : sC->clients)
-				{
-					Player* temp = currentWorld->GetPlayer(pair.first);
-					send << (sf::Int16)pair.first << (float)temp->getPosition().x << (float)temp->getPosition().y << (sf::Int16)temp->getSize().x << (sf::Int16)temp->getSize().y;
-				}
-				client->socket->send(send);
-				send.clear();
 				send << packetType << clientId << xPos << yPos;
 				sC->Broadcast(send);
 				break;

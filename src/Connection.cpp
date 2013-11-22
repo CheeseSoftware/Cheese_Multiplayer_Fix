@@ -31,7 +31,7 @@ bool Connection::Connect(sf::IpAddress ip, int port)
 		client->socket->setBlocking(false);
 		std::cout << "Connected to " << ip << " : " << port << std::endl;
 		sf::Packet packet;
-		packet << (sf::Uint16)PlayerJoin << (float)0 << (float)0;
+		packet << (sf::Uint16)RequestInit;
 		client->socket->send(packet);
 		return(true);
 	}
