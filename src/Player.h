@@ -16,32 +16,36 @@ class Projectile;
 class Player : public Creature
 {
 private:
-    bool right;
-    bool down;
-    bool left;
-    bool up;
+	long currentChunkX;
+	long currentChunkY;
+	long currentChunkXOld;
+	long currentChunkYOld;
+	bool right;
+	bool down;
+	bool left;
+	bool up;
 	bool lmb;
 	float cameraDelay;
-    std::string name;
+	std::string name;
 	Inventory* inventory;
 public:
-SERVER(
-	Player(float X, float Y, short sizeX, short sizeY,
+	SERVER(
+		Player(float X, float Y, short sizeX, short sizeY,
 		bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name);
-)
-	//virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
-CLIENT(
-	Player(float X, float Y, short sizeX, short sizeY,
+	)
+		//virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
+		CLIENT(
+		Player(float X, float Y, short sizeX, short sizeY,
 		bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name);
-)
-	//virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
-	virtual void Update(App &app, GameUtility *GameUtility);
+	)
+		//virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
+		virtual void Update(App &app, GameUtility *GameUtility);
 
-CLIENT(
-	virtual void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
-    virtual void Draw(App &app, GameUtility *gameUtility);
-)
-    void KeyUpdate(bool Right, bool Down, bool Left, bool Up, GameUtility* gameUtility);
+	CLIENT(
+		virtual void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
+	virtual void Draw(App &app, GameUtility *gameUtility);
+	)
+		void KeyUpdate(bool Right, bool Down, bool Left, bool Up, GameUtility* gameUtility);
 	void setCameraDelay(float delay);
 	virtual const char *const getTextureName();
 	virtual short getTextureId();

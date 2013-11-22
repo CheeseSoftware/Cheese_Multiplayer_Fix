@@ -50,14 +50,30 @@ void Player::Update(App &app, GameUtility *GameUtility)
 			}
 		}
 	}
+	currentChunkXOld = currentChunkX;
+	currentChunkYOld = currentChunkY;
+	currentChunkX = floor(x/256);
+	currentChunkY = floor(y/256);
+	if(currentChunkX != currentChunkXOld || currentChunkY != currentChunkYOld)
+	{
+		//Now request chunks from server! We have moved to a different chunk!
+		std::cout << "chunk is X:" << currentChunkX << " Y:" << currentChunkY << std::endl;
+		for(int x = currentChunkX - 2; x < currentChunkX + 2; x++)
+		{
+			for(int y = currentChunkY - 2; y < currentChunkY + 2; y++)
+			{
+
+			}
+		}
+	}
 #endif
 
 	Creature::Update(app, GameUtility);
-/*#ifdef _SERVER
+	/*#ifdef _SERVER
 	Creature::Update(app, world, packetDataList);
-#else
+	#else
 	Creature::Update(app, world, packetDataList, camera, eventHandler);
-#endif*/
+	#endif*/
 }
 
 #ifndef _SERVER
@@ -115,7 +131,7 @@ Up:
 					{
 						if (speedX == 0)
 							speedX = xSpeed2;
-						
+
 						if (speedY == 0)
 							speedY = ySpeed2;
 					}
@@ -201,15 +217,15 @@ UpR:
 			switch(event.key.code)
 			{
 			case sf::Mouse::Left:
-					//inventory->AddItem(new NormalItem("Cow", "cowtexture"), 2);
-					//inventory->AddItem(new NormalItem("Goat", "cofsafwtexture"), 8);
-					//inventory->AddItem(new NormalItem("Chicken", "cowtexture"), 20);
-					//inventory->get(std::cout);
-					
+				//inventory->AddItem(new NormalItem("Cow", "cowtexture"), 2);
+				//inventory->AddItem(new NormalItem("Goat", "cofsafwtexture"), 8);
+				//inventory->AddItem(new NormalItem("Chicken", "cowtexture"), 20);
+				//inventory->get(std::cout);
+
 				if(!lmb && (lmb=true))
 
 
-				lmb = true;
+					lmb = true;
 				break;
 
 			case sf::Mouse::Right:

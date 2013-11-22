@@ -124,7 +124,7 @@ sf::Packet Block::OnSend(sf::Int16 packetType, long x, long y, short layer, shor
 
 	case BlockPlace:
 		{
-			std::cout << "client/server set " << x << " " << y << " " << layer << " " << id << " " << metadata << std::endl;
+			//std::cout << "client/server set " << x << " " << y << " " << layer << " " << id << " " << metadata << std::endl;
 			packet << (sf::Int16)BlockPlace << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)id << (sf::Uint16)metadata;
 		}
 		break;
