@@ -54,7 +54,7 @@ private:
 	EventHandler<GameUtility*> eventHandler;
 #endif
 public:
-	World(BlockRegister &blockRegister);
+	World(GameUtility *gameUtility);
 #ifndef _SERVER
 	void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
 	void Draw(App &app, GameUtility *gameUtility);

@@ -12,7 +12,7 @@ GameUtility::GameUtility(App &app)
 	tC = new TextureContainer();
 	packetDataList = new std::queue<sf::Packet>();
 	blockRegister = new BlockRegister();
-	currentWorld = new World(*blockRegister);
+	currentWorld = new World(this);
 	
 }
 GameUtility::~GameUtility()
@@ -43,4 +43,4 @@ Camera &GameUtility::getCamera()
 {
 	return *camera;
 }
-#endif ppp........ -     
+#endif ppp........ -     */
