@@ -19,7 +19,11 @@
 #define isColumnInsideChunkMatrix(x) x >= 0 && x < chunkMatrix.first.size()
 #define isChunkInsideChunkColumn(y,x_it) y >= 0 && y < x_it.size()
 World::World(GameUtility *gameUtility)
+<<<<<<< HEAD
 	: physicBlock(gameUtility->getBlockRegister().getBlockType(3), 1)
+=======
+	: physicBlock(gameUtility->getBlockRegister().getBlockType(3), 3)//physicBlock(blockRegister.getBlockType(blockRegister.getBlockIdByTypeId(typeid(GravityBlock).hash_code())), 1)
+>>>>>>> c020d5f4c219be15caadd166357fecfd4a9d288e
 {
 	for (int x = 0; x < 3; x++)
 	{ 
@@ -32,6 +36,16 @@ World::World(GameUtility *gameUtility)
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	for(int i = -256; i < 256; i++)
+	{
+		setBlockAndMetadataClientOnly(i, 64, 2, 1, 3, gameUtility);
+		setBlockAndMetadataClientOnly(i, -64, 2, 1, 3, gameUtility);
+		setBlockAndMetadataClientOnly(64, i, 2, 1, 3, gameUtility);
+		setBlockAndMetadataClientOnly(-64, i, 2, 1, 3, gameUtility);
+	}
+>>>>>>> c020d5f4c219be15caadd166357fecfd4a9d288e
 }
 
 #ifndef _SERVER
