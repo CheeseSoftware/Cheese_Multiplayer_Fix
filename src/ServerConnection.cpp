@@ -6,7 +6,10 @@ ServerConnection::ServerConnection(int port, World *world)
 	currentWorld = world;
 	//maxClients = 1024;
 	s.setBlocking(true);
-	selector = sf::SocketSelector();
+	receiveSelector = sf::SocketSelector();
+	acceptSelector = sf::SocketSelector();
+	acceptSelector.add(s);
+	receiveSelector.add(s);
 	sf::Thread *acceptThread = new sf::Thread(&ServerConnection::Accept, this);
 	sf::Thread *receiveThread = new sf::Thread(&ServerConnection::Receive, this);
 	pingTimeout.restart();
@@ -34,7 +37,7 @@ void ServerConnection::Run(void)
 	if(ElapsedTime > 1000)
 	{
 		pingTimeout.restart();
-		PingClients();
+		//PingClients();
 	}
 }
 
@@ -79,7 +82,7 @@ int ServerConnection::GetFreeClientId()
 	{
 		if(clients.find(i) == clients.end())
 		{
-			//Found a free client id
+			//Found a free client id§§§§
 			std::cout << "Returned client id " << i << std::endl;
 			return i;
 		}
@@ -90,54 +93,63 @@ void ServerConnection::Accept()
 {
 	while(true)
 	{
-		std::cout << "Trying to accept clients..." << std::endl;
-		sf::TcpSocket *tempSocket = new sf::TcpSocket();
-		sf::Socket::Status status = s.accept(*tempSocket);
-		if (status == sf::Socket::Done)
+		if(acceptSelector.wait())
 		{
-			int freeClientId = GetFreeClientId();
-			if(freeClientId != -1)
+			if(acceptSelector.isReady(s))
 			{
-				//Accept the client
-				Client *client = new Client();
-				client->socket = tempSocket;
-				selector.add(*client->socket);
-				client->pingClock = sf::Clock();
-				client->socket->setBlocking(false);
-				client->ID = freeClientId;
-				lockObject.lock();
-				clients.insert(std::pair<int, Client*>(freeClientId, client));
-				lockObject.unlock();
+				std::cout << "Client is connecting.." << std::endl;
+				sf::TcpSocket *tempSocket = new sf::TcpSocket();
+				sf::Socket::Status status = s.accept(*tempSocket);
+				if (status == sf::Socket::Done)
+				{
+					int freeClientId = GetFreeClientId();
+					if(freeClientId != -1)
+					{
+						//Accept the client
+						Client *client = new Client();
+						client->socket = tempSocket;
+						receiveSelector.add(*client->socket);
+						client->pingClock = sf::Clock();
+						client->socket->setBlocking(false);
+						client->ID = freeClientId;
+						lockObject.lock();
+						clients.insert(std::pair<int, Client*>(freeClientId, client));
+						lockObject.unlock();
 
-				std::cout << client->socket->getRemoteAddress() << " connected on socket " << freeClientId << std::endl;
+						std::cout << client->socket->getRemoteAddress() << " connected on socket " << freeClientId << std::endl;
+					}
+				}
+				else
+				{
+					switch(status)
+					{
+					case sf::Socket::Status::Disconnected:
+						std::cout << "Error: Could not accept socket: Socket disconnected" << std::endl;
+						break;
+					case sf::Socket::Status::Error:
+						std::cout << "Error: Could not accept socket: Random error" << std::endl;
+						break;
+					}
+					delete tempSocket;
+				}
 			}
-		}
-		else
-		{
-			switch(status)
-			{
-			case sf::Socket::Status::Disconnected:
-				std::cout << "Error: Could not accept socket: Socket disconnected" << std::endl;
-				break;
-			case sf::Socket::Status::Error:
-				std::cout << "Error: Could not accept socket: Random error" << std::endl;
-				break;
-			}
-			delete tempSocket;
 		}
 	}
 }
 
 void ServerConnection::Receive()
 {
+	std::vector<int> *toKick = new std::vector<int>();
 	while(true)
 	{
-		if (selector.wait())
+		for(int i : *toKick)
+			KickClient(i, "Disconnected");
+		if (receiveSelector.wait())
 		{
 			lockObject.lock();
 			for(std::pair<int, Client*> pair : clients)
 			{
-				if (selector.isReady(*pair.second->socket))
+				if (receiveSelector.isReady(*pair.second->socket))
 				{
 					Client *client = pair.second;
 					if(client->socket->getRemoteAddress() !=sf::IpAddress::None)
@@ -148,14 +160,15 @@ void ServerConnection::Receive()
 						{
 							packets.push(std::pair<sf::Packet*, Client*>(received, client));
 						}
-						//else if(status == sf::Socket::Disconnected)  //kickar klient i iteration av klientlista>.<
-						//KickClient(pair.first, "Disconnected");
+						else if(status == sf::Socket::Disconnected)  //kickar klient i iteration av klientlista>.<
+							toKick->push_back(pair.first);
 					}
 				}
 			}
 			lockObject.unlock();
 		}
 	}
+	delete toKick;
 }
 
 void ServerConnection::KickClient(int ID, std::string reason)
@@ -170,7 +183,7 @@ void ServerConnection::KickClient(int ID, std::string reason)
 		client->second->socket->send(send);
 		client->second->socket->disconnect();
 		lockObject.lock();
-		selector.remove(*client->second->socket);
+		receiveSelector.remove(*client->second->socket);
 		Client *temp = clients.at(ID);
 		delete temp;
 		clients.erase(ID);

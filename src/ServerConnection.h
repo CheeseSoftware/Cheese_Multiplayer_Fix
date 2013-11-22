@@ -31,7 +31,8 @@ private:
 	sf::IpAddress publicIP;
 	sf::Clock pingTimeout;
 	sf::TcpListener s;
-	sf::SocketSelector selector;
+	sf::SocketSelector receiveSelector;
+	sf::SocketSelector acceptSelector;
 	World* currentWorld;
 };
 
