@@ -1,35 +1,13 @@
 #include "Connection.h"
 
-Connection::Connection(int port, sf::IpAddress IP)
+Connection::Connection(int port, sf::IpAddress ip)
 {
 	client = new Client();
-	//thread = new sf::Thread(&Connection::Run);
-	if(Connect(IP, port))
-	{
-		//thread->launch();
-	}
-}
-
-Connection::~Connection(void)
-{
-}
-
-void Connection::Run()
-{
-	//while(true)
-	{
-		Receive();
-
-		//sf::sleep(sf::milliseconds(10));
-	}
-}
-
-bool Connection::Connect(sf::IpAddress ip, int port)
-{
+	receiveThread = new sf::Thread(&Connection::Receive, this);
 	if(client->socket->connect(ip, port, sf::Time(sf::seconds(5))) == sf::Socket::Done)
 	{
-		client->socket->setBlocking(false);
-		std::cout << "Connected to " << ip << " : " << port << std::endl;
+		selector.add(*client->socket);
+		receiveThread->launch();
 
 		//vänta-saker börjar här
 		sf::Clock *c = new sf::Clock();
@@ -41,26 +19,46 @@ bool Connection::Connect(sf::IpAddress ip, int port)
 		sf::Packet packet;
 		packet << (sf::Uint16)RequestInit;
 		client->socket->send(packet);
-		return(true);
+		std::cout << "Connected to " << ip << " : " << port << std::endl;
 	}
 	else
 	{
 		std::cout << "Error connecting to " << ip << " : " << port << std::endl;
-		return(false);
+		std::cin.get();
 	}
+}
+
+
+Connection::~Connection(void)
+{
+}
+
+void Connection::Run()
+{
+
 }
 
 void Connection::Receive()
 {
-	if(&client->socket != nullptr)
+	while(true)
 	{
-		sf::Packet *received = new sf::Packet();
-		sf::Socket::Status status = client->socket->receive(*received);
-		if (status == sf::Socket::Done)
+		if(selector.wait())
 		{
-			globalMutex.lock();
-			packets.push(received);
-			globalMutex.unlock();
+			if(selector.isReady(*client->socket))
+			{
+				sf::Packet *received = new sf::Packet();
+				if (client->socket->receive(*received) == sf::Socket::Done)
+				{
+					globalMutex.lock();
+					packets.push(received);
+					globalMutex.unlock();
+				}
+				else
+				{
+					//std::cout << "Failed to receive data from sending server!" << std::endl;
+					delete received;
+				}
+			}
 		}
 	}
 }

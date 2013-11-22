@@ -4,7 +4,7 @@
 ServerConnection::ServerConnection(int port, World *world)
 {
 	currentWorld = world;
-	sf::Thread *acceptReceiveThread = new sf::Thread(&ServerConnection::AcceptReceive, this);
+	acceptReceiveThread = new sf::Thread(&ServerConnection::AcceptReceive, this);
 	if(s.listen(port) != sf::Socket::Status::Done)
 	{
 		std::cout << "Failed to bind to port " << port << ", maybe already a server listening on this port?" << std::endl;

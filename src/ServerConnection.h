@@ -23,10 +23,9 @@ public:
 	std::map<int, Client*> clients;
 private:
 	void PingClients();
-	//void Accept();
 	void AcceptReceive();
+	sf::Thread *acceptReceiveThread;
 	int GetFreeClientId();
-	//sf::TcpSocket s;
 	sf::IpAddress localIP;
 	sf::IpAddress publicIP;
 	sf::Clock pingTimeout;

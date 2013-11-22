@@ -13,7 +13,6 @@
 class Connection
 {
 public:
-	//>.<Connection();
 	Connection(int port, sf::IpAddress IP);
 	~Connection(void);
 	std::queue<sf::Packet*> packets;
@@ -21,7 +20,8 @@ public:
 	Client *client;
 	void Run();
 private:
-	//sf::Thread* thread;
+	sf::Thread *receiveThread;
+	sf::SocketSelector selector;
 	bool Connect(sf::IpAddress ip, int port);
 	void Receive();
 };
