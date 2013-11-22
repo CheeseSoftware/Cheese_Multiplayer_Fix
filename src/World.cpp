@@ -42,7 +42,7 @@ World::World(GameUtility *gameUtility)
 
 	for(int i = -256; i < 256; i++)
 	{
-		setBlock(i, 64, 2, 2, gameUtility);
+		setBlockAndMetadata(i, 64, 2, 2, 3, gameUtility);
 	}
 }
 
