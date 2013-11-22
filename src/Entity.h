@@ -21,6 +21,7 @@ class World;
 class Camera;
 //template<class T> class EventHandler;
 class GameUtility;
+class Block;
 
 class Entity
 {

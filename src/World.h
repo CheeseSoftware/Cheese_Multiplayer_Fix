@@ -21,6 +21,7 @@ class Camera;
 //template<class T> class EventHandler;
 class GameState;
 class GameUtility;
+class BlockRegister;
 
 enum MessageType;
 
@@ -48,11 +49,12 @@ private:
 	std::mutex playerListLock;
 	//std::map<std::pair<short,short>,Block*> BlockMap;
 	std::pair<std::tuple<long, long, unsigned short>, std::pair<Block*, unsigned short>*> lastBlock;
+	std::pair<Block*, unsigned short> physicBlock;
 #ifndef _SERVER
 	EventHandler<GameUtility*> eventHandler;
 #endif
 public:
-	World();
+	World(BlockRegister &blockRegister);
 #ifndef _SERVER
 	void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
 	void Draw(App &app, GameUtility *gameUtility);
@@ -66,6 +68,7 @@ public:
 	MessageType setBlockMetadataClientOnly(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility);
 	Block *getBlock(long x, long y, long layer);
 	std::pair<Block*, unsigned short> getBlockAndMetadata(long x, long y, long layer);
+	const std::pair<Block*, unsigned short> getPhysicBlock() const;
 	void Expand(long x, long y, Chunk* chunk);
 	bool isBlockSolid(long x, long y);
 	int AddEntity(Entity*);

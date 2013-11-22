@@ -9,3 +9,8 @@ bool GravityBlock::isSolid() const
 {
 	return false;
 }
+
+bool GravityBlock::isGravity() const
+{
+	return true;
+}

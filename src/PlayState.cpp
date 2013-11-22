@@ -49,6 +49,8 @@ PlayState::PlayState(App &app)
 	connection = new Connection(5001, ip);
 
 	blockRegister->RegisterBlockTextures(*tC);
+
+	currentWorld->AddPlayer(0, new Player(0, 0, 16, 16, true, "graywizard.png", 0, "per"));
 }
 
 PlayState::~PlayState()
@@ -82,12 +84,12 @@ GameState *PlayState::Update(App &app)
 {
 	if (fpsClock.getElapsedTime().asMilliseconds() > 500)
 	{
-		//std::cout << "fps: " << 1/app.getFrameTime() << "\n";
+		std::cout << "fps: " << 1/app.getFrameTime() << "\n";
 		fpsClock.restart();
 	}
 	else if (1/app.getFrameTime() < 50.f)
 	{
-		//std::cout << "fps: " << 1/app.getFrameTime() << " LOW FPS!\n";
+		std::cout << "fps: " << 1/app.getFrameTime() << " LOW FPS!\n";
 		fpsClock.restart();
 	}
 
@@ -106,7 +108,7 @@ GameState *PlayState::Update(App &app)
 	connection->Run();
 	ProcessPackets(this);
 	return this;
-}
+} 
 
 void PlayState::Draw(App &app)
 {

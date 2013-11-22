@@ -10,9 +10,10 @@ GameUtility::GameUtility(App &app)
 	camera = new Camera(2048);//setSpeed(8);
 #endif
 	tC = new TextureContainer();
-	currentWorld = new World();
 	packetDataList = new std::queue<sf::Packet>();
 	blockRegister = new BlockRegister();
+	currentWorld = new World(*blockRegister);
+	
 }
 GameUtility::~GameUtility()
 {
@@ -42,4 +43,4 @@ Camera &GameUtility::getCamera()
 {
 	return *camera;
 }
-#endif*/
+#endif ppp........ -     

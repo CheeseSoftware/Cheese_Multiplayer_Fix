@@ -12,6 +12,7 @@
 #include "GameUtility.h"
 #include <deque>
 #include <mutex>
+#include <typeinfo>
 
 #define getChunkMatrixIndexX(x) (int)abs(x>>4 + chunkMatrix.second)
 #define getChunkColumnIndexY(y,x_it) (int)abs(y>>4 + x_it.second)
@@ -19,7 +20,8 @@
 #define isChunkInsideChunkColumn(y,x_it) y >= 0 && y < x_it.size()
 //(int)floor(camera.GetCenter().x+camera.GetHalfSize().x)
 //floor(camera.GetCenter().y-camera.GetHalfSize().y)
-World::World()
+World::World(GameUtility *gameUtility)
+	: physicBlock(gameUtility-> blockRegister.getBlockType(3), 1)//physicBlock(blockRegister.getBlockType(blockRegister.getBlockIdByTypeId(typeid(GravityBlock).hash_code())), 1)
 {
 	//unsigned short i = 1;
 
@@ -36,6 +38,11 @@ World::World()
 			chunk->setBlock(2, 1, 1, new  BlockSolid(1));//(*getBlockType(1))(0));
 			chunkMatrix.first[x].first.push_back(chunk);
 		}
+	}
+
+	for(int i = -256; i < 256; i++)
+	{
+		setBlock(i, 64, 2, 2, gameutility);
 	}
 }
 
@@ -367,6 +374,11 @@ std::pair<Block*, unsigned short> World::getBlockAndMetadata(long x, long y, lon
 	}
 	//chunkMatrixLock.unlock(); //std::cout << "chunkmatrix unlocked!\n";
 	return std::pair<Block*, unsigned short>(nullptr, 0);
+}
+
+const std::pair<Block*, unsigned short> World::getPhysicBlock() const
+{
+	return physicBlock;
 }
 
 void World::Expand(long x, long y, Chunk* chunk)

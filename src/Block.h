@@ -24,6 +24,7 @@ public:
 	virtual bool isSeeThrough() const;
 	virtual bool isSolid() const=0;
 	virtual bool isUnique() const;
+	virtual bool isGravity() const;
 #ifndef _SERVER
 	virtual void OnCreate(const unsigned short metadata, EventHandler<GameUtility*> &eventHandler);
 #else

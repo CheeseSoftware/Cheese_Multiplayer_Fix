@@ -10,21 +10,20 @@
 Entity::Entity(float x, float y, short sizeX, short sizeY,
 			   float angle, float speed, float friction, std::string spriteName,
 			   int spriteIndex, bool isClientControlling)
+			   : x(x)
+			   , y(y)
+			   , speed(speed)
+			   , friction(friction)
+			   , isClientControlling(isClientControlling)
+			   , sizeX(sizeX)
+			   , sizeY(sizeY)
+			   , angle(angle)
+			   , spriteName(spriteName)
+			   , spriteIndex(spriteIndex)
+			   , speedX(0)
+			   , speedY(0)
 {
-	this->x = x;
-	this->y = y;
-	this->speed = speed;
-	this->friction = friction;
-	this->isClientControlling = isClientControlling;
 
-	speedX = 0;
-	speedY = 0;
-	this->sizeX = sizeX;
-	this->sizeY = sizeY;
-
-	this->angle = angle;
-	this->spriteName = spriteName;
-	this->spriteIndex = spriteIndex;
 }
 
 void Entity::PhysicUpdate(App &app, World *world, float timeSpan)
@@ -36,6 +35,16 @@ void Entity::PhysicUpdate(App &app, World *world, float timeSpan)
 		(long)x>>4L,
 		(long)y>>4L,
 		2);
+
+	if (blockAndMetadata.first != nullptr)
+	{
+		if (!blockAndMetadata.first->isGravity())
+			blockAndMetadata = world->getPhysicBlock();
+	}
+	else
+	{
+		blockAndMetadata = world->getPhysicBlock();
+	}
 
 	if (blockAndMetadata.first != nullptr)
 		blockAndMetadata.first->OnEntityHover(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);

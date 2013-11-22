@@ -43,6 +43,11 @@ bool Block::isUnique() const
 	return false;
 }
 
+bool Block::isGravity() const
+{
+	return false;
+}
+
 #ifndef _SERVER
 void Block::OnCreate(const unsigned short metadata, EventHandler<GameUtility*> &eventHandler)
 #else
