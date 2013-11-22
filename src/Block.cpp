@@ -117,6 +117,9 @@ sf::Packet Block::OnSend(sf::Int16 packetType, long x, long y, short layer, shor
 	switch (packetType)
 	{
 	case NullMessage:
+		{
+			packet << (sf::Int16)NullMessage;
+		}
 		break;
 
 	case BlockPlace:

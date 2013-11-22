@@ -50,7 +50,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 
 		sf::Uint16 packetType;
 		if(!(*packet >> packetType))
-			std::cout << "fishexception at serverstate where there is a variable called packetType but only the first instance!";
+			std::cout << "ERROR: Server could not extract packet type";
 		//throw("ERROR: Server could not extract data");
 		//std::cout << "packettype " << packetType << std::endl;
 
@@ -60,6 +60,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 		{
 		case RequestInit:
 			{
+				//std::cout << "Received RequestInit" << std::endl;
 				Player *joined = new Player(0, 0, 16, 16, false, "smileys.png", 0, "temp");
 				currentWorld->AddPlayer(client->ID, joined);
 				sf::Packet send;
@@ -81,7 +82,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				client->isMeasuringPing = false;
 			}
 			break;
-		case Kick: //Server has kicked client (Client receiver only)
+		case Kicked: //Server has kicked client (Client receiver only)
 			{
 			}
 			break;

@@ -8,7 +8,7 @@ enum MessageType
 	Init,
 	RequestInit,
 	Ping,
-	Kick,
+	Kicked,
 	WorldInit,
 	CreatureInit,
 	PlayerJoin,

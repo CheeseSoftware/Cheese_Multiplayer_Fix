@@ -30,6 +30,14 @@ bool Connection::Connect(sf::IpAddress ip, int port)
 	{
 		client->socket->setBlocking(false);
 		std::cout << "Connected to " << ip << " : " << port << std::endl;
+
+		//vänta-saker börjar här
+		sf::Clock *c = new sf::Clock();
+		c->restart();
+		while(c->getElapsedTime() < sf::milliseconds(500)) {} //Måste vänta tills servern har lagt till klienten ordentligt
+		delete c;
+		//vänta-saker slutar här
+
 		sf::Packet packet;
 		packet << (sf::Uint16)RequestInit;
 		client->socket->send(packet);

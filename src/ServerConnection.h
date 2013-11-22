@@ -23,16 +23,15 @@ public:
 	std::map<int, Client*> clients;
 private:
 	void PingClients();
-	void Accept();
-	void Receive();
+	//void Accept();
+	void AcceptReceive();
 	int GetFreeClientId();
 	//sf::TcpSocket s;
 	sf::IpAddress localIP;
 	sf::IpAddress publicIP;
 	sf::Clock pingTimeout;
 	sf::TcpListener s;
-	sf::SocketSelector receiveSelector;
-	sf::SocketSelector acceptSelector;
+	sf::SocketSelector selector;
 	World* currentWorld;
 };
 

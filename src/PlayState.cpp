@@ -179,7 +179,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				connection->client->socket->send(packet);
 			}
 			break;
-		case Kick: //server kicks client (type, string message)
+		case Kicked: //server kicks client (type, string message)
 			{
 				//cout the kick msg and forcefully shut downXD
 			}
