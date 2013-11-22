@@ -31,23 +31,10 @@ void Entity::PhysicUpdate(App &app, World *world, float timeSpan)
 	float xFriction = friction;
 	float yFriction = friction;
 
-	std::pair<Block*, unsigned short> blockAndMetadata = world->getBlockAndMetadata(
-		(long)x>>4L,
-		(long)y>>4L,
-		2);
+	
 
-	if (blockAndMetadata.first != nullptr)
-	{
-		if (!blockAndMetadata.first->isGravity())
-			blockAndMetadata = world->getPhysicBlock();
-	}
-	else
-	{
-		blockAndMetadata = world->getPhysicBlock();
-	}
-
-	if (blockAndMetadata.first != nullptr)
-		blockAndMetadata.first->OnEntityHover(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
+	if (currentBlock.first != nullptr)
+		currentBlock.first->OnEntityHover(app, this, xFriction, yFriction, speedX, speedY, currentBlock.second);
 
 	speedX *= pow(1.0-xFriction,app.getDeltaTime());//pow(1-xFriction, app.getDeltaTime());//tan(xFriction*M_PI/2) * app.getDeltaTime();
 	speedY *= pow(1.0-yFriction,app.getDeltaTime());//pow(1-yFriction, app.getDeltaTime());//tan(yFriction*M_PI/2) * app.getDeltaTime();
@@ -58,10 +45,25 @@ void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 #else
 void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &EventHandler)
 #endif*/
-void Entity::Update(App &app, GameUtility *GameUtility)
+void Entity::Update(App &app, GameUtility *gameUtility)
 {
 	//(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
-	PhysicUpdate(app, GameUtility->getCurrentWorld(), app.getDeltaTime());
+	currentBlock = gameUtility->getCurrentWorld()->getBlockAndMetadata(
+		(long)x>>4L,
+		(long)y>>4L,
+		2);
+
+	if (currentBlock.first != nullptr)
+	{
+		if (!currentBlock.first->isGravity())
+			currentBlock = gameUtility->getCurrentWorld()->getPhysicBlock();
+	}
+	else
+	{
+		currentBlock = gameUtility->getCurrentWorld()->getPhysicBlock();
+	}
+
+	PhysicUpdate(app, gameUtility->getCurrentWorld(), app.getDeltaTime());
 
 	if (speedX != 0.0F || speedY != 0.0F)
 	{
@@ -95,7 +97,7 @@ void Entity::Update(App &app, GameUtility *GameUtility)
 		{
 			while(speed >= 1)
 			{
-				if (CheckCollision(app, GameUtility->getCurrentWorld(), deltaX, deltaY))
+				if (CheckCollision(app, gameUtility->getCurrentWorld(), deltaX, deltaY))
 					break;
 
 				x += deltaX;
@@ -118,7 +120,7 @@ void Entity::Update(App &app, GameUtility *GameUtility)
 
 		while (speedXModifier >= 1 && speedYModifier >= 1)
 		{
-			if (CheckCollision(app, GameUtility->getCurrentWorld(), (float)speedXNegativeFactor, (float)speedYNegativeFactor))
+			if (CheckCollision(app, gameUtility->getCurrentWorld(), (float)speedXNegativeFactor, (float)speedYNegativeFactor))
 				break;
 
 			if (speedX != 0 && speedY != 0)
@@ -137,7 +139,7 @@ void Entity::Update(App &app, GameUtility *GameUtility)
 
 		while(speedXModifier >= 1)
 		{
-			if (CheckCollision(app, GameUtility->getCurrentWorld(), (float)speedXNegativeFactor, 0))
+			if (CheckCollision(app, gameUtility->getCurrentWorld(), (float)speedXNegativeFactor, 0))
 				break;
 
 			if (speedX != 0)
@@ -154,7 +156,7 @@ void Entity::Update(App &app, GameUtility *GameUtility)
 
 		while(speedYModifier >= 1)
 		{
-			if (CheckCollision(app, GameUtility->getCurrentWorld(), 0, (float)speedYNegativeFactor))
+			if (CheckCollision(app, gameUtility->getCurrentWorld(), 0, (float)speedYNegativeFactor))
 				break;
 
 			if (speedY != 0)
@@ -176,7 +178,7 @@ void Entity::Update(App &app, GameUtility *GameUtility)
 		//}
 		//else
 		//{
-		CheckCollision(app, GameUtility->getCurrentWorld(), speedXModifier*speedXNegativeFactor, speedYModifier*speedYNegativeFactor);
+		CheckCollision(app, gameUtility->getCurrentWorld(), speedXModifier*speedXNegativeFactor, speedYModifier*speedYNegativeFactor);
 
 		if (speedX != 0)
 			x += speedXModifier*speedXNegativeFactor;
@@ -195,7 +197,7 @@ void Entity::Update(App &app, GameUtility *GameUtility)
 		// } D: 
 
 		//> gammal fysikD:
-		CheckCollision(app, GameUtility->getCurrentWorld(), speedX * app.getDeltaTime(), speedY * app.getDeltaTime());
+		CheckCollision(app, gameUtility->getCurrentWorld(), speedX * app.getDeltaTime(), speedY * app.getDeltaTime());
 
 		//x += speedX * app.getDeltaTime();
 		//y += speedY * app.getDeltaTime();

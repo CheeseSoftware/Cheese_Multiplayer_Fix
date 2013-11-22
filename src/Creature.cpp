@@ -22,12 +22,20 @@ void Creature::PhysicUpdate(App &app, World *world, float timeSpan)
 	float horizontal2 = horizontal;
 	float vertical2 = vertical;
 
-	std::pair<Block*, unsigned short> blockAndMetadata = world->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);//GameUtility->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
-	if (blockAndMetadata.first != nullptr)
-		blockAndMetadata.first->getCreatureMovePossibilities(app, this, horizontal2, vertical2, blockAndMetadata.second);
+	//std::pair<Block*, unsigned short> blockAndMetadata = world->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);//GameUtility->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
+	if (currentBlock.first != nullptr)
+		currentBlock.first->getCreatureMovePossibilities(app, this, horizontal2, vertical2, currentBlock.second);
 
-	speedX += horizontal2 * app.getDeltaTime() * (pow(1-friction, app.getDeltaTime()));
-    speedY += vertical2 * app.getDeltaTime() * (pow(1-friction, app.getDeltaTime()));
+	float xFriction = friction;
+	float yFriction = friction;
+
+
+
+	if (currentBlock.first != nullptr)
+		currentBlock.first->OnEntityHover(app, this, xFriction, yFriction, *(new float()), *(new float()), currentBlock.second);
+
+	speedX += horizontal2 * app.getDeltaTime() * (pow(1-xFriction, app.getDeltaTime()));
+    speedY += vertical2 * app.getDeltaTime() * (pow(1-yFriction, app.getDeltaTime()));
 
 	Entity::PhysicUpdate(app, world, timeSpan);
 }

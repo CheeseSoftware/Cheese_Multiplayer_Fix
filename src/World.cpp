@@ -21,7 +21,7 @@
 //(int)floor(camera.GetCenter().x+camera.GetHalfSize().x)
 //floor(camera.GetCenter().y-camera.GetHalfSize().y)
 World::World(GameUtility *gameUtility)
-	: physicBlock(gameUtility->getBlockRegister().getBlockType(3), 1)//physicBlock(blockRegister.getBlockType(blockRegister.getBlockIdByTypeId(typeid(GravityBlock).hash_code())), 1)
+	: physicBlock(gameUtility->getBlockRegister().getBlockType(3), 3)//physicBlock(blockRegister.getBlockType(blockRegister.getBlockIdByTypeId(typeid(GravityBlock).hash_code())), 1)
 {
 	//unsigned short i = 1;
 
@@ -42,7 +42,10 @@ World::World(GameUtility *gameUtility)
 
 	for(int i = -256; i < 256; i++)
 	{
-		setBlockAndMetadata(i, 64, 2, 2, 3, gameUtility);
+		setBlockAndMetadataClientOnly(i, 64, 2, 1, 3, gameUtility);
+		setBlockAndMetadataClientOnly(i, -64, 2, 1, 3, gameUtility);
+		setBlockAndMetadataClientOnly(64, i, 2, 1, 3, gameUtility);
+		setBlockAndMetadataClientOnly(-64, i, 2, 1, 3, gameUtility);
 	}
 }
 

@@ -100,10 +100,9 @@ Up:
 					float xSpeed2 = 0;
 					float ySpeed2 = 0;
 
-					Block *block = gameUtility->getCurrentWorld()->getBlock((long)x>>4, (long)y>>4, 2);
-					if (block != nullptr)
+					if (currentBlock.first != nullptr)
 					{
-						block->CreatureJump(app, this, xSpeed2, ySpeed2, gameUtility->getCurrentWorld()->getBlockAndMetadata((long)x>>4, (long)y>>4, 2).second);
+						currentBlock.first->CreatureJump(app, this, xSpeed2, ySpeed2, currentBlock.second);
 					}
 
 					if (xSpeed2 != 0 && speedX != 0)
@@ -120,8 +119,8 @@ Up:
 							speedY = ySpeed2;
 					}
 
-					if (block != nullptr)
-						block->OnEntityHover(app, this, xSpeed2, ySpeed2, speedX, speedY, gameUtility->getCurrentWorld()->getBlockAndMetadata((long)x>>4, (long)y>>4, 2).second);
+					if (currentBlock.first != nullptr)
+						currentBlock.first->OnEntityHover(app, this, xSpeed2, ySpeed2, speedX, speedY, currentBlock.second);
 				}
 				break;
 			case sf::Keyboard::Q:

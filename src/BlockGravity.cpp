@@ -24,7 +24,7 @@ const char *const BlockGravity::getTextureName() const
 
 void BlockGravity::OnEntityHover(App &app, Entity *entity, float &xFriction, float&yFriction, float &speedX, float &speedY, const unsigned short metadata)
 {
-	float strength = (1.0F+(metadata>>3)/2.0F)*app.getDeltaTime()*2000.0F;
+	float strength = (1.0F+(metadata>>3)/2.0F)*app.getDeltaTime()*1550.0F;
 
 	float friction = 1.0F-(1.0F-xFriction)*0.75F;//friction = 1;//(metadata&0x0004)? friction/strength : friction*strength;
 

@@ -40,6 +40,8 @@ protected:
 	void FixateX();
 	void FixateY();
 
+	std::pair<Block*, unsigned short> currentBlock;
+
 	virtual inline void PhysicUpdate(App &app, World *world, float timeSpan);
 public:
     bool isClientControlling;

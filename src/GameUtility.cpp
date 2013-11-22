@@ -7,7 +7,7 @@
 GameUtility::GameUtility(App &app)
 {
 #ifndef _SERVER
-	camera = new Camera(1.f);//new Camera(2048);//setSpeed(8);
+	camera = new Camera(2048);//setSpeed(8);
 #endif
 	tC = new TextureContainer();
 	packetDataList = new std::queue<sf::Packet>();
