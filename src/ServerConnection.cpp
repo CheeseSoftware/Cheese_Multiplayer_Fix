@@ -27,6 +27,7 @@ ServerConnection::~ServerConnection(void)
 
 void ServerConnection::Run(void)
 {
+	std::cout << packets.size() << " size!" << std::endl;
 	float ElapsedTime = pingTimeout.getElapsedTime().asMilliseconds();
 	if(ElapsedTime > 1000)
 	{
@@ -135,7 +136,12 @@ void ServerConnection::AcceptReceive()
 							sf::Socket::Status status = client->socket->receive(*received);
 							if (status == sf::Socket::Done)
 							{
-								packets.push(std::pair<sf::Packet*, Client*>(received, client));
+								if(received != nullptr && client != nullptr && received->getDataSize() > 0)
+								{
+									lockObject.lock();
+									packets.push(std::pair<sf::Packet*, Client*>(received, client));
+									lockObject.unlock();
+								}
 							}
 							else if(status == sf::Socket::Disconnected)
 							{
