@@ -109,40 +109,40 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\SFML-2.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SFML-2.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-2.1\include;$(IncludePath);C:\libraries\libnoise\include</IncludePath>
+    <LibraryPath>C:\libraries\libnoise\lib;C:\SFML-2.1\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Configuration) $(Platform)\</OutDir>
     <IntDir>$(Configuration) $(Platform)\</IntDir>
     <TargetName>$(ProjectName) $(Configuration) $(Platform)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\SFML-2.1 x64\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SFML-2.1 x64\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-2.1 x64\include;$(IncludePath);C:\libraries\libnoise\include</IncludePath>
+    <LibraryPath>C:\libraries\libnoise\lib;C:\SFML-2.1 x64\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Configuration) $(Platform)\</OutDir>
     <IntDir>$(Configuration) $(Platform)\</IntDir>
     <TargetName>$(ProjectName) $(Configuration) $(Platform)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Server Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\SFML-2.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SFML-2.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-2.1\include;$(IncludePath);C:\libraries\libnoise\include</IncludePath>
+    <LibraryPath>C:\libraries\libnoise\lib;C:\SFML-2.1\lib;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName) $(Configuration) $(Platform)</TargetName>
     <OutDir>$(SolutionDir)$(Configuration) $(Platform)\</OutDir>
     <IntDir>$(Configuration) $(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Server Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\SFML-2.1 x64\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SFML-2.1 x64\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-2.1 x64\include;$(IncludePath);C:\libraries\libnoise\include</IncludePath>
+    <LibraryPath>C:\libraries\libnoise\lib;C:\SFML-2.1 x64\lib;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName) $(Configuration) $(Platform)</TargetName>
     <OutDir>$(SolutionDir)$(Configuration) $(Platform)\</OutDir>
     <IntDir>$(Configuration) $(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\SFML-2.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SFML-2.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-2.1\include;$(IncludePath);C:\libraries\libnoise\include</IncludePath>
+    <LibraryPath>C:\libraries\libnoise\lib;C:\SFML-2.1\lib;$(LibraryPath)</LibraryPath>
     <IntDir>$(Configuration) $(Platform)\</IntDir>
     <TargetName>$(ProjectName) $(Configuration) $(Platform)</TargetName>
     <OutDir>$(SolutionDir)$(Configuration) $(Platform)\</OutDir>
@@ -150,23 +150,23 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>$(ProjectName) $(Configuration) $(Platform)</TargetName>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\SFML-2.1 x64\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SFML-2.1 x64\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-2.1 x64\include;$(IncludePath);C:\libraries\libnoise\include</IncludePath>
+    <LibraryPath>C:\libraries\libnoise\lib;C:\SFML-2.1 x64\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Configuration) $(Platform)\</OutDir>
     <IntDir>$(Configuration) $(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Server Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\SFML-2.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SFML-2.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-2.1\include;$(IncludePath);C:\libraries\libnoise\include</IncludePath>
+    <LibraryPath>C:\libraries\libnoise\lib;C:\SFML-2.1\lib;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName) $(Configuration) $(Platform)</TargetName>
     <OutDir>$(SolutionDir)$(Configuration) $(Platform)\</OutDir>
     <IntDir>$(Configuration) $(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Server Release|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\SFML-2.1 x64\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SFML-2.1 x64\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-2.1 x64\include;$(IncludePath);C:\libraries\libnoise\include</IncludePath>
+    <LibraryPath>C:\libraries\libnoise\lib;C:\SFML-2.1 x64\lib;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName) $(Configuration) $(Platform)</TargetName>
     <OutDir>$(SolutionDir)$(Configuration) $(Platform)\</OutDir>
     <IntDir>$(Configuration) $(Platform)\</IntDir>
@@ -185,7 +185,7 @@
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-network.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\SFML-1.6\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -202,7 +202,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-network.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\SFML-1.6\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -221,7 +221,7 @@
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-network-d.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\SFML-1.6\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -239,7 +239,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-network-d.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\SFML-1.6\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -258,7 +258,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-network-s.lib;sfml-system-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-network-s.lib;sfml-system-s.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -275,7 +275,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-network-s.lib;sfml-system-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-network-s.lib;sfml-system-s.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Server Release|Win32'">
@@ -293,7 +293,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-system-s.lib;sfml-network-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-system-s.lib;sfml-network-s.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Server Release|x64'">
@@ -310,7 +310,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-system-s.lib;sfml-network-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-system-s.lib;sfml-network-s.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -331,6 +331,7 @@
     <ClCompile Include="Eventhandler.cpp" />
     <ClCompile Include="EventHandler_.cpp" />
     <ClCompile Include="BackgroundBlock.cpp" />
+    <ClCompile Include="Generator.cpp" />
     <ClCompile Include="GraphicalContainer.cpp" />
     <ClCompile Include="GravityBlock.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -380,6 +381,7 @@
     <ClInclude Include="Eventhandler.h" />
     <ClInclude Include="EventHandler_.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Generator.h" />
     <ClInclude Include="GraphicalContainer.h" />
     <ClInclude Include="HitProjectile.h" />
     <ClInclude Include="IEntityHealth.h" />

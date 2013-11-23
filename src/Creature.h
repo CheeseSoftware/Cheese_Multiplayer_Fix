@@ -16,12 +16,12 @@ protected:
 	virtual inline void PhysicUpdate(App &app, World *world, float timeSpan);
 public:
 SERVER(
-	Creature(float x, float y, short sizeX, short sizeY, float speed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling);
+	Creature(float x, float y, short sizeX, short sizeY, float speed, float maxSpeed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling);
 )
 
 	//virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
 CLIENT(
-	Creature(float x, float y, short sizeX, short sizeY, float speed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling);
+	Creature(float x, float y, short sizeX, short sizeY, float speed, float maxSpeed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling);
 )
 	//virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
 

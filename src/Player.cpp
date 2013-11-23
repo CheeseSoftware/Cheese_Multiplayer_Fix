@@ -10,7 +10,7 @@
 #include "GameUtility.h"
 
 Player::Player(float X, float Y, short sizeX, short sizeY, bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name) 
-	: Creature(X, Y, sizeX, sizeY, 1024, 0.75, spriteName, spriteIndex, IsClientControlling)
+	: Creature(X, Y, sizeX, sizeY, 1024, 1024.f, 0.8125, spriteName, spriteIndex, IsClientControlling)
 {
 	name = Name;
 	cameraDelay = 0;
@@ -39,6 +39,9 @@ void Player::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 void Player::Update(App &app, GameUtility *GameUtility)
 {
 #ifndef _SERVER
+	if (y > 8092)
+		y = 0;
+
 	if (isClientControlling)
 	{
 		if (GameUtility->getCamera().getEntity() != this)

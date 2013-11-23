@@ -35,6 +35,7 @@ protected:
     float friction;
     float angle;
     float speed;
+	float maxSpeed;
 	std::string spriteName;
 	int spriteIndex;
 	void FixateX();
@@ -47,7 +48,7 @@ public:
     bool isClientControlling;
 
 	Entity(float x, float y, short sizeX, short sizeY,
-		float angle, float speed, float friction, std::string spriteName,
+		float angle, float speed, float maxSpeed, float friction, std::string spriteName,
 		int spriteIndex, bool isClientControlling);
 	virtual void Update(App &app, GameUtility *GameUtility);
 /*#ifdef _SERVER

@@ -8,11 +8,12 @@
 #include "GameUtility.h"
 
 Entity::Entity(float x, float y, short sizeX, short sizeY,
-			   float angle, float speed, float friction, std::string spriteName,
+			   float angle, float speed, float maxSpeed, float friction, std::string spriteName,
 			   int spriteIndex, bool isClientControlling)
 			   : x(x)
 			   , y(y)
 			   , speed(speed)
+			   , maxSpeed(maxSpeed)
 			   , friction(friction)
 			   , isClientControlling(isClientControlling)
 			   , sizeX(sizeX)
@@ -38,6 +39,11 @@ void Entity::PhysicUpdate(App &app, World *world, float timeSpan)
 
 	speedX *= pow(1.0-xFriction,app.getDeltaTime());//pow(1-xFriction, app.getDeltaTime());//tan(xFriction*M_PI/2) * app.getDeltaTime();
 	speedY *= pow(1.0-yFriction,app.getDeltaTime());//pow(1-yFriction, app.getDeltaTime());//tan(yFriction*M_PI/2) * app.getDeltaTime();
+
+	if		(speedX > maxSpeed)		speedX = maxSpeed;
+	else if	(speedX < -maxSpeed)	speedX = -maxSpeed;
+	if		(speedY > maxSpeed)		speedY = maxSpeed;
+	else if	(speedY < -maxSpeed)	speedY = -maxSpeed;
 }
 
 /*#ifdef _SERVER

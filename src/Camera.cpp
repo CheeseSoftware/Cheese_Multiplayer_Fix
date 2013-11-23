@@ -35,11 +35,18 @@ void Camera::Update(App &app)
 {
 	if (currentEntity != nullptr)
 	{
-		float deltaX = currentEntity->getX()+8-getCenter().x;
-		float deltaY = currentEntity->getY()+8-getCenter().y;
+		const float deltaX = currentEntity->getX()+8-getCenter().x;
+		const float deltaY = currentEntity->getY()+8-getCenter().y;
 		float speedFactor = 1.f-pow(1.f-speed, app.getDeltaTime());//atan(app.getDeltaTime()*speed)*2/3.14159265358979323846264338327950288419;
 
 		//speedFactor = (speedFactor > 1.f)? 1.f : speedFactor;
+		const float distance = sqrt(pow(deltaX, 2) + pow(deltaY, 2));
+
+		if ( distance > 100)
+		{
+			const float temp = (distance-100) / distance;
+			speedFactor = (temp > speedFactor)? temp : speedFactor;
+		}
 
 		move(deltaX*speedFactor,deltaY*speedFactor);
 	}
