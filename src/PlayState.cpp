@@ -101,6 +101,10 @@ GameState *PlayState::Update(App &app)
 
 	while (!packetDataList->empty())
 	{
+		sf::Packet *temp = new sf::Packet(packetDataList->front());
+		sf::Uint16 id;
+		*temp >> id;
+		std::cout << "sending packet " << id << std::endl;
 		connection->client->socket->send(packetDataList->front());
 		packetDataList->pop();
 	}
@@ -267,7 +271,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 					sf::Uint16 layer;
 					*packet >> blockId >> blockMetadata >> x >> y >> layer;
 					//std::cout << "received X:" << x << " Y:" << y << std::endl;
-					currentWorld->setBlockAndMetadata(x, y, layer, blockId, blockMetadata, gameUtility);
+					currentWorld->setBlockAndMetadataClientOnly(x, y, layer, blockId, blockMetadata, gameUtility);
 				}
 			}
 			break;

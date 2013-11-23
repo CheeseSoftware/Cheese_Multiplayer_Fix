@@ -20,6 +20,10 @@ Player::Player(float X, float Y, short sizeX, short sizeY, bool IsClientControll
 	up = false;
 	lmb = false;
 	inventory = new Inventory(8, 4, 64);
+	currentChunkX = 0;
+	currentChunkY = 0;
+	currentChunkXOld = 0;
+	currentChunkYOld = 0;
 
 #ifndef _SERVER
 	//auto eventUpdate =  [this](App &app, sf::Event &event, World *world, std::queue<sf::Packet> *packetDataList) { EventUpdate(app, event, world, packetDataList); };
@@ -57,9 +61,19 @@ void Player::Update(App &app, GameUtility *GameUtility)
 	if(GameUtility->getCurrentWorld() != nullptr && currentChunkX != currentChunkXOld || currentChunkY != currentChunkYOld)
 	{
 		//Now request chunks from server! We have moved to a different chunk!
-		std::cout << "chunk is X:" << currentChunkX << " Y:" << currentChunkY << std::endl;
+		//std::cout << "chunk is X:" << currentChunkX << " Y:" << currentChunkY << std::endl;
 		sf::Packet chunkPacket = sf::Packet();
-		chunkPacket << (sf::Uint16)RequestChunks << (sf::Int32)currentChunkX << (sf::Int32) currentChunkY;
+		chunkPacket << (sf::Uint16)RequestChunks;
+		for(int x = currentChunkX - 3; x < currentChunkX + 3; x++)
+		{
+			for(int y = currentChunkY - 3; y < currentChunkY + 3; y++)
+			{
+				if(!GameUtility->getCurrentWorld()->HasChunk(x, y))
+				{
+					chunkPacket << (sf::Int32)x << (sf::Int32) y;
+				}
+			}
+		}
 		GameUtility->SendPacket(chunkPacket);
 	}
 #endif

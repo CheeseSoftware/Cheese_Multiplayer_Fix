@@ -77,4 +77,5 @@ public:
 	void RemovePlayer(int id);
 	Player* GetPlayer(int id);
 	void SetPlayer(int id, Player *player);
+	bool HasChunk(int x, int y);
 };

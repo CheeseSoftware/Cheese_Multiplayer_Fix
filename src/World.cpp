@@ -35,10 +35,10 @@ World::World(GameUtility *gameUtility)
 #ifdef _SERVER
 	for(int i = -256; i < 256; i++)
 	{
-		setBlockAndMetadataClientOnly(i, 64, 2, 1, 3, gameUtility);
-		setBlockAndMetadataClientOnly(i, -64, 2, 1, 3, gameUtility);
-		setBlockAndMetadataClientOnly(64, i, 2, 1, 3, gameUtility);
-		setBlockAndMetadataClientOnly(-64, i, 2, 1, 3, gameUtility);
+		setBlockAndMetadata(i, 64, 2, 1, 3, gameUtility);
+		setBlockAndMetadata(i, -64, 2, 1, 3, gameUtility);
+		setBlockAndMetadata(64, i, 2, 1, 3, gameUtility);
+		setBlockAndMetadata(-64, i, 2, 1, 3, gameUtility);
 	}
 #endif
 }
@@ -122,7 +122,11 @@ void World::setBlock(long x, long y, long layer, unsigned short id, GameUtility 
 
 void World::setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility)
 {
+#ifdef _SERVER
 	MessageType messageType = setBlockAndMetadataClientOnly(x, y, layer, id, metadata, gameUtility);
+#else
+	MessageType messageType = BlockPlace;
+#endif
 	if(id != 0)
 		gameUtility->SendPacket(gameUtility->getBlockRegister().getBlockType(id)->OnSend(messageType, x, y, layer, id, metadata, gameUtility));
 	else
@@ -400,6 +404,24 @@ bool World::isBlockSolid(long x,long y)
 	if (block != nullptr)
 	{
 		return block->isSolid();
+	}
+	return false;
+}
+
+bool World::HasChunk(int x, int y)
+{
+	if (isColumnInsideChunkMatrix(x))
+	{
+		auto it = chunkMatrix.first.at(x);
+		long yy = floor(y * 0.0625) + it.second+1;
+
+		if (isChunkInsideChunkColumn(y, it.first))
+		{
+			if (it.first.at(y) != nullptr)
+			{
+				return true;
+			}
+		}
 	}
 	return false;
 }

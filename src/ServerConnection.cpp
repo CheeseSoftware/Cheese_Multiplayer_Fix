@@ -27,7 +27,7 @@ ServerConnection::~ServerConnection(void)
 
 void ServerConnection::Run(void)
 {
-	std::cout << packets.size() << " size!" << std::endl;
+	//std::cout << packets.size() << " size!" << std::endl;
 	float ElapsedTime = pingTimeout.getElapsedTime().asMilliseconds();
 	if(ElapsedTime > 1000)
 	{
