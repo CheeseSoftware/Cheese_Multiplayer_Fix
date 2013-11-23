@@ -371,7 +371,7 @@ void World::RemovePlayer(int id)
 	if(it != playerList.end())
 	{
 		CLIENT(
-			//eventHandler.RemoveEventCallback(playerList[id]);
+			eventHandler.RemoveEventCallback(playerList[id]);
 			)
 			delete(it->second);
 		playerList.erase(id);
@@ -381,7 +381,7 @@ void World::RemovePlayer(int id)
 	playerListLock.unlock(); //std::cout << "playerlist unlocked!\n";
 }
 
-Player* World::GetPlayer(int id)
+Player* World::getPlayer(int id)
 {
 	//playerListLock.lock(); //std::cout << "playerlist locked!\n";
 	auto it = playerList.find(id);
@@ -408,20 +408,28 @@ bool World::isBlockSolid(long x,long y)
 	return false;
 }
 
-bool World::HasChunk(int x, int y)
+Chunk *World::getChunk(long x, long y)
 {
-	if (isColumnInsideChunkMatrix(x))
-	{
-		auto it = chunkMatrix.first.at(x);
-		long yy = floor(y * 0.0625) + it.second+1;
+	x += chunkMatrix.second;
 
-		if (isChunkInsideChunkColumn(y, it.first))
+	if (x >= 0)
+	{
+		if (isColumnInsideChunkMatrix(x))
 		{
-			if (it.first.at(y) != nullptr)
+			auto it = chunkMatrix.first.at(x);
+			y += it.second;
+
+			if (y>= 0)
 			{
-				return true;
+				if (isChunkInsideChunkColumn(y, it.first))
+				{
+					if (it.first.at(y) != nullptr)
+					{
+						return it.first.at(y);
+					}
+				}
 			}
 		}
 	}
-	return false;
+	return nullptr;
 }

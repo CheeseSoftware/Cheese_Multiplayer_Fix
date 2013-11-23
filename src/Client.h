@@ -6,6 +6,10 @@
 
 class Client
 {
+private:
+#ifdef _SERVER
+	std::vector<std::pair<long, long>> chunks;
+#endif
 public:
 	Client(void);
 	~Client(void);

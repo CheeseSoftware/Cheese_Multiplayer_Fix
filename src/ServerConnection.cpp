@@ -172,7 +172,6 @@ void ServerConnection::KickClient(int ID, std::string reason)
 	{
 		//Tell the client a kick message
 		const char *kickmsg = reason.c_str();
-		sf::IpAddress ip = client->second->socket->getRemoteAddress();
 		sf::Packet send;
 		send << (sf::Uint16)Kicked << kickmsg;
 		client->second->socket->send(send);
