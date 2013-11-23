@@ -39,7 +39,7 @@ void Player::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 void Player::Update(App &app, GameUtility *GameUtility)
 {
 #ifndef _SERVER
-	if (y > 8092)
+	if (y > 809200)
 		y = 0;
 
 	if (isClientControlling)

@@ -21,7 +21,7 @@
 World::World(GameUtility *gameUtility)
 	: physicBlock(gameUtility->getBlockRegister().getBlockType(3), 3)
 {
-	for (int x = 0; x < 3; x++)
+	/*for (int x = 0; x < 3; x++)
 	{ 
 		chunkMatrix.first.push_back(ChunkColumnType(std::deque<Chunk*>(),0));
 		for (int y = 0; y < 3; y++)
@@ -40,7 +40,7 @@ World::World(GameUtility *gameUtility)
 		setBlockAndMetadata(64, i, 2, 1, 3, gameUtility);
 		setBlockAndMetadata(-64, i, 2, 1, 3, gameUtility);
 	}
-#endif
+#endif*/
 }
 
 #ifndef _SERVER
@@ -432,4 +432,21 @@ Chunk *World::getChunk(long x, long y)
 		}
 	}
 	return nullptr;
+}
+
+Chunk *World::getGenerateChunk(long x, long y, GameUtility *gameUtility)
+{
+	 Expand(x, y, nullptr);
+
+	 int xx = x + chunkMatrix.second;
+
+	auto &it = chunkMatrix.first.at(xx);
+	int yy = y + it.second;
+
+	if (it.first.at(yy) == nullptr)
+	{
+		return it.first.at(yy) = generator(x, y, gameUtility);//(x, y, this);
+	}
+	return it.first.at(yy);
+
 }

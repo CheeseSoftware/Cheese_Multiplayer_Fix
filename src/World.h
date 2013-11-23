@@ -11,6 +11,7 @@
 #include "App.h"
 #include <SFML\Network.hpp>
 #include "EventHandler.h"
+#include "Generator.h"
 
 class Entity;
 class Player;
@@ -50,6 +51,7 @@ private:
 	//std::map<std::pair<short,short>,Block*> BlockMap;
 	std::pair<std::tuple<long, long, unsigned short>, std::pair<Block*, unsigned short>*> lastBlock;
 	std::pair<Block*, unsigned short> physicBlock;
+	StandardGenerator generator;
 #ifndef _SERVER
 	EventHandler<GameUtility*> eventHandler;
 #endif
@@ -78,4 +80,5 @@ public:
 	Player* getPlayer(int id);
 	void SetPlayer(int id, Player *player);
 	Chunk *getChunk(long x, long y);
+	Chunk *getGenerateChunk(long x, long y, GameUtility *gameUtility);
 };

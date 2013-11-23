@@ -1,3 +1,4 @@
+#pragma once
 #include <noise\noise.h>
 
 class GameUtility;
@@ -5,7 +6,7 @@ class Chunk;
 
 //class Chunk;
 
-struct Generator
+class AGenerator
 {
 protected:
 	noise::module::Perlin noiseModule;
@@ -14,7 +15,7 @@ public:
 	virtual Chunk *operator() (long x, long y, GameUtility *gameUtility)=0;
 };
 
-struct StandardGenerator : Generator
+class StandardGenerator : public AGenerator
 {
 public:
 	virtual Chunk *operator() (long x, long y, GameUtility *gameUtility);

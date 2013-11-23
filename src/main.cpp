@@ -13,6 +13,7 @@
 #endif
 #include "App.h"
 
+
 CLIENT(
 void RenderingThread(App *app, GameState *gameState);
 )

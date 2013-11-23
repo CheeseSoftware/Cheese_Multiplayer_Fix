@@ -176,7 +176,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 						std::cout << "ERROR: Server could not extract data: RequestChunks" << std::endl;
 						break;
 					}
-					Chunk *chunk = currentWorld->getChunk(currentChunkX, currentChunkY);
+					Chunk *chunk = currentWorld->getGenerateChunk(currentChunkX, currentChunkY, gameUtility);
 					if(chunk != nullptr)
 					{
 						for(int x = 0; x < 16; x++)
