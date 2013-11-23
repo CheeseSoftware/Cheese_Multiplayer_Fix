@@ -6,6 +6,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "World.h"
+#include "Chunk.h"
 #include "BlockSolid.h"
 #include "BlockBackground.h"
 #include "App.h"
@@ -26,7 +27,7 @@ ServerState::~ServerState()
 
 GameState *ServerState::Update(App &app)
 {
-	//std::cout << "updates per second: " << 1/APP(app).getFrameTime() << std::endl;
+	//std::cout << "updates per second: " << 1/(app).getFrameTime() << std::endl;
 	while (!packetDataList->empty())
 	{
 		sC->Broadcast(packetDataList->front());
@@ -62,16 +63,20 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 			{
 				//std::cout << "Received RequestInit" << std::endl;
 				Player *joined = new Player(0, 0, 16, 16, false, "smileys.png", 0, "temp");
-				currentWorld->AddPlayer(client->ID, joined);
 				sf::Packet send;
 				send << (sf::Uint16) Init << (sf::Uint16)client->ID;
 				for(std::pair<int, Client*> pair : sC->clients)
 				{
-					Player* temp = currentWorld->GetPlayer(pair.first);
+					Player* temp = currentWorld->getPlayer(pair.first);
 					if(temp != nullptr)
 						send << (sf::Int16)pair.first << (float)temp->getPosition().x << (float)temp->getPosition().y << (sf::Int16)temp->getSize().x << (sf::Int16)temp->getSize().y;
 				}
+				currentWorld->AddPlayer(client->ID, joined);
 				client->socket->send(send);
+
+				send.clear();
+				send << (sf::Uint16)PlayerJoin << (sf::Uint16)client->ID << joined->getX() << joined->getY();
+				sC->Broadcast(send);
 			}
 			break;
 		case Ping: //Get client ping
@@ -119,7 +124,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				float horizontal;
 				float vertical;
 				*packet >> xPos >> yPos >> speedX >> speedY >> angle >> horizontal >> vertical;
-				Player* p = currentWorld->GetPlayer(client->ID);
+				Player* p = currentWorld->getPlayer(client->ID);
 				if (p != nullptr)
 				{
 					sf::Packet packet;
@@ -166,28 +171,35 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				{
 					sf::Int32 currentChunkX;
 					sf::Int32 currentChunkY;
-					*packet >> currentChunkX >> currentChunkY;
-					for(int layer = 0; layer < 6; layer++)
+					if(!(*packet >> currentChunkX >> currentChunkY))
+					{
+						std::cout << "ERROR: Server could not extract data: RequestChunks" << std::endl;
+						break;
+					}
+					Chunk *chunk = currentWorld->getChunk(currentChunkX, currentChunkY);
+					if(chunk != nullptr)
 					{
 						for(int x = 0; x < 16; x++)
 						{
 							for(int y = 0;  y < 16; y++)
 							{
-								long currentBlockX = currentChunkX * 16 + x;
-								long currentBlockY = currentChunkY * 16 + y;
-								std::pair<Block*, unsigned short> currentBlock = currentWorld->getBlockAndMetadata(currentBlockX, currentBlockY, layer);
-								if(currentBlock.first != nullptr)
+								for(int layer = 0; layer < 6; layer++)
 								{
-									sf::Uint16 blockId = blockRegister->getBlockIdByTypeId(typeid(*currentBlock.first).hash_code());
-									sf::Uint16 blockMetadata = currentBlock.second;
-									sendChunksPacket << blockId << blockMetadata << (sf::Int32)currentBlockX << (sf::Int32)currentBlockY << (sf::Uint16)layer;
+									std::pair<Block*, unsigned short> pair = chunk->getBlockAndMetadata(x, y, layer);
+									if(pair.first != nullptr)
+									{
+										long currentBlockX = currentChunkX * 16 + x - 16;
+										long currentBlockY = currentChunkY * 16 + y - 16;
+										sf::Uint16 blockId = blockRegister->getBlockIdByTypeId(typeid(*pair.first).hash_code());
+										sf::Uint16 blockMetadata = pair.second;
+										sendChunksPacket << blockId << blockMetadata << (sf::Int32)currentBlockX << (sf::Int32)currentBlockY << (sf::Uint16)layer;
+									}
 								}
 							}
 						}
 					}
 				}
-				if(client != nullptr && client->socket->getRemoteAddress() != sf::IpAddress::None && client->socket != nullptr)
-					client->socket->send(sendChunksPacket);
+				client->socket->send(sendChunksPacket);
 			}
 			break;
 		}

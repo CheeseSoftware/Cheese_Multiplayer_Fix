@@ -75,7 +75,7 @@ public:
 	void RemoveEntity(int id);
 	int AddPlayer(int id, Player*);
 	void RemovePlayer(int id);
-	Player* GetPlayer(int id);
+	Player* getPlayer(int id);
 	void SetPlayer(int id, Player *player);
-	bool HasChunk(int x, int y);
+	Chunk *getChunk(long x, long y);
 };

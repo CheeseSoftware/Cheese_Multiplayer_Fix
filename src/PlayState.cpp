@@ -49,8 +49,6 @@ PlayState::PlayState(App &app)
 	connection = new Connection(5001, ip);
 
 	blockRegister->RegisterBlockTextures(*tC);
-
-	currentWorld->AddPlayer(0, new Player(0, 0, 16, 16, true, "graywizard.png", 0, "per"));
 }
 
 PlayState::~PlayState()
@@ -89,8 +87,8 @@ GameState *PlayState::Update(App &app)
 	}
 	//else if (1/app.getFrameTime() < 50.f)
 	/*{
-		std::cout << "fps: " << 1/app.getFrameTime() << " LOW FPS!\n";
-		fpsClock.restart();
+	std::cout << "fps: " << 1/app.getFrameTime() << " LOW FPS!\n";
+	fpsClock.restart();
 	}*/
 
 
@@ -150,6 +148,8 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				if(!(*packet >> myId))
 					std::cout << "ERROR: Client could not extract data: Init, myId" << std::endl;
 				connection->client->ID = myId;
+				Player *me = new Player(0, 0, 16, 16, true, "smileys.png", 0, "temp");
+				currentWorld->AddPlayer(myId, me);
 				while(!packet->endOfPacket())
 				{
 					sf::Int16 clientId;
@@ -164,12 +164,6 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 					{
 						Player *player = new Player(xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
 						std::cout << "added client " << clientId << std::endl;
-						if(clientId == connection->client->ID)
-						{
-							std::cout << "the client is me" << std::endl;
-							player->isClientControlling = true;
-							camera->setCameraAt(player);
-						}
 						currentWorld->AddPlayer(clientId, player);
 					}
 				}
@@ -196,11 +190,6 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				if(!(*packet >> clientId >> xPos >> yPos))
 					std::cout << "ERROR: Client could not extract data: PlayerJoin" << std::endl;
 				Player* player = new Player(xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
-				/*if(clientId == connection->client->ID)
-				{
-				player->isClientControlling = true;
-				camera->setCameraAt(player);
-				}*/
 				currentWorld->AddPlayer(clientId, player);
 			}
 			break;
@@ -225,7 +214,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				float vertical;
 				if(!(*packet >> ID  >> xPos >> yPos >> speedX >> speedY >> angle >> horizontal >> vertical))
 					std::cout << "ERROR: Client could not extract data: PlayerMove" << std::endl;
-				Player* p = currentWorld->GetPlayer(ID);
+				Player* p = currentWorld->getPlayer(ID);
 				if (p != nullptr && ID != connection->client->ID)
 				{
 					p->CreatureMove(xPos, yPos, speedX, speedY, angle, horizontal, vertical);

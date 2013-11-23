@@ -41,6 +41,28 @@ void Player::Update(App &app, GameUtility *GameUtility)
 #ifndef _SERVER
 	if (isClientControlling)
 	{
+		currentChunkXOld = currentChunkX;
+		currentChunkYOld = currentChunkY;
+		currentChunkX = floor(x/256);
+		currentChunkY = floor(y/256);
+		if(GameUtility->getCurrentWorld() != nullptr && currentChunkX != currentChunkXOld || currentChunkY != currentChunkYOld)
+		{
+			//Now request chunks from server! We have moved to a different chunk!
+			sf::Packet chunkPacket = sf::Packet();
+			chunkPacket << (sf::Uint16)RequestChunks;
+			for(int x = currentChunkX - 30; x < currentChunkX + 30; x++)
+			{
+				for(int y = currentChunkY - 30; y < currentChunkY + 30; y++)
+				{
+					if(GameUtility->getCurrentWorld()->getChunk(x, y) == nullptr)
+					{
+						chunkPacket << (sf::Int32)x << (sf::Int32) y;
+					}
+				}
+			}
+			GameUtility->SendPacket(chunkPacket);
+		}
+
 		if (GameUtility->getCamera().getEntity() != this)
 		{
 			if (cameraDelay <= 0)
@@ -53,28 +75,6 @@ void Player::Update(App &app, GameUtility *GameUtility)
 				cameraDelay -= app.getDeltaTime();
 			}
 		}
-	}
-	currentChunkXOld = currentChunkX;
-	currentChunkYOld = currentChunkY;
-	currentChunkX = floor(x/256);
-	currentChunkY = floor(y/256);
-	if(GameUtility->getCurrentWorld() != nullptr && currentChunkX != currentChunkXOld || currentChunkY != currentChunkYOld)
-	{
-		//Now request chunks from server! We have moved to a different chunk!
-		//std::cout << "chunk is X:" << currentChunkX << " Y:" << currentChunkY << std::endl;
-		sf::Packet chunkPacket = sf::Packet();
-		chunkPacket << (sf::Uint16)RequestChunks;
-		for(int x = currentChunkX - 3; x < currentChunkX + 3; x++)
-		{
-			for(int y = currentChunkY - 3; y < currentChunkY + 3; y++)
-			{
-				if(!GameUtility->getCurrentWorld()->HasChunk(x, y))
-				{
-					chunkPacket << (sf::Int32)x << (sf::Int32) y;
-				}
-			}
-		}
-		GameUtility->SendPacket(chunkPacket);
 	}
 #endif
 
@@ -147,6 +147,13 @@ Up:
 
 					if (currentBlock.first != nullptr)
 						currentBlock.first->OnEntityHover(app, this, xSpeed2, ySpeed2, speedX, speedY, currentBlock.second);
+
+					if (isClientControlling)
+					{
+						sf::Packet packet;
+						packet << (sf::Uint16)PlayerMove << x << y << speedX << speedY << angle << horizontal << vertical;
+						gameUtility->SendPacket(packet);
+					}
 				}
 				break;
 			case sf::Keyboard::Q:
@@ -278,8 +285,6 @@ void Player::KeyUpdate(bool Right, bool Down, bool Left, bool Up, GameUtility* g
 		down = Down;
 		left = Left;
 		up = Up;
-
-
 
 		if (isClientControlling)
 		{
