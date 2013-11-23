@@ -138,6 +138,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				sf::Uint16 layer;
 				sf::Uint16 id;
 				sf::Uint16 metadata;
+				std::cout << "got blockplace" << std::endl;
 				if(!(*packet >> xPos >> yPos >> layer >> id >> metadata))
 					std::cout << "ERROR: Server could not extract data: BlockPlace" << std::endl;
 				if(id != 0)
@@ -159,29 +160,34 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 			break;
 		case RequestChunks:
 			{
-				sf::Int32 currentChunkX;
-				sf::Int32 currentChunkY;
-				*packet >> currentChunkX >> currentChunkY;
 				sf::Packet sendChunksPacket = sf::Packet();
 				sendChunksPacket << (sf::Uint16) Chunks;
-				for(int layer = 0; layer < 6; layer++)
+				while(!packet->endOfPacket())
 				{
-					for(int x = currentChunkX*16 - 5*16; x < currentChunkX*16 + 5*16; x++)
+					sf::Int32 currentChunkX;
+					sf::Int32 currentChunkY;
+					*packet >> currentChunkX >> currentChunkY;
+					for(int layer = 0; layer < 6; layer++)
 					{
-						for(int y = currentChunkY*16 - 5*16; y < currentChunkY*16 + 5*16; y++)
+						for(int x = 0; x < 16; x++)
 						{
-							std::pair<Block*, unsigned short> currentBlock = currentWorld->getBlockAndMetadata(x, y, layer);
-							if(currentBlock.first != nullptr)
+							for(int y = 0;  y < 16; y++)
 							{
-								sf::Uint16 blockId = blockRegister->getBlockIdByTypeId(typeid(*currentBlock.first).hash_code());
-								sf::Uint16 blockMetadata = currentBlock.second;
-								sendChunksPacket << blockId << blockMetadata << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer;
+								long currentBlockX = currentChunkX * 16 + x;
+								long currentBlockY = currentChunkY * 16 + y;
+								std::pair<Block*, unsigned short> currentBlock = currentWorld->getBlockAndMetadata(currentBlockX, currentBlockY, layer);
+								if(currentBlock.first != nullptr)
+								{
+									sf::Uint16 blockId = blockRegister->getBlockIdByTypeId(typeid(*currentBlock.first).hash_code());
+									sf::Uint16 blockMetadata = currentBlock.second;
+									sendChunksPacket << blockId << blockMetadata << (sf::Int32)currentBlockX << (sf::Int32)currentBlockY << (sf::Uint16)layer;
+								}
 							}
-
 						}
 					}
 				}
-				client->socket->send(sendChunksPacket);
+				if(client != nullptr && client->socket->getRemoteAddress() != sf::IpAddress::None && client->socket != nullptr)
+					client->socket->send(sendChunksPacket);
 			}
 			break;
 		}

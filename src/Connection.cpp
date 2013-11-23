@@ -19,6 +19,17 @@ Connection::Connection(int port, sf::IpAddress ip)
 		sf::Packet packet;
 		packet << (sf::Uint16)RequestInit;
 		client->socket->send(packet);
+
+		packet.clear();
+		packet << (sf::Uint16)RequestChunks;
+		for(int x = -8; x < 8; x++)
+		{
+			for(int y = -8; y < 8; y++)
+			{
+				packet << (sf::Int32)x << (sf::Int32)y;
+			}
+		}
+		client->socket->send(packet);
 		std::cout << "Connected to " << ip << " : " << port << std::endl;
 	}
 	else
