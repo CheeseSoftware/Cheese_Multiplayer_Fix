@@ -28,8 +28,11 @@ float App::getDeltaTime()
 
 void App::Update()
 {
+	long time = 1000000/120-frameTimer.getElapsedTime().asMicroseconds();
+	if (time > 0)
+		sf::sleep(sf::Time(sf::milliseconds(time/1000)));
 	frameTime = frameTimer.getElapsedTime().asSeconds();
-
+	
 /*SERVER(
 	if (frameTime < MIN_FRAME_TIME)
 	{

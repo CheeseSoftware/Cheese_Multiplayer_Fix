@@ -82,16 +82,16 @@ void PlayState::EventUpdate(App &app, const sf::Event &event)
 
 GameState *PlayState::Update(App &app)
 {
-	if (fpsClock.getElapsedTime().asMilliseconds() > 500)
+	if (fpsClock.getElapsedTime().asMilliseconds() > 50)
 	{
 		std::cout << "fps: " << 1/app.getFrameTime() << "\n";
 		fpsClock.restart();
 	}
-	else if (1/app.getFrameTime() < 50.f)
-	{
+	//else if (1/app.getFrameTime() < 50.f)
+	/*{
 		std::cout << "fps: " << 1/app.getFrameTime() << " LOW FPS!\n";
 		fpsClock.restart();
-	}
+	}*/
 
 
 	currentWorld->Update(app, this);

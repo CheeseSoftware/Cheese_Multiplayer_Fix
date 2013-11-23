@@ -14,7 +14,7 @@ namespace gui
 		sf::Text *text;
 	public:
 		TextItem(sf::Text *text);
-		virtual void Draw(App &app, int x, int y);
+		virtual void Draw(App &app, int x, int y) const;
 	};
 }
 #endif

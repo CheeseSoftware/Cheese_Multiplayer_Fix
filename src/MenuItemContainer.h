@@ -27,7 +27,7 @@ namespace gui
 	private:
 		struct PositionItem
 		{
-			IMenuItem *menuItem;
+			IMenuItem * menuItem;
 			int x;
 			int y;
 			

@@ -25,7 +25,7 @@ namespace gui
 
 	void MenuItemContainer::Draw(App &app)
 	{
-		for (auto i : itemList)
+		for (const PositionItem &i : itemList)
 			i.menuItem->Draw(app, i.x, i.y);
 	}
 
