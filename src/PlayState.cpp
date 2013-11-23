@@ -68,6 +68,7 @@ void PlayState::EventUpdate(App &app, const sf::Event &event)
 			app.getSize().y));
 
 		hudView.setSize(app.getSize().x, app.getSize().y);
+		hudView.setCenter(sf::Vector2f(app.getSize().x/2, app.getSize().y/2));
 	}
 
 	//App.SetView(camera = sf::View(sf::FloatRect(0.f, 0.f,
