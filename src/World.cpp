@@ -122,19 +122,12 @@ void World::setBlock(long x, long y, long layer, unsigned short id, GameUtility 
 
 void World::setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility)
 {
-//#ifdef _SERVER
 	MessageType messageType = setBlockAndMetadataClientOnly(x, y, layer, id, metadata, gameUtility);
-<<<<<<< HEAD
-//#else
-//	MessageType messageType = BlockPlace;
-//#endif
-=======
-#else
-	MessageType messageType = BlockPlace;
-#endif
+
+
 	sf::Packet *packet = new sf::Packet();
 	*packet << (sf::Uint16)messageType;
->>>>>>> f70f0eaae6590dfe389374c5d729b040f1b59832
+
 	if(id != 0)
 		gameUtility->getBlockRegister().getBlockType(id)->OnSend(packet, messageType, x, y, layer, id, metadata, gameUtility);
 	else
