@@ -161,8 +161,8 @@ Up:
 				break;
 			case sf::Keyboard::Q:
 				{
-					float deltaX = (sf::Mouse::getPosition().x - app.getPosition().x + app.getView().getCenter().x - app.getView().getSize().x/2) - x;
-					float deltaY = (sf::Mouse::getPosition().y - app.getPosition().y + app.getView().getCenter().y - app.getView().getSize().y/2) - y;
+					float deltaX = sf::Mouse::getPosition().x - x + gameUtility->getCamera().getLeftX();//(sf::Mouse::getPosition().x - app.getPosition().x + app.getView().getCenter().x - app.getView().getSize().x/2) - x;
+					float deltaY = sf::Mouse::getPosition().y - y + gameUtility->getCamera().getTopY();//(sf::Mouse::getPosition().y - app.getPosition().y + app.getView().getCenter().y - app.getView().getSize().y/2) - y;
 
 					double angle = atan2(deltaY, deltaX) * 180 / 3.1415926536;
 
@@ -179,7 +179,7 @@ Up:
 						deltaSpeedY *= -1;
 
 
-					Projectile *projectile = new Projectile(x+(sizeX>>1), y+(sizeY>>1), 32, 32, angle, 10240, 0.03125F, "arrow.png", 0, false);
+					Projectile *projectile = new Projectile(x+(sizeX>>1), y+(sizeY>>1), 32, 32, angle, 1024, 0.03125F, "arrow.png", 0, false);
 					gameUtility->getCurrentWorld()->AddEntity(projectile);
 				}
 				break;
