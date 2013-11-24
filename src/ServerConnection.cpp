@@ -27,7 +27,7 @@ ServerConnection::~ServerConnection(void)
 
 void ServerConnection::Run(void)
 {
-	//std::cout << packets.size() << " size!" << std::endl;
+	std::cout << packets.size() << " size!" << std::endl;
 	float ElapsedTime = pingTimeout.getElapsedTime().asMilliseconds();
 	if(ElapsedTime > 1000)
 	{
@@ -90,7 +90,7 @@ void ServerConnection::AcceptReceive()
 	std::vector<int> *toKick = new std::vector<int>();
 	while(true)
 	{
-		if (selector.wait(sf::seconds(2)))
+		if (selector.wait())
 		{
 			if(selector.isReady(s))
 			{

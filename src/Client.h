@@ -8,7 +8,10 @@ class Client
 {
 private:
 #ifdef _SERVER
-	std::vector<std::pair<long, long>> chunks;
+	//setd::vector<std::pair<long, long>> chunks;
+	long chunkX;
+	long chunkY;
+	bool *chunks;
 #endif
 public:
 	Client(void);
@@ -20,5 +23,6 @@ public:
 	float ping;
 	sf::Clock pingClock;
 	bool isMeasuringPing;
+	void Move(char x, char y);
 };
 

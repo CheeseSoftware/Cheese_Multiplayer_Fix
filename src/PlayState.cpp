@@ -231,7 +231,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				if(!(*packet >> id))
 					std::cout << "ERROR: Server could not extract data: BlockPlace: id" << std::endl;
 				if(id != 0)
-					blockRegister->getBlockType(id)->OnReceive(originalPacket, gameUtility);
+					blockRegister->getBlockType(id)->OnReceive(packet, id, gameUtility);
 				else
 				{
 					sf::Int32 xPos;
@@ -259,14 +259,20 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 			{
 				while(!packet->endOfPacket())
 				{
+					//std::cout << "packet size left: " << packet->getDataSize() << std::endl;
 					sf::Uint16 blockId;
-					sf::Uint16 blockMetadata;
+					if(!(*packet >> blockId))
+						std::cout << "ERROR: Client could not extract data: Chunks: blockId" << std::endl;
+					Block *block = blockRegister->getBlockType(blockId);
+					block->OnReceive(packet, blockId, gameUtility);
+					//std::cout << "unpacked block: " << blockId << std::endl;
+					/*sf::Uint16 blockMetadata;
 					sf::Int32 x;
 					sf::Int32 y;
 					sf::Uint16 layer;
 					*packet >> blockId >> blockMetadata >> x >> y >> layer;
 					//std::cout << "received X:" << x << " Y:" << y << std::endl;
-					currentWorld->setBlockAndMetadataClientOnly(x, y, layer, blockId, blockMetadata, gameUtility);
+					currentWorld->setBlockAndMetadataClientOnly(x, y, layer, blockId, blockMetadata, gameUtility);*/
 				}
 			}
 			break;

@@ -37,7 +37,7 @@ public:
 	virtual void OnEntityHover(App &app, Entity *entity, float &xFriction, float&yFriction, float &speedX, float &speedY, const unsigned short metadata);
 	virtual void getCreatureMovePossibilities(App &app, Creature *creature, float &horizontal, float &vertical, const unsigned short metadata);
 	virtual void CreatureJump(App &app, Creature *creature, float &speedX, float &speedY, const unsigned short metadata);
-	virtual void OnReceive(sf::Packet *packet, GameUtility *gameUtility);
+	virtual void OnReceive(sf::Packet *packet, sf::Uint16 id, GameUtility *gameUtility);
 	virtual void Block::OnSend(sf::Packet *packet, sf::Uint16 packetType, const long x, const long y, const short layer, const short id, const short metadata, GameUtility* gameUtility);
 #ifndef _SERVER
 	void Draw(const long posX, const long posY, App &app, GameUtility *gameUtility, const unsigned short metadata);

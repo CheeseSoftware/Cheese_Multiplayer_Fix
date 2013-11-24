@@ -27,9 +27,10 @@ ServerState::~ServerState()
 
 GameState *ServerState::Update(App &app)
 {
-	//std::cout << "updates per second: " << 1/(app).getFrameTime() << std::endl;
+	std::cout << "updates per second: " << 1/(app).getFrameTime() << std::endl;
 	while (!packetDataList->empty())
 	{
+		std::cout << "packets " << packetDataList->size() << std::endl;
 		sC->Broadcast(packetDataList->front());
 		packetDataList->pop();
 	}
@@ -194,8 +195,12 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 										long currentBlockX = currentChunkX * 16 + x - 16;
 										long currentBlockY = currentChunkY * 16 + y - 16;
 										sf::Uint16 blockId = blockRegister->getBlockIdByTypeId(typeid(*pair.first).hash_code());
-										sf::Uint16 blockMetadata = pair.second;
-										sendChunksPacket << blockId << blockMetadata << (sf::Int32)currentBlockX << (sf::Int32)currentBlockY << (sf::Uint16)layer;
+										if(blockId != 0)
+										{
+											sf::Uint16 blockMetadata = pair.second;
+											pair.first->OnSend(&sendChunksPacket, BlockPlace, currentBlockX, currentBlockY, layer, blockId, blockMetadata, gameUtility);
+											//sendChunksPacket << blockId << blockMetadata << (sf::Int32)currentBlockX << (sf::Int32)currentBlockY << (sf::Uint16)layer;
+										}
 									}
 								}
 							}

@@ -96,14 +96,19 @@ void Block::CreatureJump(App &app, Creature *creature, float &speedX, float &spe
 
 }
 
-void Block::OnReceive(sf::Packet* packet, GameUtility* gameUtility)
+void Block::OnReceive(sf::Packet* packet, sf::Uint16 id, GameUtility* gameUtility)
 {
-	sf::Uint16 id;
 	sf::Int32 xPos;
 	sf::Int32 yPos;
 	sf::Uint16 layer;
 	sf::Uint16 metadata;
-	*packet  >> id >> xPos >> yPos >> layer >> metadata;
+	*packet >> xPos >> yPos >> layer >> metadata;
+	if(layer < 0 || layer > 6)
+	{
+		std::cout << "wtf layer" << std::endl;
+		return;
+	}
+	//std::cout << "received block: id:" << id << " layer:" << layer << std::endl;
 #ifdef _SERVER
 	gameUtility->getCurrentWorld()->setBlockAndMetadata(xPos, yPos, layer, id, metadata, gameUtility);
 #else

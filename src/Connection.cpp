@@ -13,12 +13,16 @@ Connection::Connection(int port, sf::IpAddress ip)
 		sf::Clock *c = new sf::Clock();
 		c->restart();
 		while(c->getElapsedTime() < sf::milliseconds(500)) {} //Måste vänta tills servern har lagt till klienten ordentligt
-		delete c;
 		//vänta-saker slutar här
 
 		sf::Packet packet;
 		packet << (sf::Uint16)RequestInit;
 		client->socket->send(packet);
+
+		//vänta-saker börjar här
+		c->restart();
+		while(c->getElapsedTime() < sf::milliseconds(2000)) {} //Måste vänta tills servern har lagt till klienten ordentligt
+		//vänta-saker slutar här
 
 		packet.clear();
 		packet << (sf::Uint16)RequestChunks;
@@ -30,6 +34,13 @@ Connection::Connection(int port, sf::IpAddress ip)
 			}
 		}
 		client->socket->send(packet);
+
+		//vänta-saker börjar här
+		c->restart();
+		while(c->getElapsedTime() < sf::milliseconds(2000)) {} //Måste vänta tills servern har lagt till klienten ordentligt
+		delete c;
+		//vänta-saker slutar här
+
 		std::cout << "Connected to " << ip << " : " << port << std::endl;
 	}
 	else
