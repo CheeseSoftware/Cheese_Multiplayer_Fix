@@ -265,7 +265,7 @@ UpR:
 void Player::Draw(App &app, GameUtility *gameUtility)
 {
 
-	inventory->Draw(16, 16, app, gameUtility->getTextureContainer()); 
+	//inventory->Draw(16, 16, app, gameUtility->getTextureContainer()); 
 	Creature::Draw(app, gameUtility);
 }
 #endif
