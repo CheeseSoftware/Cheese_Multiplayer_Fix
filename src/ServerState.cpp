@@ -138,18 +138,21 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 			break;
 		case BlockPlace:
 			{
-				sf::Int32 xPos;
-				sf::Int32 yPos;
-				sf::Uint16 layer;
 				sf::Uint16 id;
-				sf::Uint16 metadata;
-				std::cout << "got blockplace" << std::endl;
-				if(!(*packet >> xPos >> yPos >> layer >> id >> metadata))
-					std::cout << "ERROR: Server could not extract data: BlockPlace" << std::endl;
+				if(!(*packet >> id))
+					std::cout << "ERROR: Server could not extract data: BlockPlace: id" << std::endl;
 				if(id != 0)
-					Block* temp = blockRegister->getBlockType(id)->OnReceive(originalPacket, gameUtility);
+					blockRegister->getBlockType(id)->OnReceive(originalPacket, gameUtility);
 				else
+				{
+					sf::Int32 xPos;
+					sf::Int32 yPos;
+					sf::Uint16 layer;
+					sf::Uint16 metadata;
+					if(!(*packet >> xPos >> yPos >> layer >> metadata))
+						std::cout << "ERROR: Server could not extract data: BlockPlace" << std::endl;
 					gameUtility->getCurrentWorld()->setBlockAndMetadata(xPos, yPos, layer, 0, metadata, gameUtility);
+				}
 			}
 			break;
 		case BlockMetadataChange:

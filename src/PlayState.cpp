@@ -227,19 +227,21 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 			break;
 		case BlockPlace:
 			{
-				sf::Int32 xPos;
-				sf::Int32 yPos;
-				sf::Uint16 layer;
 				sf::Uint16 id;
-				sf::Uint16 metadata;
-				if(!(*packet >> xPos >> yPos >> layer >> id >> metadata))
-					std::cout << "ERROR: Client could not extract data: BlockPlace" << std::endl;
-				std::cout << "client received " << xPos << " " << yPos << " " << layer << " " << id << " " << metadata << std::endl;
-
+				if(!(*packet >> id))
+					std::cout << "ERROR: Server could not extract data: BlockPlace: id" << std::endl;
 				if(id != 0)
-					Block* temp = blockRegister->getBlockType(id)->OnReceive(originalPacket, gameUtility);
+					blockRegister->getBlockType(id)->OnReceive(originalPacket, gameUtility);
 				else
-					gameUtility->getCurrentWorld()->setBlockAndMetadataClientOnly(xPos, yPos, layer, id, metadata, gameUtility);
+				{
+					sf::Int32 xPos;
+					sf::Int32 yPos;
+					sf::Uint16 layer;
+					sf::Uint16 metadata;
+					if(!(*packet >> xPos >> yPos >> layer >> metadata))
+						std::cout << "ERROR: Server could not extract data: BlockPlace" << std::endl;
+					gameUtility->getCurrentWorld()->setBlockAndMetadataClientOnly(xPos, yPos, layer, 0, metadata, gameUtility);
+				}
 			}
 			break;
 		case BlockMetadataChange:
@@ -250,7 +252,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				sf::Uint16 metadata;
 				if(!(*packet >> xPos >> yPos >> layer >> metadata))
 					std::cout << "ERROR: Client could not extract data: BlockMetadataChange" << std::endl;
-				currentWorld->setBlockMetadata(xPos, yPos, layer, metadata, this);
+				currentWorld->setBlockMetadataClientOnly(xPos, yPos, layer, metadata, this);
 			}
 			break;
 		case Chunks:
