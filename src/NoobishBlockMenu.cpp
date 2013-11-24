@@ -62,6 +62,7 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtility
 		else if(event.key.code == sf::Mouse::Right)
 		{
 			Block* block = gameUtility->getCurrentWorld()->getBlock(x, y, 2);
+			//std::cout << "The block is unique:" << block->isUnique() << " texture:" << block->getTextureName() << std::endl;
 			if(block != nullptr)
 				block->OnRightClick(nullptr, gameUtility->getCurrentWorld()->getBlockAndMetadata(x, y, 2).second, x, y, 2, gameUtility);
 			//if (event.mouseButton.y < app.getSize().y-32)

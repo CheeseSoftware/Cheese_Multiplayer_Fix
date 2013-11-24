@@ -19,6 +19,8 @@ public:
 	int getItemCount(int slot);
 	int getItemCount(Item* item);
 	Item* getItemByName(std::string name);
+	int getSizeX() { return xSize; };
+	int getSizeY() { return ySize; };
 	std::pair<Item*, int>** getItems();
 	bool RemoveItem(Item* item, int amount);
 	bool RemoveItem(int slot, int amount);

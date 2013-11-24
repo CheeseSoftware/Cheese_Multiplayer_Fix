@@ -40,6 +40,6 @@ public:
 	virtual void OnReceive(sf::Packet *packet, sf::Uint16 id, GameUtility *gameUtility);
 	virtual void Block::OnSend(sf::Packet *packet, sf::Uint16 packetType, const long x, const long y, const short layer, const short id, const short metadata, GameUtility* gameUtility);
 #ifndef _SERVER
-	void Draw(const long posX, const long posY, App &app, GameUtility *gameUtility, const unsigned short metadata);
+	virtual void Draw(const long posX, const long posY, App &app, GameUtility *gameUtility, const unsigned short metadata);
 #endif
 };

@@ -21,7 +21,7 @@ Connection::Connection(int port, sf::IpAddress ip)
 
 		//vänta-saker börjar här
 		c->restart();
-		while(c->getElapsedTime() < sf::milliseconds(2000)) {} //Måste vänta tills servern har lagt till klienten ordentligt
+		while(c->getElapsedTime() < sf::milliseconds(500)) {} //Måste vänta tills servern har lagt till klienten ordentligt
 		//vänta-saker slutar här
 
 		packet.clear();
@@ -37,7 +37,7 @@ Connection::Connection(int port, sf::IpAddress ip)
 
 		//vänta-saker börjar här
 		c->restart();
-		while(c->getElapsedTime() < sf::milliseconds(2000)) {} //Måste vänta tills servern har lagt till klienten ordentligt
+		while(c->getElapsedTime() < sf::milliseconds(500)) {} //Måste vänta tills servern har lagt till klienten ordentligt
 		delete c;
 		//vänta-saker slutar här
 

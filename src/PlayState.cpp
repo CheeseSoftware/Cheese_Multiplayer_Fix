@@ -85,8 +85,8 @@ GameState *PlayState::Update(App &app)
 	{
 		if (1/app.getFrameTime() < 90)
 			std::cout << "fps: " << 1/app.getFrameTime() << " << LOW FPS!!!!!! <<<<<<\n";
-		else
-			std::cout << "fps: " << 1/app.getFrameTime() << "\n";
+		//else
+		//std::cout << "fps: " << 1/app.getFrameTime() << "\n";
 		fpsClock.restart();
 	}
 	//else if (1/app.getFrameTime() < 50.f)
@@ -263,8 +263,14 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 					sf::Uint16 blockId;
 					if(!(*packet >> blockId))
 						std::cout << "ERROR: Client could not extract data: Chunks: blockId" << std::endl;
-					Block *block = blockRegister->getBlockType(blockId);
-					block->OnReceive(packet, blockId, gameUtility);
+					Block *tempBlock = blockRegister->getBlockType(blockId);
+					/*if(tempBlock->isUnique())
+					{
+						Block* newBlock = static_cast<Block*>(malloc(sizeof(*tempBlock)));
+						*newBlock = *tempBlock;
+						newBlock->OnReceive(packet, blockId, gameUtility);
+					}*/
+					tempBlock->OnReceive(packet, blockId, gameUtility);
 					//std::cout << "unpacked block: " << blockId << std::endl;
 					/*sf::Uint16 blockMetadata;
 					sf::Int32 x;

@@ -59,7 +59,7 @@ void Player::Update(App &app, GameUtility *GameUtility)
 				{
 					if(GameUtility->getCurrentWorld()->getChunk(x, y) == nullptr)
 					{
-						std::cout << "requesting chunk: x:" << x << " y:" << y << std::endl;
+						//std::cout << "requesting chunk: x:" << x << " y:" << y << std::endl;
 						chunkPacket << (sf::Int32)x << (sf::Int32) y;
 					}
 				}

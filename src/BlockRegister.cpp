@@ -48,6 +48,11 @@ Block *BlockRegister::getBlockType(const unsigned short id)
 {
 	if (id == 0)
 		return nullptr;
+	if(id == 4)
+	{
+		Block *block = new BlockChest(id);
+		return block;
+	}
 	return (id >= blockTypeList.size()) ? nullptr : blockTypeList[id](0);
 }
 
