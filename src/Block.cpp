@@ -65,9 +65,10 @@ void Block::OnRemove()
 	}
 }
 
-void Block::OnRightClick(Creature *creature, const unsigned short metadata)
+void Block::OnRightClick(Creature *creature, const unsigned short metadata, const long x, const long y, const short layer, GameUtility *gameUtility)
 {
-
+	OnRemove();
+	gameUtility->getCurrentWorld()->setBlockAndMetadata(x, y, layer, 0, 0, gameUtility);
 }
 
 void Block::OnEntityTouch(Entity *entity, const unsigned short metadata)

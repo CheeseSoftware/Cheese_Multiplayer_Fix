@@ -31,7 +31,7 @@ public:
 	virtual void OnCreate(const unsigned short metadata);
 #endif
 	virtual void OnRemove();
-	virtual void OnRightClick(Creature *creature, const unsigned short metadata);
+	virtual void OnRightClick(Creature *creature, const unsigned short metadata, const long x, const long y, const short layer, GameUtility *gameUtility);
 	virtual void OnEntityTouch(Entity *entity, const unsigned short metadata);
 	virtual void OnEntitySlide(Entity *entity, float &friction, const unsigned short metadata);
 	virtual void OnEntityHover(App &app, Entity *entity, float &xFriction, float&yFriction, float &speedX, float &speedY, const unsigned short metadata);
