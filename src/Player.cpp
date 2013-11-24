@@ -59,7 +59,7 @@ void Player::Update(App &app, GameUtility *GameUtility)
 				{
 					if(GameUtility->getCurrentWorld()->getChunk(x, y) == nullptr)
 					{
-						std::cout << "requesting chunk: x:" << x << " y:" << y << std::endl;
+						//std::cout << "requesting chunk: x:" << x << " y:" << y << std::endl;
 						chunkPacket << (sf::Int32)x << (sf::Int32) y;
 					}
 				}
@@ -265,7 +265,7 @@ UpR:
 void Player::Draw(App &app, GameUtility *gameUtility)
 {
 
-	inventory->Draw(16, 16, app, gameUtility->getTextureContainer()); 
+	//inventory->Draw(16, 16, app, gameUtility->getTextureContainer()); 
 	Creature::Draw(app, gameUtility);
 }
 #endif

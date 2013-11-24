@@ -18,7 +18,7 @@ Block::Block(unsigned short id)
 std::function<Block*(const unsigned short)> Block::RegisterBlock(const unsigned short id)
 {
 	std::cout << typeid(*this).name() << '(' << typeid(*this).hash_code() << ") registered with blockId " << id << ".\n";
-	if (isUnique())
+	/*if (isUnique())
 	{
 		return [&](unsigned short metadata) -> Block*
 		{
@@ -27,7 +27,7 @@ std::function<Block*(const unsigned short)> Block::RegisterBlock(const unsigned 
 			return block;
 		};
 	}
-	else
+	else*/
 	{
 		return [&](unsigned short metadata) -> Block* { return this; };
 	}
