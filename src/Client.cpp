@@ -50,9 +50,9 @@ void Client::Move(char x, char y)
 			for (int yyy = 0; yyy < 16; yyy++)
 				chunks[y*11+xx] = 0;
 		}
-		for (int yy = 0; yy < y; yy++)
+		/*for (int yy = 0; yy < y; yy++)
 		{
-			for (int xxx/*som yXD*/ = 0; xxx < 11; xxx++)
+			for (int xxx/*som yXD*//* = 0; xxx < 11; xxx++)
 			{
 				(short)(*(chunks[xxx])) >> 1;
 				
@@ -60,12 +60,12 @@ void Client::Move(char x, char y)
 		}
 		for (int yy = 0; yy > x; yy++)
 		{
-			for (int xxx/*som yXD*/ = 0; xxx < 11; xxx++)
+			for (int xxx/*som yXD*//* = 0; xxx < 11; xxx++)
 			{
 				(short)(*(chunks[x])) << 1;
 				chunks[x][11] = 0;
 			}
-		}
+		}*/
 	}
 }
 #endif

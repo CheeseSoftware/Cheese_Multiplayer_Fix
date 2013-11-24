@@ -143,7 +143,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				if(!(*packet >> id))
 					std::cout << "ERROR: Server could not extract data: BlockPlace: id" << std::endl;
 				if(id != 0)
-					blockRegister->getBlockType(id)->OnReceive(originalPacket, gameUtility);
+					blockRegister->getBlockType(id)->OnReceive(packet, id, gameUtility);
 				else
 				{
 					sf::Int32 xPos;
