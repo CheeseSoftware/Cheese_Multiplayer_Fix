@@ -23,24 +23,24 @@ World::World(GameUtility *gameUtility)
 {
 	/*for (int x = 0; x < 3; x++)
 	{ 
-		chunkMatrix.first.push_back(ChunkColumnType(std::deque<Chunk*>(),0));
-		for (int y = 0; y < 3; y++)
-		{
-			Chunk* chunk = new Chunk();
-			chunk->setBlock(2, 1, 1, new  BlockSolid(1));
-			chunkMatrix.first[x].first.push_back(chunk);
-		}
+	chunkMatrix.first.push_back(ChunkColumnType(std::deque<Chunk*>(),0));
+	for (int y = 0; y < 3; y++)
+	{
+	Chunk* chunk = new Chunk();
+	chunk->setBlock(2, 1, 1, new  BlockSolid(1));
+	chunkMatrix.first[x].first.push_back(chunk);
+	}
 	}
 
-#ifdef _SERVER
+	#ifdef _SERVER
 	for(int i = -256; i < 256; i++)
 	{
-		setBlockAndMetadata(i, 64, 2, 1, 3, gameUtility);
-		setBlockAndMetadata(i, -64, 2, 1, 3, gameUtility);
-		setBlockAndMetadata(64, i, 2, 1, 3, gameUtility);
-		setBlockAndMetadata(-64, i, 2, 1, 3, gameUtility);
+	setBlockAndMetadata(i, 64, 2, 1, 3, gameUtility);
+	setBlockAndMetadata(i, -64, 2, 1, 3, gameUtility);
+	setBlockAndMetadata(64, i, 2, 1, 3, gameUtility);
+	setBlockAndMetadata(-64, i, 2, 1, 3, gameUtility);
 	}
-#endif*/
+	#endif*/
 }
 
 #ifndef _SERVER
@@ -124,17 +124,22 @@ void World::setBlockAndMetadata(long x, long y, long layer, unsigned short id, u
 {
 //#ifdef _SERVER
 	MessageType messageType = setBlockAndMetadataClientOnly(x, y, layer, id, metadata, gameUtility);
+<<<<<<< HEAD
 //#else
 //	MessageType messageType = BlockPlace;
 //#endif
+=======
+#else
+	MessageType messageType = BlockPlace;
+#endif
+	sf::Packet *packet = new sf::Packet();
+	*packet << (sf::Uint16)messageType;
+>>>>>>> f70f0eaae6590dfe389374c5d729b040f1b59832
 	if(id != 0)
-		gameUtility->SendPacket(gameUtility->getBlockRegister().getBlockType(id)->OnSend(messageType, x, y, layer, id, metadata, gameUtility));
+		gameUtility->getBlockRegister().getBlockType(id)->OnSend(packet, messageType, x, y, layer, id, metadata, gameUtility);
 	else
-	{
-		sf::Packet packet;
-		packet << (sf::Int16)BlockPlace << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)id << (sf::Uint16)metadata;
-		gameUtility->SendPacket(packet);
-	}
+		*packet << (sf::Uint16)id << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)metadata;
+	gameUtility->SendPacket(*packet);
 }
 
 void World::setBlockMetadata(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility)
@@ -376,7 +381,7 @@ void World::RemovePlayer(int id)
 	{
 		CLIENT(
 			eventHandler.RemoveEventCallback(playerList[id]);
-			)
+		)
 			delete(it->second);
 		playerList.erase(id);
 	}
@@ -440,9 +445,9 @@ Chunk *World::getChunk(long x, long y)
 
 Chunk *World::getGenerateChunk(long x, long y, GameUtility *gameUtility)
 {
-	 Expand(x, y, nullptr);
+	Expand(x, y, nullptr);
 
-	 int xx = x + chunkMatrix.second;
+	int xx = x + chunkMatrix.second;
 
 	auto &it = chunkMatrix.first.at(xx);
 	int yy = y + it.second;

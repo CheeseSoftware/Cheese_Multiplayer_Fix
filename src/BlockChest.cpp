@@ -14,7 +14,7 @@ BlockChest::~BlockChest(void)
 
 const char *const BlockChest::getTextureName() const
 {
-	return "BlockSolid.png";
+	return "BlockChest.png";
 }
 
 unsigned short BlockChest::getTextureId(App &app, unsigned short metadata) const
