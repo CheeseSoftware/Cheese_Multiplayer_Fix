@@ -336,11 +336,13 @@
     <ClCompile Include="GravityBlock.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Label.cpp" />
+    <ClCompile Include="LargeTexturedBlock.cpp" />
     <ClCompile Include="MenuItemContainer.cpp" />
     <ClCompile Include="NormalItem.cpp" />
     <ClCompile Include="PositionItem.cpp" />
     <ClCompile Include="Selectable.cpp" />
     <ClCompile Include="SolidBlock.cpp" />
+    <ClCompile Include="Stone.cpp" />
     <ClCompile Include="TextInputItem.cpp" />
     <ClCompile Include="TextItem.cpp" />
     <ClCompile Include="UniqueBlock.cpp" />
@@ -383,10 +385,12 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Generator.h" />
     <ClInclude Include="GraphicalContainer.h" />
+    <ClInclude Include="Stone.h" />
     <ClInclude Include="HitProjectile.h" />
     <ClInclude Include="IEntityHealth.h" />
     <ClInclude Include="GravityBlock.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="LargeTextureBlock.h" />
     <ClInclude Include="MenuItemContainer.h" />
     <ClInclude Include="Selectable.h" />
     <ClInclude Include="IMenuItem.h" />

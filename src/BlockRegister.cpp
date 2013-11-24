@@ -5,6 +5,7 @@
 #include "BlockBackground.h"
 #include "BlockGravity.h"
 #include "BlockChest.h"
+#include "Stone.h"
 #include <typeinfo>
 #include <iostream>
 #ifndef _SERVER
@@ -22,6 +23,7 @@ BlockRegister::BlockRegister()
 	RegisterBlock(new BlockBackground(i), typeid(BlockBackground).hash_code()); i++;
 	RegisterBlock(new BlockGravity(i), typeid(BlockGravity).hash_code()); i++;
 	RegisterBlock(new BlockChest(i), typeid(BlockChest).hash_code()); i++;
+	RegisterBlock(new Stone(i), typeid(Stone).hash_code()); i++;
 }
 
 void BlockRegister::RegisterBlock(Block *block, const size_t typeId)
