@@ -18,5 +18,6 @@ public:
 class StandardGenerator : public AGenerator
 {
 public:
+	StandardGenerator();
 	virtual Chunk *operator() (long x, long y, GameUtility *gameUtility);
 };

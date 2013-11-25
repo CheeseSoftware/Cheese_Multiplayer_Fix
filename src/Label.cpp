@@ -20,7 +20,7 @@ namespace gui
 
 	void Label::Draw(App &app, float x, float y) const
 	{
-		//setPosition(sf::Vector2f(x, y));
+		//thissetPosition(sf::Vector2f(x, y));
 		//app.draw(*this);
 	}
 
