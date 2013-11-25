@@ -186,17 +186,8 @@
     <ClCompile Include="NormalItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PositionItem.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Text.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="TextInputItem.cpp">
-      <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="Selectable.cpp">
       <Filter>Source Files\GUI</Filter>
@@ -206,9 +197,6 @@
     </ClCompile>
     <ClCompile Include="Eventhandler.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TextItem.cpp">
-      <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="MainMenu.cpp">
       <Filter>Source Files\GameState\Menu</Filter>
@@ -245,6 +233,9 @@
     </ClCompile>
     <ClCompile Include="LoadState.cpp">
       <Filter>Source Files\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIItem.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -347,15 +338,6 @@
     <ClInclude Include="HitProjectile.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="TextInputItem.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="TextItem.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="PositionItem.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="IMenuItem.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
@@ -364,9 +346,6 @@
     </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Selectable.h">
       <Filter>Header Files\GUI</Filter>
@@ -398,9 +377,6 @@
     <ClInclude Include="GraphicalContainer.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="TextBox.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Generator.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
@@ -415,6 +391,9 @@
     </ClInclude>
     <ClInclude Include="LoadState.h">
       <Filter>Header Files\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIItem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

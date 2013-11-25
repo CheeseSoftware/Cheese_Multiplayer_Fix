@@ -4,9 +4,10 @@
 
 namespace gui
 {
-	Selectable::Selectable(ClickEvent ClickEvent)
+	Selectable::Selectable(/*ClickEvent leftClickEvent, ClickEvent rightClickEvent*/)
 	{
-		onClickEvent = ClickEvent;
+		//onLeftClickEvent = leftClickEvent;
+		//onRightClickEvent = rightClickEvent;
 	}
 
 	bool Selectable::getSelected()
@@ -24,18 +25,24 @@ namespace gui
 			}
 		}*/
 
-		return nullptr;
+		return gameState;
+	}
+
+	void Selectable::Draw(App &app, float x, float y) const
+	{
+
 	}
 
 	void Selectable::OnLeftClick(App &app, const sf::Event &event, GameState *gameState)
 	{
 		selected = true;
-		onClickEvent(app, event, gameState);
+		//onLeftClickEvent(app, event, gameState);
 	}
 
 	void Selectable::OnRightClick(App &app, const sf::Event &event, GameState *gameState)
 	{
 		selected = true;
+		//onRightClickEvent(app, event, gameState);
 	}
 
 	void Selectable::Unselect()

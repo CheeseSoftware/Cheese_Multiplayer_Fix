@@ -10,7 +10,7 @@ namespace gui
 	MenuItemContainer::MenuItemContainer(int x, int y, int width, int height)
 		: GraphicalContainer(x, y, width, height)
 	{
-
+		itemList = new std::vector<GUIItem*>();
 	}
 
 	void MenuItemContainer::EventUpdate(App &app, const sf::Event &event, GameState *gamestate)
@@ -25,18 +25,18 @@ namespace gui
 
 	void MenuItemContainer::Draw(App &app)
 	{
-		for (const PositionItem &i : itemList)
-			i.menuItem->Draw(app, i.x, i.y);
+		for (GUIItem *i : *itemList)
+			i->Draw(app, i->getPosition().first + m_x, i->getPosition().second + m_y);
 	}
 
-	void MenuItemContainer::Add(IMenuItem *item, int x, int y)
+	void MenuItemContainer::Add(GUIItem *item)
 	{
-		itemList.push_back(PositionItem(item, x, y));
+		itemList->push_back(item);
 	}
 
 	void MenuItemContainer::Remove(size_t i)
 	{
-		itemList.erase(itemList.begin() + i);
+		itemList->erase(itemList->begin() + i);
 	}
 
 }

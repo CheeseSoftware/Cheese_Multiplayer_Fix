@@ -1,17 +1,14 @@
-#ifdef MENUIDIOTI
 #ifndef _SERVER
 #pragma once
-
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "IMenuItem.h"
-#include "TextItem.h"
+#include "GUIItem.h"
 #include "GameState.h"
 #include "App.h"
 
 namespace gui
 {
-	class Text : public TextItem
+	class Text : public GUIItem
 	{
 	public:
 		//std::string text;
@@ -22,5 +19,4 @@ namespace gui
 	};
 }
 
-#endif
 #endif
