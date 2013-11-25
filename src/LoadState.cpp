@@ -19,7 +19,7 @@ LoadState::LoadState(App &app)
 
 	sf::IpAddress ip(str_ip);//std::string ip;
 	int port;
-	connection = new Connection(5001, ip, this);
+	//connection = new Connection(5001, ip, this);
 }
 
 
