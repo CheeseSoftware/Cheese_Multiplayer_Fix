@@ -240,6 +240,9 @@
     <ClCompile Include="Stone.cpp">
       <Filter>Source Files\Block\Solid</Filter>
     </ClCompile>
+    <ClCompile Include="Dirt.cpp">
+      <Filter>Source Files\Block\Solid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Monster.h">
@@ -402,6 +405,9 @@
       <Filter>Header Files\Block</Filter>
     </ClInclude>
     <ClInclude Include="Stone.h">
+      <Filter>Header Files\Block\Solid</Filter>
+    </ClInclude>
+    <ClInclude Include="Dirt.h">
       <Filter>Header Files\Block\Solid</Filter>
     </ClInclude>
   </ItemGroup>
