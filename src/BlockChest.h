@@ -21,7 +21,7 @@ public:
 	virtual bool isUnique() const;
 	virtual void OnRemove();
 	//bool isSolid();
-	virtual void OnRightClick(Creature *creature, const unsigned short metadata, const long x, const long y, const short layer, GameUtility *gameUtility);
+	virtual bool OnRightClick(Creature *creature, const unsigned short metadata, const long x, const long y, const short layer, GameUtility *gameUtility);
 	virtual void BlockChest::OnEntityTouch(Entity *entity, const unsigned short metadata);
 #ifndef _SERVER
 	virtual void Draw(const long posX, const long posY, App &app, GameUtility *gameUtility, const unsigned short metadata);
