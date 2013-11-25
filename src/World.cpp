@@ -32,7 +32,15 @@ void World::EventUpdate(App &app, const sf::Event &event, GameUtility *gameUtili
 
 void World::Draw(App &app, GameUtility *gameUtility) // >.<
 {
-
+	sf::Sprite background = gameUtility->getTextureContainer().getTextures("Background.png")[0];
+	for(int x = 0; x <= app.getSize().x / 512; x++)
+	{
+		for(int y = 0; y <= app.getSize().y / 512; y++)
+		{
+			background.setPosition(gameUtility->getCamera().getLeftX() + 512*x, gameUtility->getCamera().getTopY() + 512*y);
+			app.draw(background);
+		}
+	}
 	int minX = (int)gameUtility->getCamera().getLeftX()-255>>8;
 	int minY = (int)gameUtility->getCamera().getTopY()-255>>8;
 	int maxX = INT_MAX;
