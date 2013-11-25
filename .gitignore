@@ -38,6 +38,8 @@ local.properties
 
 # User-specific files
 *.lastbuildstate
+*.unsuccessfulbuild
+*.idb
 *.suo
 *.user
 *.sln.docstates
