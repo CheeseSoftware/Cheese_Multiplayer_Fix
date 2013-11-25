@@ -338,6 +338,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="LargeTexturedBlock.cpp" />
+    <ClCompile Include="LoadState.cpp" />
     <ClCompile Include="MenuItemContainer.cpp" />
     <ClCompile Include="NormalItem.cpp" />
     <ClCompile Include="PositionItem.cpp" />
@@ -387,6 +388,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Generator.h" />
     <ClInclude Include="GraphicalContainer.h" />
+    <ClInclude Include="LoadState.h" />
     <ClInclude Include="Stone.h" />
     <ClInclude Include="HitProjectile.h" />
     <ClInclude Include="IEntityHealth.h" />

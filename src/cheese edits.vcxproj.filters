@@ -243,6 +243,9 @@
     <ClCompile Include="Dirt.cpp">
       <Filter>Source Files\Block\Solid</Filter>
     </ClCompile>
+    <ClCompile Include="LoadState.cpp">
+      <Filter>Source Files\GameState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Monster.h">
@@ -409,6 +412,9 @@
     </ClInclude>
     <ClInclude Include="Dirt.h">
       <Filter>Header Files\Block\Solid</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadState.h">
+      <Filter>Header Files\GameState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
