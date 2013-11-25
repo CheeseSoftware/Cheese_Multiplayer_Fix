@@ -137,7 +137,7 @@ void World::setBlockAndMetadata(long x, long y, long layer, unsigned short id, u
 	gameUtility->SendPacket(*packet);
 }
 
-MessageType World::getBlockPacket(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility) //Gets the packet type of block change
+MessageType World::getBlockPacket(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility)
 {
 	long xx = floor(x * 0.0625)+1;
 
