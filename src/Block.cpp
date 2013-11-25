@@ -112,7 +112,7 @@ void Block::OnReceive(sf::Packet* packet, sf::Uint16 id, GameUtility* gameUtilit
 #ifdef _SERVER
 	gameUtility->getCurrentWorld()->setBlockAndMetadata(xPos, yPos, layer, id, metadata, gameUtility);
 #else
-	gameUtility->getCurrentWorld()->setBlockAndMetadataClientOnly(xPos, yPos, layer, id, metadata, gameUtility);
+	gameUtility->getCurrentWorld()->setBlockAndMetadataLocal(xPos, yPos, layer, id, metadata, gameUtility);
 #endif
 }
 

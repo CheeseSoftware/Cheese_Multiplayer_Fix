@@ -17,6 +17,8 @@ TextureContainer::TextureContainer(void)
 	AddSpriteSheet("graywizard.png", 16, 26);
 	AddSpriteSheet("smileys.png", 16, 16);
 	AddSpriteSheet("stone.png", 1024, 1024);
+	AddSpriteSheet("dirt.png", 512, 512);
+	AddSpriteSheet("Background.png", 512, 512);
 }
 
 

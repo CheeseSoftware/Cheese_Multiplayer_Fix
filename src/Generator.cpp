@@ -30,8 +30,10 @@ Chunk *StandardGenerator::operator() (long x, long y, GameUtility *gameUtility)
 					}
 					else
 					{
-						chunk->setBlock(2, xx, yy, gameUtility->getBlockRegister().getBlockType(1));
-						chunk->setMetadata(2, xx, yy, 1);
+						chunk->setBlock(2, xx, yy, gameUtility->getBlockRegister().getBlockType(6));
+						chunk->setMetadata(2, xx, yy, 0);
+						//chunk->setBlock(2, xx, yy, gameUtility->getBlockRegister().getBlockType(1));
+						//chunk->setMetadata(2, xx, yy, 1);
 					}
 				}
 			}
