@@ -109,7 +109,7 @@ void World::setBlock(long x, long y, long layer, unsigned short id, GameUtility 
 	setBlockAndMetadata(x, y, layer, id, 0, gameUtility);
 }
 
-void World::setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility)
+void World::SendSetBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility) //Only sends the block change
 {
 	MessageType messageType = getBlockPacket(x, y, layer, id, metadata, gameUtility);
 
@@ -123,7 +123,29 @@ void World::setBlockAndMetadata(long x, long y, long layer, unsigned short id, u
 	gameUtility->SendPacket(*packet);
 }
 
+void World::setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility) //Sets block and sends the block change
+{
+<<<<<<< HEAD
+	MessageType messageType = getBlockPacket(x, y, layer, id, metadata, gameUtility);
+=======
+	MessageType messageType = setBlockAndMetadataLocal(x, y, layer, id, metadata, gameUtility);
+>>>>>>> 52daee2369ee7225b392cf2f9e4bba9bd1c7284e
+
+	sf::Packet *packet = new sf::Packet();
+	*packet << (sf::Uint16)messageType;
+
+	if(id != 0)
+		gameUtility->getBlockRegister().getBlockType(id)->OnSend(packet, messageType, x, y, layer, id, metadata, gameUtility);
+	else
+		*packet << (sf::Uint16)id << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)metadata;
+	gameUtility->SendPacket(*packet);
+}
+
+<<<<<<< HEAD
 MessageType World::getBlockPacket(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility)
+=======
+MessageType World::getBlockPacket(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility) //Gets the packet type of block change
+>>>>>>> 52daee2369ee7225b392cf2f9e4bba9bd1c7284e
 {
 	long xx = floor(x * 0.0625)+1;
 

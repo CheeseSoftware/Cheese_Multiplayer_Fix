@@ -37,10 +37,11 @@ void BlockChest::OnRemove()
 	delete this;
 }
 
-void BlockChest::OnRightClick(Creature *creature, const unsigned short metadata, const long x, const long y, const short layer, GameUtility *gameUtility)
+bool BlockChest::OnRightClick(Creature *creature, const unsigned short metadata, const long x, const long y, const short layer, GameUtility *gameUtility)
 {
 	isDrawingInventory = !isDrawingInventory;//temp
 	std::cout << "onrightclick" << std::endl;
+	return true;
 }
 
 void BlockChest::OnEntityTouch(Entity *entity, const unsigned short metadata)

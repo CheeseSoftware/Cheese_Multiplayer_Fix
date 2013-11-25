@@ -54,11 +54,15 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtility
 			}
 			else
 			{
-				gameUtility->getCurrentWorld()->setBlockAndMetadata(x, y,
-					blockMenu[layer][selected%80].first->getLayer(),
-					gameUtility->getBlockRegister().getBlockIdByTypeId(typeid(*blockMenu[layer][selected%80].first).hash_code()),
-					blockMenu[layer][selected%80].second,
-					gameUtility);
+				Block* block = gameUtility->getCurrentWorld()->getBlock(x, y, 2);
+				if(block == nullptr || !block->OnLeftClick(nullptr, gameUtility->getCurrentWorld()->getBlockAndMetadata(x, y, 2).second, x, y, 2, gameUtility))
+				{
+					gameUtility->getCurrentWorld()->SendSetBlockAndMetadata(x, y,
+						blockMenu[layer][selected%80].first->getLayer(),
+						gameUtility->getBlockRegister().getBlockIdByTypeId(typeid(*blockMenu[layer][selected%80].first).hash_code()),
+						blockMenu[layer][selected%80].second,
+						gameUtility);
+				}			
 			}
 		}
 		else if(event.key.code == sf::Mouse::Right)
@@ -66,10 +70,16 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtility
 			Block* block = gameUtility->getCurrentWorld()->getBlock(x, y, 2);
 			//std::cout << "The block is unique:" << block->isUnique() << " texture:" << block->getTextureName() << std::endl;
 			if(block != nullptr)
-				block->OnRightClick(nullptr, gameUtility->getCurrentWorld()->getBlockAndMetadata(x, y, 2).second, x, y, 2, gameUtility);
+			{
+				if(!block->OnRightClick(nullptr, gameUtility->getCurrentWorld()->getBlockAndMetadata(x, y, 2).second, x, y, 2, gameUtility))
+				{
+					block->OnRemove();
+					gameUtility->getCurrentWorld()->SendSetBlockAndMetadata(x, y, 2, 0, 0, gameUtility);
+				}
+			}
 			//if (event.mouseButton.y < app.getSize().y-32)
 			//{
-				//gameUtility->getCurrentWorld()->setBlockAndMetadata(x, y, 2, 0, 0, gameUtility);
+			//gameUtility->getCurrentWorld()->setBlockAndMetadata(x, y, 2, 0, 0, gameUtility);
 			//}
 		}
 	}

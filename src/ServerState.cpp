@@ -27,7 +27,7 @@ ServerState::~ServerState()
 
 GameState *ServerState::Update(App &app)
 {
-	std::cout << "updates per second: " << 1/(app).getFrameTime() << std::endl;
+	//std::cout << "updates per second: " << 1/(app).getFrameTime() << std::endl;
 	while (!packetDataList->empty())
 	{
 		std::cout << "packets " << packetDataList->size() << std::endl;
