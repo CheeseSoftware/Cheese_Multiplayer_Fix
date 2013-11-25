@@ -16,15 +16,6 @@ Connection::Connection(int port, sf::IpAddress ip)
 		//vänta-saker slutar här
 
 		sf::Packet packet;
-		packet << (sf::Uint16)RequestInit;
-		client->socket->send(packet);
-
-		//vänta-saker börjar här
-		c->restart();
-		while(c->getElapsedTime() < sf::milliseconds(500)) {} //Måste vänta tills servern har lagt till klienten ordentligt
-		//vänta-saker slutar här
-
-		packet.clear();
 		packet << (sf::Uint16)RequestChunks;
 		for(int x = -8; x < 8; x++)
 		{
@@ -40,6 +31,10 @@ Connection::Connection(int port, sf::IpAddress ip)
 		while(c->getElapsedTime() < sf::milliseconds(500)) {} //Måste vänta tills servern har lagt till klienten ordentligt
 		delete c;
 		//vänta-saker slutar här
+
+		packet.clear();
+		packet << (sf::Uint16)RequestInit;
+		client->socket->send(packet);
 
 		std::cout << "Connected to " << ip << " : " << port << std::endl;
 	}

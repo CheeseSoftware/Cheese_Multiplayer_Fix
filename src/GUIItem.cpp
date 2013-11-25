@@ -1,6 +1,9 @@
 #include "GUIItem.h"
 
 
+#ifndef _SERVER
+#include "GUIItem.h"
+
 GUIItem::GUIItem(int x, int y, int sizeX, int sizeY)
 	: Selectable()
 {
@@ -24,3 +27,4 @@ GameState *GUIItem::EventUpdate(App& app, const sf::Event& event, GameState* gam
 {
 	return gameState;
 }
+#endif

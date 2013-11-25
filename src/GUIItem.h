@@ -1,3 +1,4 @@
+#ifndef _SERVER
 #pragma once
 #include "Selectable.h"
 #include "IMenuItem.h"
@@ -19,4 +20,5 @@ private:
 	int sizeX;
 	int sizeY;
 };
+#endif
 

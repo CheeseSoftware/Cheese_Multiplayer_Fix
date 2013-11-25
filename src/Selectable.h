@@ -1,3 +1,4 @@
+#ifndef _SERVER
 #pragma once
 //#ifdef MENUIDIOTI
 #include <functional>
@@ -28,4 +29,4 @@ namespace gui
 		void Unselect();
 	};
 }
-//#endif
+#endif
