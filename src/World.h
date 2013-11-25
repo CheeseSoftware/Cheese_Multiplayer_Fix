@@ -66,10 +66,7 @@ public:
 	void setBlock(long x, long y, long layer, unsigned short id, GameUtility *gameUtility);
 	void setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility);
 	void setBlockMetadata(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility);
-<<<<<<< HEAD
-=======
 	void SendSetBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility);
->>>>>>> 52daee2369ee7225b392cf2f9e4bba9bd1c7284e
 	MessageType setBlockAndMetadataLocal(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility);
 	MessageType setBlockMetadataLocal(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility);
 	MessageType getBlockPacket(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility);
