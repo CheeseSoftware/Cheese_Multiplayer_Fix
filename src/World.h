@@ -66,8 +66,9 @@ public:
 	void setBlock(long x, long y, long layer, unsigned short id, GameUtility *gameUtility);
 	void setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility);
 	void setBlockMetadata(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility);
-	MessageType setBlockAndMetadataClientOnly(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility);
-	MessageType setBlockMetadataClientOnly(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility);
+	MessageType setBlockAndMetadataLocal(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility);
+	MessageType setBlockMetadataLocal(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility);
+	MessageType getBlockPacket(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility);
 	Block *getBlock(long x, long y, long layer);
 	std::pair<Block*, unsigned short> getBlockAndMetadata(long x, long y, long layer);
 	const std::pair<Block*, unsigned short> getPhysicBlock() const;
