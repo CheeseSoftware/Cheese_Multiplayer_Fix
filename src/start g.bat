@@ -1,1 +1,1 @@
-"cheese edits Release x64.exe" 77.105.215.236
+"cheese edits Release win32.exe" 78.70.224.243

@@ -2,11 +2,13 @@
 #include "Generator.h"
 #include "GameUtility.h"
 #include "Chunk.h"
+#include <time.h>
 
 Chunk *StandardGenerator::operator() (long x, long y, GameUtility *gameUtility)
 {
 	double strength;
 	Chunk *chunk = new Chunk();
+	noiseModule.SetSeed(time(nullptr));
 
 	for (unsigned char xx = 0; xx < 16; xx++)
 	{
