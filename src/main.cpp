@@ -37,8 +37,8 @@ int main(int argc, char** argv)
 
 	App app(sf::VideoMode(1152,720));
 
-	//GameState *gameState = new MainMenu();
-	GameState *gameState = new PlayState((const PlayState&)app);
+	GameState *gameState = new MainMenu();
+	//GameState *gameState = new PlayState((const PlayState&)app);
 #else
 	App app;
 	GameState *gameState = new ServerState(app);

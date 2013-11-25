@@ -4,6 +4,7 @@
 #include "IMenuItem.h"
 #include "GameState.h"
 #include "MenuItemContainer.h"
+#include <iostream>
 
 namespace gui
 {
@@ -26,7 +27,9 @@ namespace gui
 	void MenuItemContainer::Draw(App &app)
 	{
 		for (GUIItem *i : *itemList)
-			i->Draw(app, i->getPosition().first + m_x, i->getPosition().second + m_y);
+		{
+			i->Draw(app, i->getPosition().x + m_x, i->getPosition().y + m_y);
+		}
 	}
 
 	void MenuItemContainer::Add(GUIItem *item)

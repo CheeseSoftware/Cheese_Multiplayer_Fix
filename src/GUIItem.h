@@ -6,19 +6,17 @@
 class GUIItem : public gui::Selectable
 {
 public:
-	GUIItem(int x, int y, int sizeX, int sizeY);
+	GUIItem(int x, int y);
 	~GUIItem(void);
 	virtual void OnLeftClick(App &app, const sf::Event &event, GameState *gameState)=0;
 	virtual void OnRightClick(App &app, const sf::Event &event, GameState *gameState)=0;
 	virtual GameState *EventUpdate(App &app, const sf::Event &event, GameState *gameState)=0;
-	virtual void Draw(App &app, float x, float y) const=0;
-	std::pair<int, int> getPosition() { return std::pair<int, int>(x, y); }
-	std::pair<int, int> getSize() { return std::pair<int, int>(sizeX, sizeY); }
+	virtual void Draw(App &app, float x, float y)=0;
+	sf::Vector2f getPosition() { return sf::Vector2f(m_x, m_y); }
+	//sf::Vector2f getSize() { return sf::Vector2f(sizeX, sizeY); }
 private:
-	int x;
-	int y;
-	int sizeX;
-	int sizeY;
+	int m_x;
+	int m_y;
 };
 #endif
 

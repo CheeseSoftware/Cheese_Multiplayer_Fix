@@ -4,13 +4,11 @@
 #ifndef _SERVER
 #include "GUIItem.h"
 
-GUIItem::GUIItem(int x, int y, int sizeX, int sizeY)
+GUIItem::GUIItem(int x, int y)
 	: Selectable()
 {
-	x = x;
-	y = y;
-	sizeX = sizeX;
-	sizeY = sizeY;
+	m_x = x;
+	m_y = y;
 }
 
 
@@ -18,7 +16,7 @@ GUIItem::~GUIItem(void)
 {
 }
 
-void GUIItem::Draw(App &app, float x, float y) const
+void GUIItem::Draw(App &app, float x, float y)
 {
 
 }

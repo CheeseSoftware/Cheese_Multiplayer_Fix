@@ -7,15 +7,16 @@
 namespace gui
 {
 	class Label
-		: public virtual GUIItem, public sf::Text
+		: public GUIItem
 	{
 	public:
-		Label(int x, int y, /*ClickEvent &clickEvent, */sf::String text, sf::Font font);
+		Label(int x, int y, /*ClickEvent &clickEvent, */sf::String *text, sf::Font *font);
 		~Label();
 		virtual void OnLeftClick(App &app, const sf::Event &event, GameState *gameState);
 		virtual void OnRightClick(App &app, const sf::Event &event, GameState *gameState);
 		virtual GameState *EventUpdate(App &app, const sf::Event &event, GameState *gameState);
-		virtual void Draw(App &app, float x, float y) const;
+		virtual void Draw(App &app, float x, float y);
+		sf::Text *text;
 	};
 }
 

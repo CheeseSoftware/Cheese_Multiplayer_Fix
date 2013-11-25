@@ -28,7 +28,7 @@ namespace gui
 		return gameState;
 	}
 
-	void Selectable::Draw(App &app, float x, float y) const
+	void Selectable::Draw(App &app, float x, float y)
 	{
 
 	}

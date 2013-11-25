@@ -10,12 +10,12 @@
 
 MainMenu::MainMenu() : MenuState()//void MainMenu::Initialize()
 {
-	sf::Font font = sf::Font();
-	if (!font.loadFromFile("font.ttf"))
+	sf::Font *font = new sf::Font();
+	if (!font->loadFromFile("font.ttf"))
 		throw "font.ttf not found";
-	sf::String text = sf::String("hello world");
+	sf::String *text = new sf::String("hello world");
 	gui::Label *label = new gui::Label(50, 50, text, font);
-	label->setColor(sf::Color::Green);
+	//label->setColor(sf::Color::Green);
 	//label->setCharacterSize(12);
 	//label->setStyle(0);
 	menuItemContainer->Add(label);

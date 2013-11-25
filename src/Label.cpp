@@ -3,10 +3,13 @@
 
 namespace gui
 {
-	Label::Label(int x, int y, /*ClickEvent &clickEvent, */sf::String text, sf::Font font)
-		: GUIItem(x, y, 0, 0), sf::Text(text, font)
+	Label::Label(int x, int y, /*ClickEvent &clickEvent, */sf::String *temptext, sf::Font *font)
+		: GUIItem(x, y)
 	{
-
+		text = new sf::Text(*temptext, *font);
+		text->setCharacterSize(24);
+		text->setColor(sf::Color::Green);
+		text->setStyle(sf::Text::Bold);
 	}
 
 	Label::~Label()
@@ -18,10 +21,10 @@ namespace gui
 		return gameState;
 	}
 
-	void Label::Draw(App &app, float x, float y) const
+	void Label::Draw(App &app, float x, float y)
 	{
-		//thissetPosition(sf::Vector2f(x, y));
-		//app.draw(*this);
+		text->setPosition(x, y);
+		app.draw(*text);
 	}
 
 	void Label::OnLeftClick(App &app, const sf::Event &event, GameState *gameState)

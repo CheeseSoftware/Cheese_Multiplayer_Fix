@@ -12,8 +12,7 @@
 
 MenuState::MenuState()// : menuItemContainer(0, 0, 100, 100)//void MenuState::Initialize()
 {
-	menuItemContainer = new gui::MenuItemContainer(0,0,100,100);
-	//menuItemContainer = gui::MenuItemContainer(0, 0, 100, 100);
+	menuItemContainer = new gui::MenuItemContainer(0, 0, 100, 100);
 }
 
 MenuState::~MenuState()//void MenuState::Shutdown()

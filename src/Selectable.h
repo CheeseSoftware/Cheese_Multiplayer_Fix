@@ -23,7 +23,7 @@ namespace gui
 	public:
 		virtual bool getSelected();
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameState* gameState);
-		virtual void Draw(App &app, float x, float y) const=0;
+		virtual void Draw(App &app, float x, float y)=0;
 		virtual void OnLeftClick(App &app, const sf::Event &event, GameState *gameState);
 		virtual void OnRightClick(App &app, const sf::Event &event, GameState *gameState);
 		void Unselect();

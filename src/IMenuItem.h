@@ -14,7 +14,7 @@ namespace gui
 	{
 	public:
 		virtual GameState *EventUpdate(App &app, const sf::Event &event, GameState *gameState)=0;
-		virtual void Draw(App &app, float x, float y) const=0;
+		virtual void Draw(App &app, float x, float y)=0;
 	};
 }
 #endif
