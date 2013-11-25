@@ -182,7 +182,7 @@ MessageType World::getBlockPacket(long x, long y, long layer, unsigned short id,
 
 void World::setBlockMetadata(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility)
 {
-	if (setBlockMetadataLocal(x, y, layer, metadata, gameUtility))
+	if (setBlockMetadataLocal(x, y, layer, metadata, gameUtility) == BlockMetadataChange)
 	{
 		sf::Packet packet;
 		packet << (sf::Int16)BlockMetadataChange << (sf::Int32)x << (sf::Int32)y << (sf::Uint16)layer << (sf::Uint16)metadata;
@@ -263,8 +263,8 @@ MessageType World::setBlockMetadataLocal(long x, long y, long layer, unsigned sh
 			{
 				if (c->getMetadata(layer, xxx, yyy) != metadata)
 				{
+					std::cout << "set metadata at layer:" << layer << " X:" << xxx << " Y:" << yyy << " to:" << metadata << std::endl;
 					c->setMetadata(layer, xxx, yyy, metadata);
-					//std::cout << "chunkmatrix unlocked!\n";
 					return BlockMetadataChange;
 				}
 			}

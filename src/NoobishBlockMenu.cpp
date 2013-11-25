@@ -45,42 +45,41 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtility
 			if (event.mouseButton.y >= app.getSize().y-32)
 			{
 				std::cout << "den gamla storkossan är: " << selected << std::endl;
-				//if (event.mouseButton.x <= 80*16)
-				{
-					layer = (event.mouseButton.y >= app.getSize().y-16)? 1:0;
-					selected = event.mouseButton.x>>4;
-					std::cout << "den nya storkossan är: " << selected << std::endl;
-				}
+				layer = (event.mouseButton.y >= app.getSize().y-16)? 1:0;
+				selected = event.mouseButton.x>>4;
+				std::cout << "den nya storkossan är: " << selected << std::endl;
 			}
 			else
 			{
 				Block* block = gameUtility->getCurrentWorld()->getBlock(x, y, 2);
-				if(block == nullptr || !block->OnLeftClick(nullptr, gameUtility->getCurrentWorld()->getBlockAndMetadata(x, y, 2).second, x, y, 2, gameUtility))
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || block == nullptr || !block->OnLeftClick(nullptr, gameUtility->getCurrentWorld()->getBlockAndMetadata(x, y, 2).second, x, y, 2, gameUtility))
 				{
-					gameUtility->getCurrentWorld()->SendSetBlockAndMetadata(x, y,
-						blockMenu[layer][selected%80].first->getLayer(),
-						gameUtility->getBlockRegister().getBlockIdByTypeId(typeid(*blockMenu[layer][selected%80].first).hash_code()),
-						blockMenu[layer][selected%80].second,
-						gameUtility);
-				}			
+					long tempLayer = blockMenu[layer][selected%80].first->getLayer();
+					unsigned short id = gameUtility->getBlockRegister().getBlockIdByTypeId(typeid(*blockMenu[layer][selected%80].first).hash_code());
+					unsigned short metadata = blockMenu[layer][selected%80].second;
+					gameUtility->getCurrentWorld()->SendSetBlockAndMetadata(x, y, tempLayer, id, metadata, gameUtility);
+				}	
 			}
 		}
 		else if(event.key.code == sf::Mouse::Right)
 		{
 			Block* block = gameUtility->getCurrentWorld()->getBlock(x, y, 2);
-			//std::cout << "The block is unique:" << block->isUnique() << " texture:" << block->getTextureName() << std::endl;
 			if(block != nullptr)
 			{
-				if(!block->OnRightClick(nullptr, gameUtility->getCurrentWorld()->getBlockAndMetadata(x, y, 2).second, x, y, 2, gameUtility))
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 				{
 					block->OnRemove();
 					gameUtility->getCurrentWorld()->SendSetBlockAndMetadata(x, y, 2, 0, 0, gameUtility);
 				}
+				else
+				{
+					if(!block->OnRightClick(nullptr, gameUtility->getCurrentWorld()->getBlockAndMetadata(x, y, 2).second, x, y, 2, gameUtility))
+					{
+						block->OnRemove();
+						gameUtility->getCurrentWorld()->SendSetBlockAndMetadata(x, y, 2, 0, 0, gameUtility);
+					}
+				}
 			}
-			//if (event.mouseButton.y < app.getSize().y-32)
-			//{
-			//gameUtility->getCurrentWorld()->setBlockAndMetadata(x, y, 2, 0, 0, gameUtility);
-			//}
 		}
 	}
 

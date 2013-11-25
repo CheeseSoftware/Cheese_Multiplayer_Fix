@@ -34,7 +34,7 @@ bool BlockChest::isUnique() const
 
 void BlockChest::OnRemove()
 {
-	delete this;
+	//delete this;
 }
 
 bool BlockChest::OnRightClick(Creature *creature, const unsigned short metadata, const long x, const long y, const short layer, GameUtility *gameUtility)
