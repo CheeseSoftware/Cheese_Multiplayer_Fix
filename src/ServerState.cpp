@@ -92,6 +92,18 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 			{
 			}
 			break;
+		case Chat:
+			{
+				sf::Uint16 id;
+				char *message;
+				if(!(*packet >> id >> message))
+					std::cout << "ERROR: Server could not extract data: Chat" << std::endl;
+				//if(!message.contains(shit))
+				sf::Packet toSend;
+				toSend << id << message;
+				sC->Broadcast(toSend);
+			}
+			break;
 		case PlayerJoin: //A player has joined or left the server
 			{
 				sf::Uint16 clientId = client->ID;

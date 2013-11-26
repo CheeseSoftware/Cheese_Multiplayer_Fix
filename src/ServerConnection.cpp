@@ -49,16 +49,17 @@ void ServerConnection::PingClients(void)
 			sf::Uint16 ping = Ping;
 			send << ping;
 			client->socket->send(send);
+			client->ping = 0;
 			client->pingClock.restart();
 			client->isMeasuringPing = true;
 		}
-		else if(client->socket->getRemoteAddress() != sf::IpAddress::None)
+		else// if(client->socket->getRemoteAddress() != sf::IpAddress::None)
 		{
 			float currentPing = client->pingClock.getElapsedTime().asMilliseconds();
 			if(currentPing > 5000)
 			{
 				//Kick client, too high ping
-				std::cout << "Client " << client->ID << " has ping " << client->ping << std::endl;
+				std::cout << "Client " << client->ID << " has ping " << currentPing << std::endl;
 				toKick->push_back(client->ID);
 			}
 		}

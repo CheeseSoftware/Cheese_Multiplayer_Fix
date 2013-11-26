@@ -163,7 +163,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 					sf::Int16 sizeY;
 
 					if(!(*packet >> clientId  >> xPos >> yPos >> sizeX >> sizeY))
-						std::cout << "ERROR: Client could not extract data: InitMessage" << std::endl;
+						std::cout << "ERROR: Client could not extract data: Init" << std::endl;
 					else
 					{
 						Player *player = new Player(xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
@@ -176,14 +176,26 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 		case Ping: //measure ping between sent 1 and received 1 (type)
 			{
 				sf::Packet packet;
-				sf::Uint16 type = Ping;
-				packet << type;
+				packet << (sf::Uint16)Ping;
 				connection->client->socket->send(packet);
+			}
+			break;
+		case Chat:
+			{
+				sf::Uint16 id;
+				char *message;
+				if(!(*packet >> id >> message))
+					std::cout << "ERROR: Client could not extract data: Chat" << std::endl;
+				//chat.write(clients[id].name << ": " << message);
 			}
 			break;
 		case Kicked: //server kicks client (type, string message)
 			{
-				//cout the kick msg and forcefully shut downXD
+				char *kickmsg;
+				*packet >> kickmsg;
+				std::cout << "Kicked by server." << std::endl;
+				std::cout << "Reason: " << kickmsg << std::endl;
+				std::cin.get();
 			}
 			break;
 		case PlayerJoin:

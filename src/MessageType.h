@@ -20,5 +20,6 @@ enum MessageType
 	BlockPlace,
 	BlockMetadataChange,
 	RequestChunks,
-	Chunks
+	Chunks,
+	Chat
 };
