@@ -213,9 +213,6 @@
     <ClCompile Include="MenuItemContainer.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicalContainer.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -233,9 +230,6 @@
     </ClCompile>
     <ClCompile Include="LoadState.cpp">
       <Filter>Source Files\GameState</Filter>
-    </ClCompile>
-    <ClCompile Include="Hud.cpp">
-      <Filter>Source Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -374,9 +368,6 @@
     <ClInclude Include="MenuItemContainer.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicalContainer.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Generator.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
@@ -391,9 +382,6 @@
     </ClInclude>
     <ClInclude Include="LoadState.h">
       <Filter>Header Files\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="Hud.h">
-      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

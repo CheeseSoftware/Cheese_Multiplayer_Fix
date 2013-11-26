@@ -18,6 +18,11 @@ namespace gui
 		return nullptr;
 	}
 
+	GameState *Hud::Update(App &app)
+	{
+		return nullptr;
+	}
+
 	void Hud::Draw(App &app, float x, float y)
 	{
 		for(Selectable* item : hudItems)

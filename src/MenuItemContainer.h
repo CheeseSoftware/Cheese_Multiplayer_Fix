@@ -1,7 +1,6 @@
 #ifndef _SERVER
 #pragma once
 #include <vector>
-#include "GraphicalContainer.h"
 #include "EventHandler.h"
 #include "Selectable.h"
 
@@ -12,14 +11,14 @@ namespace gui
 	class IMenuItem;
 
 	class MenuItemContainer
-		: public GraphicalContainer
+		: public Selectable
 	{
 		std::vector<Selectable*> *itemList;
 		EventHandler<GameState*> eventHandler;
 
 	public:
-		MenuItemContainer(int x, int y, int width, int height);
-		virtual void EventUpdate(App &app, const sf::Event &event, GameState *gamestate);
+		MenuItemContainer(int x, int y);
+		virtual GameState *EventUpdate(App &app, const sf::Event &event, GameState *gamestate);
 		virtual GameState *Update(App &app);
 		virtual void Draw(App &app);
 		void Add(Selectable *item);

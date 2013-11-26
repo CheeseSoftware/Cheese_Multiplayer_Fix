@@ -8,15 +8,16 @@
 
 namespace gui
 {
-	MenuItemContainer::MenuItemContainer(int x, int y, int width, int height)
-		: GraphicalContainer(x, y, width, height)
+	MenuItemContainer::MenuItemContainer(int x, int y)
+		: Selectable(x, y)
 	{
 		itemList = new std::vector<Selectable*>();
 	}
 
-	void MenuItemContainer::EventUpdate(App &app, const sf::Event &event, GameState *gamestate)
+	GameState *MenuItemContainer::EventUpdate(App &app, const sf::Event &event, GameState *gamestate)
 	{
 		eventHandler.EventUpdate(app, event, gamestate);
+		return nullptr;
 	}
 
 	GameState *MenuItemContainer::Update(App &app)

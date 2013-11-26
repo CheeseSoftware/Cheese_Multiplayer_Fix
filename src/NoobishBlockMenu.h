@@ -22,8 +22,6 @@ class NoobishBlockMenu
 	int selected;
 	int layer;
 	std::pair<Block*, unsigned short> **blockMenu;
-	gui::Label *pos;
-	gui::MenuItemContainer *menuItemContainer;
 	
 public:
 	//>.<NoobishBlockMenu();

@@ -11,8 +11,9 @@ namespace gui
 	public:
 		Hud(void);
 		~Hud(void);
-		virtual GameState *EventUpdate(App &app, const sf::Event &event, GameState *gameState)=0;
-		virtual void Draw(App &app, float x, float y)=0;
+		virtual GameState *EventUpdate(App &app, const sf::Event &event, GameState *gameState);
+		virtual GameState *Update(App &app);
+		virtual void Draw(App &app, float x, float y);
 		void AddItem(Selectable *item);
 		void RemoveItem(size_t i);
 	};

@@ -49,6 +49,13 @@ PlayState::PlayState(App &app)
 	connection = new Connection(5001, ip);
 
 	blockRegister->RegisterBlockTextures(*tC);
+	hud = new gui::MenuItemContainer(0, 0);
+	/*sf::Font *font = new sf::Font();
+	if (!font->loadFromFile("font.ttf"))
+		throw "font.ttf not found";
+	sf::String *text = new sf::String("hello world");
+	gui::Label *pos = new gui::Label(50, 50, text, font);
+	hud->Add(pos);*/
 }
 
 PlayState::~PlayState()
@@ -71,10 +78,7 @@ void PlayState::EventUpdate(App &app, const sf::Event &event)
 		hudView.setCenter(sf::Vector2f(app.getSize().x/2, app.getSize().y/2));
 	}
 
-	//App.SetView(camera = sf::View(sf::FloatRect(0.f, 0.f,
-	//                static_cast<float>(App.GetWidth()),
-	//                static_cast<float>(App.GetHeight()))));
-
+	hud->EventUpdate(app, event, this);
 	currentWorld->EventUpdate(app, event, this);
 	noobishBlockMenu->EventUpdate(app, event, this);
 }
@@ -86,7 +90,7 @@ GameState *PlayState::Update(App &app)
 		if (1/app.getFrameTime() < 90)
 			std::cout << "fps: " << 1/app.getFrameTime() << " << LOW FPS!!!!!! <<<<<<\n";
 		else
-		std::cout << "fps: " << 1/app.getFrameTime() << "\n";
+			std::cout << "fps: " << 1/app.getFrameTime() << "\n";
 		fpsClock.restart();
 	}
 	//else if (1/app.getFrameTime() < 50.f)
@@ -95,9 +99,8 @@ GameState *PlayState::Update(App &app)
 	fpsClock.restart();
 	}*/
 
-
+	hud->Update(app);
 	currentWorld->Update(app, this);
-
 	camera->Update(app);
 
 
@@ -121,6 +124,7 @@ void PlayState::Draw(App &app)
 	app.setView(*reinterpret_cast<sf::View*>(camera));
 	currentWorld->Draw(app, this);
 	app.setView(hudView);
+	hud->Draw(app);
 	noobishBlockMenu->Draw(app, this); // < orsakar lagg temp
 }
 
@@ -278,9 +282,9 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 					Block *tempBlock = blockRegister->getBlockType(blockId);
 					/*if(tempBlock->isUnique())
 					{
-						Block* newBlock = static_cast<Block*>(malloc(sizeof(*tempBlock)));
-						*newBlock = *tempBlock;
-						newBlock->OnReceive(packet, blockId, gameUtility);
+					Block* newBlock = static_cast<Block*>(malloc(sizeof(*tempBlock)));
+					*newBlock = *tempBlock;
+					newBlock->OnReceive(packet, blockId, gameUtility);
 					}*/
 					tempBlock->OnReceive(packet, blockId, gameUtility);
 				}

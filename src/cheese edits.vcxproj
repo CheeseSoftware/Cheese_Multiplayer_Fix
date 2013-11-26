@@ -333,9 +333,7 @@
     <ClCompile Include="EventHandler_.cpp" />
     <ClCompile Include="BackgroundBlock.cpp" />
     <ClCompile Include="Generator.cpp" />
-    <ClCompile Include="GraphicalContainer.cpp" />
     <ClCompile Include="GravityBlock.cpp" />
-    <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="LargeTexturedBlock.cpp" />
@@ -384,8 +382,6 @@
     <ClInclude Include="EventHandler_.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Generator.h" />
-    <ClInclude Include="GraphicalContainer.h" />
-    <ClInclude Include="Hud.h" />
     <ClInclude Include="LoadState.h" />
     <ClInclude Include="Stone.h" />
     <ClInclude Include="HitProjectile.h" />
