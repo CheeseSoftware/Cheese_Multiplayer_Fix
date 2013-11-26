@@ -383,6 +383,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Generator.h" />
     <ClInclude Include="LoadState.h" />
+    <ClInclude Include="PositionType.h" />
     <ClInclude Include="Stone.h" />
     <ClInclude Include="HitProjectile.h" />
     <ClInclude Include="IEntityHealth.h" />

@@ -383,6 +383,9 @@
     <ClInclude Include="LoadState.h">
       <Filter>Header Files\GameState</Filter>
     </ClInclude>
+    <ClInclude Include="PositionType.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet1.props" />
