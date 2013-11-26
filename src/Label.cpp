@@ -1,5 +1,6 @@
 #ifndef _SERVER
 #include "Label.h"
+#include <iostream>
 
 namespace gui
 {
@@ -26,8 +27,18 @@ namespace gui
 
 	void Label::Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight)
 	{
-		text->setPosition(m_x + getPositionOffset(drawAreax, drawAreay, drawAreaWidth, drawAreaHeight).x, m_y + getPositionOffset(drawAreax, drawAreay, drawAreaWidth, drawAreaHeight).y);
+		text->setPosition(m_x + m_widthOffset + drawAreax, m_y + m_heightOffset + drawAreay);
 		app.draw(*text);
+	}
+
+	void Label::OnLeftClick(App &app, const sf::Event &event, GameState *gameState, float x, float y)
+	{
+		std::cout << "a " << (std::string)this->text->getString() << " was clicked!" << std::endl;
+	}
+
+	void Label::OnRightClick(App &app, const sf::Event &event, GameState *gameState, float x, float y)
+	{
+
 	}
 }
 #endif

@@ -14,6 +14,8 @@ namespace gui
 		~Label();
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameState* gameState, float x, float y);
 		virtual void Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight);
+		virtual void OnLeftClick(App &app, const sf::Event &event, GameState *gameState, float x, float y);
+		virtual void OnRightClick(App &app, const sf::Event &event, GameState *gameState, float x, float y);
 		sf::Text *text;
 	};
 }

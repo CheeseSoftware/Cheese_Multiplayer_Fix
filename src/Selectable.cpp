@@ -85,7 +85,7 @@ namespace gui
 
 	sf::Vector2f Selectable::getPositionOffset(float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight)
 	{
-		sf::Vector2f output = sf::Vector2f(drawAreax, drawAreay);
+		sf::Vector2f output = sf::Vector2f(0, 0);
 		switch(m_positionType)
 		{
 		case TopRight:

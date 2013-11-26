@@ -231,6 +231,9 @@
     <ClCompile Include="LoadState.cpp">
       <Filter>Source Files\GameState</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Monster.h">
@@ -384,6 +387,9 @@
       <Filter>Header Files\GameState</Filter>
     </ClInclude>
     <ClInclude Include="PositionType.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>

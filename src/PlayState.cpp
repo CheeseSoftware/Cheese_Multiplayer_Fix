@@ -51,7 +51,7 @@ PlayState::PlayState(App &app)
 
 
 	hud = new gui::MenuItemContainer(0, 0, 0, 0);
-	hud->setPositionType(centerDown);
+	hud->setPositionType(TopRight);
 	sf::Font *font = new sf::Font();
 	if (!font->loadFromFile("font.ttf"))
 		throw "font.ttf not found";
