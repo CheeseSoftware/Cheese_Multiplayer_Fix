@@ -3,8 +3,10 @@
 #include <stack>
 #include "App.h"
 #include "GameUtility.h"
-
-#pragma once
+#include "MenuItemContainer.h"
+#include "Label.h"
+#include <string>
+#include <sstream>
 
 class World;
 class TextureContainer;
@@ -20,11 +22,14 @@ class NoobishBlockMenu
 	int selected;
 	int layer;
 	std::pair<Block*, unsigned short> **blockMenu;
+	gui::Label *pos;
+	gui::MenuItemContainer *menuItemContainer;
+	
 public:
 	//>.<NoobishBlockMenu();
 	NoobishBlockMenu(World *world, GameUtility* gameUtility);
 
 	void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
-    void Draw(App &app, GameUtility *gameUtility);
+	void Draw(App &app, GameUtility *gameUtility);
 };
 #endif

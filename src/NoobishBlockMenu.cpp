@@ -7,15 +7,18 @@
 #include "BlockRegister.h"
 #include "GameUtility.h"
 
-/*//>.<NoobishBlockMenu::NoobishBlockMenu()
-{
-
-}*/
-
 NoobishBlockMenu::NoobishBlockMenu(World *world, GameUtility* gameUtility)
 	: selected(0)
 	, layer(0)
 {
+	sf::Font *font = new sf::Font();
+	if (!font->loadFromFile("font.ttf"))
+		throw "font.ttf not found";
+	sf::String *text = new sf::String("hello world");
+	pos = new gui::Label(50, 50, text, font);
+	menuItemContainer = new gui::MenuItemContainer(0, 0, 0, 0);
+	menuItemContainer->Add(pos);
+
 	blockMenu = new std::pair<Block*, unsigned short>*[2];
 	for(int i = 0; i < 2; i++)
 	{
@@ -87,6 +90,11 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtility
 
 void NoobishBlockMenu::Draw(App &app, GameUtility *gameUtility)
 {
+	std::string temp;
+	std::ostringstream oss;
+	oss << app.getFrameTime();
+	pos->text->setString(sf::String(oss.str()));
+	menuItemContainer->Draw(app);
 	for (int j = 0; j < 2; j++)
 	{
 		for(int i = 0; i < 80; ++i)
