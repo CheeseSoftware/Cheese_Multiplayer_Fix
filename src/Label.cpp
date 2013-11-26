@@ -33,7 +33,7 @@ namespace gui
 
 	void Label::OnLeftClick(App &app, const sf::Event &event, GameState *gameState, float x, float y)
 	{
-		std::cout << "a " << (std::string)this->text->getString() << " was clicked!" << std::endl;
+		//std::cout << "a " << (std::string)this->text->getString() << " was clicked!" << std::endl;
 	}
 
 	void Label::OnRightClick(App &app, const sf::Event &event, GameState *gameState, float x, float y)
