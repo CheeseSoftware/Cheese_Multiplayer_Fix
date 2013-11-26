@@ -3,7 +3,7 @@
 #include <vector>
 #include "GraphicalContainer.h"
 #include "EventHandler.h"
-#include "GUIItem.h"
+#include "Selectable.h"
 
 class GameState;
 
@@ -14,7 +14,7 @@ namespace gui
 	class MenuItemContainer
 		: public GraphicalContainer
 	{
-		std::vector<GUIItem*> *itemList;
+		std::vector<Selectable*> *itemList;
 		EventHandler<GameState*> eventHandler;
 
 	public:
@@ -22,7 +22,7 @@ namespace gui
 		virtual void EventUpdate(App &app, const sf::Event &event, GameState *gamestate);
 		virtual GameState *Update(App &app);
 		virtual void Draw(App &app);
-		void Add(GUIItem *item);
+		void Add(Selectable *item);
 		void Remove(size_t i);
 	};
 }

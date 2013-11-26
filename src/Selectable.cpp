@@ -4,10 +4,12 @@
 
 namespace gui
 {
-	Selectable::Selectable(/*ClickEvent leftClickEvent, ClickEvent rightClickEvent*/)
+	Selectable::Selectable(int x, int y/*ClickEvent leftClickEvent, ClickEvent rightClickEvent*/)
 	{
 		//onLeftClickEvent = leftClickEvent;
 		//onRightClickEvent = rightClickEvent;
+		m_x = x;
+		m_y = y;
 	}
 
 	bool Selectable::getSelected()
@@ -19,13 +21,18 @@ namespace gui
 	{
 		/*if (event.type == sf::Event::MouseButtonPressed)
 		{
-			if (event.key.code == sf::Mouse::Left && selected) // Selectable::EventUpdate should not call when OnLeftClick is called in any case.
-			{
-				Unselect();
-			}
+		if (event.key.code == sf::Mouse::Left && selected) // Selectable::EventUpdate should not call when OnLeftClick is called in any case.
+		{
+		Unselect();
+		}
 		}*/
 
 		return gameState;
+	}
+
+	GameState *Selectable::Update(App &app)
+	{
+		return nullptr;
 	}
 
 	void Selectable::Draw(App &app, float x, float y)

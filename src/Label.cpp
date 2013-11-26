@@ -4,7 +4,7 @@
 namespace gui
 {
 	Label::Label(int x, int y, /*ClickEvent &clickEvent, */sf::String *temptext, sf::Font *font)
-		: GUIItem(x, y)
+		: Selectable(x, y)
 	{
 		text = new sf::Text(*temptext, *font);
 		text->setCharacterSize(24);

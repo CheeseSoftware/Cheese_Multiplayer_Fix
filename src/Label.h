@@ -1,13 +1,13 @@
 #ifndef _SERVER
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "GUIItem.h"
+#include "Selectable.h"
 #include "Selectable.h"
 
 namespace gui
 {
 	class Label
-		: public GUIItem
+		: public Selectable
 	{
 	public:
 		Label(int x, int y, /*ClickEvent &clickEvent, */sf::String *text, sf::Font *font);
