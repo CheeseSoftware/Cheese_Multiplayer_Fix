@@ -18,6 +18,8 @@
 #include "connection.h"
 #include "noobishBlockMenu.h"
 #include "BlockRegister.h"
+#include "Button.h"
+#include "TextBox.h"
 
 namespace sf
 {
@@ -51,7 +53,7 @@ PlayState::PlayState(App &app)
 
 
 	hud = new gui::MenuItemContainer(0, 0, 0, 0);
-	hud->setPositionType(TopRight);
+	hud->setPositionType(TopLeft);
 	sf::Font *font = new sf::Font();
 	if (!font->loadFromFile("font.ttf"))
 		throw "font.ttf not found";
@@ -59,7 +61,7 @@ PlayState::PlayState(App &app)
 	{
 		std::stringstream ss;
 		ss << "Member of first" << std::endl;
-		gui::Label *pos = new gui::Label(50, i, 200, 50, new sf::String(ss.str()), font);
+		gui::Label *pos = new gui::Label(50, i, 200, 50, new sf::String(ss.str()), font, 10, 10);
 		hud->Add(pos);
 	}
 	gui::MenuItemContainer *second = new gui::MenuItemContainer(100, 200, app.getSize().x, app.getSize().y);
@@ -67,8 +69,19 @@ PlayState::PlayState(App &app)
 	for(int i = 0; i < 200; i += 50)
 	{
 		std::stringstream ss;
-		ss << "Member of second" << std::endl;
-		gui::Label *pos = new gui::Label(50, i, 200, 50, new sf::String(ss.str()), font);
+		ss << "Button of second" << std::endl;
+		/*auto leftClick = [] (App& app, const sf::Event& event, GameState* gameState, float x, float y) -> GameState*
+		{
+			std::cout << "a button was leftclicked!" << std::endl;
+			return nullptr;
+		};
+		auto rightClick = [] (App& app, const sf::Event& event, GameState* gameState, float x, float y) -> GameState*
+		{
+			std::cout << "a button was rightclicked!" << std::endl;
+			return nullptr;
+		};*/
+		gui::TextBox *pos = new gui::TextBox(50, i, 200, 50, new sf::String(ss.str()), font, 500, 500);
+		//gui::Button *pos = new gui::Button(50, i, 200, 50, new sf::String(ss.str()), font, leftClick, rightClick);
 		second->Add(pos);
 	}
 }
@@ -77,6 +90,11 @@ PlayState::~PlayState()
 {
 
 }
+
+
+
+
+
 
 void PlayState::EventUpdate(App &app, const sf::Event &event)
 {
@@ -100,9 +118,9 @@ GameState *PlayState::Update(App &app)
 	if (fpsClock.getElapsedTime().asMilliseconds() > 25)
 	{
 		//if (1/app.getFrameTime() < 90)
-			//std::cout << "fps: " << 1/app.getFrameTime() << " << LOW FPS!!!!!! <<<<<<\n";
+		//std::cout << "fps: " << 1/app.getFrameTime() << " << LOW FPS!!!!!! <<<<<<\n";
 		//else
-			//std::cout << "fps: " << 1/app.getFrameTime() << "\n";
+		//std::cout << "fps: " << 1/app.getFrameTime() << "\n";
 		fpsClock.restart();
 	}
 	//else if (1/app.getFrameTime() < 50.f)

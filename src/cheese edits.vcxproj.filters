@@ -234,6 +234,12 @@
     <ClCompile Include="Button.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Chat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Monster.h">
@@ -390,6 +396,12 @@
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Chat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
