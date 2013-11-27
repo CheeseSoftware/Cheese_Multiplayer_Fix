@@ -168,7 +168,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				if(!(*packet >> myId))
 					std::cout << "ERROR: Client could not extract data: Init, myId" << std::endl;
 				connection->client->ID = myId;
-				Player *me = new Player(0, 0, 16, 16, true, "smileys.png", 0, "temp");
+				Player *me = new Player(0, -1024, 16, 16, true, "smileys.png", 0, "temp");
 				currentWorld->AddPlayer(myId, me);
 				while(!packet->endOfPacket())
 				{
