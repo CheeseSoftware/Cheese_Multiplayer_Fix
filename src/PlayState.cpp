@@ -128,6 +128,9 @@ GameState *PlayState::Update(App &app)
 		//else
 		//std::cout << "fps: " << 1/app.getFrameTime() << "\n";
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 0165ec5b8fd40e3d75a18264fa939419a4e2fa95
+=======
 >>>>>>> 0165ec5b8fd40e3d75a18264fa939419a4e2fa95
 =======
 >>>>>>> 0165ec5b8fd40e3d75a18264fa939419a4e2fa95
