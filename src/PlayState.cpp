@@ -62,6 +62,7 @@ PlayState::PlayState(App &app)
 		std::stringstream ss;
 		ss << "Member of first" << std::endl;
 		gui::Label *pos = new gui::Label(50, i, 200, 50, new sf::String(ss.str()), font, 10, 10);
+		pos->setTexture(&getTextureContainer().getTextures("Test.png")[0]);
 		hud->Add(pos);
 	}
 	gui::MenuItemContainer *second = new gui::MenuItemContainer(100, 200, app.getSize().x, app.getSize().y);

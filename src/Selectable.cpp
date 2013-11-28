@@ -14,6 +14,7 @@ namespace gui
 		m_positionType = TopLeft;
 		m_widthOffset = 0;
 		m_heightOffset = 0;
+		m_texture = nullptr;
 	}
 
 	bool Selectable::getSelected()
@@ -57,6 +58,12 @@ namespace gui
 	{
 		m_widthOffset = getPositionOffset(drawAreax, drawAreay, drawAreaWidth, drawAreaHeight).x;
 		m_heightOffset = getPositionOffset(drawAreax, drawAreay, drawAreaWidth, drawAreaHeight).y;
+		if(m_texture != nullptr)
+		{
+			sf::Sprite sprite = sf::Sprite(*m_texture);
+			sprite.setPosition(m_x + m_widthOffset + drawAreax, m_y + m_heightOffset + drawAreay);
+			app.draw(sprite);
+		}
 	}
 
 	void Selectable::OnLeftClick(App &app, const sf::Event &event, GameState *gameState, float x, float y)

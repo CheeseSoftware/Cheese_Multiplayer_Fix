@@ -20,6 +20,7 @@ namespace gui
 		int m_height;
 		int m_widthOffset;
 		int m_heightOffset;
+		sf::Sprite *m_texture;
 		PositionType m_positionType;
 		Selectable(int x, int y, int width, int height);
 	public:
@@ -33,6 +34,7 @@ namespace gui
 		virtual sf::Vector2f getSize();
 		virtual sf::Vector2f Selectable::getPositionOffset(float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight);
 		void setPositionType(PositionType positionType);
+		void setTexture(sf::Sprite *texture) { m_texture = texture; };
 		void Unselect();
 	};
 }
