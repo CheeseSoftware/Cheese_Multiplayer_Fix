@@ -27,7 +27,7 @@ Chunk *StandardGenerator::operator() (long x, long y, GameUtility *gameUtility)
 				//strength -= noiseModule.GetValue((double)x/4.0+(double)xx/64.0, (double)y/4.0+(double)yy/64.0, 0)/32;
 				double caveStrength = noiseModule.GetValue(((double)x+(double)xx/16.0)/4, ((double)y+(double)yy/16.0)/4, 0);
 				if (caveStrength < 0.0
-					&& caveStrength + noiseModule.GetValue(((double)x+(double)xx/16.0)/128, ((double)y+(double)yy/16)/128, 10) < 1.50)
+					&& caveStrength + noiseModule.GetValue(((double)x+(double)xx/16.0)/128, ((double)y+(double)yy/16)/128, 10) < -0.50)
 				{
 					if (strength > 0.5 + 1.0 / 128.0)
 					{
