@@ -6,6 +6,7 @@
 #include "EventHandler.h"
 #include <SFML\Graphics.hpp>
 #include "MenuItemContainer.h"
+#include "Label.h"
 
 class World;
 class InGameUI;
@@ -23,6 +24,8 @@ class PlayState : public GameUtility
     sf::Clock fpsClock;
 	sf::View hudView;
 	gui::MenuItemContainer *hud;
+	gui::Label *pos;
+	sf::Font *font;
 	void ProcessPackets(GameUtility *gameUtility);
 public:
 	PlayState(App &app);

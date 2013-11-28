@@ -34,6 +34,7 @@ GameState *ServerState::Update(App &app)
 		sC->Broadcast(packetDataList->front());
 		packetDataList->pop();
 	}
+	currentWorld->Update(app, this);
 	sC->Run();
 	ProcessPackets(this);
 	return this;
@@ -63,7 +64,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 		case RequestInit:
 			{
 				//std::cout << "Received RequestInit" << std::endl;
-				Player *joined = new Player(0, 0, 16, 16, false, "smileys.png", 0, "temp");
+				Player *joined = new Player(client->ID, 0, 0, 16, 16, false, "smileys.png", 0, "temp");
 				sf::Packet send;
 				send << (sf::Uint16) Init << (sf::Uint16)client->ID;
 				for(std::pair<int, Client*> pair : sC->clients)
@@ -113,7 +114,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				sf::Packet send;
 				if(!(*packet >> xPos >> yPos))
 					std::cout << "ERROR: Server could not extract data: PlayerJoin" << std::endl;
-				currentWorld->AddCreature(client->ID, new Player(xPos, yPos, 16, 16, true, "smileys.png", 0, "temp"));
+				currentWorld->AddCreature(client->ID, new Player(clientId, xPos, yPos, 16, 16, true, "smileys.png", 0, "temp"));
 				send << packetType << clientId << xPos << yPos;
 				sC->Broadcast(send);
 				break;
@@ -125,6 +126,29 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				send.clear();
 				send << (sf::Uint16)PlayerLeft << (sf::Uint16)client->ID;
 				sC->Broadcast(send);
+			}
+			break;
+		case PlayerRespawn:
+			{
+				sf::Uint16 id;
+				sf::Int32 x;
+				sf::Int32 y;
+				if(!(*packet >> id >> x >> y))
+					std::cout << "ERROR: Client could not extract data: PlayerRespawn" << std::endl;
+				if(currentWorld->getCreature(id) == nullptr)
+				{
+					Player *player = new Player(id, x, y, 16, 16, false, "smileys.png", 0, "temp");
+					currentWorld->AddCreature(id, player);
+				}
+				else
+				{
+					Player *player = (Player*)currentWorld->getCreature(id);
+					player->setPosition(x, y);
+					player->setHealth(100);
+				}
+				sf::Packet toSend;
+				toSend << (sf::Uint16)PlayerRespawn << id << x << y;
+				sC->Broadcast(toSend);
 			}
 			break;
 		case CreatureMove:

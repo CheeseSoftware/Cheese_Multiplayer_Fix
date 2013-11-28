@@ -54,37 +54,42 @@ PlayState::PlayState(App &app)
 
 	hud = new gui::MenuItemContainer(0, 0, 0, 0);
 	hud->setPositionType(TopLeft);
-	sf::Font *font = new sf::Font();
+	font = new sf::Font();
 	if (!font->loadFromFile("font.ttf"))
 		throw "font.ttf not found";
-	for(int i = 0; i < 200; i += 50)
+	std::stringstream ss;
+	ss << "Member of first" << std::endl;
+	pos = new gui::Label(50, 50, 200, 50, new sf::String(ss.str()), font, 10, 10);
+	//pos->setTexture(&getTextureContainer().getTextures("Test.png")[0]);
+	hud->Add(pos);
+	/*for(int i = 0; i < 200; i += 50)
 	{
-		std::stringstream ss;
-		ss << "Member of first" << std::endl;
-		gui::Label *pos = new gui::Label(50, i, 200, 50, new sf::String(ss.str()), font, 10, 10);
-		pos->setTexture(&getTextureContainer().getTextures("Test.png")[0]);
-		hud->Add(pos);
-	}
-	gui::MenuItemContainer *second = new gui::MenuItemContainer(100, 200, app.getSize().x, app.getSize().y);
+	std::stringstream ss;
+	ss << "Member of first" << std::endl;
+	gui::Label *pos = new gui::Label(50, i, 200, 50, new sf::String(ss.str()), font, 10, 10);
+	pos->setTexture(&getTextureContainer().getTextures("Test.png")[0]);
+	hud->Add(pos);
+	}*/
+	/*gui::MenuItemContainer *second = new gui::MenuItemContainer(100, 200, app.getSize().x, app.getSize().y);
 	hud->Add(second);
 	for(int i = 0; i < 200; i += 50)
 	{
-		std::stringstream ss;
-		ss << "Button of second" << std::endl;
-		/*auto leftClick = [] (App& app, const sf::Event& event, GameState* gameState, float x, float y) -> GameState*
-		{
-			std::cout << "a button was leftclicked!" << std::endl;
-			return nullptr;
-		};
-		auto rightClick = [] (App& app, const sf::Event& event, GameState* gameState, float x, float y) -> GameState*
-		{
-			std::cout << "a button was rightclicked!" << std::endl;
-			return nullptr;
-		};*/
-		gui::TextBox *pos = new gui::TextBox(50, i, 200, 50, new sf::String(ss.str()), font, 500, 500);
-		//gui::Button *pos = new gui::Button(50, i, 200, 50, new sf::String(ss.str()), font, leftClick, rightClick);
-		second->Add(pos);
-	}
+	std::stringstream ss;
+	ss << "Button of second" << std::endl;
+	/*auto leftClick = [] (App& app, const sf::Event& event, GameState* gameState, float x, float y) -> GameState*
+	{
+	std::cout << "a button was leftclicked!" << std::endl;
+	return nullptr;
+	};
+	auto rightClick = [] (App& app, const sf::Event& event, GameState* gameState, float x, float y) -> GameState*
+	{
+	std::cout << "a button was rightclicked!" << std::endl;
+	return nullptr;
+	};*/
+	/*gui::TextBox *pos = new gui::TextBox(50, i, 200, 50, new sf::String(ss.str()), font, 500, 500);
+	//gui::Button *pos = new gui::Button(50, i, 200, 50, new sf::String(ss.str()), font, leftClick, rightClick);
+	second->Add(pos);
+	}*/
 }
 
 PlayState::~PlayState()
@@ -155,6 +160,13 @@ void PlayState::Draw(App &app)
 	app.setView(*reinterpret_cast<sf::View*>(camera));
 	currentWorld->Draw(app, this);
 	app.setView(hudView);
+	if(getCamera().getEntity() != nullptr)
+	{
+		std::stringstream temp;
+		temp << "HP: " << ((Player*)getCamera().getEntity())->getHealth() << std::endl;
+		delete pos->getText();
+		pos->setText(new sf::Text(sf::String(temp.str()), *font));
+	}
 	hud->Draw(app, 0, 0, app.getSize().x, app.getSize().y);
 	noobishBlockMenu->Draw(app, this); // < orsakar lagg temp
 }
@@ -187,7 +199,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				if(!(*packet >> myId))
 					std::cout << "ERROR: Client could not extract data: Init, myId" << std::endl;
 				connection->client->ID = myId;
-				Player *me = new Player(0, -1024, 16, 16, true, "smileys.png", 0, "temp");
+				Player *me = new Player(myId, 0, -1024, 16, 16, true, "smileys.png", 0, "temp");
 				currentWorld->AddCreature(myId, me);
 				while(!packet->endOfPacket())
 				{
@@ -201,7 +213,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 						std::cout << "ERROR: Client could not extract data: Init" << std::endl;
 					else
 					{
-						Player *player = new Player(xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
+						Player *player = new Player(clientId, xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
 						std::cout << "added client " << clientId << std::endl;
 						currentWorld->AddCreature(clientId, player);
 					}
@@ -240,7 +252,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				float yPos;
 				if(!(*packet >> clientId >> xPos >> yPos))
 					std::cout << "ERROR: Client could not extract data: PlayerJoin" << std::endl;
-				Player* player = new Player(xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
+				Player* player = new Player(clientId, xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
 				currentWorld->AddCreature(clientId, player);
 			}
 			break;
@@ -251,6 +263,26 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 					std::cout << "ERROR: Client could not extract data: PlayerLeft" << std::endl;
 				currentWorld->RemoveCreature(clientId);
 				std::cout << "Client " << clientId << " has left" << std::endl;
+			}
+			break;
+		case PlayerRespawn:
+			{
+				sf::Uint16 id;
+				sf::Int32 x;
+				sf::Int32 y;
+				if(!(*packet >> id >> x >> y))
+					std::cout << "ERROR: Client could not extract data: PlayerRespawn" << std::endl;
+				if(currentWorld->getCreature(id) == nullptr)
+				{
+					Player *player = new Player(id, x, y, 16, 16, false, "smileys.png", 0, "temp");
+					currentWorld->AddCreature(id, player);
+				}
+				else
+				{
+					Player *player = (Player*)currentWorld->getCreature(id);
+					player->setPosition(x, y);
+					player->setHealth(100);
+				}
 			}
 			break;
 		case CreatureMove:
@@ -264,11 +296,25 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				float horizontal;
 				float vertical;
 				if(!(*packet >> ID  >> xPos >> yPos >> speedX >> speedY >> angle >> horizontal >> vertical))
-					std::cout << "ERROR: Client could not extract data: PlayerMove" << std::endl;
+					std::cout << "ERROR: Client could not extract data: CreatureMove" << std::endl;
 				Creature* p = currentWorld->getCreature(ID);
 				if (p != nullptr && ID != connection->client->ID)
 				{
 					p->CreatureMove(xPos, yPos, speedX, speedY, angle, horizontal, vertical);
+				}
+			}
+			break;
+		case CreatureDamage:
+			{
+				sf::Uint16 id;
+				sf::Uint32 damage;
+				if(!(*packet >> id >> damage))
+					std::cout << "ERROR: Client could not extract data: CreatureDamage" << std::endl;
+				Creature *creature = currentWorld->getCreature(id);
+				if(creature != nullptr)
+				{
+					creature->OnDamage(damage);
+					creature->Damage(damage);
 				}
 			}
 			break;

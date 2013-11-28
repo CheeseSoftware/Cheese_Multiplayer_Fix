@@ -88,7 +88,7 @@
     <Filter Include="Source Files\GameState\Menu">
       <UniqueIdentifier>{e66064ae-ccc0-4262-afcd-a8c7f1408926}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Entity\Menu">
+    <Filter Include="Header Files\GameState\Menu">
       <UniqueIdentifier>{9da7d566-afca-4899-bfa5-ac4ac39efc31}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -363,13 +363,13 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="MenuState.h">
-      <Filter>Header Files\Entity\Menu</Filter>
+      <Filter>Header Files\GameState\Menu</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
-      <Filter>Header Files\Entity\Menu</Filter>
+      <Filter>Header Files\GameState\Menu</Filter>
     </ClInclude>
     <ClInclude Include="MainMenu.h">
-      <Filter>Header Files\Entity\Menu</Filter>
+      <Filter>Header Files\GameState\Menu</Filter>
     </ClInclude>
     <ClInclude Include="Label.h">
       <Filter>Header Files\GUI</Filter>
@@ -403,6 +403,9 @@
     </ClInclude>
     <ClInclude Include="TextBox.h">
       <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionType.h">
+      <Filter>Header Files\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

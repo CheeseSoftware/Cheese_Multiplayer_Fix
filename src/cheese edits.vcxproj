@@ -380,6 +380,7 @@
     <ClInclude Include="Chat.h" />
     <ClInclude Include="Chunk.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="CollisionType.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Dirt.h" />

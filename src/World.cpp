@@ -94,6 +94,7 @@ void World::Update(App &app, GameUtility *gameUtility)
 #endif
 	}
 
+	std::vector<short> toRemove = std::vector<short>();
 	for(std::pair<short, Creature*> pair : creatureList)
 	{
 #ifdef _SERVER
@@ -101,6 +102,17 @@ void World::Update(App &app, GameUtility *gameUtility)
 #else
 		pair.second->Update(app, gameUtility);
 #endif
+		if(pair.second->isDead())
+		{
+			sf::Packet packet;
+			packet << (sf::Uint16)PlayerRespawn << (sf::Uint16)pair.first << (sf::Int32)0 << (sf::Int32)0;
+			gameUtility->SendPacket(packet);
+			pair.second->setHealth(100);
+		}
+	}
+	for(short id : toRemove)
+	{
+		RemoveCreature(id);
 	}
 }
 
