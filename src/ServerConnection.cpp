@@ -196,7 +196,7 @@ void ServerConnection::KickClient(int ID, std::string reason)
 		delete clients.at(ID);
 		if(!clients.erase(ID))
 			std::cout << "Could not remove client! KickClient" << std::endl;
-		currentWorld->RemovePlayer(ID);
+		currentWorld->RemoveCreature(ID);
 		std::cout << "Kicked client: " << ID << " Reason: " << reason << std::endl;
 
 		//Tell other clients that client has left

@@ -155,7 +155,7 @@ Up:
 					if (isClientControlling)
 					{
 						sf::Packet packet;
-						packet << (sf::Uint16)PlayerMove << x << y << speedX << speedY << angle << horizontal << vertical;
+						packet << (sf::Uint16)MessageType::CreatureMove << x << y << speedX << speedY << angle << horizontal << vertical;
 						gameUtility->SendPacket(packet);
 					}
 				}
@@ -293,7 +293,7 @@ void Player::KeyUpdate(bool Right, bool Down, bool Left, bool Up, GameUtility* g
 		if (isClientControlling)
 		{
 			sf::Packet packet;
-			packet << (sf::Uint16)PlayerMove << x << y << speedX << speedY << angle << horizontal << vertical;
+			packet << (sf::Uint16)MessageType::CreatureMove << x << y << speedX << speedY << angle << horizontal << vertical;
 			gameUtility->SendPacket(packet);
 		}
 	}

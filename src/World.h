@@ -15,6 +15,7 @@
 
 class Entity;
 class Player;
+class Creature;
 class Block;
 class Chunk;
 class TextureContainer;
@@ -46,8 +47,8 @@ private:
 	std::mutex chunkMatrixLock;
 	std::vector<Entity*> entityList;
 	std::mutex entityListLock;
-	std::map<short, Player*> playerList;
-	std::mutex playerListLock;
+	std::map<short, Creature*> creatureList;
+	std::mutex creatureListLock;
 	//std::map<std::pair<short,short>,Block*> BlockMap;
 	std::pair<std::tuple<long, long, unsigned short>, std::pair<Block*, unsigned short>*> lastBlock;
 	std::pair<Block*, unsigned short> physicBlock;
@@ -77,10 +78,10 @@ public:
 	bool isBlockSolid(long x, long y);
 	int AddEntity(Entity*);
 	void RemoveEntity(int id);
-	int AddPlayer(int id, Player*);
-	void RemovePlayer(int id);
-	Player* getPlayer(int id);
-	void SetPlayer(int id, Player *player);
+	int AddCreature(int id, Creature *creature);
+	void RemoveCreature(int id);
+	Creature* getCreature(int id);
+	void SetCreature(int id, Creature *creature);
 	Chunk *getChunk(long x, long y);
 	Chunk *getGenerateChunk(long x, long y, GameUtility *gameUtility);
 };

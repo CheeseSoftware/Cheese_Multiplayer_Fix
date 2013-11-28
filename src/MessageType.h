@@ -13,7 +13,7 @@ enum MessageType
 	CreatureInit,
 	PlayerJoin,
 	PlayerLeft,
-	PlayerMove,
+	CreatureMove,
 	ProjectileInit,
 	EntityMove,
 	EntityUpdate,

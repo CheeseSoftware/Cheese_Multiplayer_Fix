@@ -188,7 +188,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 					std::cout << "ERROR: Client could not extract data: Init, myId" << std::endl;
 				connection->client->ID = myId;
 				Player *me = new Player(0, -1024, 16, 16, true, "smileys.png", 0, "temp");
-				currentWorld->AddPlayer(myId, me);
+				currentWorld->AddCreature(myId, me);
 				while(!packet->endOfPacket())
 				{
 					sf::Int16 clientId;
@@ -203,7 +203,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 					{
 						Player *player = new Player(xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
 						std::cout << "added client " << clientId << std::endl;
-						currentWorld->AddPlayer(clientId, player);
+						currentWorld->AddCreature(clientId, player);
 					}
 				}
 			}
@@ -241,7 +241,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				if(!(*packet >> clientId >> xPos >> yPos))
 					std::cout << "ERROR: Client could not extract data: PlayerJoin" << std::endl;
 				Player* player = new Player(xPos, yPos, 16, 16, false, "smileys.png", 0, "temp");
-				currentWorld->AddPlayer(clientId, player);
+				currentWorld->AddCreature(clientId, player);
 			}
 			break;
 		case PlayerLeft:
@@ -249,11 +249,11 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				sf::Uint16 clientId;
 				if(!(*packet >> clientId))
 					std::cout << "ERROR: Client could not extract data: PlayerLeft" << std::endl;
-				currentWorld->RemovePlayer(clientId);
+				currentWorld->RemoveCreature(clientId);
 				std::cout << "Client " << clientId << " has left" << std::endl;
 			}
 			break;
-		case PlayerMove:
+		case CreatureMove:
 			{
 				sf::Int16 ID;
 				float xPos;
@@ -265,7 +265,7 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				float vertical;
 				if(!(*packet >> ID  >> xPos >> yPos >> speedX >> speedY >> angle >> horizontal >> vertical))
 					std::cout << "ERROR: Client could not extract data: PlayerMove" << std::endl;
-				Player* p = currentWorld->getPlayer(ID);
+				Creature* p = currentWorld->getCreature(ID);
 				if (p != nullptr && ID != connection->client->ID)
 				{
 					p->CreatureMove(xPos, yPos, speedX, speedY, angle, horizontal, vertical);
