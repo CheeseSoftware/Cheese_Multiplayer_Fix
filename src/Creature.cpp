@@ -12,44 +12,24 @@ Creature::Creature(float x, float y, short sizeX, short sizeY, float speed, floa
     vertical = 0;
 }
 
-/*#ifdef _SERVER
-void Creature::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList)
-#else
-void Creature::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
-#endif*/
 void Creature::PhysicUpdate(App &app, World *world, float timeSpan)
 {
 	float horizontal2 = horizontal;
 	float vertical2 = vertical;
 
-	//std::pair<Block*, unsigned short> blockAndMetadata = world->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);//GameUtility->getCurrentWorld()->getBlockAndMetadata((long)x+8>>4,(long)y+8>>4, 2);
 	if (currentBlock.first != nullptr)
 		currentBlock.first->getCreatureMovePossibilities(app, this, horizontal2, vertical2, currentBlock.second);
 
 	float xFriction = friction;
 	float yFriction = friction;
-
-
-
-	if (currentBlock.first != nullptr)
-		currentBlock.first->OnEntityHover(app, this, xFriction, yFriction, *(new float()), *(new float()), currentBlock.second);
-
 	speedX += horizontal2 * app.getDeltaTime() * (pow(1-xFriction, app.getDeltaTime()));
     speedY += vertical2 * app.getDeltaTime() * (pow(1-yFriction, app.getDeltaTime()));
-
 	Entity::PhysicUpdate(app, world, timeSpan);
 }
 
 void Creature::Update(App &app, GameUtility *GameUtility)
 {
-	
-
 	Entity::Update(app, GameUtility);
-/*#ifdef _SERVER
-	Entity::Update(app, world, packetDataList);
-#else
-	Entity::Update(app, world, packetDataList, camera, eventHandler);
-#endif*/
 }
 
 void Creature::CreatureMove(float x, float y, float speedX, float speedY, float angle, float horizontal, float vertical)
@@ -64,6 +44,11 @@ void Creature::CreatureMove(float x, float y, float speedX, float speedY, float 
 }
 
 void Creature::OnProjectileHit(App &app, GameUtility *gameUtility, Projectile *projectile, float damage)
+{
+	Damage(damage);
+}
+
+void Creature::OnDeath(Creature *creature)
 {
 
 }

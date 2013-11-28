@@ -32,8 +32,6 @@ void Entity::PhysicUpdate(App &app, World *world, float timeSpan)
 	float xFriction = friction;
 	float yFriction = friction;
 
-	
-
 	if (currentBlock.first != nullptr)
 		currentBlock.first->OnEntityHover(app, this, xFriction, yFriction, speedX, speedY, currentBlock.second);
 
@@ -46,11 +44,6 @@ void Entity::PhysicUpdate(App &app, World *world, float timeSpan)
 	else if	(speedY < -maxSpeed)	speedY = -maxSpeed;
 }
 
-/*#ifdef _SERVER
-void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList)
-#else
-void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &EventHandler)
-#endif*/
 void Entity::Update(App &app, GameUtility *gameUtility)
 {
 	//(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
