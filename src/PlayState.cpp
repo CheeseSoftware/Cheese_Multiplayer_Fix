@@ -117,29 +117,10 @@ GameState *PlayState::Update(App &app)
 {
 	if (fpsClock.getElapsedTime().asMilliseconds() > 25)
 	{
-<<<<<<< HEAD
-		if (1/app.getFrameTime() < 90)
-			std::cout << "fps: " << 1/app.getFrameTime() << " << LOW FPS!!!!!! <<<<<<\n";
-		else
-			std::cout << "fps: " << 1/app.getFrameTime() << "\n";
-=======
 		//if (1/app.getFrameTime() < 90)
 		//std::cout << "fps: " << 1/app.getFrameTime() << " << LOW FPS!!!!!! <<<<<<\n";
 		//else
 		//std::cout << "fps: " << 1/app.getFrameTime() << "\n";
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 0165ec5b8fd40e3d75a18264fa939419a4e2fa95
-=======
->>>>>>> 0165ec5b8fd40e3d75a18264fa939419a4e2fa95
-=======
->>>>>>> 0165ec5b8fd40e3d75a18264fa939419a4e2fa95
-=======
->>>>>>> 0165ec5b8fd40e3d75a18264fa939419a4e2fa95
-=======
->>>>>>> 0165ec5b8fd40e3d75a18264fa939419a4e2fa95
 		fpsClock.restart();
 	}
 	//else if (1/app.getFrameTime() < 50.f)
