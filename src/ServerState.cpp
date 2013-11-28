@@ -68,11 +68,11 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				send << (sf::Uint16) Init << (sf::Uint16)client->ID;
 				for(std::pair<int, Client*> pair : sC->clients)
 				{
-					Player* temp = currentWorld->getPlayer(pair.first);
+					Creature* temp = currentWorld->getCreature(pair.first);
 					if(temp != nullptr)
 						send << (sf::Int16)pair.first << (float)temp->getPosition().x << (float)temp->getPosition().y << (sf::Int16)temp->getSize().x << (sf::Int16)temp->getSize().y;
 				}
-				currentWorld->AddPlayer(client->ID, joined);
+				currentWorld->AddCreature(client->ID, joined);
 				client->socket->send(send);
 
 				send.clear();
@@ -113,7 +113,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				sf::Packet send;
 				if(!(*packet >> xPos >> yPos))
 					std::cout << "ERROR: Server could not extract data: PlayerJoin" << std::endl;
-				currentWorld->AddPlayer(client->ID, new Player(xPos, yPos, 16, 16, true, "smileys.png", 0, "temp"));
+				currentWorld->AddCreature(client->ID, new Player(xPos, yPos, 16, 16, true, "smileys.png", 0, "temp"));
 				send << packetType << clientId << xPos << yPos;
 				sC->Broadcast(send);
 				break;
@@ -121,13 +121,13 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 		case PlayerLeft:
 			{
 				sf::Packet send;
-				currentWorld->RemovePlayer(client->ID);
+				currentWorld->RemoveCreature(client->ID);
 				send.clear();
 				send << (sf::Uint16)PlayerLeft << (sf::Uint16)client->ID;
 				sC->Broadcast(send);
 			}
 			break;
-		case PlayerMove:
+		case CreatureMove:
 			{
 				float xPos;
 				float yPos;
@@ -137,12 +137,12 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				float horizontal;
 				float vertical;
 				*packet >> xPos >> yPos >> speedX >> speedY >> angle >> horizontal >> vertical;
-				Player* p = currentWorld->getPlayer(client->ID);
+				Creature* p = currentWorld->getCreature(client->ID);
 				if (p != nullptr)
 				{
 					sf::Packet packet;
 					sf::Int16 clientid = client->ID;
-					if(!(packet << (sf::Uint16)PlayerMove << clientid << xPos << yPos << speedX << speedY << angle << horizontal << vertical))
+					if(!(packet << (sf::Uint16)CreatureMove << clientid << xPos << yPos << speedX << speedY << angle << horizontal << vertical))
 						std::cout << "ERROR: Server could not extract data: PlayerMove" << std::endl;
 					sC->Broadcast(packet);
 					p->CreatureMove(xPos, yPos, speedX, speedY, angle, horizontal, vertical);
