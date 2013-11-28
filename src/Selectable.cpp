@@ -41,6 +41,8 @@ namespace gui
 					OnRightClick(app, event, gameState, x, y);
 				}
 			}
+			else
+				Unselect();
 		}
 
 		return nullptr;
