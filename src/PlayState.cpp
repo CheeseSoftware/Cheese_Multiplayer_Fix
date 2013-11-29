@@ -307,15 +307,12 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 		case CreatureDamage:
 			{
 				sf::Uint16 id;
-				sf::Uint32 damage;
+				float damage;
 				if(!(*packet >> id >> damage))
 					std::cout << "ERROR: Client could not extract data: CreatureDamage" << std::endl;
 				Creature *creature = currentWorld->getCreature(id);
 				if(creature != nullptr)
-				{
 					creature->OnDamage(damage);
-					creature->Damage(damage);
-				}
 			}
 			break;
 		case BlockPlace:
