@@ -20,6 +20,7 @@ TextureContainer::TextureContainer(void)
 	AddSpriteSheet("dirt.png", 512, 512);
 	AddSpriteSheet("dirty128.png", 128, 128);
 	AddSpriteSheet("Background.png", 512, 512);
+	AddSpriteSheet("Test.png", 200, 50);
 }
 
 

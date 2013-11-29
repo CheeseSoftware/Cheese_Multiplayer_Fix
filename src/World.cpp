@@ -74,12 +74,12 @@ maxY : chunkMatrix.first[x].first.size();
 	}
 	entityListLock.unlock();
 
-	playerListLock.lock();
-	for(std::pair<short, Player*> pair : playerList)
+	creatureListLock.lock();
+	for(std::pair<short, Creature*> pair : creatureList)
 	{
 		pair.second->Draw(app, gameUtility);
 	}
-	playerListLock.unlock();
+	creatureListLock.unlock();
 }
 #endif
 
@@ -94,13 +94,25 @@ void World::Update(App &app, GameUtility *gameUtility)
 #endif
 	}
 
-	for(std::pair<short, Player*> pair : playerList)
+	std::vector<short> toRemove = std::vector<short>();
+	for(std::pair<short, Creature*> pair : creatureList)
 	{
 #ifdef _SERVER
 		pair.second->Update(app, gameUtility);
 #else
 		pair.second->Update(app, gameUtility);
 #endif
+		if(pair.second->isDead())
+		{
+			sf::Packet packet;
+			packet << (sf::Uint16)PlayerRespawn << (sf::Uint16)pair.first << (sf::Int32)0 << (sf::Int32)0;
+			gameUtility->SendPacket(packet);
+			pair.second->setHealth(100);
+		}
+	}
+	for(short id : toRemove)
+	{
+		RemoveCreature(id);
 	}
 }
 
@@ -385,56 +397,56 @@ void World::RemoveEntity(int id)
 
 }
 
-int World::AddPlayer(int id, Player *player)
+int World::AddCreature(int id, Creature *creature)
 {
-	playerListLock.lock(); //std::cout << "playerlist locked!\n";
-	auto it = playerList.find(id);
-	if(it == playerList.end())
+	creatureListLock.lock(); //std::cout << "playerlist locked!\n";
+	auto it = creatureList.find(id);
+	if(it == creatureList.end())
 	{
-		playerList.insert(std::pair<short, Player*>(id, player));
+		creatureList.insert(std::pair<short, Creature*>(id, creature));
 		CLIENT(
-			eventHandler.AddEventCallback(player,[player] (App& a, const sf::Event& e, GameUtility* gUtil) { player->EventUpdate(a, e, gUtil); });
+			eventHandler.AddEventCallback(creature, [creature] (App& a, const sf::Event& e, GameUtility* gUtil) { creature->EventUpdate(a, e, gUtil); });
 		)
 	}
 	else
 		std::cout << "Attempt to add player that already exists! " << id << std::endl;
 
-	playerListLock.unlock(); //std::cout << "playerlist unlocked!\n";
+	creatureListLock.unlock(); //std::cout << "playerlist unlocked!\n";
 	return 0;
 }
 
-void World::RemovePlayer(int id)
+void World::RemoveCreature(int id)
 {
-	playerListLock.lock(); //std::cout << "playerlist locked!\n";
-	auto it = playerList.find(id);
-	if(it != playerList.end())
+	creatureListLock.lock(); //std::cout << "playerlist locked!\n";
+	auto it = creatureList.find(id);
+	if(it != creatureList.end())
 	{
 		CLIENT(
-			eventHandler.RemoveEventCallback(playerList[id]);
+			eventHandler.RemoveEventCallback(creatureList[id]);
 		)
 			delete(it->second);
-		playerList.erase(id);
+		creatureList.erase(id);
 	}
 	else
 		std::cout << "Attempt to remove player that doesn't exist! " << id << std::endl;
-	playerListLock.unlock(); //std::cout << "playerlist unlocked!\n";
+	creatureListLock.unlock(); //std::cout << "playerlist unlocked!\n";
 }
 
-Player* World::getPlayer(int id)
+Creature* World::getCreature(int id)
 {
-	//playerListLock.lock(); //std::cout << "playerlist locked!\n";
-	auto it = playerList.find(id);
-	//playerListLock.unlock(); //std::cout << "playerlist unlocked!\n";
-	return (it == playerList.end()) ? nullptr : it->second;
+	//creatureListLock.lock(); //std::cout << "playerlist locked!\n";
+	auto it = creatureList.find(id);
+	//creatureListLock.unlock(); //std::cout << "playerlist unlocked!\n";
+	return (it == creatureList.end()) ? nullptr : it->second;
 }
 
-void World::SetPlayer(int id, Player *player)
+void World::SetCreature(int id, Creature *creature)
 {
-	playerListLock.lock(); //std::cout << "playerlist locked!\n";
-	delete(playerList.find(id)->second);
-	playerList.erase(id);
-	playerList.insert(std::pair<short, Player*>(id, player));
-	playerListLock.unlock(); //std::cout << "playerlist unlocked!\n";
+	creatureListLock.lock(); //std::cout << "playerlist locked!\n";
+	delete(creatureList.find(id)->second);
+	creatureList.erase(id);
+	creatureList.insert(std::pair<short, Creature*>(id, creature));
+	creatureListLock.unlock(); //std::cout << "playerlist unlocked!\n";
 }
 
 bool World::isBlockSolid(long x,long y)

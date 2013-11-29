@@ -28,6 +28,7 @@ ServerConnection::~ServerConnection(void)
 void ServerConnection::Run(void)
 {
 	//std::cout << packets.size() << " size!" << std::endl;
+	//std::cout << "running! " << pingTimeout.getElapsedTime().asMilliseconds() << std::endl;
 	float ElapsedTime = pingTimeout.getElapsedTime().asMilliseconds();
 	if(ElapsedTime > 1000)
 	{
@@ -53,14 +54,27 @@ void ServerConnection::PingClients(void)
 			client->pingClock.restart();
 			client->isMeasuringPing = true;
 		}
-		else// if(client->socket->getRemoteAddress() != sf::IpAddress::None)
+		else
 		{
 			float currentPing = client->pingClock.getElapsedTime().asMilliseconds();
-			if(currentPing > 5000)
+			std::cout << "Client " << client->ID << " has ping " << currentPing << std::endl;
+			if(currentPing > 1000)
 			{
-				//Kick client, too high ping
-				std::cout << "Client " << client->ID << " has ping " << currentPing << std::endl;
-				toKick->push_back(client->ID);
+				if(client->socket->getRemoteAddress() == sf::IpAddress::None)
+				{
+					//Kick client, too high ping
+					toKick->push_back(client->ID);
+				}
+				else
+				{
+					sf::Packet send;
+					sf::Uint16 ping = Ping;
+					send << ping;
+					client->socket->send(send);
+					client->ping = 0;
+					client->pingClock.restart();
+					client->isMeasuringPing = true;
+				}
 			}
 		}
 	}
@@ -182,7 +196,7 @@ void ServerConnection::KickClient(int ID, std::string reason)
 		delete clients.at(ID);
 		if(!clients.erase(ID))
 			std::cout << "Could not remove client! KickClient" << std::endl;
-		currentWorld->RemovePlayer(ID);
+		currentWorld->RemoveCreature(ID);
 		std::cout << "Kicked client: " << ID << " Reason: " << reason << std::endl;
 
 		//Tell other clients that client has left

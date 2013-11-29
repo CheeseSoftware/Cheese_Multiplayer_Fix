@@ -9,8 +9,8 @@
 #include "Block.h"
 #include "GameUtility.h"
 
-Player::Player(float X, float Y, short sizeX, short sizeY, bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name) 
-	: Creature(X, Y, sizeX, sizeY, 1024, 1024.f, 0.8125, spriteName, spriteIndex, IsClientControlling)
+Player::Player(int id, float X, float Y, short sizeX, short sizeY, bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name) 
+	: Creature(id, X, Y, sizeX, sizeY, 1024, 8192, 0.8125, spriteName, spriteIndex, IsClientControlling)
 {
 	name = Name;
 	cameraDelay = 0;
@@ -140,7 +140,7 @@ Up:
 					else if (ySpeed2 != 0 && speedY != 0)
 						break;
 
-					if (CheckCollision(app, gameUtility->getCurrentWorld(), (xSpeed2 > 0)? -1:1, (ySpeed2 > 0)? -1:1))
+					if (CheckCollision(app, gameUtility->getCurrentWorld(), gameUtility, (xSpeed2 > 0)? -1:1, (ySpeed2 > 0)? -1:1))
 					{
 						if (speedX == 0)
 							speedX = xSpeed2;
@@ -155,7 +155,7 @@ Up:
 					if (isClientControlling)
 					{
 						sf::Packet packet;
-						packet << (sf::Uint16)PlayerMove << x << y << speedX << speedY << angle << horizontal << vertical;
+						packet << (sf::Uint16)MessageType::CreatureMove << x << y << speedX << speedY << angle << horizontal << vertical;
 						gameUtility->SendPacket(packet);
 					}
 				}
@@ -180,7 +180,7 @@ Up:
 						deltaSpeedY *= -1;
 
 
-					Projectile *projectile = new Projectile(x+(sizeX>>1), y+(sizeY>>1), 32, 32, angle, 1024, 0.03125F, "arrow.png", 0, false);
+					Projectile *projectile = new Projectile(0, x+(sizeX>>1), y+(sizeY>>1), 32, 32, angle, 1024, 0.03125F, "arrow.png", 0, false);
 					gameUtility->getCurrentWorld()->AddEntity(projectile);
 				}
 				break;
@@ -293,7 +293,7 @@ void Player::KeyUpdate(bool Right, bool Down, bool Left, bool Up, GameUtility* g
 		if (isClientControlling)
 		{
 			sf::Packet packet;
-			packet << (sf::Uint16)PlayerMove << x << y << speedX << speedY << angle << horizontal << vertical;
+			packet << (sf::Uint16)MessageType::CreatureMove << x << y << speedX << speedY << angle << horizontal << vertical;
 			gameUtility->SendPacket(packet);
 		}
 	}

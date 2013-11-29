@@ -7,10 +7,11 @@
 #include "World.h"
 #include "GameUtility.h"
 
-Entity::Entity(float x, float y, short sizeX, short sizeY,
+Entity::Entity(int id, float x, float y, short sizeX, short sizeY,
 			   float angle, float speed, float maxSpeed, float friction, std::string spriteName,
 			   int spriteIndex, bool isClientControlling)
-			   : x(x)
+			   : m_id(id)
+			   , x(x)
 			   , y(y)
 			   , speed(speed)
 			   , maxSpeed(maxSpeed)
@@ -32,8 +33,6 @@ void Entity::PhysicUpdate(App &app, World *world, float timeSpan)
 	float xFriction = friction;
 	float yFriction = friction;
 
-	
-
 	if (currentBlock.first != nullptr)
 		currentBlock.first->OnEntityHover(app, this, xFriction, yFriction, speedX, speedY, currentBlock.second);
 
@@ -46,14 +45,8 @@ void Entity::PhysicUpdate(App &app, World *world, float timeSpan)
 	else if	(speedY < -maxSpeed)	speedY = -maxSpeed;
 }
 
-/*#ifdef _SERVER
-void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList)
-#else
-void Entity::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &EventHandler)
-#endif*/
 void Entity::Update(App &app, GameUtility *gameUtility)
 {
-	//(app, this, xFriction, yFriction, speedX, speedY, blockAndMetadata.second);
 	currentBlock = gameUtility->getCurrentWorld()->getBlockAndMetadata(
 		(long)x>>4L,
 		(long)y>>4L,
@@ -74,27 +67,13 @@ void Entity::Update(App &app, GameUtility *gameUtility)
 	if (speedX != 0.0F || speedY != 0.0F)
 	{
 		float speedXModifier = abs(speedX * app.getDeltaTime());
-
 		float speedYModifier = abs(speedY * app.getDeltaTime());
-
-
-		//float speedModifier = speedX * app.getDeltaTime();
-
-		//float speedYModifier = abs(speedY * app.getDeltaTime());
 
 		char speedXNegativeFactor = (speedX > 0)? 1:-1;
 		char speedYNegativeFactor = (speedY > 0)? 1:-1;
 
-
-		//NEW FAILED PHYSICS D:  {
-		//double speed = sqrt(pow(abs(speedX)*app.getDeltaTime(),2)+pow(abs(speedY)*app.getDeltaTime(),2));
-
-		//<<<<<<< HEAD
 		double speed = sqrt(pow(speedX*app.getDeltaTime(),2)+pow(speedY*app.getDeltaTime(),2));
-
-		//=======
 		double angle = atan2(speedY, speedX);
-		//>>>>>>> 2dbb0fccc9120629075f0f104405e4486369d95b
 
 		double deltaX = cos(angle);
 		double deltaY = sin(angle);
@@ -103,7 +82,7 @@ void Entity::Update(App &app, GameUtility *gameUtility)
 		{
 			while(speed >= 1)
 			{
-				if (CheckCollision(app, gameUtility->getCurrentWorld(), deltaX, deltaY))
+				if (CheckCollision(app, gameUtility->getCurrentWorld(), gameUtility, deltaX, deltaY))
 					break;
 
 				x += deltaX;
@@ -118,15 +97,9 @@ void Entity::Update(App &app, GameUtility *gameUtility)
 				deltaY = 0;
 		}
 
-		/*if (CheckCollision(app, world, deltaX*speed, deltaY*speed))
-		{
-		x += deltaX*speed;
-		y += deltaY*speed;
-		}*/
-
 		while (speedXModifier >= 1 && speedYModifier >= 1)
 		{
-			if (CheckCollision(app, gameUtility->getCurrentWorld(), (float)speedXNegativeFactor, (float)speedYNegativeFactor))
+			if (CheckCollision(app, gameUtility->getCurrentWorld(), gameUtility, (float)speedXNegativeFactor, (float)speedYNegativeFactor))
 				break;
 
 			if (speedX != 0 && speedY != 0)
@@ -145,7 +118,7 @@ void Entity::Update(App &app, GameUtility *gameUtility)
 
 		while(speedXModifier >= 1)
 		{
-			if (CheckCollision(app, gameUtility->getCurrentWorld(), (float)speedXNegativeFactor, 0))
+			if (CheckCollision(app, gameUtility->getCurrentWorld(), gameUtility, (float)speedXNegativeFactor, 0))
 				break;
 
 			if (speedX != 0)
@@ -162,7 +135,7 @@ void Entity::Update(App &app, GameUtility *gameUtility)
 
 		while(speedYModifier >= 1)
 		{
-			if (CheckCollision(app, gameUtility->getCurrentWorld(), 0, (float)speedYNegativeFactor))
+			if (CheckCollision(app, gameUtility->getCurrentWorld(), gameUtility, 0, (float)speedYNegativeFactor))
 				break;
 
 			if (speedY != 0)
@@ -177,14 +150,7 @@ void Entity::Update(App &app, GameUtility *gameUtility)
 			}
 		}
 
-		//if (!CheckCollision(app, world, speedXModifier*speedXNegativeFactor, speedYModifier*speedYNegativeFactor))
-		//{
-		//x += speedXModifier*speedXNegativeFactor;
-		//y += speedYModifier*speedYNegativeFactor;
-		//}
-		//else
-		//{
-		CheckCollision(app, gameUtility->getCurrentWorld(), speedXModifier*speedXNegativeFactor, speedYModifier*speedYNegativeFactor);
+		CheckCollision(app, gameUtility->getCurrentWorld(), gameUtility, speedXModifier*speedXNegativeFactor, speedYModifier*speedYNegativeFactor);
 
 		if (speedX != 0)
 			x += speedXModifier*speedXNegativeFactor;
@@ -192,45 +158,26 @@ void Entity::Update(App &app, GameUtility *gameUtility)
 		if (speedY != 0)
 			y += speedYModifier*speedYNegativeFactor;
 
-
-		/*if (speedX != 0)
-		x += speedXModifier*speedXNegativeFactor;
-
-		if (speedY != 0)
-		y += speedYModifier*speedYNegativeFactor;*/
-		//}
-
-		// } D: 
-
-		//> gammal fysikD:
-		CheckCollision(app, gameUtility->getCurrentWorld(), speedX * app.getDeltaTime(), speedY * app.getDeltaTime());
-
-		//x += speedX * app.getDeltaTime();
-		//y += speedY * app.getDeltaTime();
-		//std::cout << x << " " << y << std::endl;
-		//< D:
-
-		//-speedX *= pow(1.0-xFriction,app.getDeltaTime());//pow(1-xFriction, app.getDeltaTime());//tan(xFriction*M_PI/2) * app.getDeltaTime();
-		//-speedY *= pow(1.0-yFriction,app.getDeltaTime());//pow(1-yFriction, app.getDeltaTime());//tan(yFriction*M_PI/2) * app.getDeltaTime();
+		CheckCollision(app, gameUtility->getCurrentWorld(), gameUtility, speedX * app.getDeltaTime(), speedY * app.getDeltaTime());
 	}
 }
 
-bool Entity::CheckCollision(App &app, World *world, float speedX, float speedY)
+CollisionType Entity::CheckCollision(App &app, World *world, GameUtility *gameUtility, float speedX, float speedY)
 {
-	bool r = false;
+	CollisionType r = None;
 
 	if (speedX == 0 && speedY == 0)
-		return false;
+		return None;
 
 	if (world->isBlockSolid((int)(x-(sizeX>>1)+speedX+0.5F)>>4,(int)(y-(sizeY>>1)+0.5F)>>4) ||
 		world->isBlockSolid((int)(x+(sizeX>>1)+speedX-0.5F)>>4,(int)(y-(sizeY>>1)+0.5F)>>4) ||
 		world->isBlockSolid((int)(x-(sizeX>>1)+speedX+0.5F)>>4,(int)(y+(sizeY>>1)-0.5F)>>4) ||
 		world->isBlockSolid((int)(x+(sizeX>>1)+speedX-0.5F)>>4,(int)(y+(sizeY>>1)-0.5F)>>4))
 	{
+		//OnCollide(app, world, gameUtility, speedX, speedY, XAxis);
 		this->speedX = 0;
 		speedX = 0;
-		Collision(world);
-		r = true;
+		r = XAxis;
 	}
 
 	if (world->isBlockSolid((int)(x-(sizeX>>1)+0.5F)>>4,(int)(y-(sizeY>>1)+speedY+0.5F)>>4) ||
@@ -238,10 +185,10 @@ bool Entity::CheckCollision(App &app, World *world, float speedX, float speedY)
 		world->isBlockSolid((int)(x-(sizeX>>1)+0.5F)>>4,(int)(y+(sizeY>>1)+speedY-0.5F)>>4) ||
 		world->isBlockSolid((int)(x+(sizeX>>1)-0.5F)>>4,(int)(y+(sizeY>>1)+speedY-0.5F)>>4))
 	{
+		//OnCollide(app, world, gameUtility, speedX, speedY, YAxis);
 		this->speedY = 0;
 		speedY = 0;
-		Collision(world);
-		r = true;
+		r = YAxis;
 	}
 
 	if (world->isBlockSolid((int)(x-(sizeX>>1)+speedX+0.5F)>>4,(int)(y-(sizeY>>1)+speedY+0.5F)>>4) ||
@@ -249,6 +196,7 @@ bool Entity::CheckCollision(App &app, World *world, float speedX, float speedY)
 		world->isBlockSolid((int)(x-(sizeX>>1)+speedX+0.5F)>>4,(int)(y+(sizeY>>1)+speedY-0.5F)>>4) ||
 		world->isBlockSolid((int)(x+(sizeX>>1)+speedX-0.5F)>>4,(int)(y+(sizeY>>1)+speedY-0.5F)>>4))
 	{
+		//OnCollide(app, world, gameUtility, speedX, speedY, XYAxis);
 		if (abs(this->speedX) > abs(this->speedY))
 		{
 			this->speedX = 0;
@@ -260,94 +208,15 @@ bool Entity::CheckCollision(App &app, World *world, float speedX, float speedY)
 			speedY = 0;
 		}
 
-		CheckCollision(app, world, speedX, speedY);
-		Collision(world);
-		return true;
+		CheckCollision(app, world, gameUtility, speedX, speedY);
+		return XYAxis;
 	}
 	return r;
-
-	/*bool solid[2][2] = {{
-	world->isBlockSolid((int)(x)>>4,(int)(y)>>4),
-	world->isBlockSolid((int)(x+15)>>4,(int)(y)>>4)},{
-	world->isBlockSolid((int)(x)>>4,(int)(y+16)>>4),
-	world->isBlockSolid((int)(x+15)>>4,(int)(y+16)>>4)}};
-
-	if (!solid[0][0] || !solid[1][0] || !solid[0][1] || !solid[1][1])
-	{
-	if (abs(speedX) > abs(speedY))
-	{
-	if (speedX > 0 && (solid[1][0] || solid[1][1]))//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
-	{
-	FixateX();
-
-	if (speedY > 0 && solid[1][1])//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
-	FixateY();
-	else if (solid[1][0])
-	FixateY();
-	}
-	else if (solid[0][0] || solid[0][1])
-	{
-	FixateX();
-
-	if (speedY > 0 && solid[0][1])//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
-	FixateY();
-	else if (solid[0][0])
-	FixateY();
-	}
-	}
-	else
-	{
-	if (speedY > 0 && (solid[0][1] || solid[1][1]))//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
-	{
-	FixateY();
-
-	if (speedX > 0 && solid[1][1])//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
-	FixateX();
-	else if (solid[0][1])
-	FixateX();
-	}
-	else if (solid[0][0] || solid[1][0])
-	{
-	FixateY();
-
-	if (speedX > 0 && solid[1][0])//if (solid[0][0] || solid[1][0] || solid[0][1] || solid[1][1])
-	FixateX();
-	else if (solid[0][0])
-	FixateX();
-	}
-	}
-	}*/
 }
 
-void Entity::Collision(World *world)
+void Entity::OnCollide(App &app, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType)
 {
 }
-
-/*void Entity::FixateX()
-{
-if (speedX > 0)
-{
-x = (int)x+4>>4<<4;
-}
-else
-{
-x = (int)(x+12)>>4<<4;
-}
-speedX = 0;
-}
-
-void Entity::FixateY()
-{
-if (speedY > 0)
-{
-y = (int)y+4>>4<<4;
-}
-else
-{
-y = (int)(y+12)>>4<<4;
-}
-speedY = 0;
-}*/
 
 #ifndef _SERVER
 

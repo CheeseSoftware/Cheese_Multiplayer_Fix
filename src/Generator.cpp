@@ -4,9 +4,19 @@
 #include "Chunk.h"
 #include <time.h>
 
+const int StandardGenerator::getSeed() const
+{
+	return noiseModule.GetSeed();
+}
+
 StandardGenerator::StandardGenerator()
 {
 	noiseModule.SetSeed(time(nullptr));
+}
+
+StandardGenerator::StandardGenerator(const int seed)
+{
+	noiseModule.SetSeed(seed);
 }
 
 Chunk *StandardGenerator::operator() (long x, long y, GameUtility *gameUtility)
@@ -25,9 +35,9 @@ Chunk *StandardGenerator::operator() (long x, long y, GameUtility *gameUtility)
 			if (strength > 0.5)
 			{
 				//strength -= noiseModule.GetValue((double)x/4.0+(double)xx/64.0, (double)y/4.0+(double)yy/64.0, 0)/32;
-				double caveStrength = noiseModule.GetValue((double)x/2.0+(double)xx/32.0, (double)y/2.0+(double)yy/32.0, 0);
-				if (caveStrength > 0.00
-					|| caveStrength + noiseModule.GetValue((double)x/256.0+(double)xx/4096.0, (double)y/256.0+(double)yy/4096.0, 10) > -0.50)
+				double caveStrength = noiseModule.GetValue(((double)x+(double)xx/16.0)/4, ((double)y+(double)yy/16.0)/4, 0);
+				if (caveStrength > 0.0
+					&& caveStrength + noiseModule.GetValue(((double)x+(double)xx/16.0)/128, ((double)y+(double)yy/16)/128, 10) > -0.50)
 				{
 					if (strength > 0.5 + 1.0 / 128.0)
 					{
@@ -48,4 +58,36 @@ Chunk *StandardGenerator::operator() (long x, long y, GameUtility *gameUtility)
 		}
 	}
 	return chunk;
+}
+
+WeirdGenerator::WeirdGenerator()
+	: StandardGenerator()
+{
+}
+
+WeirdGenerator::WeirdGenerator(int seed)
+	: StandardGenerator(seed)
+{
+}
+
+Chunk *WeirdGenerator::operator() (long x, long y, GameUtility *gameUtility)
+{
+	if (x == 0)
+	{
+		Chunk *chunk = new Chunk();
+		if (y < 0)
+		{
+			for (char xx = 0; xx < 16; xx++)
+			{
+				for(char yy = 0; yy < 16; yy++)
+				{
+					chunk->setBlock(2, xx, yy, gameUtility->getBlockRegister().getBlockType(3));
+					chunk->setMetadata(2, xx, yy, 1);
+				}
+			}
+		}
+		return chunk;
+	}
+	else
+		return StandardGenerator::operator()(x, y, gameUtility);
 }

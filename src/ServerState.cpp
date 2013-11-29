@@ -34,6 +34,7 @@ GameState *ServerState::Update(App &app)
 		sC->Broadcast(packetDataList->front());
 		packetDataList->pop();
 	}
+	currentWorld->Update(app, this);
 	sC->Run();
 	ProcessPackets(this);
 	return this;
@@ -63,16 +64,16 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 		case RequestInit:
 			{
 				//std::cout << "Received RequestInit" << std::endl;
-				Player *joined = new Player(0, 0, 16, 16, false, "smileys.png", 0, "temp");
+				Player *joined = new Player(client->ID, 0, 0, 16, 16, false, "smileys.png", 0, "temp");
 				sf::Packet send;
 				send << (sf::Uint16) Init << (sf::Uint16)client->ID;
 				for(std::pair<int, Client*> pair : sC->clients)
 				{
-					Player* temp = currentWorld->getPlayer(pair.first);
+					Creature* temp = currentWorld->getCreature(pair.first);
 					if(temp != nullptr)
 						send << (sf::Int16)pair.first << (float)temp->getPosition().x << (float)temp->getPosition().y << (sf::Int16)temp->getSize().x << (sf::Int16)temp->getSize().y;
 				}
-				currentWorld->AddPlayer(client->ID, joined);
+				currentWorld->AddCreature(client->ID, joined);
 				client->socket->send(send);
 
 				send.clear();
@@ -113,7 +114,7 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				sf::Packet send;
 				if(!(*packet >> xPos >> yPos))
 					std::cout << "ERROR: Server could not extract data: PlayerJoin" << std::endl;
-				currentWorld->AddPlayer(client->ID, new Player(xPos, yPos, 16, 16, true, "smileys.png", 0, "temp"));
+				currentWorld->AddCreature(client->ID, new Player(clientId, xPos, yPos, 16, 16, true, "smileys.png", 0, "temp"));
 				send << packetType << clientId << xPos << yPos;
 				sC->Broadcast(send);
 				break;
@@ -121,13 +122,36 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 		case PlayerLeft:
 			{
 				sf::Packet send;
-				currentWorld->RemovePlayer(client->ID);
+				currentWorld->RemoveCreature(client->ID);
 				send.clear();
 				send << (sf::Uint16)PlayerLeft << (sf::Uint16)client->ID;
 				sC->Broadcast(send);
 			}
 			break;
-		case PlayerMove:
+		case PlayerRespawn:
+			{
+				sf::Uint16 id;
+				sf::Int32 x;
+				sf::Int32 y;
+				if(!(*packet >> id >> x >> y))
+					std::cout << "ERROR: Client could not extract data: PlayerRespawn" << std::endl;
+				if(currentWorld->getCreature(id) == nullptr)
+				{
+					Player *player = new Player(id, x, y, 16, 16, false, "smileys.png", 0, "temp");
+					currentWorld->AddCreature(id, player);
+				}
+				else
+				{
+					Player *player = (Player*)currentWorld->getCreature(id);
+					player->setPosition(x, y);
+					player->setHealth(100);
+				}
+				sf::Packet toSend;
+				toSend << (sf::Uint16)PlayerRespawn << id << x << y;
+				sC->Broadcast(toSend);
+			}
+			break;
+		case CreatureMove:
 			{
 				float xPos;
 				float yPos;
@@ -137,12 +161,12 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				float horizontal;
 				float vertical;
 				*packet >> xPos >> yPos >> speedX >> speedY >> angle >> horizontal >> vertical;
-				Player* p = currentWorld->getPlayer(client->ID);
+				Creature* p = currentWorld->getCreature(client->ID);
 				if (p != nullptr)
 				{
 					sf::Packet packet;
 					sf::Int16 clientid = client->ID;
-					if(!(packet << (sf::Uint16)PlayerMove << clientid << xPos << yPos << speedX << speedY << angle << horizontal << vertical))
+					if(!(packet << (sf::Uint16)CreatureMove << clientid << xPos << yPos << speedX << speedY << angle << horizontal << vertical))
 						std::cout << "ERROR: Server could not extract data: PlayerMove" << std::endl;
 					sC->Broadcast(packet);
 					p->CreatureMove(xPos, yPos, speedX, speedY, angle, horizontal, vertical);

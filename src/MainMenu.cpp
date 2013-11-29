@@ -14,7 +14,7 @@ MainMenu::MainMenu() : MenuState()//void MainMenu::Initialize()
 	if (!font->loadFromFile("font.ttf"))
 		throw "font.ttf not found";
 	sf::String *text = new sf::String("hello world");
-	gui::Label *label = new gui::Label(50, 50, text, font);
+	gui::Label *label = new gui::Label(50, 50, 200, 50, text, font, 10, 10);
 	//label->setColor(sf::Color::Green);
 	//label->setCharacterSize(12);
 	//label->setStyle(0);

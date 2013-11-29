@@ -14,6 +14,7 @@
 #include <SFML\Graphics.hpp>
 #endif
 #include <SFML\Network.hpp>
+#include "CollisionType.h"
 
 enum MessageType;
 class TextureContainer;
@@ -26,6 +27,7 @@ class Block;
 class Entity
 {
 protected:
+	int m_id;
     float x;
     float y;
     float speedX;
@@ -47,7 +49,7 @@ protected:
 public:
     bool isClientControlling;
 
-	Entity(float x, float y, short sizeX, short sizeY,
+	Entity(int id, float x, float y, short sizeX, short sizeY,
 		float angle, float speed, float maxSpeed, float friction, std::string spriteName,
 		int spriteIndex, bool isClientControlling);
 	virtual void Update(App &app, GameUtility *GameUtility);
@@ -61,8 +63,8 @@ public:
 	virtual void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
     virtual void Draw(App &app, GameUtility *gameUtility);
 #endif
-	virtual bool CheckCollision(App &app, World *world, float speedX, float speedY);
-	virtual void Collision(World *world);
+	virtual CollisionType CheckCollision(App &app, World *world, GameUtility *gameUtility, float speedX, float speedY);
+	virtual void OnCollide(App &app, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType);
 	virtual const char *const getTextureName()=0;
 	virtual short getTextureId()=0;
     void setPosition(float x, float y);
@@ -75,6 +77,7 @@ public:
     float getY();
 	void setAngle(float angle);
 	float getAngle();
+	int getId() { return m_id; };
 private:
 	//virtual float getDeltaFriction(App &app, float xFriction, float yFriction);
 };

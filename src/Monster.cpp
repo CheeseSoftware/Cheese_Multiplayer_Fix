@@ -2,8 +2,8 @@
 #include "Creature.h"
 #include "Monster.h"
 
-Monster::Monster(float x, float y, short sizeX, short sizeY, float speed, float maxSpeed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling)
-	: Creature(x, y, sizeX, sizeY, speed, maxSpeed, friction, spriteName, spriteIndex, isClientControlling)
+Monster::Monster(int id, float x, float y, short sizeX, short sizeY, float speed, float maxSpeed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling)
+	: Creature(id, x, y, sizeX, sizeY, speed, maxSpeed, friction, spriteName, spriteIndex, isClientControlling)
 {
 
 }
