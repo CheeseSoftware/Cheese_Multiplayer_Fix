@@ -52,7 +52,7 @@ private:
 	//std::map<std::pair<short,short>,Block*> BlockMap;
 	std::pair<std::tuple<long, long, unsigned short>, std::pair<Block*, unsigned short>*> lastBlock;
 	std::pair<Block*, unsigned short> physicBlock;
-	StandardGenerator generator;
+	Pyramid generator;
 #ifndef _SERVER
 	EventHandler<GameUtility*> eventHandler;
 #endif

@@ -8,6 +8,8 @@
 #include "MenuItemContainer.h"
 #include "Label.h"
 
+#include "Minimap.h"
+
 class World;
 class InGameUI;
 class Camera;
@@ -26,6 +28,7 @@ class PlayState : public GameUtility
 	gui::MenuItemContainer *hud;
 	gui::Label *pos;
 	sf::Font *font;
+	gui::Minimap *minimap;
 	void ProcessPackets(GameUtility *gameUtility);
 public:
 	PlayState(App &app);

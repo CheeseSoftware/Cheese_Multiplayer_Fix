@@ -4,19 +4,31 @@
 #include "Chunk.h"
 #include <time.h>
 
-const int StandardGenerator::getSeed() const
+#include "BlockSolid.h"
+
+const int SeedGenerator::getSeed() const
 {
 	return noiseModule.GetSeed();
 }
 
-StandardGenerator::StandardGenerator()
+SeedGenerator::SeedGenerator()
 {
 	noiseModule.SetSeed(time(nullptr));
 }
 
-StandardGenerator::StandardGenerator(const int seed)
+SeedGenerator::SeedGenerator(const int seed)
 {
 	noiseModule.SetSeed(seed);
+}
+
+StandardGenerator::StandardGenerator()
+	: SeedGenerator()
+{
+}
+
+StandardGenerator::StandardGenerator(int seed)
+	: SeedGenerator(seed)
+{
 }
 
 Chunk *StandardGenerator::operator() (long x, long y, GameUtility *gameUtility)
@@ -90,4 +102,94 @@ Chunk *WeirdGenerator::operator() (long x, long y, GameUtility *gameUtility)
 	}
 	else
 		return StandardGenerator::operator()(x, y, gameUtility);
+}
+
+
+XGenerator::XGenerator()
+	: SeedGenerator()
+{
+}
+
+XGenerator::XGenerator(const int seed)
+	: SeedGenerator(seed)
+{
+}
+
+
+Chunk *XGenerator::operator() (long x, long y, GameUtility *gameUtility)
+{
+	return nullptr;
+}
+
+
+
+YGenerator::YGenerator()
+{
+
+}
+
+Chunk *YGenerator::operator() (long x, long y, GameUtility *gameUtility)
+{
+	Chunk *chunk = new Chunk();
+
+	if (y == 0)
+	{
+		for (int xx = 0; xx < 16; xx ++)
+		{
+			chunk->setBlock(2, xx, 0,
+				gameUtility->getBlockRegister().getBlockType(
+					gameUtility->getBlockRegister().getBlockIdByTypeId(
+						typeid(BlockSolid).hash_code())));
+
+			chunk->setMetadata(2, xx, 0, 8);
+		}
+	}
+
+	return chunk;
+}
+
+
+Chunk *Flat::operator() (long x, long y, GameUtility *gameUtility)
+{
+	Chunk *chunk = new Chunk();
+	if (x <= 0)
+	{
+		for (int xx = 0; xx < 16; xx++)
+		{
+			for (int yy = 0; yy < 16; yy++)
+			{
+				chunk->setBlock(2, xx, yy,
+					gameUtility->getBlockRegister().getBlockType(
+						gameUtility->getBlockRegister().getBlockIdByTypeId(
+							typeid(BlockSolid).hash_code())));
+
+				chunk->setMetadata(2, xx, yy, 8);
+			}
+		}
+	}
+	return chunk;
+}
+
+Chunk *Pyramid::operator() (long x, long y, GameUtility *gameUtility)
+{
+	Chunk *chunk = new Chunk();
+	if (x <= 0)
+	{
+		for (int xx = 0; xx < 16; xx++)
+		{
+			for (int yy = 0; yy < 16; yy++)
+			{
+				if (y*16 + yy > floor((double)abs(x*16+xx)/2.0-((x < 1 || (x < 0 && xx < 15))? 0.25:0.0) ) *2.0)
+				{
+					chunk->setBlock(2, xx, yy,
+						gameUtility->getBlockRegister().getBlockType(
+							gameUtility->getBlockRegister().getBlockIdByTypeId(
+								typeid(BlockSolid).hash_code())));
+
+					chunk->setMetadata(2, xx, yy, 17);
+				}
+			}
+		}
+	}
+	return chunk;
 }

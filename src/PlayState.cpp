@@ -20,6 +20,7 @@
 #include "BlockRegister.h"
 #include "Button.h"
 #include "TextBox.h"
+#include "Minimap.h"
 
 namespace sf
 {
@@ -33,6 +34,7 @@ PlayState::PlayState(App &app)
 	: GameUtility(app)
 	, hudView(sf::FloatRect(0.f, 0.f, (float)app.getSize().x, (float)app.getSize().y))
 {
+	minimap = new gui::Minimap(0, 0, 200, 200);
 	fpsClock.restart();
 
 	char* str_ip = "127.0.0.1";
@@ -138,6 +140,7 @@ GameState *PlayState::Update(App &app)
 	hud->Update(app);
 	currentWorld->Update(app, this);
 	camera->Update(app);
+	minimap->Update(app, this);
 
 
 	while (!packetDataList->empty())
@@ -169,6 +172,7 @@ void PlayState::Draw(App &app)
 	}
 	hud->Draw(app, 0, 0, app.getSize().x, app.getSize().y);
 	noobishBlockMenu->Draw(app, this); // < orsakar lagg temp
+	minimap->Draw(app, 0, 0, 400, 400);
 }
 
 void PlayState::ProcessPackets(GameUtility *gameUtility)
