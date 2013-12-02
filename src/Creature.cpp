@@ -7,7 +7,7 @@
 #define PI 3.141592653589793238462643383279502884197169399375105820974944
 
 Creature::Creature(int id, float x, float y, short sizeX, short sizeY, float speed, float maxSpeed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling) 
-	: Entity(id, x,y,sizeX,sizeY,0,speed, maxSpeed, friction,spriteName,spriteIndex,isClientControlling)
+	: Entity(id, x, y, sizeX, sizeY, 0, speed, maxSpeed, friction, spriteName, spriteIndex, isClientControlling)
 {
 	horizontal = 0;
 	vertical = 0;
@@ -47,13 +47,13 @@ void Creature::CreatureMove(float x, float y, float speedX, float speedY, float 
 
 void Creature::OnCollide(App &app, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType)
 {
-	if(collisionType == CollisionType::YAxis && speedY > 2)
+	if(collisionType == CollisionType::YAxis && speedY > 3)
 	{
 #ifdef _SERVER
-		std::cout << "Damaged " << speedY*30 << " ! Health left: " << getHealth() << std::endl;
-		Damage(speedY*30);
+		std::cout << "Damaged " << speedY*5 << " ! Health left: " << getHealth() << std::endl;
+		OnDamage(speedY*5);
 		sf::Packet packet;
-		packet << (sf::Uint16)MessageType::CreatureDamage << (sf::Uint16)getId() << (sf::Uint32)speedY*30;
+		packet << (sf::Uint16)MessageType::CreatureDamage << (sf::Uint16)getId() << (float)speedY*5;
 		gameUtility->SendPacket(packet);
 #endif
 	}
@@ -61,15 +61,17 @@ void Creature::OnCollide(App &app, World *world, GameUtility *gameUtility, float
 
 void Creature::OnProjectileHit(App &app, GameUtility *gameUtility, Projectile *projectile, float damage)
 {
-	Damage(damage);
+	OnDamage(damage);
 }
 
 void Creature::OnDeath()
 {
-
+	//die! XD
 }
 
-void Creature::OnDamage(int damage)
+void Creature::OnDamage(float damage)
 {
-
+	 setHealth(getHealth() - damage);
+	 if(isDead()) 
+		 OnDeath(); 
 }

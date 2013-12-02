@@ -174,7 +174,7 @@ CollisionType Entity::CheckCollision(App &app, World *world, GameUtility *gameUt
 		world->isBlockSolid((int)(x-(sizeX>>1)+speedX+0.5F)>>4,(int)(y+(sizeY>>1)-0.5F)>>4) ||
 		world->isBlockSolid((int)(x+(sizeX>>1)+speedX-0.5F)>>4,(int)(y+(sizeY>>1)-0.5F)>>4))
 	{
-		//OnCollide(app, world, gameUtility, speedX, speedY, XAxis);
+		OnCollide(app, world, gameUtility, speedX, speedY, XAxis);
 		this->speedX = 0;
 		speedX = 0;
 		r = XAxis;
@@ -185,7 +185,7 @@ CollisionType Entity::CheckCollision(App &app, World *world, GameUtility *gameUt
 		world->isBlockSolid((int)(x-(sizeX>>1)+0.5F)>>4,(int)(y+(sizeY>>1)+speedY-0.5F)>>4) ||
 		world->isBlockSolid((int)(x+(sizeX>>1)-0.5F)>>4,(int)(y+(sizeY>>1)+speedY-0.5F)>>4))
 	{
-		//OnCollide(app, world, gameUtility, speedX, speedY, YAxis);
+		OnCollide(app, world, gameUtility, speedX, speedY, YAxis);
 		this->speedY = 0;
 		speedY = 0;
 		r = YAxis;
@@ -196,7 +196,7 @@ CollisionType Entity::CheckCollision(App &app, World *world, GameUtility *gameUt
 		world->isBlockSolid((int)(x-(sizeX>>1)+speedX+0.5F)>>4,(int)(y+(sizeY>>1)+speedY-0.5F)>>4) ||
 		world->isBlockSolid((int)(x+(sizeX>>1)+speedX-0.5F)>>4,(int)(y+(sizeY>>1)+speedY-0.5F)>>4))
 	{
-		//OnCollide(app, world, gameUtility, speedX, speedY, XYAxis);
+		OnCollide(app, world, gameUtility, speedX, speedY, XYAxis);
 		if (abs(this->speedX) > abs(this->speedY))
 		{
 			this->speedX = 0;
