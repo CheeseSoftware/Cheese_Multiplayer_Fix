@@ -91,6 +91,12 @@
     <Filter Include="Header Files\GameState\Menu">
       <UniqueIdentifier>{9da7d566-afca-4899-bfa5-ac4ac39efc31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\World\Generator">
+      <UniqueIdentifier>{57400c47-2b53-4692-b55d-80a156ec6e84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World\Generator">
+      <UniqueIdentifier>{a3a935c3-2fba-4d0f-badc-e78bcdc4733e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -213,9 +219,6 @@
     <ClCompile Include="Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Generator.cpp">
-      <Filter>Source Files\World</Filter>
-    </ClCompile>
     <ClCompile Include="LargeTexturedBlock.cpp">
       <Filter>Source Files\Block</Filter>
     </ClCompile>
@@ -233,6 +236,30 @@
     </ClCompile>
     <ClCompile Include="Minimap.cpp">
       <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Generator - Kopia (2).cpp">
+      <Filter>Source Files\World\Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="SeedGenerator.cpp">
+      <Filter>Source Files\World\Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="StandardGenerator.cpp">
+      <Filter>Source Files\World\Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="WeirdGenerator.cpp">
+      <Filter>Source Files\World\Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="XGenerator.cpp">
+      <Filter>Source Files\World\Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="YGenerator.cpp">
+      <Filter>Source Files\World\Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="Flat.cpp">
+      <Filter>Source Files\World\Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyramid.cpp">
+      <Filter>Source Files\World\Generator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -368,9 +395,6 @@
     <ClInclude Include="MenuItemContainer.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Generator.h">
-      <Filter>Header Files\World</Filter>
-    </ClInclude>
     <ClInclude Include="LargeTextureBlock.h">
       <Filter>Header Files\Block</Filter>
     </ClInclude>
@@ -388,6 +412,30 @@
     </ClInclude>
     <ClInclude Include="Minimap.h">
       <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IGenerator.h">
+      <Filter>Header Files\World\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="SeedGenerator.h">
+      <Filter>Header Files\World\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="StandardGenerator.h">
+      <Filter>Header Files\World\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="WeirdGenerator.h">
+      <Filter>Header Files\World\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="XGenerator.h">
+      <Filter>Header Files\World\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="YGenerator.h">
+      <Filter>Header Files\World\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="Flat.h">
+      <Filter>Header Files\World\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyramid.h">
+      <Filter>Header Files\World\Generator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

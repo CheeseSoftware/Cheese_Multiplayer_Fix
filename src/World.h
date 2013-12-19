@@ -11,7 +11,7 @@
 #include "App.h"
 #include <SFML\Network.hpp>
 #include "EventHandler.h"
-#include "Generator.h"
+#include "Pyramid.h"
 
 class Entity;
 class Player;

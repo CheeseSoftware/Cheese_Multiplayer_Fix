@@ -8,16 +8,16 @@ ServerConnection::ServerConnection(int port, World *world)
 	if(s.listen(port) != sf::Socket::Status::Done)
 	{
 		std::cout << "Failed to bind to port " << port << ", maybe already a server listening on this port?" << std::endl;
-		std::cin.get();
 	}
 	else
 	{
+		std::cout << "Server listening to port " << port << std::endl;
+	}
+	
 		pingTimeout.restart();
 		s.setBlocking(true);
 		selector.add(s);
 		acceptReceiveThread->launch();
-		std::cout << "Server listening to port " << port << std::endl;
-	}
 }
 
 
