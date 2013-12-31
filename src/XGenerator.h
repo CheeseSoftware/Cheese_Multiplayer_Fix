@@ -1,10 +1,13 @@
 #pragma once
 #include "SeedGenerator.h"
 
-class XGenerator : public SeedGenerator
+namespace generator
 {
-public:
-	XGenerator();
-	XGenerator(const int seed);
-	virtual Chunk *operator() (long x, long y, GameUtility *gameUtility);
-};
+	class XGenerator : public SeedGenerator
+	{
+	public:
+		XGenerator();
+		XGenerator(const int seed);
+		virtual Chunk *operator() (long x, long y, GameUtility *gameUtility);
+	};
+}

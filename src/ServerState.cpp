@@ -143,7 +143,8 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				else
 				{
 					Player *player = (Player*)currentWorld->getCreature(id);
-					player->setPosition(x, y);
+					// usch, såhär kan du inte göra!
+					//player->setPosition(x, y);
 					player->setHealth(100);
 				}
 				sf::Packet toSend;

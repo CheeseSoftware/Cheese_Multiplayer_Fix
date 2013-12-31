@@ -13,7 +13,7 @@ class GameState;
 class GameState {
 public:
     //virtual void Initialize()=0;
-    virtual GameState *Update(App &app)=0;
+    virtual GameState *Update(App &app)=0; // ,Callbacks &callbacks)... hmm.. Kanske ska App ha callbacks?
 #ifndef _SERVER
 	virtual void EventUpdate(App &app, const sf::Event &event)=0;
     virtual void Draw(App &app)=0;

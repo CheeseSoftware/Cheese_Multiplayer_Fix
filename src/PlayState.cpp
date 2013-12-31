@@ -284,7 +284,11 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				else
 				{
 					Player *player = (Player*)currentWorld->getCreature(id);
-					player->setPosition(x, y);
+					//"setposition" skapar bara dåliga vanor som orsakar att kod som ska vara i klassen är utanför.
+					// player->Respawn(x, y); << bättre lösning
+					//player->setPosition(x, y); << noobkod
+					// gillar inte sethealth heller! balbblalba behöver det för random skript?
+					//Kanske det, men använd konstiga namn då så att man inte missbrukar det!
 					player->setHealth(100);
 				}
 			}

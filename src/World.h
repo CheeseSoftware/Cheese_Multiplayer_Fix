@@ -11,7 +11,7 @@
 #include "App.h"
 #include <SFML\Network.hpp>
 #include "EventHandler.h"
-#include "Pyramid.h"
+#include "pyramid.h"
 
 class Entity;
 class Player;
@@ -52,7 +52,7 @@ private:
 	//std::map<std::pair<short,short>,Block*> BlockMap;
 	std::pair<std::tuple<long, long, unsigned short>, std::pair<Block*, unsigned short>*> lastBlock;
 	std::pair<Block*, unsigned short> physicBlock;
-	Pyramid generator;
+	generator::Pyramid generator;
 #ifndef _SERVER
 	EventHandler<GameUtility*> eventHandler;
 #endif

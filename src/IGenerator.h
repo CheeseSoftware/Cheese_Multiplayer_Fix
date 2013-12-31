@@ -3,9 +3,11 @@
 class GameUtility;
 class Chunk;
 
-
-class IGenerator
+namespace generator
 {
-public:
-	virtual Chunk *operator() (long x, long y, GameUtility *gameUtility)=0;
-};
+	class IGenerator
+	{
+	public:
+		virtual Chunk *operator() (long x, long y, GameUtility *gameUtility)=0;
+	};
+}

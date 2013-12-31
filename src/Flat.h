@@ -1,8 +1,11 @@
 #pragma once
 #include "IGenerator.h"
 
-class Flat : public IGenerator
+namespace generator
 {
-public:
-	virtual Chunk *operator() (long x, long y, GameUtility *gameUtility);
-};
+	class Flat : public IGenerator
+	{
+	public:
+		virtual Chunk *operator() (long x, long y, GameUtility *gameUtility);
+	};
+}

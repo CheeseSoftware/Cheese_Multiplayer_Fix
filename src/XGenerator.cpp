@@ -6,18 +6,21 @@
 
 #include "BlockSolid.h"
 
-XGenerator::XGenerator()
-	: SeedGenerator()
+namespace generator
 {
-}
+	XGenerator::XGenerator()
+		: SeedGenerator()
+	{
+	}
 
-XGenerator::XGenerator(const int seed)
-	: SeedGenerator(seed)
-{
-}
+	XGenerator::XGenerator(const int seed)
+		: SeedGenerator(seed)
+	{
+	}
 
 
-Chunk *XGenerator::operator() (long x, long y, GameUtility *gameUtility)
-{
-	return nullptr;
+	Chunk *XGenerator::operator() (long x, long y, GameUtility *gameUtility)
+	{
+		return nullptr;
+	}
 }

@@ -67,12 +67,12 @@ public:
 	virtual void OnCollide(App &app, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType);
 	virtual const char *const getTextureName()=0;
 	virtual short getTextureId()=0;
-    void setPosition(float x, float y);
+    //void setPosition(float x, float y);
 	sf::Vector2f getPosition();
 	void setSize(float x, float y);
 	sf::Vector2f getSize();
-    void setX(float x);
-    void setY(float y);
+    //void setX(float x);
+    //void setY(float y);
     float getX();
     float getY();
 	void setAngle(float angle);

@@ -6,26 +6,29 @@
 
 #include "BlockSolid.h"
 
-Chunk *Pyramid::operator() (long x, long y, GameUtility *gameUtility)
+namespace generator
 {
-	Chunk *chunk = new Chunk();
-	if (x <= 0)
+	Chunk *Pyramid::operator() (long x, long y, GameUtility *gameUtility)
 	{
-		for (int xx = 0; xx < 16; xx++)
+		Chunk *chunk = new Chunk();
+		if (y >= 0)
 		{
-			for (int yy = 0; yy < 16; yy++)
+			for (int xx = 0; xx < 16; xx++)
 			{
-				if (y*16 + yy > (((x < 0)? -1:1) * (x*16+xx)))// + (x >= 0)? 1:0)/2*2)//floor((double)abs(x*16+xx)/2.0-((x < 1 || (x < 0 && xx < 15))? 0.25:0.0) ) *2.0)
+				for (int yy = 0; yy < 16; yy++)
 				{
-					chunk->setBlock(2, xx, yy,
-						gameUtility->getBlockRegister().getBlockType(
-							gameUtility->getBlockRegister().getBlockIdByTypeId(
-								typeid(BlockSolid).hash_code())));
+					if (y*16 + yy > (((x < 0)? -1:1) * (x*16+xx)))// + (x >= 0)? 1:0)/2*2)//floor((double)abs(x*16+xx)/2.0-((x < 1 || (x < 0 && xx < 15))? 0.25:0.0) ) *2.0)
+					{
+						chunk->setBlock(2, xx, yy,
+							gameUtility->getBlockRegister().getBlockType(
+								gameUtility->getBlockRegister().getBlockIdByTypeId(
+									typeid(BlockSolid).hash_code())));
 
-					chunk->setMetadata(2, xx, yy, 17);
+						chunk->setMetadata(2, xx, yy, 17);
+					}
 				}
 			}
 		}
+		return chunk;
 	}
-	return chunk;
 }

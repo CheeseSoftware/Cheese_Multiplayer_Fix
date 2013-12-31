@@ -4,18 +4,20 @@
 #include "Chunk.h"
 #include <time.h>
 
-
-const int SeedGenerator::getSeed() const
+namespace generator
 {
-	return noiseModule.GetSeed();
-}
+	const int SeedGenerator::getSeed() const
+	{
+		return noiseModule.GetSeed();
+	}
 
-SeedGenerator::SeedGenerator()
-{
-	noiseModule.SetSeed(time(nullptr));
-}
+	SeedGenerator::SeedGenerator()
+	{
+		noiseModule.SetSeed(time(nullptr));
+	}
 
-SeedGenerator::SeedGenerator(const int seed)
-{
-	noiseModule.SetSeed(seed);
+	SeedGenerator::SeedGenerator(const int seed)
+	{
+		noiseModule.SetSeed(seed);
+	}
 }
