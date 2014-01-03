@@ -20,8 +20,8 @@ public:
 	MenuState();
 	~MenuState();
     //virtual void Initialize();
-    virtual void EventUpdate(App &app, const sf::Event &event);
-    virtual GameState *Update(App &app)=0;
+    virtual void EventUpdate(App &app, Game &game, const sf::Event &event);
+    virtual GameState *Update(App &app, Game &game)=0;
     virtual void Draw(App &app);
     //virtual void Shutdown();
 };

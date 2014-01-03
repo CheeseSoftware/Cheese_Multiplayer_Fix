@@ -26,14 +26,14 @@ MainMenu::~MainMenu()// : MenuState()//void MainMenu::Shutdown()
 	MenuState::~MenuState();
 }
 
-void MainMenu::EventUpdate(App &app, const sf::Event &event)
+void MainMenu::EventUpdate(App &app, Game &game, const sf::Event &event)
 {
-    MenuState::EventUpdate(app, event);
+    MenuState::EventUpdate(app, game, event);
 }
 
-GameState *MainMenu::Update(App &app)
+GameState *MainMenu::Update(App &app, Game &game)
 {
-    MenuState::Update(app);
+    MenuState::Update(app, game);
     return this;
 }
 

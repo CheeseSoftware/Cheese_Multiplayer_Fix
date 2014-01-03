@@ -104,7 +104,7 @@ PlayState::~PlayState()
 
 
 
-void PlayState::EventUpdate(App &app, const sf::Event &event)
+void PlayState::EventUpdate(App &app, Game &game, const sf::Event &event)
 {
 	if (event.type == sf::Event::Resized)
 	{
@@ -116,12 +116,12 @@ void PlayState::EventUpdate(App &app, const sf::Event &event)
 		hudView.setCenter(sf::Vector2f(app.getSize().x/2, app.getSize().y/2));
 	}
 
-	hud->EventUpdate(app, event, this, hud->getPosition().x, hud->getPosition().y);
+	hud->EventUpdate(app, event, hud->getPosition().x, hud->getPosition().y);
 	currentWorld->EventUpdate(app, event, this);
 	noobishBlockMenu->EventUpdate(app, event, this);
 }
 
-GameState *PlayState::Update(App &app)
+GameState *PlayState::Update(App &app, Game &game)
 {
 	if (fpsClock.getElapsedTime().asMilliseconds() > 25)
 	{
@@ -132,14 +132,14 @@ GameState *PlayState::Update(App &app)
 		fpsClock.restart();
 	}
 	//else if (1/app.getFrameTime() < 50.f)
-	/*{
+	{
 	std::cout << "fps: " << 1/app.getFrameTime() << " LOW FPS!\n";
 	fpsClock.restart();
-	}*/
+	}
 
-	hud->Update(app);
+	hud->Update(app, game);
 	currentWorld->Update(app, this);
-	camera->Update(app);
+	camera->Update(app, game);
 	minimap->Update(app, this);
 
 

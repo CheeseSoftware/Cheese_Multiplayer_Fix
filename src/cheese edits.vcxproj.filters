@@ -97,6 +97,15 @@
     <Filter Include="Source Files\World\Generator">
       <UniqueIdentifier>{a3a935c3-2fba-4d0f-badc-e78bcdc4733e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\callbacks">
+      <UniqueIdentifier>{3d8fa046-aa01-4727-813a-0abf55ce5394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game">
+      <UniqueIdentifier>{e9f0fb75-00a3-419f-9307-c1c7cb696eba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game">
+      <UniqueIdentifier>{a92dc19f-0797-42b9-9cb0-ac9ed684edc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -260,6 +269,15 @@
     </ClCompile>
     <ClCompile Include="Pyramid.cpp">
       <Filter>Source Files\World\Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClient.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServer.cpp">
+      <Filter>Source Files\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -436,6 +454,18 @@
     </ClInclude>
     <ClInclude Include="Pyramid.h">
       <Filter>Header Files\World\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="MainCallbacks.h">
+      <Filter>Header Files\callbacks</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClient.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

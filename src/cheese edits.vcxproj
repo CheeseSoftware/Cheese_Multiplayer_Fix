@@ -332,6 +332,9 @@
     <ClCompile Include="Eventhandler.cpp" />
     <ClCompile Include="EventHandler_.cpp" />
     <ClCompile Include="BackgroundBlock.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameClient.cpp" />
+    <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="Generator - Kopia (2).cpp" />
     <ClCompile Include="Pyramid.cpp" />
     <ClCompile Include="Flat.cpp" />
@@ -388,9 +391,13 @@
     <ClInclude Include="EntityRegister.h" />
     <ClInclude Include="Eventhandler.h" />
     <ClInclude Include="EventHandler_.h" />
+    <ClInclude Include="GameClient.h" />
+    <ClInclude Include="GameServer.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Pyramid.h" />
     <ClInclude Include="Flat.h" />
+    <ClInclude Include="MainCallbacks.h" />
     <ClInclude Include="YGenerator.h" />
     <ClInclude Include="XGenerator.h" />
     <ClInclude Include="WeirdGenerator.h" />

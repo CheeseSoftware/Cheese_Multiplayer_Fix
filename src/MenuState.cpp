@@ -23,12 +23,12 @@ MenuState::~MenuState()//void MenuState::Shutdown()
 	}
 }
 
-void MenuState::EventUpdate(App &app, const sf::Event &event)
+void MenuState::EventUpdate(App &app, Game &game, const sf::Event &event)
 {
-	menuItemContainer->EventUpdate(app, event, this, 0, 0);//eventHandler.EventUpdate(app, event, this);
+	menuItemContainer->EventUpdate(app, event, 0, 0);//eventHandler.EventUpdate(app, event, this);
 }
 
-GameState *MenuState::Update(App &app)
+GameState *MenuState::Update(App &app, Game &game)
 {
 	return this;
 }

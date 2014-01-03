@@ -25,11 +25,11 @@ namespace gui
 		Selectable(int x, int y, int width, int height);
 	public:
 		virtual bool getSelected();
-		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameState* gameState, float x, float y);
-		virtual GameState *Update(App &app);
+		virtual GameState *EventUpdate(App& app, const sf::Event& event, float x, float y);
+		virtual GameState *Update(App &app, Game &game);
 		virtual void Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight)=0;
-		virtual void OnLeftClick(App &app, const sf::Event &event, GameState *gameState, float x, float y);
-		virtual void OnRightClick(App &app, const sf::Event &event, GameState *gameState, float x, float y);
+		virtual void OnLeftClick(App &app, const sf::Event &event, float x, float y);
+		virtual void OnRightClick(App &app, const sf::Event &event, float x, float y);
 		sf::Vector2f getPosition() { return sf::Vector2f(m_x, m_y); }
 		virtual sf::Vector2f getSize();
 		virtual sf::Vector2f Selectable::getPositionOffset(float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight);

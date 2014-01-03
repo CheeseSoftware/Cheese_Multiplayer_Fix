@@ -25,7 +25,7 @@ ServerState::~ServerState()
 	delete currentWorld;
 }
 
-GameState *ServerState::Update(App &app)
+GameState *ServerState::Update(App &app, Game &game)
 {
 	//std::cout << "updates per second: " << 1/(app).getFrameTime() << std::endl;
 	while (!packetDataList->empty())

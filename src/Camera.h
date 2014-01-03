@@ -3,6 +3,7 @@
 #include "App.h"
 
 class App;
+class Game;
 class Entity;
 
 class Camera : private sf::View
@@ -15,7 +16,7 @@ public:
 	Camera(const double speed);
 	Camera(const int speed);
 	~Camera(void);
-	void Update(App &app);
+	void Update(App &app, Game &game);
 	void setCameraAt(Entity *entity);
 	void setSpeed(const double speed);
 	void setSpeed(const int speed);

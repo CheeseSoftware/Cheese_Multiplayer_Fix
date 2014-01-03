@@ -17,14 +17,14 @@ Menu::~Menu()//void Menu::Shutdown()
     delete menuState;
 }
 
-void Menu::EventUpdate(App &app, const sf::Event &event)
+void Menu::EventUpdate(App &app, Game &game, const sf::Event &event)
 {
-    menuState->EventUpdate(app, event);
+    menuState->EventUpdate(app, game, event);
 }
 
-GameState *Menu::Update(App &app)
+GameState *Menu::Update(App &app, Game &game)
 {
-	GameState *newState = menuState->Update(app);
+	GameState *newState = menuState->Update(app, game);
 	if (newState != menuState)
     {
 		if (dynamic_cast<MenuState*>(newState) != 0)

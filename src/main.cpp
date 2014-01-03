@@ -2,6 +2,7 @@
 
 #ifndef _SERVER
 //#include <functional>
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include "PlayState.h"
@@ -12,9 +13,39 @@
 
 #endif
 #include "App.h"
+#include "GameClient.h"
+#include "GameServer.h"
 
+int _argc;
+char** _argv;
 
-CLIENT(
+int main(int argc, char** argv)
+{
+	_argc = argc;
+	_argv = argv;
+
+#ifdef _SERVER
+	GameServer game;
+
+	//hile (game.Update(app));
+#else
+	GameClient game;
+
+	/*while (app.isOpen())
+	{
+		if(!game.Update(app))
+			break;
+
+		game.Draw(app);
+	}*/
+#endif
+
+	game.Run();
+
+	return 0;
+}
+
+/*CLIENT(
 void RenderingThread(App *app, GameState *gameState);
 )
 
@@ -26,12 +57,14 @@ char** _argv;
 #define _APP *reinterpret_cast<tgui::Window*>(&app)//static_cast<tgui::Window>(app)
 #else
 #define _APP app
-#endif*/
+#endif* /
 
 int main(int argc, char** argv)
 {
 	_argc = argc;
 	_argv = argv;
+
+
 
 #ifndef _SERVER
 
@@ -46,21 +79,37 @@ int main(int argc, char** argv)
 
 	GameState *oldState;
 
+	MainCallbacks *game = new MainCallbacks();
+	game->Exit = [&]()
+	{
+		gameState = nullptr;
+	};
+	game->Restart = []()
+	{
+		std::cout << "Restart() does not exist.\n";
+	};
+	game->SetGameState = [&](GameState *newGameState)
+	{
+		gameState = newGameState;
+	};
+
 	//app.SetFramerateLimit(6);
 
 #ifndef _SERVER
 	/*app.setActive(false);
 	sf::Thread renderingThread(std::bind(&RenderingThread, &app, gameState));
-	renderingThread.launch();*/
+	renderingThread.launch();* /
 
 	while (app.isOpen())
 	{
 		sf::Event event;
-		if (app.pollEvent(event))
+		while (app.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				app.close();
-			gameState->EventUpdate(app, event);
+			
+
+			gameState->EventUpdate(app, game, event);
 			// Pass the event to all the objects (if there would be objects)
             //app.handleEvent(event);
 		}
@@ -70,7 +119,7 @@ int main(int argc, char** argv)
 #endif
 
 		oldState = gameState;
-		if((gameState=gameState->Update(app)) != oldState)
+		if((gameState=gameState->Update(app, game)) != oldState)
 		{
 			delete oldState;
 		}
@@ -95,4 +144,4 @@ void RenderingThread(App *app, GameState *gameState)
 		//app->Update();
 		app->display();
 	}
-})
+})*/
