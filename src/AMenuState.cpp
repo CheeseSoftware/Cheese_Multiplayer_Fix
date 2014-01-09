@@ -25,6 +25,11 @@ AMenuState::~AMenuState()//void AMenuState::Shutdown()
 
 void AMenuState::EventUpdate(App &app, Game &game, const sf::Event &event)
 {
+	if (event.type == sf::Event::Resized)
+	{
+		app.setView(sf::View(sf::FloatRect(0, 0, app.getSize().x, app.getSize().y)));
+	}
+
 	menuItemContainer->EventUpdate(app, event, 0, 0);//eventHandler.EventUpdate(app, event, this);
 }
 

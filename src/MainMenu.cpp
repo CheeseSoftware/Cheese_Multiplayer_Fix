@@ -20,10 +20,11 @@ MainMenu::MainMenu() : AMenuState()//void MainMenu::Initialize()
 	ss << "Member of first" << std::endl;
 	//pos = new gui::Label(50, 50, 200, 50, new sf::String(ss.str()), font, 10, 10);
 	//sf::String *text = new sf::String("hello world");
-	gui::Label *label = new gui::Label(50, 50, 200, 50, new sf::String(ss.str()), font, 10, 10);
+	gui::Label *label = new gui::Label(50, 50, 200, 50, new sf::String(":P\n"), font, 10, 10);
 	//label->setColor(sf::Color::Green);
-	//label->setCharacterSize(12);
+	label->setCharacterSize(48);
 	//label->setStyle(0);
+	label->setPositionType(PositionType::middleCenter);
 	menuItemContainer->Add(label);
 }
 
