@@ -14,8 +14,11 @@ namespace gui
 		int viewHeight;
 		long cX;
 		long cY;
-		sf::Image *map;
+		//sf::Image *map;
+		sf::Texture texture;
 		sf::Sprite sprite;
+
+		sf::Uint8* pixels;
 	public:
 		Minimap(int x, int y, int witdh, int heigh);
 		void Update(App &app, GameUtility *gameUtility);

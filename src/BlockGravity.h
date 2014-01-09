@@ -5,7 +5,6 @@
 class BlockGravity : public virtual Block, public GravityBlock
 {
 public:
-	BlockGravity(const unsigned short id);
 	virtual unsigned short getTextureId(App &app, const unsigned short metadata) const;
 	virtual bool isSeeThrough() const;
 	virtual const char *const getTextureName() const;

@@ -1,7 +1,7 @@
 #include "Dirt.h"
 #include "Block.h"
 
-Dirt::Dirt(unsigned short metadata)
+/*Dirt::Dirt(unsigned short metadata)
 	: Block(metadata)
 {
 }
@@ -9,7 +9,7 @@ Dirt::Dirt(unsigned short metadata)
 Dirt::Dirt()
 	: Block()
 {
-}
+}*/
 
 unsigned short Dirt::getTextureId(App &const app, const unsigned short metadata) const
 {

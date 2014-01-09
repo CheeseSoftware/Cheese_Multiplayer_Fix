@@ -20,12 +20,12 @@ BlockRegister::BlockRegister()
 	unsigned short i;
 	blockTypeList.push_back(nullptr);
 	blockList.push_back(nullptr);
-	RegisterBlock(new BlockSolid(i), typeid(BlockSolid).hash_code()); i++;
-	RegisterBlock(new BlockBackground(i), typeid(BlockBackground).hash_code()); i++;
-	RegisterBlock(new BlockGravity(i), typeid(BlockGravity).hash_code()); i++;
-	RegisterBlock(new BlockChest(i), typeid(BlockChest).hash_code()); i++;
-	RegisterBlock(new Stone(i), typeid(Stone).hash_code()); i++;
-	RegisterBlock(new Dirt(i), typeid(Dirt).hash_code()); i++;
+	RegisterBlock(new BlockSolid(), typeid(BlockSolid).hash_code()); i++;
+	RegisterBlock(new BlockBackground(), typeid(BlockBackground).hash_code()); i++;
+	RegisterBlock(new BlockGravity(), typeid(BlockGravity).hash_code()); i++;
+	RegisterBlock(new BlockChest(), typeid(BlockChest).hash_code()); i++;
+	RegisterBlock(new Stone(), typeid(Stone).hash_code()); i++;
+	RegisterBlock(new Dirt(), typeid(Dirt).hash_code()); i++;
 }
 
 void BlockRegister::RegisterBlock(Block *block, const size_t typeId)
@@ -54,7 +54,7 @@ Block *BlockRegister::getBlockType(const unsigned short id)
 		return nullptr;
 	if(id == 4)
 	{
-		Block *block = new BlockChest(id);
+		Block *block = new BlockChest();
 		return block;
 	}
 	return (id >= blockTypeList.size()) ? nullptr : blockTypeList[id](0);

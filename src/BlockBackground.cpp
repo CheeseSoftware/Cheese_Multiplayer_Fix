@@ -1,10 +1,10 @@
 #include "BlockBackground.h"
 #include "World.h"
 
-BlockBackground::BlockBackground(const unsigned short id) : Block(id)
+/*BlockBackground::BlockBackground(const unsigned short id) : Block(id)
 {
 
-}
+}*/
 
 const char *const BlockBackground::getTextureName() const
 {

@@ -15,7 +15,7 @@ class Block
 {
 public:
 	Block();
-	Block(const unsigned short id);
+	//Block(const unsigned short id);
 
 	virtual std::function<Block*(const unsigned short)> RegisterBlock(const unsigned short id);
 	virtual unsigned short getTextureId(App &const app, const unsigned short metadata) const=0;

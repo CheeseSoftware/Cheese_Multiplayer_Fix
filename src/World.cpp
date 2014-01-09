@@ -13,6 +13,7 @@
 #include <deque>
 #include <mutex>
 #include <typeinfo>
+#include <memory>
 
 #define getChunkMatrixIndexX(x) (int)abs(x>>4 + chunkMatrix.second)
 #define getChunkColumnIndexY(y,x_it) (int)abs(y>>4 + x_it.second)
@@ -75,7 +76,7 @@ maxY : chunkMatrix.first[x].first.size();
 	entityListLock.unlock();
 
 	creatureListLock.lock();
-	for(std::pair<short, Creature*> pair : creatureList)
+	for(std::pair<const short, std::unique_ptr<Creature>> &pair : creatureList)//for(auto pair : creatureList)
 	{
 		pair.second->Draw(app, gameUtility);
 	}
@@ -95,7 +96,7 @@ void World::Update(App &app, GameUtility *gameUtility)
 	}
 
 	std::vector<short> toRemove = std::vector<short>();
-	for(std::pair<short, Creature*> pair : creatureList)
+	for(std::pair<const short, std::unique_ptr<Creature>> &pair : creatureList)
 	{
 #ifdef _SERVER
 		pair.second->Update(app, gameUtility);
@@ -386,7 +387,7 @@ int World::AddEntity(Entity *entity)
 	entityListLock.lock(); //std::cout << "entitylist locked!\n";
 	entityList.push_back(entity);
 	CLIENT(
-		//eventHandler.AddEventCallback(entity,[entity] (App& a, const sf::Event& e, GameState* gUtil) { entity->EventUpdate(a, e, reinterpret_cast<GameUtility*>(gUtil)); });
+		eventHandler.AddEventCallback(entity,[entity] (App& a, const sf::Event& e, GameState* gUtil) { entity->EventUpdate(a, e, reinterpret_cast<GameUtility*>(gUtil)); });
 		)
 		entityListLock.unlock(); //std::cout << "entitylist unlocked!\n";
 	return 0;
@@ -403,7 +404,7 @@ int World::AddCreature(int id, Creature *creature)
 	auto it = creatureList.find(id);
 	if(it == creatureList.end())
 	{
-		creatureList.insert(std::pair<short, Creature*>(id, creature));
+		creatureList.insert(std::pair<short, std::unique_ptr<Creature>>(id, std::unique_ptr<Creature>(creature)));
 		CLIENT(
 			eventHandler.AddEventCallback(creature, [creature] (App& a, const sf::Event& e, GameUtility* gUtil) { creature->EventUpdate(a, e, gUtil); });
 		)
@@ -422,9 +423,9 @@ void World::RemoveCreature(int id)
 	if(it != creatureList.end())
 	{
 		CLIENT(
-			eventHandler.RemoveEventCallback(creatureList[id]);
+			eventHandler.RemoveEventCallback(&*creatureList[id]);
 		)
-			delete(it->second);
+			//delete(&*it->second);
 		creatureList.erase(id);
 	}
 	else
@@ -432,20 +433,40 @@ void World::RemoveCreature(int id)
 	creatureListLock.unlock(); //std::cout << "playerlist unlocked!\n";
 }
 
+void World::SendCreatureToDeath(int id)
+{
+	auto it = creatureList.find(id);
+	if(it != creatureList.end())
+	{
+		deadCreatures.insert(std::pair<short, std::unique_ptr<Creature>>(id, std::move(creatureList[id])));
+		creatureList.erase(id);
+	}
+}
+
+void World::RespawnCreature(int oldId, int newId)
+{
+	auto it = deadCreatures.find(oldId);
+	if(it != deadCreatures.end())
+	{
+		//deadCreatures.insert(std::pair<const short, std::unique_ptr<Creature>>(newId, deadCreatures[oldId]));
+		creatureList.erase(oldId);
+	}
+}
+
 Creature* World::getCreature(int id)
 {
 	//creatureListLock.lock(); //std::cout << "playerlist locked!\n";
 	auto it = creatureList.find(id);
 	//creatureListLock.unlock(); //std::cout << "playerlist unlocked!\n";
-	return (it == creatureList.end()) ? nullptr : it->second;
+	return (it == creatureList.end()) ? nullptr : &*it->second;
 }
 
 void World::SetCreature(int id, Creature *creature)
 {
 	creatureListLock.lock(); //std::cout << "playerlist locked!\n";
-	delete(creatureList.find(id)->second);
+	//delete creatureList.find(id)->second;
 	creatureList.erase(id);
-	creatureList.insert(std::pair<short, Creature*>(id, creature));
+	//creatureList.insert(std::pair<short, std::unique_ptr<Creature>>(id, std::unique_ptr<Creature>(creature)));
 	creatureListLock.unlock(); //std::cout << "playerlist unlocked!\n";
 }
 
