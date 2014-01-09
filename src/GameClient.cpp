@@ -4,6 +4,7 @@
 #include "GameState.h"
 #include "App.h"
 #include "PlayState.h"
+#include "MainMenu.h"
 
 GameClient::GameClient()
 {
@@ -59,6 +60,6 @@ void GameClient::Restart()
 	if (m_gameState)
 		delete m_gameState;
 
-	m_gameState = new PlayState(*app);
+	m_gameState = new MainMenu();//new PlayState(*app);//
 }
 #endif
