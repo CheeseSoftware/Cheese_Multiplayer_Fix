@@ -5,10 +5,10 @@
 
 #include <functional>
 #include <vector>
-#include "MenuState.h"
+#include "AMenuState.h"
 #include "GameState.h"
 
-class MainMenu : public MenuState
+class MainMenu : public AMenuState
 {
 public:
 	MainMenu();

@@ -106,8 +106,16 @@
     <Filter Include="Source Files\game">
       <UniqueIdentifier>{a92dc19f-0797-42b9-9cb0-ac9ed684edc4}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="Header Files\Users">
       <UniqueIdentifier>{b3aa14d8-d8bf-4e1f-85e1-66d1226c21a1}</UniqueIdentifier>
+=======
+    <Filter Include="Header Files\Compressor">
+      <UniqueIdentifier>{46a82361-a033-48e6-9bb3-6592d1c28c54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Compressor">
+      <UniqueIdentifier>{9cb159eb-9e81-49fe-9b96-b577ea148915}</UniqueIdentifier>
+>>>>>>> 5219c3511b89396affdd24b3c87e637bd0c13ea9
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -216,9 +224,6 @@
     <ClCompile Include="MainMenu.cpp">
       <Filter>Source Files\GameState\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="MenuState.cpp">
-      <Filter>Source Files\GameState\Menu</Filter>
-    </ClCompile>
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files\GameState\Menu</Filter>
     </ClCompile>
@@ -281,6 +286,12 @@
     </ClCompile>
     <ClCompile Include="GameServer.cpp">
       <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="Compressor.cpp">
+      <Filter>Source Files\Compressor</Filter>
+    </ClCompile>
+    <ClCompile Include="AMenuState.cpp">
+      <Filter>Source Files\GameState\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -401,12 +412,6 @@
     <ClInclude Include="TextureContainer.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="MenuState.h">
-      <Filter>Header Files\GameState\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Header Files\GameState\Menu</Filter>
-    </ClInclude>
     <ClInclude Include="MainMenu.h">
       <Filter>Header Files\GameState\Menu</Filter>
     </ClInclude>
@@ -470,8 +475,19 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="User.h">
       <Filter>Header Files\Users</Filter>
+=======
+    <ClInclude Include="Compressor.h">
+      <Filter>Header Files\Compressor</Filter>
+    </ClInclude>
+    <ClInclude Include="AMenuState.h">
+      <Filter>Header Files\GameState\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files\GameState\Menu</Filter>
+>>>>>>> 5219c3511b89396affdd24b3c87e637bd0c13ea9
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
