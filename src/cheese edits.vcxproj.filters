@@ -288,6 +288,9 @@
     <ClCompile Include="AMenuState.cpp">
       <Filter>Source Files\GameState\Menu</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Monster.h">
@@ -478,6 +481,9 @@
     </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>Header Files\GameState\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

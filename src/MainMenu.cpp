@@ -4,13 +4,15 @@
 #include <vector>
 #include "MainMenu.h"
 #include "AMenuState.h"
+#include "PlayState.h"
 #include <sstream>
 
 #include "GameState.h"
 #include "Label.h"
 #include "Text.h"
+#include "Button.h"
 
-MainMenu::MainMenu() : AMenuState()//void MainMenu::Initialize()
+MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 {
 	sf::Font *font = new sf::Font();
 	if (!font->loadFromFile("font.ttf"))
@@ -22,10 +24,18 @@ MainMenu::MainMenu() : AMenuState()//void MainMenu::Initialize()
 	//sf::String *text = new sf::String("hello world");
 	gui::Label *label = new gui::Label(50, 50, 200, 50, new sf::String(":P\n"), font, 10, 10);
 	//label->setColor(sf::Color::Green);
-	label->setCharacterSize(48);
+	//label->setCharacterSize(48);
 	//label->setStyle(0);
 	label->setPositionType(PositionType::middleCenter);
 	menuItemContainer->Add(label);
+
+	gui::Button *button = new gui::Button(0, 0, 80, 24, new sf::String("START!"), font, 8, 8,
+		[=](App &app, const sf::Event event, GameState *gameState, int x, int y)
+	{
+		game->SetGameState(new PlayState(app));
+	}, [](App &app, const sf::Event event, GameState *gameState, int x, int y){});
+
+	menuItemContainer->Add(button);
 }
 
 MainMenu::~MainMenu()// : AMenuState()//void MainMenu::Shutdown()

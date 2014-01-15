@@ -18,7 +18,7 @@ namespace gui
 
 	GameState *Button::EventUpdate(App& app, const sf::Event& event, GameState* gameState, float x, float y)
 	{
-		Selectable::EventUpdate(app, event, gameState, x, y);
+		Selectable::EventUpdate(app, event, x, y);
 		return nullptr;
 	}
 

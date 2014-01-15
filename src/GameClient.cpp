@@ -60,6 +60,6 @@ void GameClient::Restart()
 	if (m_gameState)
 		delete m_gameState;
 
-	m_gameState = new MainMenu();//new PlayState(*app);//
+	m_gameState = new MainMenu(this);//new PlayState(*app);//
 }
 #endif

@@ -1,7 +1,7 @@
 #ifndef _SERVER
 #pragma once
 #include "Label.h"
-typedef std::function<GameState*(App& app, const sf::Event& event, GameState* gameState, float x, float y)> ClickFunction;
+typedef std::function<void(App& app, const sf::Event& event, GameState* gameState, float x, float y)> ClickFunction;
 namespace gui
 {
 	class Button : public Label

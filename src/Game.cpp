@@ -2,7 +2,7 @@
 #include "GameState.h"
 #include "App.h"
 
-void Game::SetGameState(GameState *gameState, bool keepMemory = false)
+void Game::SetGameState(GameState *gameState, bool keepMemory)
 {
 	if (!keepMemory && m_gameState)
 		delete m_gameState;

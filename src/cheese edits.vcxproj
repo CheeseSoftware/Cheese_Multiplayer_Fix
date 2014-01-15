@@ -321,6 +321,7 @@
     <ClCompile Include="BlockGravity.cpp" />
     <ClCompile Include="BlockRegister.cpp" />
     <ClCompile Include="BlockSolid.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="Client.cpp" />
@@ -382,6 +383,7 @@
     <ClInclude Include="BlockGravity.h" />
     <ClInclude Include="BlockRegister.h" />
     <ClInclude Include="BlockSolid.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Chunk.h" />
     <ClInclude Include="Client.h" />

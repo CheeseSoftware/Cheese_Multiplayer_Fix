@@ -8,10 +8,12 @@
 #include "AMenuState.h"
 #include "GameState.h"
 
+class Game;
+
 class MainMenu : public AMenuState
 {
 public:
-	MainMenu();
+	MainMenu(Game *game);
     ~MainMenu();
     //virtual void Initialize();
     virtual void EventUpdate(App &app, Game &game, const sf::Event &event);
