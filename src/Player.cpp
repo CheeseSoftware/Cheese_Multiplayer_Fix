@@ -38,6 +38,7 @@ void Player::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 #endif*/
 void Player::Update(App &app, GameUtility *GameUtility)
 {
+	std::cout << "xpos: " << x << " ypos:" << y << " xspeed:" << speedX << " yspeed:" << speedY << std::endl;
 #ifndef _SERVER
 	if (y > 809200)
 		y = 0;

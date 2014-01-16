@@ -47,7 +47,7 @@ void Creature::CreatureMove(float x, float y, float speedX, float speedY, float 
 
 void Creature::OnCollide(App &app, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType)
 {
-	if(collisionType == CollisionType::YAxis && speedY > 3)
+	if((collisionType == CollisionType::YAxis && speedY > 3) || (collisionType == CollisionType::XYAxis && speedY > 3))
 	{
 #ifdef _SERVER
 		std::cout << "Damaged " << speedY*5 << " ! Health left: " << getHealth() << std::endl;

@@ -19,6 +19,7 @@ public:
 	void setCameraAt(Entity *entity);
 	void setSpeed(const double speed);
 	void setSpeed(const int speed);
+	void setZoom(float zoom) { sf::View::zoom(zoom); };
 	sf::Vector2f getEntityPosition();
 	Entity *Camera::getEntity();
 	double getLeftX();

@@ -16,9 +16,9 @@ namespace gui
 	{
 	}
 
-	GameState *Button::EventUpdate(App& app, const sf::Event& event, GameState* gameState, float x, float y)
+	GameState *Button::EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility, float x, float y)
 	{
-		Selectable::EventUpdate(app, event, gameState, x, y);
+		Selectable::EventUpdate(app, event, gameUtility, x, y);
 		return nullptr;
 	}
 
@@ -28,14 +28,14 @@ namespace gui
 		app.draw(*getText());
 	}
 
-	void Button::OnLeftClick(App &app, const sf::Event &event, GameState *gameState, float x, float y)
+	void Button::OnLeftClick(App &app, const sf::Event &event, GameUtility* gameUtility, float x, float y)
 	{
-		onLeftClickFunction(app, event, gameState, x, y);
+		onLeftClickFunction(app, event, gameUtility, x, y);
 	}
 
-	void Button::OnRightClick(App &app, const sf::Event &event, GameState *gameState, float x, float y)
+	void Button::OnRightClick(App &app, const sf::Event &event, GameUtility* gameUtility, float x, float y)
 	{
-		onRightClickFunction(app, event, gameState, x, y);
+		onRightClickFunction(app, event, gameUtility, x, y);
 	}
 }
 #endif

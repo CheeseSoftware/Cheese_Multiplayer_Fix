@@ -23,9 +23,9 @@ namespace gui
 	{
 	}
 
-	GameState *Label::EventUpdate(App& app, const sf::Event& event, GameState* gameState, float x, float y)
+	GameState *Label::EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility, float x, float y)
 	{
-		Selectable::EventUpdate(app, event, gameState, x, y);
+		Selectable::EventUpdate(app, event, gameUtility, x, y);
 		return nullptr;
 	}
 
@@ -36,14 +36,14 @@ namespace gui
 		app.draw(*getText());
 	}
 
-	void Label::OnLeftClick(App &app, const sf::Event &event, GameState *gameState, float x, float y)
+	void Label::OnLeftClick(App &app, const sf::Event &event, GameUtility* gameUtility, float x, float y)
 	{
-		Selectable::OnLeftClick(app, event, gameState, x, y);
+		Selectable::OnLeftClick(app, event, gameUtility, x, y);
 	}
 
-	void Label::OnRightClick(App &app, const sf::Event &event, GameState *gameState, float x, float y)
+	void Label::OnRightClick(App &app, const sf::Event &event, GameUtility* gameUtility, float x, float y)
 	{
-		Selectable::OnRightClick(app, event, gameState, x, y);
+		Selectable::OnRightClick(app, event, gameUtility, x, y);
 	}
 }
 #endif

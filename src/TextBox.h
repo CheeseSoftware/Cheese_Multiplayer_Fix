@@ -9,7 +9,7 @@ namespace gui
 	public:
 		TextBox(int x, int y, int width, int height, sf::String *text, sf::Font *font, int lineLength, int maxLength);
 		~TextBox(void);
-		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameState* gameState, float x, float y);
+		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility, float x, float y);
 	};
 }
 #endif

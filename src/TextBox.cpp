@@ -15,9 +15,9 @@ namespace gui
 	{
 	}
 
-	GameState *TextBox::EventUpdate(App& app, const sf::Event& event, GameState* gameState, float x, float y)
+	GameState *TextBox::EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility, float x, float y)
 	{
-		Label::EventUpdate(app, event, gameState, x, y);
+		Label::EventUpdate(app, event, gameUtility, x, y);
 		if(getSelected())
 		{
 			if (event.type == sf::Event::TextEntered)

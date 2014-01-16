@@ -16,10 +16,10 @@ namespace gui
 	public:
 		Label(int x, int y, int width, int height, sf::String *text, sf::Font *font, int lineLength, int maxLength);
 		~Label();
-		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameState* gameState, float x, float y);
+		virtual GameState *EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility, float x, float y);
 		virtual void Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight);
-		virtual void OnLeftClick(App &app, const sf::Event &event, GameState *gameState, float x, float y);
-		virtual void OnRightClick(App &app, const sf::Event &event, GameState *gameState, float x, float y);
+		virtual void OnLeftClick(App &app, const sf::Event &event, GameUtility* gameUtility, float x, float y);
+		virtual void OnRightClick(App &app, const sf::Event &event, GameUtility* gameUtility, float x, float y);
 		void Clear() { m_text->setString(sf::String()); };
 		sf::Text *getText() { return m_text; };
 		void setText(sf::Text *text) { m_text = text; };
