@@ -11,7 +11,7 @@ private:
 	Inventory *inventory;
 	bool isDrawingInventory;
 public:
-	BlockChest(const unsigned short id);
+	BlockChest();
 	~BlockChest(void);
 	//unsigned short getId();
 	virtual unsigned short getTextureId(App &app, const unsigned short metadata) const;

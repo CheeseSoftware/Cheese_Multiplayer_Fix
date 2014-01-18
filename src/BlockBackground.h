@@ -5,7 +5,6 @@
 class BlockBackground : public virtual Block, public BackgroundBlock
 {
 public:
-	BlockBackground(const unsigned short id);
 	virtual unsigned short getTextureId(App &app, const unsigned short metadata) const;
 	virtual const char *const getTextureName() const;
 };

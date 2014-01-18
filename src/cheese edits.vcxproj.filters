@@ -106,6 +106,8 @@
     <Filter Include="Source Files\game">
       <UniqueIdentifier>{a92dc19f-0797-42b9-9cb0-ac9ed684edc4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Users">
+      <UniqueIdentifier>{b3aa14d8-d8bf-4e1f-85e1-66d1226c21a1}</UniqueIdentifier>
     <Filter Include="Header Files\Compressor">
       <UniqueIdentifier>{46a82361-a033-48e6-9bb3-6592d1c28c54}</UniqueIdentifier>
     </Filter>
@@ -473,6 +475,8 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>Header Files\Users</Filter>
     <ClInclude Include="Compressor.h">
       <Filter>Header Files\Compressor</Filter>
     </ClInclude>

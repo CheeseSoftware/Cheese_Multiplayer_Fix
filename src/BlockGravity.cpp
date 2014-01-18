@@ -2,10 +2,10 @@
 #include "Entity.h"
 #include "Creature.h"
 
-BlockGravity::BlockGravity(const unsigned short id) : Block(id)
+/*BlockGravity::BlockGravity(const unsigned short id) : Block(id)
 {
 
-}
+}*/
 
 unsigned short BlockGravity::getTextureId(App &app, const unsigned short metadata) const
 {

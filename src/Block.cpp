@@ -11,9 +11,9 @@ Block::Block()
 
 }
 
-Block::Block(unsigned short id)
+/*Block::Block(unsigned short id)
 {
-}
+}*/
 
 std::function<Block*(const unsigned short)> Block::RegisterBlock(const unsigned short id)
 {

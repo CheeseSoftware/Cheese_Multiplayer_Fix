@@ -1,9 +1,9 @@
 #include "BlockSolid.h"
 
-BlockSolid::BlockSolid(const unsigned short id) : Block(id)
+/*BlockSolid::BlockSolid(const unsigned short id) : Block(id)
 {
 
-}
+}*/
 
 const char *const BlockSolid::getTextureName() const
 {

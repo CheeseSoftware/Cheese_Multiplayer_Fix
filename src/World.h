@@ -1,17 +1,21 @@
 #pragma once
 
-#include <functional>
-#include <vector>
-#include <map>
-#include <list>
 #include <deque>
-#include <queue>
-#include <tuple>
+#include <functional>
+#include <map>
+#include <memory>
 #include <mutex>
+#include <list>
+#include <tuple>
+#include <vector>
+#include <queue>
+
+
 #include "App.h"
 #include <SFML\Network.hpp>
 #include "EventHandler.h"
 #include "pyramid.h"
+#include "StandardGenerator.h"
 
 class Entity;
 class Player;
@@ -47,12 +51,13 @@ private:
 	std::mutex chunkMatrixLock;
 	std::vector<Entity*> entityList;
 	std::mutex entityListLock;
-	std::map<short, Creature*> creatureList;
+	std::map<short, std::unique_ptr<Creature>> creatureList;
+	std::map<short, std::unique_ptr<Creature>> deadCreatures;
 	std::mutex creatureListLock;
 	//std::map<std::pair<short,short>,Block*> BlockMap;
 	std::pair<std::tuple<long, long, unsigned short>, std::pair<Block*, unsigned short>*> lastBlock;
 	std::pair<Block*, unsigned short> physicBlock;
-	generator::Pyramid generator;
+	generator::StandardGenerator generator;
 #ifndef _SERVER
 	EventHandler<GameUtility*> eventHandler;
 #endif
@@ -80,6 +85,8 @@ public:
 	void RemoveEntity(int id);
 	int AddCreature(int id, Creature *creature);
 	void RemoveCreature(int id);
+	void SendCreatureToDeath(int id);
+	void RespawnCreature(int oldId, int newId);
 	Creature* getCreature(int id);
 	void SetCreature(int id, Creature *creature);
 	Chunk *getChunk(long x, long y);

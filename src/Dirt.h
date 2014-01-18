@@ -7,8 +7,6 @@ class Dirt
 	, public SolidBlock
 {
 public:
-	Dirt(unsigned short metadata);
-	Dirt();
 	virtual unsigned short getTextureId(App &const app, const unsigned short metadata) const;
 	virtual unsigned char getLayer() const;
 	virtual const char *const getTextureName() const;
