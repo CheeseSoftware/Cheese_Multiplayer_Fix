@@ -30,10 +30,10 @@ MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 	menuItemContainer->Add(label);
 
 	gui::Button *button = new gui::Button(0, 0, 80, 24, new sf::String("START!"), font, 8, 8,
-		[=](App &app, const sf::Event event, GameState *gameState, int x, int y)
+		[=](App &app, const sf::Event event, int x, int y)
 	{
 		game->SetGameState(new PlayState(app));
-	}, [](App &app, const sf::Event event, GameState *gameState, int x, int y){});
+	}, [](App &app, const sf::Event event, int x, int y){});
 
 	menuItemContainer->Add(button);
 }

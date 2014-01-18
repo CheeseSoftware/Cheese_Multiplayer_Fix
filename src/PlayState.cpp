@@ -72,27 +72,26 @@ PlayState::PlayState(App &app)
 	pos->setTexture(&getTextureContainer().getTextures("Test.png")[0]);
 	hud->Add(pos);
 	}*/
-	gui::MenuItemContainer *second = new gui::MenuItemContainer(100, 200, app.getSize().x, app.getSize().y);
+	/*gui::MenuItemContainer *second = new gui::MenuItemContainer(100, 200, app.getSize().x, app.getSize().y);
 	hud->Add(second);
 	for(int i = 0; i < 200; i += 50)
 	{
-		std::stringstream ss;
-		ss << "Button of second" << std::endl;
-		auto leftClick = [] (App& app, const sf::Event& event, GameUtility* gameUtility, float x, float y) -> GameState*
-		{
-			std::cout << "a button was leftclicked!" << std::endl;
-			gameUtility->getCamera().setZoom(0.9);
-			return nullptr;
-		};
-		auto rightClick = [] (App& app, const sf::Event& event, GameUtility* gameUtility, float x, float y) -> GameState*
-		{
-			std::cout << "a button was rightclicked!" << std::endl;
-			return nullptr;
-		};
-		/*gui::TextBox *pos = new gui::TextBox(50, i, 200, 50, new sf::String(ss.str()), font, 500, 500);*/
-		gui::Button *pos = new gui::Button(50, i, 200, 50, new sf::String(ss.str()), font, 10, 10, leftClick, rightClick);
-		second->Add(pos);
-	}
+	std::stringstream ss;
+	ss << "Button of second" << std::endl;
+	auto leftClick = [] (App& app, const sf::Event& event, GameState* gameState, float x, float y) -> GameState*
+	{
+	std::cout << "a button was leftclicked!" << std::endl;
+	return nullptr;
+	};
+	auto rightClick = [] (App& app, const sf::Event& event, GameState* gameState, float x, float y) -> GameState*
+	{
+	std::cout << "a button was rightclicked!" << std::endl;
+	return nullptr;
+	};
+	//gui::TextBox *pos = new gui::TextBox(50, i, 200, 50, new sf::String(ss.str()), font, 500, 500);
+	gui::Button *pos = new gui::Button(50, i, 200, 50, new sf::String(ss.str()), font, leftClick, rightClick);
+	second->Add(pos);*/
+	//}
 }
 
 PlayState::~PlayState()

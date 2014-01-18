@@ -22,11 +22,8 @@ namespace gui
 		return selected;
 	}
 
-<<<<<<< HEAD
-	GameState *Selectable::EventUpdate(App& app, const sf::Event& event, GameUtility* gameUtility, float x, float y)
-=======
+
 	GameState *Selectable::EventUpdate(App& app, const sf::Event& event, float x, float y)
->>>>>>> c953a28c2ff85939864a8166e4b9475db0da2b73
 	{
 		if (event.type == sf::Event::MouseButtonPressed)
 		{
@@ -39,19 +36,11 @@ namespace gui
 			{
 				if(event.key.code == sf::Mouse::Left)
 				{
-<<<<<<< HEAD
-					OnLeftClick(app, event, gameUtility, x, y);
-				}
-				else if(event.key.code == sf::Mouse::Right)
-				{
-					OnRightClick(app, event, gameUtility, x, y);
-=======
 					OnLeftClick(app, event, x, y);
 				}
 				else if(event.key.code == sf::Mouse::Right)
 				{
 					OnRightClick(app, event, x, y);
->>>>>>> c953a28c2ff85939864a8166e4b9475db0da2b73
 				}
 			}
 			else
@@ -78,11 +67,8 @@ namespace gui
 		}
 	}
 
-<<<<<<< HEAD
-	void Selectable::OnLeftClick(App &app, const sf::Event &event, GameUtility* gameUtility, float x, float y)
-=======
+
 	void Selectable::OnLeftClick(App &app, const sf::Event &event, float x, float y)
->>>>>>> c953a28c2ff85939864a8166e4b9475db0da2b73
 	{
 		if(selected)
 			Unselect();
@@ -90,11 +76,7 @@ namespace gui
 			selected = true;
 	}
 
-<<<<<<< HEAD
-	void Selectable::OnRightClick(App &app, const sf::Event &event, GameUtility* gameUtility, float x, float y)
-=======
 	void Selectable::OnRightClick(App &app, const sf::Event &event, float x, float y)
->>>>>>> c953a28c2ff85939864a8166e4b9475db0da2b73
 	{
 		if(selected)
 			Unselect();
