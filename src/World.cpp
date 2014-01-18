@@ -438,18 +438,8 @@ void World::SendCreatureToDeath(int id)
 	auto it = creatureList.find(id);
 	if(it != creatureList.end())
 	{
-		deadCreatures.insert(std::pair<short, std::unique_ptr<Creature>>(id, std::move(creatureList[id])));
+		//deadCreatures.insert(std::pair<short, std::unique_ptr<Creature>>(id, std::move(creatureList[id])));
 		creatureList.erase(id);
-	}
-}
-
-void World::RespawnCreature(int oldId, int newId)
-{
-	auto it = deadCreatures.find(oldId);
-	if(it != deadCreatures.end())
-	{
-		//deadCreatures.insert(std::pair<const short, std::unique_ptr<Creature>>(newId, deadCreatures[oldId]));
-		creatureList.erase(oldId);
 	}
 }
 

@@ -328,6 +328,7 @@
     <ClCompile Include="Compressor.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="Creature.cpp" />
+    <ClCompile Include="CreatureController.cpp" />
     <ClCompile Include="Dirt.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityRegister.cpp" />
@@ -340,6 +341,7 @@
     <ClCompile Include="Generator - Kopia (2).cpp" />
     <ClCompile Include="Pyramid.cpp" />
     <ClCompile Include="Flat.cpp" />
+    <ClCompile Include="User.cpp" />
     <ClCompile Include="YGenerator.cpp" />
     <ClCompile Include="XGenerator.cpp" />
     <ClCompile Include="WeirdGenerator.cpp" />
@@ -389,10 +391,12 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="Compressor.h" />
     <ClInclude Include="Connection.h" />
+    <ClInclude Include="CreatureController.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Dirt.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityRegister.h" />
+    <ClInclude Include="EventHandleable.h" />
     <ClInclude Include="Eventhandler.h" />
     <ClInclude Include="EventHandler_.h" />
     <ClInclude Include="GameClient.h" />

@@ -3,18 +3,20 @@
 #include <string>
 #include <memory>
 
-#include "Creature.h"
+#include "CreatureController.h"
+#include "EventHandleable.h"
 
+#include "GameUtility.h"
 //class Creature;
 
-class User
+class User : CreatureController, EventHandleable
 {
-	const int m_id;
-	std::string m_name;
-	std::weak_ptr<Creature> m_boundedCreature;
-	
 public:
 	User(int id);
 
-	void SetCreature(Creature *creature);
+#ifdef _SERVER
+	// Client-kod
+#else
+	virtual void HandleEvent(App &app, const sf::Event &event, GameState* gameState);
+#endif
 };

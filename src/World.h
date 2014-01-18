@@ -28,6 +28,8 @@ class Camera;
 class GameState;
 class GameUtility;
 class BlockRegister;
+class CreatureController;
+class User;
 
 enum MessageType;
 
@@ -51,8 +53,10 @@ private:
 	std::mutex chunkMatrixLock;
 	std::vector<Entity*> entityList;
 	std::mutex entityListLock;
-	std::map<short, std::unique_ptr<Creature>> creatureList;
-	std::map<short, std::unique_ptr<Creature>> deadCreatures;
+	std::map<short, CreatureController*> CreatureControllers;
+	//std::map<short, std::unique_ptr<std::weak_ptr<Creature>> creatureList // < senare! (med CreatureController)
+	std::map<short, std::unique_ptr<Creature>> creatureList;	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	
 	std::mutex creatureListLock;
 	//std::map<std::pair<short,short>,Block*> BlockMap;
 	std::pair<std::tuple<long, long, unsigned short>, std::pair<Block*, unsigned short>*> lastBlock;
@@ -60,6 +64,8 @@ private:
 	generator::StandardGenerator generator;
 #ifndef _SERVER
 	EventHandler<GameUtility*> eventHandler;
+
+	User *me;
 #endif
 public:
 	World(GameUtility *gameUtility);
