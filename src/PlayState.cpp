@@ -20,6 +20,7 @@
 #include "BlockRegister.h"
 #include "Button.h"
 #include "TextBox.h"
+#include "Minimap.h"
 
 namespace sf
 {
@@ -33,6 +34,7 @@ PlayState::PlayState(App &app)
 	: GameUtility(app)
 	, hudView(sf::FloatRect(0.f, 0.f, (float)app.getSize().x, (float)app.getSize().y))
 {
+	minimap = new gui::Minimap(0, 0, 200, 200);
 	fpsClock.restart();
 
 	char* str_ip = "127.0.0.1";
@@ -103,7 +105,7 @@ PlayState::~PlayState()
 
 
 
-void PlayState::EventUpdate(App &app, const sf::Event &event)
+void PlayState::EventUpdate(App &app, Game &game, const sf::Event &event)
 {
 	if (event.type == sf::Event::Resized)
 	{
@@ -115,12 +117,12 @@ void PlayState::EventUpdate(App &app, const sf::Event &event)
 		hudView.setCenter(sf::Vector2f(app.getSize().x/2, app.getSize().y/2));
 	}
 
-	hud->EventUpdate(app, event, this, hud->getPosition().x, hud->getPosition().y);
+	hud->EventUpdate(app, event, hud->getPosition().x, hud->getPosition().y);
 	currentWorld->EventUpdate(app, event, this);
 	noobishBlockMenu->EventUpdate(app, event, this);
 }
 
-GameState *PlayState::Update(App &app)
+GameState *PlayState::Update(App &app, Game &game)
 {
 	if (fpsClock.getElapsedTime().asMilliseconds() > 25)
 	{
@@ -131,14 +133,15 @@ GameState *PlayState::Update(App &app)
 		fpsClock.restart();
 	}
 	//else if (1/app.getFrameTime() < 50.f)
-	/*{
+	{
 	std::cout << "fps: " << 1/app.getFrameTime() << " LOW FPS!\n";
 	fpsClock.restart();
-	}*/
+	}
 
-	hud->Update(app);
+	hud->Update(app, game);
 	currentWorld->Update(app, this);
-	camera->Update(app);
+	camera->Update(app, game);
+	minimap->Update(app, this);
 
 
 	while (!packetDataList->empty())
@@ -170,6 +173,7 @@ void PlayState::Draw(App &app)
 	}
 	hud->Draw(app, 0, 0, app.getSize().x, app.getSize().y);
 	noobishBlockMenu->Draw(app, this); // < orsakar lagg temp
+	minimap->Draw(app, 0, 0, 400, 400);
 }
 
 void PlayState::ProcessPackets(GameUtility *gameUtility)
@@ -281,7 +285,11 @@ void PlayState::ProcessPackets(GameUtility *gameUtility)
 				else
 				{
 					Player *player = (Player*)currentWorld->getCreature(id);
-					player->setPosition(x, y);
+					//"setposition" skapar bara dåliga vanor som orsakar att kod som ska vara i klassen är utanför.
+					// player->Respawn(x, y); << bättre lösning
+					//player->setPosition(x, y); << noobkod
+					// gillar inte sethealth heller! balbblalba behöver det för random skript?
+					//Kanske det, men använd konstiga namn då så att man inte missbrukar det!
 					player->setHealth(100);
 				}
 			}

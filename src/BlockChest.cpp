@@ -1,7 +1,7 @@
 #include "BlockChest.h"
 
-BlockChest::BlockChest(unsigned short id) 
-	: Block(id)
+BlockChest::BlockChest()//(unsigned short id) 
+//	: Block(id)
 {
 	inventory = new Inventory(5, 5, 64);
 	isDrawingInventory = false;

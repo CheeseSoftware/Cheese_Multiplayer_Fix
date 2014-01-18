@@ -254,11 +254,11 @@ void Entity::Draw(App &app, GameUtility *gameUtility)
 }
 #endif
 
-void Entity::setPosition(float X, float Y) { x = X; y = Y; }
+//void Entity::setPosition(float X, float Y) { x = X; y = Y; }
 sf::Vector2f Entity::getPosition() { return(sf::Vector2f(x, y)); }
 
-void Entity::setX(float X) { x = X; }
-void Entity::setY(float Y) { y = Y; }
+//void Entity::setX(float X) { x = X; }
+//void Entity::setY(float Y) { y = Y; }
 float Entity::getX() { return x; }
 float Entity::getY() { return y; }
 

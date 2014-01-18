@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef MENUSTATE_H_INCLUDED
-#define MENUSTATE_H_INCLUDED
+#ifndef AMenuState_H_INCLUDED
+#define AMenuState_H_INCLUDED
 
 #include <vector>
 //#include "MenuItem.h"
@@ -9,7 +9,7 @@
 #include "EventHandler.h"
 #include "MenuItemContainer.h"
 
-class MenuState : public GameState
+class AMenuState : public GameState
 {
 protected:
     //std::vector<MenuItem*> menuItems;
@@ -17,13 +17,13 @@ protected:
 	//EventHandler<GameState*> eventHandler;
 	gui::MenuItemContainer *menuItemContainer;
 public:
-	MenuState();
-	~MenuState();
+	AMenuState();
+	~AMenuState();
     //virtual void Initialize();
-    virtual void EventUpdate(App &app, const sf::Event &event);
-    virtual GameState *Update(App &app)=0;
+    virtual void EventUpdate(App &app, Game &game, const sf::Event &event);
+    virtual GameState *Update(App &app, Game &game)=0;
     virtual void Draw(App &app);
     //virtual void Shutdown();
 };
 
-#endif // MENUSTATE_H_INCLUDED
+#endif // AMenuState_H_INCLUDED

@@ -24,8 +24,8 @@ protected:
 public:
 	GameUtility(App &app);
 	~GameUtility();
-	//virtual void EventUpdate(App &app, const sf::Event &event);
-	//virtual GameState *Update(App &app);
+	//virtual void EventUpdate(App &app, Game &game, const sf::Event &event);
+	//virtual GameState *Update(App &app, Game &game);
 	//virtual void Draw(App &app);
 	inline World *getCurrentWorld() { return currentWorld; }
 	inline TextureContainer &getTextureContainer() { return *tC; }

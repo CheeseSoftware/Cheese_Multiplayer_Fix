@@ -14,6 +14,7 @@ namespace gui
 		itemList = new std::vector<Selectable*>();
 	}
 
+<<<<<<< HEAD
 	GameState *MenuItemContainer::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility, float x, float y)
 	{
 		//TEMPORÄRT XD //eventHandler.EventUpdate(app, event, gamestate);
@@ -22,15 +23,25 @@ namespace gui
 		for (Selectable *item : *itemList)
 		{
 			item->EventUpdate(app, event, gameUtility, x + getPosition().x + m_widthOffset, y + getPosition().y + m_heightOffset);
+=======
+	GameState *MenuItemContainer::EventUpdate(App &app, const sf::Event &event, float x, float y)
+	{
+		//TEMPORÄRT XD //eventHandler.EventUpdate(app, event, gamestate);
+		//std::cout << "eventupdating menuitemcontainer X:" << x << " Y:" << y << std::endl;
+		Selectable::EventUpdate(app, event, x, y);
+		for (Selectable *item : *itemList)
+		{
+			item->EventUpdate(app, event, x + getPosition().x + m_widthOffset, y + getPosition().y + m_heightOffset);
+>>>>>>> c953a28c2ff85939864a8166e4b9475db0da2b73
 			//std::cout << "eventupdating selectable X:" << x + getPosition().x + m_widthOffset << " Y:" << y + getPosition().y + m_heightOffset << std::endl;
 		}
 		return nullptr;
 	}
 
-	GameState *MenuItemContainer::Update(App &app)
+	GameState *MenuItemContainer::Update(App &app, Game &game)
 	{
 		for (Selectable *item : *itemList)
-			item->Update(app);
+			item->Update(app, game);
 		return nullptr;
 	}
 

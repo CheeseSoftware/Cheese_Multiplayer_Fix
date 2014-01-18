@@ -7,25 +7,25 @@
 
 Menu::Menu()//void Menu::Initialize()
 {
-    menuState = new MainMenu();
+    //AMenuState = new MainMenu();
     //menuState->Initialize();
 }
 
 Menu::~Menu()//void Menu::Shutdown()
 {
     //menuState->Shutdown();
-    delete menuState;
+    //delete AMenuState;
 }
 
-void Menu::EventUpdate(App &app, const sf::Event &event)
+void Menu::EventUpdate(App &app, Game &game, const sf::Event &event)
 {
-    menuState->EventUpdate(app, event);
+    //AMenuState->EventUpdate(app, game, event);
 }
 
-GameState *Menu::Update(App &app)
+GameState *Menu::Update(App &app, Game &game)
 {
-	GameState *newState = menuState->Update(app);
-	if (newState != menuState)
+	/*GameState *newState = AMenuState->Update(app, game);
+	if (newState != AMenuState)
     {
 		if (dynamic_cast<MenuState*>(newState) != 0)
 		{
@@ -34,17 +34,17 @@ GameState *Menu::Update(App &app)
 		else
 		{
 			//menuState->Shutdown();
-			delete menuState;
+			delete AMenuState;
 			menuState = newState;
 			//menuState->Initialize();
 		}
-    }
+    }*/
     return this;
 }
 
 void Menu::Draw(App &app)
 {
-    menuState->Draw(app);
+    //AMenuState->Draw(app);
 }
 
 #endif

@@ -27,11 +27,11 @@ LoadState::~LoadState(void)
 {
 }
 
-void LoadState::EventUpdate(App &app, const sf::Event &event)
+void LoadState::EventUpdate(App &app, Game &game, const sf::Event &event)
 {
 }
 
-GameState *LoadState::Update(App &app)
+GameState *LoadState::Update(App &app, Game &game)
 {
 	return (new PlayState(*(PlayState*)this));
 }

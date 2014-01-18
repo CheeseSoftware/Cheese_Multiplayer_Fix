@@ -1,7 +1,7 @@
 #include "Stone.h"
 #include "Block.h"
 
-Stone::Stone(unsigned short metadata)
+/*Stone::Stone(unsigned short metadata)
 	: Block(metadata)
 {
 }
@@ -9,7 +9,7 @@ Stone::Stone(unsigned short metadata)
 Stone::Stone()
 	: Block()
 {
-}
+}*/
 
 unsigned short Stone::getTextureId(App &const app, const unsigned short metadata) const
 {

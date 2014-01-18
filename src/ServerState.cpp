@@ -25,7 +25,7 @@ ServerState::~ServerState()
 	delete currentWorld;
 }
 
-GameState *ServerState::Update(App &app)
+GameState *ServerState::Update(App &app, Game &game)
 {
 	//std::cout << "updates per second: " << 1/(app).getFrameTime() << std::endl;
 	while (!packetDataList->empty())
@@ -143,7 +143,8 @@ void ServerState::ProcessPackets(GameUtility *gameUtility)
 				else
 				{
 					Player *player = (Player*)currentWorld->getCreature(id);
-					player->setPosition(x, y);
+					// usch, såhär kan du inte göra!
+					//player->setPosition(x, y);
 					player->setHealth(100);
 				}
 				sf::Packet toSend;

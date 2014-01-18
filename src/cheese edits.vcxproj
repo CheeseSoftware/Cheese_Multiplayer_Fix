@@ -259,7 +259,6 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-network-s.lib;sfml-system-s.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -295,7 +294,6 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>sfml-system-s.lib;sfml-network-s.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Server Release|x64'">
@@ -325,35 +323,47 @@
     <ClCompile Include="BlockSolid.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Chat.cpp" />
     <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Compressor.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="Creature.cpp" />
+    <ClCompile Include="CreatureController.cpp" />
     <ClCompile Include="Dirt.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityRegister.cpp" />
     <ClCompile Include="Eventhandler.cpp" />
     <ClCompile Include="EventHandler_.cpp" />
     <ClCompile Include="BackgroundBlock.cpp" />
-    <ClCompile Include="Generator.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameClient.cpp" />
+    <ClCompile Include="GameServer.cpp" />
+    <ClCompile Include="Generator - Kopia (2).cpp" />
+    <ClCompile Include="Pyramid.cpp" />
+    <ClCompile Include="Flat.cpp" />
+    <ClCompile Include="User.cpp" />
+    <ClCompile Include="YGenerator.cpp" />
+    <ClCompile Include="XGenerator.cpp" />
+    <ClCompile Include="WeirdGenerator.cpp" />
+    <ClCompile Include="StandardGenerator.cpp" />
+    <ClCompile Include="SeedGenerator.cpp" />
     <ClCompile Include="GravityBlock.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="LargeTexturedBlock.cpp" />
     <ClCompile Include="LoadState.cpp" />
     <ClCompile Include="MenuItemContainer.cpp" />
+    <ClCompile Include="Minimap.cpp" />
     <ClCompile Include="NormalItem.cpp" />
     <ClCompile Include="Selectable.cpp" />
     <ClCompile Include="SolidBlock.cpp" />
     <ClCompile Include="Stone.cpp" />
-    <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="UniqueBlock.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="AMenuState.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="NoobishBlockMenu.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -377,21 +387,34 @@
     <ClInclude Include="BlockSolid.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Chat.h" />
     <ClInclude Include="Chunk.h" />
     <ClInclude Include="Client.h" />
-    <ClInclude Include="CollisionType.h" />
+    <ClInclude Include="Compressor.h" />
     <ClInclude Include="Connection.h" />
+    <ClInclude Include="CreatureController.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Dirt.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityRegister.h" />
+    <ClInclude Include="EventHandleable.h" />
     <ClInclude Include="Eventhandler.h" />
     <ClInclude Include="EventHandler_.h" />
+    <ClInclude Include="GameClient.h" />
+    <ClInclude Include="GameServer.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
-    <ClInclude Include="Generator.h" />
+    <ClInclude Include="Pyramid.h" />
+    <ClInclude Include="Flat.h" />
+    <ClInclude Include="MainCallbacks.h" />
+    <ClInclude Include="User.h" />
+    <ClInclude Include="YGenerator.h" />
+    <ClInclude Include="XGenerator.h" />
+    <ClInclude Include="WeirdGenerator.h" />
+    <ClInclude Include="StandardGenerator.h" />
+    <ClInclude Include="SeedGenerator.h" />
+    <ClInclude Include="IGenerator.h" />
     <ClInclude Include="LoadState.h" />
-    <ClInclude Include="PositionType.h" />
+    <ClInclude Include="Minimap.h" />
     <ClInclude Include="Stone.h" />
     <ClInclude Include="HitProjectile.h" />
     <ClInclude Include="IEntityHealth.h" />
@@ -403,13 +426,12 @@
     <ClInclude Include="IMenuItem.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="NormalItem.h" />
-    <ClInclude Include="TextBox.h" />
     <ClInclude Include="UniqueBlock.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="SolidBlock.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Menu.h" />
-    <ClInclude Include="MenuState.h" />
+    <ClInclude Include="AMenuState.h" />
     <ClInclude Include="MessageType.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="NoobishBlockMenu.h" />

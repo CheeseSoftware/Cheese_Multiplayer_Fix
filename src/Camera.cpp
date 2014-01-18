@@ -3,6 +3,7 @@
 
 #include "Camera.h"
 #include "Entity.h"
+#include "Game.h"
 
 /*Camera::Camera() : View(sf::FloatRect(200, 200, 300, 200))
 {
@@ -31,7 +32,7 @@ Camera::~Camera(void)
 
 }
 
-void Camera::Update(App &app)
+void Camera::Update(App &app, Game &game)
 {
 	if (currentEntity != nullptr)
 	{
