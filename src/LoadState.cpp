@@ -30,7 +30,7 @@ LoadState::~LoadState(void)
 
 bool LoadState::Load()
 {
-
+	return  true;
 }
 
 void LoadState::EventUpdate(App &app, Game &game, const sf::Event &event)
