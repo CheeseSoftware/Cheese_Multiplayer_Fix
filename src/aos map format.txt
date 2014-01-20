@@ -1,0 +1,42 @@
+//height: 80-240
+//witdh*width = 256*256?
+
+[header]
+[vertical] matrix[header.width * header.height]
+
+
+header:
+{
+	uint32 magic = 0x09072000
+	uint32 width;
+	uint32 height;
+
+	[dpoint3d] ip, ist, ihe, ifo
+}
+
+dpoint3d:
+{
+	double x,y,z;
+}
+
+vertical:
+{
+	[gap_cell] start;
+	[cell] rest[];
+}
+
+gap_cell:
+{
+	uint8 distanceToNextGap//D
+	uint8 visibleZStart;//S //solid pos start?
+	uint8 visibleZEnd;//E //solid pos end?
+	uint8 gapZ; //is the first air block POS
+	//D = 0 => E - S + 1 = height
+}
+
+block_cell:
+{
+	uint8 B,G,R, T(light);
+	//light is 255 !!!!!
+}
+

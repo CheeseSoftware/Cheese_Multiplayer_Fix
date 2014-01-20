@@ -23,12 +23,6 @@ namespace gui
 	{
 	}
 
-	GameState *Label::EventUpdate(App& app, const sf::Event& event, float x, float y)
-	{
-		Selectable::EventUpdate(app, event, x, y);
-		return nullptr;
-	}
-
 	void Label::Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight)
 	{
 		Selectable::Draw(app, drawAreax, drawAreay,  drawAreaWidth, drawAreaHeight);
@@ -36,7 +30,7 @@ namespace gui
 		app.draw(*getText());
 	}
 
-	void Label::OnLeftClick(App &app, const sf::Event &event, float x, float y)
+	/*void Label::OnLeftClick(App &app, const sf::Event &event, float x, float y)
 	{
 		Selectable::OnLeftClick(app, event, x, y);
 	}
@@ -44,6 +38,6 @@ namespace gui
 	void Label::OnRightClick(App &app, const sf::Event &event, float x, float y)
 	{
 		Selectable::OnRightClick(app, event, x, y);
-	}
+	}*/
 }
 #endif

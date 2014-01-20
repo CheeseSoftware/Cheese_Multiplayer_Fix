@@ -6,6 +6,7 @@
 namespace gui
 {
 	Selectable::Selectable(int x, int y, int width, int height)
+		: down(false)
 	{
 		m_x = x;
 		m_y = y;
@@ -36,11 +37,33 @@ namespace gui
 			{
 				if(event.key.code == sf::Mouse::Left)
 				{
-					OnLeftClick(app, event, x, y);
+					OnLMBPressed(app, event, x, y);
 				}
 				else if(event.key.code == sf::Mouse::Right)
 				{
-					OnRightClick(app, event, x, y);
+					OnRMBPressed(app, event, x, y);
+				}
+			}
+			else
+				Unselect();
+		}
+		else if (event.type == sf::Event::MouseButtonReleased)
+		{
+			//std::cout << "posx:" << x + getPosition().x + m_widthOffset << " posy:" << y + getPosition().y + m_heightOffset << std::endl;
+			//std::cout << "mousex:" << sf::Mouse::getPosition().x << " mousey: " << sf::Mouse::getPosition().y << std::endl;
+			if (sf::Mouse::getPosition(app).x >= x + getPosition().x + m_widthOffset &&
+				sf::Mouse::getPosition(app).x <= x + getPosition().x + m_widthOffset + getSize().x &&
+				sf::Mouse::getPosition(app).y >= y + getPosition().y + m_heightOffset &&
+				sf::Mouse::getPosition(app).y <= y + getPosition().y + m_heightOffset + getSize().y)
+			{
+				if(event.key.code == sf::Mouse::Left)
+				{
+					OnLMBReleased(app, event, x, y);
+					down = false;
+				}
+				else if(event.key.code == sf::Mouse::Right)
+				{
+					OnRMBReleased(app, event, x, y);
 				}
 			}
 			else
@@ -68,20 +91,81 @@ namespace gui
 	}
 
 
-	void Selectable::OnLeftClick(App &app, const sf::Event &event, float x, float y)
+	void Selectable::OnLMBPressed(App &app, const sf::Event &event, float x, float y)
 	{
 		if(selected)
 			Unselect();
 		else
 			selected = true;
+
+		if (onLMBPressedFunction)
+			onLMBPressedFunction(app, event, x, y);
+
+		down = true;
 	}
 
-	void Selectable::OnRightClick(App &app, const sf::Event &event, float x, float y)
+	void Selectable::OnLMBReleased(App &app, const sf::Event &event, float x, float y)
 	{
 		if(selected)
 			Unselect();
 		else
 			selected = true;
+
+		if (onLMBPressedFunction)
+			onLMBPressedFunction(app, event, x, y);
+
+		if (down)
+			OnLMBClick(app, event, x, y);
+
+		down = false;
+	}
+
+	void Selectable::OnLMBClick(App &app, const sf::Event &event, float x, float y)
+	{
+		if (onLMBClickFunction)
+			onLMBClickFunction(app, event, x, y);
+	}
+
+	void Selectable::OnRMBPressed(App &app, const sf::Event &event, float x, float y)
+	{
+		if(selected)
+			Unselect();
+		else
+			selected = true;
+
+		if (onRMBPressedFunction)
+			onRMBPressedFunction(app, event, x, y);
+	}
+
+		void Selectable::OnRMBReleased(App &app, const sf::Event &event, float x, float y)
+	{
+		/*if(selected)
+			Unselect();
+		else
+			selected = true;*/
+
+		if (onRMBPressedFunction)
+			onRMBPressedFunction(app, event, x, y);
+
+		//if (down)
+		//	OnLMBClick(app, event, x, y);
+	}
+
+	void Selectable::OnRMBClick(App &app, const sf::Event &event, float x, float y)
+	{
+		if (onRMBClickFunction)
+			onRMBClickFunction(app, event, x, y);
+	}
+
+	void Selectable::OnHover(App &app, const sf::Event &event, float x, float y)
+	{
+		if (onHoverFunction)
+			onHoverFunction(app, event, x, y);
+	}
+
+	void Selectable::OnHoverReleased(App &app, const sf::Event &event, float x, float y)
+	{
+
 	}
 
 	sf::Vector2f Selectable::getSize()
@@ -92,6 +176,7 @@ namespace gui
 	void Selectable::Unselect()
 	{
 		selected = false;
+		down = false;
 	}
 
 	sf::Vector2f Selectable::getPositionOffset(float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight)

@@ -29,11 +29,13 @@ MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 	label->setPositionType(PositionType::middleCenter);
 	menuItemContainer->Add(label);
 
-	gui::Button *button = new gui::Button(0, 0, 80, 24, new sf::String("START!"), font, 8, 8,
+	gui::Button *button = new gui::Button(0, 0, 80, 24, new sf::String("START!"), font, 8, 8);
+	button->setOnLMBClickFunctionCallback(
 		[=](App &app, const sf::Event event, int x, int y)
 	{
 		game->SetGameState(new PlayState(app));
-	}, [](App &app, const sf::Event event, int x, int y){});
+	});
+	//[](App &app, const sf::Event event, int x, int y){});
 
 	menuItemContainer->Add(button);
 }
