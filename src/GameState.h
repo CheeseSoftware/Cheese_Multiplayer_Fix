@@ -3,6 +3,8 @@
 class GameState;
 
 #include <SFML\Graphics.hpp>
+#include <functional>
+
 #include "App.h"
 #include "MainCallbacks.h"
 #include "Game.h"
@@ -12,9 +14,10 @@ class GameState;
 
 //#include <SFML/Graphics.hpp>
 
-class GameState {
+class GameState
+{
 public:
-    //virtual void Initialize()=0;
+	virtual bool Load()=0;
     virtual GameState *Update(App &app, Game &game)=0; // ,Callbacks &game)... hmm.. Kanske ska App ha game?
 #ifndef _SERVER
 	virtual void EventUpdate(App &app, Game &game, const sf::Event &event)=0; // ^^ samma här

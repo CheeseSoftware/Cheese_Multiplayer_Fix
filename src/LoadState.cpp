@@ -6,8 +6,9 @@
 extern int _argc;
 extern char** _argv;
 
-LoadState::LoadState(App &app)
-	: GameUtility(app)
+LoadState::LoadState(App &app, GameState *gameState, GameState *oldState)
+	: m_gameState(gameState)
+	, m_oldState(oldState)
 {
 	char* str_ip = "127.0.0.1";
 
@@ -25,6 +26,11 @@ LoadState::LoadState(App &app)
 
 LoadState::~LoadState(void)
 {
+}
+
+bool LoadState::Load()
+{
+
 }
 
 void LoadState::EventUpdate(App &app, Game &game, const sf::Event &event)
