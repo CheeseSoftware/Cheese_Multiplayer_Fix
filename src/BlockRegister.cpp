@@ -9,7 +9,7 @@
 #include "Dirt.h"
 #include <typeinfo>
 #include <iostream>
-#ifndef _SERVER
+#ifdef CLIENT
 #include "App.h"
 #endif
 
@@ -17,7 +17,7 @@ BlockRegister::BlockRegister()
 {
 	std::cout << this << std::endl;
 	//RegisterBlock(nullptr, 0);
-	unsigned short i;
+	unsigned short i = 0;
 	blockTypeList.push_back(nullptr);
 	blockList.push_back(nullptr);
 	RegisterBlock(new BlockSolid(), typeid(BlockSolid).hash_code()); i++;
@@ -36,7 +36,7 @@ void BlockRegister::RegisterBlock(Block *block, const size_t typeId)
 	blockTypeList.push_back(block->RegisterBlock(blockTypeList.size()));
 }
 
-#ifndef _SERVER
+#ifdef CLIENT
 void BlockRegister::RegisterBlockTextures(TextureContainer &Tc)
 {
 	blockTextureList.reserve(blockTypeList.size());
@@ -60,7 +60,7 @@ Block *BlockRegister::getBlockType(const unsigned short id)
 	return (id >= blockTypeList.size()) ? nullptr : blockTypeList[id](0);
 }
 
-#ifndef _SERVER
+#ifdef CLIENT
 sf::Sprite *BlockRegister::getBlockTextures(const Block *block)
 {
 	return blockTextureList[getBlockIdByTypeId(typeid(*block).hash_code())];

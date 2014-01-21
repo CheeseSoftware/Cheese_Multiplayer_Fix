@@ -1,4 +1,4 @@
-#ifdef MENUIDIOTI
+#ifdef CLIENT
 #include "Selectable.h"
 #include "GameState.h"
 #include <iostream>

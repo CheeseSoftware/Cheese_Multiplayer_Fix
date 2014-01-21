@@ -218,7 +218,7 @@ void Entity::OnCollide(App &app, World *world, GameUtility *gameUtility, float s
 {
 }
 
-#ifndef _SERVER
+#ifdef CLIENT
 
 void Entity::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility)
 {

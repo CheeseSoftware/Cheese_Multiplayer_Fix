@@ -1,4 +1,4 @@
-#ifdef _SERVERd
+#ifdef SERVERd
 #pragma once
 
 #include <map>

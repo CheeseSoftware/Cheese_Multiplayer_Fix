@@ -29,11 +29,11 @@ private:
 	std::string name;
 	Inventory* inventory;
 public:
-	SERVER(
+	SERVER_(
 		Player(int id, float X, float Y, short sizeX, short sizeY,
 		bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name);
 	)
-		CLIENT(
+		CLIENT_(
 		Player(int id, float X, float Y, short sizeX, short sizeY,
 		bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name);
 	virtual void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);

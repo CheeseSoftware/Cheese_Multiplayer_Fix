@@ -186,7 +186,7 @@ bool Inventory::Contains(Item* item)
 	return false;
 }
 
-#ifndef _SERVER
+#ifdef CLIENT
 void Inventory::Draw(int xPos, int yPos, App& app, TextureContainer& tC)
 {
 	int x = xPos;

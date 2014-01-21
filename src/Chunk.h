@@ -33,7 +33,7 @@ public:
 	void setBlock(unsigned char layer, unsigned short x, unsigned short y, Block*);
 	void setMetadata(unsigned char layer, unsigned short x, unsigned short y, unsigned short metadata);
 	unsigned short getBlockId(unsigned char layer, unsigned short x, unsigned short y, GameUtility* gameUtility);
-#ifndef _SERVER
+#ifdef CLIENT
 	void Draw(long xPos, long yPos, App &app, GameUtility *gameUtility);
 #endif
 	bool isAnySolid(std::pair<Block*, unsigned short> blocks[6]);

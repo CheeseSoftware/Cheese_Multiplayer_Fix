@@ -1,4 +1,4 @@
-#ifndef _SERVER
+#ifdef CLIENT
 
 #include <iostream>
 #include <sstream>
@@ -133,7 +133,7 @@ GameState *PlayState::Update(App &app, Game &game)
 	}
 	//else if (1/app.getFrameTime() < 50.f)
 	{
-	std::cout << "fps: " << 1/app.getFrameTime() << " LOW FPS!\n";
+	//std::cout << "fps: " << 1/app.getFrameTime() << " LOW FPS!\n";
 	fpsClock.restart();
 	}
 

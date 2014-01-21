@@ -1,6 +1,6 @@
 #pragma once
 //#ifdef X_X
-#ifndef _SERVER
+#ifdef CLIENT
 #include <SFML\Graphics.hpp>
 #include "Selectable.h"
 #include "Camera.h"

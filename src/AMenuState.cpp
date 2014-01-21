@@ -1,4 +1,4 @@
-#ifndef _SERVER
+#ifdef CLIENT
 
 #include <SFML/Graphics.hpp>
 #include <string>

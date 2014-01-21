@@ -14,7 +14,7 @@ class User : CreatureController, EventHandleable
 public:
 	User(int id);
 
-#ifdef _SERVER
+#ifdef SERVER
 	// Client-kod
 #else
 	virtual void HandleEvent(App &app, const sf::Event &event, GameState* gameState);

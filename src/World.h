@@ -62,14 +62,14 @@ private:
 	std::pair<std::tuple<long, long, unsigned short>, std::pair<Block*, unsigned short>*> lastBlock;
 	std::pair<Block*, unsigned short> physicBlock;
 	generator::StandardGenerator generator;
-#ifndef _SERVER
+#ifdef CLIENT
 	EventHandler<GameUtility*> eventHandler;
 
 	User *me;
 #endif
 public:
 	World(GameUtility *gameUtility);
-#ifndef _SERVER
+#ifdef CLIENT
 	void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
 	void Draw(App &app, GameUtility *gameUtility);
 #endif

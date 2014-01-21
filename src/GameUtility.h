@@ -14,7 +14,7 @@ class BlockRegister;
 class GameUtility : public virtual GameState
 {
 protected:
-#ifndef _SERVER
+#ifdef CLIENT
 	Camera *camera;
 #endif
 	TextureContainer *tC;
@@ -31,7 +31,7 @@ public:
 	inline TextureContainer &getTextureContainer() { return *tC; }
 	inline std::queue<sf::Packet>* getPacketDataList() { return packetDataList; };
 	inline void SendPacket(sf::Packet p) { packetDataList->push(p); };
-#ifndef _SERVER
+#ifdef CLIENT
 	inline Camera &getCamera() { return *camera; }
 #endif
 	inline BlockRegister &getBlockRegister() { return *blockRegister; }

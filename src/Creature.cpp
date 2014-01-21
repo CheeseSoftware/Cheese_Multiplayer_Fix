@@ -49,7 +49,7 @@ void Creature::OnCollide(App &app, World *world, GameUtility *gameUtility, float
 {
 	if((collisionType == CollisionType::YAxis && speedY > 3) || (collisionType == CollisionType::XYAxis && speedY > 3))
 	{
-#ifdef _SERVER
+#ifdef SERVER
 		std::cout << "Damaged " << speedY*5 << " ! Health left: " << getHealth() << std::endl;
 		OnDamage(speedY*5);
 		sf::Packet packet;

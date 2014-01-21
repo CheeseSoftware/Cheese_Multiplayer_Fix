@@ -25,21 +25,21 @@ Player::Player(int id, float X, float Y, short sizeX, short sizeY, bool IsClient
 	currentChunkXOld = 0;
 	currentChunkYOld = 0;
 
-#ifndef _SERVER
+#ifdef CLIENT
 	//auto eventUpdate =  [this](App &app, sf::Event &event, World *world, std::queue<sf::Packet> *packetDataList) { EventUpdate(app, event, world, packetDataList); };
 	//eventHandler.AddEventCallback(this, eventUpdate);
 #endif
 }
 
-/*#ifdef _SERVER
+/*#ifdef SERVER
 void Player::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList)
 #else
 void Player::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
 #endif*/
 void Player::Update(App &app, GameUtility *GameUtility)
 {
-	std::cout << "xpos: " << x << " ypos:" << y << " xspeed:" << speedX << " yspeed:" << speedY << std::endl;
-#ifndef _SERVER
+	//std::cout << "xpos: " << x << " ypos:" << y << " xspeed:" << speedX << " yspeed:" << speedY << std::endl;
+#ifdef CLIENT
 	//if (y > 809200)
 	//	y = 0;
 
@@ -84,14 +84,14 @@ void Player::Update(App &app, GameUtility *GameUtility)
 #endif
 
 	Creature::Update(app, GameUtility);
-	/*#ifdef _SERVER
+	/*#ifdef SERVER
 	Creature::Update(app, world, packetDataList);
 	#else
 	Creature::Update(app, world, packetDataList, camera, eventHandler);
 	#endif*/
 }
 
-#ifndef _SERVER
+#ifdef CLIENT
 
 void Player::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility)
 {

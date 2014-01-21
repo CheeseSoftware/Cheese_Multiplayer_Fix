@@ -1,4 +1,4 @@
-#ifdef _SERVERdsr
+#ifdef SERVERdsr
 #include "EventHandler.h"
 #include "App.h"
 #include "World.h"

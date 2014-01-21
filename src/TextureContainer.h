@@ -7,7 +7,7 @@ class TextureContainer;
 #include <map>
 #include <string>
 #include <vector>
-#ifndef _SERVER
+#ifdef CLIENT
 #include <SFML\Graphics.hpp>
 #endif
 
@@ -16,7 +16,7 @@ class TextureContainer;
 class TextureContainer
 {
 private:
-#ifndef _SERVER
+#ifdef CLIENT
 	std::map<std::string, sf::Sprite*> textureList;
 #else
 	std::vector<std::string> textureList;
@@ -26,7 +26,7 @@ public:
 	~TextureContainer(void);
 	bool AddTexture(std::string fileName, int textureType);
 	bool AddSpriteSheet(std::string fileName, int spriteWidth, int spriteHeight);
-	CLIENT( sf::Sprite *getTextures(std::string textureName); )
+	CLIENT_( sf::Sprite *getTextures(std::string textureName); )
 };
 
 #endif

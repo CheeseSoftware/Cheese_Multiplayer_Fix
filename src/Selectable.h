@@ -1,6 +1,5 @@
-#ifndef _SERVER
+#ifdef CLIENT
 #pragma once
-//#ifdef MENUIDIOTI
 #include <functional>
 #include "IMenuItem.h"
 #include "App.h"

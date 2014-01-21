@@ -2,7 +2,7 @@
 
 Client::Client()
 {
-	#ifdef _SERVER
+	#ifdef SERVER
 	chunks = new bool[11*16];
 	for(int x = 0; x < 11; x++)
 	{
@@ -24,7 +24,7 @@ Client::~Client()
 	delete socket;
 }
 
-#ifdef _SERVER
+#ifdef SERVER
 void Client::Move(char x, char y)
 {
 	{

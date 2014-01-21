@@ -17,7 +17,7 @@ Projectile::~Projectile(void)
 {
 }
 
-/*#ifdef _SERVER
+/*#ifdef SERVER
 void Projectile::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList)
 #else
 void Projectile::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
@@ -38,7 +38,7 @@ void Projectile::Update(App &app, GameUtility *GameUtility)
 	}
 
 	Entity::Update(app, GameUtility);
-/*#ifdef _SERVER
+/*#ifdef SERVER
 	Entity::Update(app, world, packetDataList);
 #else
 	Entity::Update(app, world, packetDataList, camera, eventHandler);

@@ -18,11 +18,11 @@ class BlockRegister
 public:
 	BlockRegister();
 	void RegisterBlock(Block *block, const size_t typeId);
-#ifndef _SERVER
+#ifdef CLIENT
 	void RegisterBlockTextures(TextureContainer &Tc);
 #endif
 	Block *getBlockType(const unsigned short id);
-#ifndef _SERVER
+#ifdef CLIENT
 	sf::Sprite *getBlockTextures(const Block *block);
 #endif
 	unsigned short getBlockIdByTypeId(const size_t typeId);

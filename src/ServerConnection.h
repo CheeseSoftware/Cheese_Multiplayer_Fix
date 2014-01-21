@@ -14,7 +14,7 @@ public:
 	ServerConnection(int port, World *world);
 	~ServerConnection(void);
 	void Broadcast(sf::Packet packet);
-	void KickClient(int ID, std::string reason);
+	void KickCLIENT_(int ID, std::string reason);
 	virtual void Run();
 
 	sf::Mutex lockObject;

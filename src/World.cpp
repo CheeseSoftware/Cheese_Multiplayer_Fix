@@ -25,7 +25,7 @@ World::World(GameUtility *gameUtility)
 
 }
 
-#ifndef _SERVER
+#ifdef CLIENT
 void World::EventUpdate(App &app, const sf::Event &event, GameUtility *gameUtility)
 {
 	eventHandler.EventUpdate(app, event, gameUtility);
@@ -88,7 +88,7 @@ void World::Update(App &app, GameUtility *gameUtility)
 {
 	for (Entity *entity : entityList)
 	{
-#ifdef _SERVER
+#ifdef SERVER
 		entity->Update(app, gameUtility);
 #else
 		entity->Update(app, gameUtility);
@@ -98,7 +98,7 @@ void World::Update(App &app, GameUtility *gameUtility)
 	std::vector<short> toRemove = std::vector<short>();
 	for(std::pair<const short, std::unique_ptr<Creature>> &pair : creatureList)
 	{
-#ifdef _SERVER
+#ifdef SERVER
 		pair.second->Update(app, gameUtility);
 #else
 		pair.second->Update(app, gameUtility);
@@ -386,7 +386,7 @@ int World::AddEntity(Entity *entity)
 {
 	entityListLock.lock(); //std::cout << "entitylist locked!\n";
 	entityList.push_back(entity);
-	CLIENT(
+	CLIENT_(
 		eventHandler.AddEventCallback(entity,[entity] (App& a, const sf::Event& e, GameState* gUtil) { entity->EventUpdate(a, e, reinterpret_cast<GameUtility*>(gUtil)); });
 		)
 		entityListLock.unlock(); //std::cout << "entitylist unlocked!\n";
@@ -405,7 +405,7 @@ int World::AddCreature(int id, Creature *creature)
 	if(it == creatureList.end())
 	{
 		creatureList.insert(std::pair<short, std::unique_ptr<Creature>>(id, std::unique_ptr<Creature>(creature)));
-		CLIENT(
+		CLIENT_(
 			eventHandler.AddEventCallback(creature, [creature] (App& a, const sf::Event& e, GameUtility* gUtil) { creature->EventUpdate(a, e, gUtil); });
 		)
 	}
@@ -422,7 +422,7 @@ void World::RemoveCreature(int id)
 	auto it = creatureList.find(id);
 	if(it != creatureList.end())
 	{
-		CLIENT(
+		CLIENT_(
 			eventHandler.RemoveEventCallback(&*creatureList[id]);
 		)
 			//delete(&*it->second);

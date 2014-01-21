@@ -81,7 +81,7 @@ void ServerConnection::PingClients(void)
 
 	for(int i : *toKick)
 	{
-		KickClient(i, "Too high ping");
+		KickCLIENT_(i, "Too high ping");
 	}
 	toKick->clear();
 	delete toKick;
@@ -171,7 +171,7 @@ void ServerConnection::AcceptReceive()
 				}
 				lockObject.unlock();
 				for(int i : *toKick)
-					KickClient(i, "Disconnected");
+					KickCLIENT_(i, "Disconnected");
 				toKick->clear();
 			}
 		}
@@ -179,7 +179,7 @@ void ServerConnection::AcceptReceive()
 	delete toKick;
 }
 
-void ServerConnection::KickClient(int ID, std::string reason)
+void ServerConnection::KickCLIENT_(int ID, std::string reason)
 {
 	lockObject.lock();
 	auto client = clients.find(ID);

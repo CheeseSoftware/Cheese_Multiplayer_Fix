@@ -1,4 +1,4 @@
-#ifdef _SERVER
+#ifdef SERVER
 #include <iostream>
 #include <string>
 #include <SFML\Network.hpp>

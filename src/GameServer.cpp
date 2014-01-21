@@ -1,4 +1,4 @@
-#ifdef _SERVER
+#ifdef SERVER
 #include "GameServer.h"
 #include "GameState.h"
 #include "App.h"

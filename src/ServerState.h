@@ -1,4 +1,4 @@
-#ifdef _SERVER
+#ifdef SERVER
 #pragma once
 #include "GameUtility.h"
 #include "GameState.h"

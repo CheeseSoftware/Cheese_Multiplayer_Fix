@@ -1,5 +1,5 @@
 #include <iostream>
-#ifndef _SERVER
+#ifdef CLIENT
 #include <SFML\Graphics.hpp>
 #endif
 #include "TextureContainer.h"
@@ -31,8 +31,8 @@ TextureContainer::~TextureContainer(void)
 
 bool TextureContainer::AddSpriteSheet(std::string fileName, int spriteWidth, int spriteHeight)
 {
-#ifndef _SERVER
-	//CLIENT(
+#ifdef CLIENT
+	//CLIENT_(
 	sf::Texture *texture = new sf::Texture();//sf::Image image;
 	bool success = texture->loadFromFile(fileName);
 
@@ -93,8 +93,8 @@ bool TextureContainer::AddSpriteSheet(std::string fileName, int spriteWidth, int
 	std::cout << "Added texture " << fileName << std::endl;
 }*/
 
-//CLIENT(
-#ifndef _SERVER
+//CLIENT_(
+#ifdef CLIENT
 	sf::Sprite *TextureContainer::getTextures(std::string textureName)
 {
 	auto it = textureList.find(textureName);

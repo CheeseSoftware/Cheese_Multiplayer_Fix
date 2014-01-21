@@ -7,7 +7,7 @@
 */
 	//public:
 
-#ifndef _SERVER
+#ifdef CLIENT
 
 #include <functional>
 #include <math.h>
@@ -45,6 +45,7 @@ namespace gui
 
 	void Minimap::Update(App &app, GameUtility *const gameUtility)
 	{
+		return;
 		long playerX = (long)floor(gameUtility->getCamera().getEntityPosition().x/16+0.5)-viewWidth/2;
 		long playerY = (long)floor(gameUtility->getCamera().getEntityPosition().y/16+0.5)-viewHeight/2;
 
@@ -137,6 +138,7 @@ namespace gui
 
 	void Minimap::Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight)
 	{
+		return;
 		sprite.setPosition(m_x, m_y);
 		app.draw(sprite, sf::RenderStates::Default);
 	}

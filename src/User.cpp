@@ -6,7 +6,7 @@ User::User(int id) : CreatureController(id)
 
 }
 
-#ifdef _SERVER
+#ifdef SERVER
 
 #else
 void User::HandleEvent(App &app, const sf::Event &event, GameState* gameState)

@@ -1,4 +1,4 @@
-#ifndef _SERVER
+#ifdef CLIENT
 #include "Button.h"
 #include <iostream>
 

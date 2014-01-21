@@ -1,4 +1,4 @@
-#ifndef _SERVER
+#ifdef CLIENT
 #include <math.h>
 
 #include "Camera.h"

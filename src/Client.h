@@ -7,7 +7,7 @@
 class Client
 {
 private:
-#ifdef _SERVER
+#ifdef SERVER
 	//setd::vector<std::pair<long, long>> chunks;
 	long chunkX;
 	long chunkY;

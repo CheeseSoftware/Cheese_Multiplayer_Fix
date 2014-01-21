@@ -1,9 +1,9 @@
-//#ifdef _SERVER
+//#ifdef SERVER
 #include "App.h"
 
 #define MIN_FRAME_TIME 0.00390625F
 
-CLIENT(
+CLIENT_(
 App::App(sf::VideoMode videoMode) : sf::RenderWindow(videoMode, "Cheese Multiplayer - Alpha")//tgui::Window(videoMode, "Cheese Multiplayer - Alpha")
 {
 	//globalFont.loadFromFile("TGUI/Fonts/DejaVuSans.ttf");
@@ -12,7 +12,7 @@ App::App(sf::VideoMode videoMode) : sf::RenderWindow(videoMode, "Cheese Multipla
 float App::getFrameTime()
 {
 	//std::cout << frameTime << " " << sleptTime << std::endl;
-#ifdef _SERVER
+#ifdef SERVER
 	return (frameTime/*+sleptTime*/);
 #else
 	return (frameTime);
@@ -33,7 +33,7 @@ void App::Update()
 		sf::sleep(sf::Time(sf::milliseconds(time/1000)));
 	frameTime = frameTimer.getElapsedTime().asSeconds();
 	
-/*SERVER(
+/*SERVER_(
 	if (frameTime < MIN_FRAME_TIME)
 	{
 		sleptTime = MIN_FRAME_TIME-frameTime;

@@ -7,7 +7,7 @@
 #include "GameUtility.h"
 #include <typeinfo>
 
-#ifndef _SERVER
+#ifdef CLIENT
 #include <SFML\Graphics.hpp>
 #endif
 
@@ -70,7 +70,7 @@ Block *Chunk::getHighestBlock(unsigned char x, unsigned char y)
 	return(0);
 }
 
-#ifndef _SERVER
+#ifdef CLIENT
 void Chunk::Draw(long xPos, long yPos, App &app, GameUtility *gameUtility)
 {
 	Block *air = gameUtility->getBlockRegister().getBlockType(2);

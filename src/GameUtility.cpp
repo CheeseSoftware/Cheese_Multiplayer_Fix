@@ -6,7 +6,7 @@
 
 GameUtility::GameUtility(App &app)
 {
-#ifndef _SERVER
+#ifdef CLIENT
 	camera = new Camera(1024);//setSpeed(8);
 #endif
 	tC = new TextureContainer();
@@ -38,7 +38,7 @@ BlockRegister &GameUtility::getBlockRegister()
 	return *blockRegister;
 }
 
-#ifndef _SERVER
+#ifdef CLIENT
 Camera &GameUtility::getCamera()
 {
 	return *camera;

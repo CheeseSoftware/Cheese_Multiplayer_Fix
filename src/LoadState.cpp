@@ -1,4 +1,4 @@
-#ifndef _SERVER
+#ifdef CLIENT
 #include "LoadState.h"
 #include "Connection.h"
 #include "PlayState.h"

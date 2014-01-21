@@ -1,4 +1,4 @@
-#ifndef _SERVER
+#ifdef CLIENT
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Selectable.h"

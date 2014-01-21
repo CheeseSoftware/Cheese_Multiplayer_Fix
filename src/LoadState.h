@@ -1,4 +1,4 @@
-#ifndef _SERVER
+#ifdef CLIENT
 #pragma once
 #include "GameState.h"
 #include "Connection.h"

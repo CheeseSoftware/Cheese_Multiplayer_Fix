@@ -2,7 +2,7 @@
 #include "GameUtility.h"
 #include <math.h>
 
-#ifndef _SERVER
+#ifdef CLIENT
 void LargeTextureBlock::Draw(const long posX, const long posY, App &app, GameUtility *gameUtility, const unsigned short metadata)
 {
 	sf::Sprite *tempSprite = &gameUtility->getBlockRegister().getBlockTextures(this)

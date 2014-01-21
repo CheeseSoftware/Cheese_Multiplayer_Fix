@@ -15,7 +15,7 @@ public:
 	~Projectile(void);
 
 	virtual void Update(App &app, GameUtility *GameUtility);
-/*#ifdef _SERVER
+/*#ifdef SERVER
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
 #else
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);

@@ -1,11 +1,7 @@
 #pragma once
-#ifdef MENUIDIOTI
-
+#ifdef CLIENT
 #include "App.h"
 #include "MainCallbacks.h"
-//#include "GameUtility.h"
-//#include "GameState.h"
-
 class GameState;
 class GameUtility;
 

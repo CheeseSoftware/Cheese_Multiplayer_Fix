@@ -48,7 +48,7 @@ bool Block::isGravity() const
 	return false;
 }
 
-#ifndef _SERVER
+#ifdef CLIENT
 void Block::OnCreate(const unsigned short metadata, EventHandler<GameUtility*> &eventHandler)
 #else
 void Block::OnCreate(const unsigned short metadata)
@@ -113,7 +113,7 @@ void Block::OnReceive(sf::Packet* packet, sf::Uint16 id, GameUtility* gameUtilit
 		return;
 	}
 	//std::cout << "received block: id:" << id << " layer:" << layer << std::endl;
-#ifdef _SERVER
+#ifdef SERVER
 	gameUtility->getCurrentWorld()->setBlockAndMetadata(xPos, yPos, layer, id, metadata, gameUtility);
 #else
 	gameUtility->getCurrentWorld()->setBlockAndMetadataLocal(xPos, yPos, layer, id, metadata, gameUtility);
@@ -136,7 +136,7 @@ void Block::OnSend(sf::Packet *packet, sf::Uint16 packetType, long x, long y, sh
 	}
 }
 
-#ifndef _SERVER
+#ifdef CLIENT
 void Block::Draw(const long posX, const long posY, App &app, GameUtility *gameUtility, const unsigned short metadata)
 {
 	sf::Sprite *tempSprite = &gameUtility->getBlockRegister().getBlockTextures(this)[getTextureId(app, metadata)]; //&(tC.getTextures(getTextureName())[getTextureId(app, metadata)]);

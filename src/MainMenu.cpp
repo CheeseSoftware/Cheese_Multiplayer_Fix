@@ -1,12 +1,12 @@
-#ifndef _SERVER
+#ifdef CLIENT
 
 #include <iostream>
 #include <vector>
+#include <sstream>
+
 #include "MainMenu.h"
 #include "AMenuState.h"
 #include "PlayState.h"
-#include <sstream>
-
 #include "GameState.h"
 #include "Label.h"
 #include "Text.h"

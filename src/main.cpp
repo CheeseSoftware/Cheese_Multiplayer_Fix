@@ -1,22 +1,15 @@
-
-
-#ifndef _SERVER
-//#include <functional>
+#ifdef CLIENT
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include "PlayState.h"
-#include "MainMenu.h" //
-//#include "MainMenu.h"
+#include "MainMenu.h"
+#include "GameClient.h"
 #else
 #include "ServerState.h"
-
+#include "GameServer.h"
 #endif
 #include "App.h"
-#include "GameClient.h"
-#include "GameServer.h"
-
-	//////////////////////////////////////////////////////////////////////////////////////////
 #include "User.h"
 
 int _argc;
@@ -27,13 +20,12 @@ int main(int argc, char** argv)
 	_argc = argc;
 	_argv = argv;
 
-#ifdef _SERVER
+#ifdef SERVER
 	GameServer game;
 #else
 	GameClient game;
 #endif
 
 	game.Run();
-
 	return 0;
 }

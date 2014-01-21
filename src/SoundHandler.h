@@ -1,4 +1,4 @@
-#ifndef _SERVER
+#ifdef CLIENT
 #pragma once
 #include <SFML\Audio.hpp>
 #include <vector>

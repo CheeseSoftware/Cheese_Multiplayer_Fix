@@ -1,4 +1,4 @@
-#ifndef _SERVER
+#ifdef CLIENT
 #include "NoobishBlockMenu.h"
 #include "World.h"
 #include "Block.h"

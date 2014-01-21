@@ -8,7 +8,7 @@
 #include <queue>
 #include <math.h>
 #include "App.h"
-#ifdef _SERVER
+#ifdef SERVER
 #include <SFML\System.hpp>
 #else
 #include <SFML\Graphics.hpp>
@@ -53,13 +53,13 @@ public:
 		float angle, float speed, float maxSpeed, float friction, std::string spriteName,
 		int spriteIndex, bool isClientControlling);
 	virtual void Update(App &app, GameUtility *GameUtility);
-/*#ifdef _SERVER
+/*#ifdef SERVER
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
 #else
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
 #endif*/
 	
-#ifndef _SERVER
+#ifdef CLIENT
 	virtual void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
     virtual void Draw(App &app, GameUtility *gameUtility);
 #endif
