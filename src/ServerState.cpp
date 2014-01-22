@@ -1,17 +1,20 @@
 #ifdef SERVER
+#define _USE_MATH_DEFINES
+#include "ServerState.h"
+
 #include <iostream>
 #include <string>
+#include <SFML\Graphics.hpp>
 #include <SFML\Network.hpp>
-#include "ServerState.h"
-#define _USE_MATH_DEFINES
 #include <math.h>
+
 #include "World.h"
 #include "Chunk.h"
 #include "BlockSolid.h"
 #include "BlockBackground.h"
 #include "App.h"
 #include "Packet.h"
-#include <SFML\Graphics.hpp>
+#include "BlockRegister.h"
 
 
 
