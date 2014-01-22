@@ -17,14 +17,19 @@ namespace gui
 	void Button::Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight)
 	{
 		// define a 120x50 rectangle
-		sf::RectangleShape rectangle(sf::Vector2f(m_x + m_widthOffset + drawAreax, m_y + m_heightOffset + drawAreay));
+		sf::RectangleShape rectangle(sf::Vector2f(m_X(app), m_Y(app)));
+
+		rectangle.setPosition(sf::Vector2f(m_X(app), m_Y(app)));
 
 		// change the size to 100x100
 		rectangle.setSize(sf::Vector2f(m_width, m_height));
 
+		rectangle.setFillColor(sf::Color(64, 64, 64, 192));
+		rectangle.setOutlineColor(sf::Color(192, 192, 192, 255));
+
 		app.draw(rectangle);
 
-		getText()->setPosition(m_x + m_widthOffset + drawAreax, m_y + m_heightOffset + drawAreay);
+		getText()->setPosition(m_X(app), m_Y(app));
 		app.draw(*getText());
 	}
 }

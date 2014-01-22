@@ -26,7 +26,7 @@ namespace gui
 	void Label::Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight)
 	{
 		Selectable::Draw(app, drawAreax, drawAreay,  drawAreaWidth, drawAreaHeight);
-		getText()->setPosition(m_x + m_widthOffset + drawAreax, m_y + m_heightOffset + drawAreay);
+		getText()->setPosition(m_X(app), m_Y(app));
 		app.draw(*getText());
 	}
 

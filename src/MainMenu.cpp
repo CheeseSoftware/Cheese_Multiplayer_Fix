@@ -35,6 +35,7 @@ MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 	{
 		game->SetGameState(new PlayState(app));
 	});
+	button->setPositionType(PositionType::middleCenter);
 	//[](App &app, const sf::Event event, int x, int y){});
 
 	menuItemContainer->Add(button);

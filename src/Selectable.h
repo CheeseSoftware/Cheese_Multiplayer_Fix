@@ -18,8 +18,8 @@ namespace gui
 		bool down;
 		bool clicked;
 
-		int m_x;
-		int m_y;
+		int m_localX;
+		int m_localY;
 		int m_width;
 		int m_height;
 		int m_widthOffset;
@@ -37,6 +37,11 @@ namespace gui
 		sf::Sprite *m_texture;
 		PositionType m_positionType;
 		Selectable(int x, int y, int width, int height);
+
+		int m_X(App &app);
+		int m_Y(App &app);
+		int m_X2(App &app);
+		int m_Y2(App &app);
 	public:
 		virtual bool getSelected();
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, float x, float y);
@@ -52,7 +57,7 @@ namespace gui
 
 		virtual void OnHover(App &app, const sf::Event &event, float x, float y);
 		virtual void OnHoverReleased(App &app, const sf::Event &event, float x, float y);
-		sf::Vector2f getPosition() { return sf::Vector2f(m_x, m_y); }
+		sf::Vector2f getPosition() { return sf::Vector2f(m_localX, m_localY); }
 		virtual sf::Vector2f getSize();
 		virtual sf::Vector2f Selectable::getPositionOffset(float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight);
 		void setPositionType(PositionType positionType);
