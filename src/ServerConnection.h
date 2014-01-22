@@ -19,8 +19,7 @@ public:
 
 	sf::Mutex lockObject;
 	std::queue<std::pair<sf::Packet*, Client*>> packets;
-	std::queue<int> toKick;
-	//long int maxClients;
+	std::map<int, std::string> toKick;
 	std::map<int, Client*> clients;
 private:
 	void PingClients();

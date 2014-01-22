@@ -6,13 +6,9 @@ ServerConnection::ServerConnection(int port, World *world)
 	currentWorld = world;
 	acceptReceiveThread = new sf::Thread(&ServerConnection::AcceptReceive, this);
 	if(s.listen(port) != sf::Socket::Status::Done)
-	{
 		std::cout << "Failed to bind to port " << port << ", maybe already a server listening on this port?" << std::endl;
-	}
 	else
-	{
 		std::cout << "Server listening to port " << port << std::endl;
-	}
 	pingTimeout.restart();
 	s.setBlocking(true);
 	selector.add(s);
@@ -26,8 +22,6 @@ ServerConnection::~ServerConnection(void)
 
 void ServerConnection::Run(void)
 {
-	//std::cout << packets.size() << " size!" << std::endl;
-	//std::cout << "running! " << pingTimeout.getElapsedTime().asMilliseconds() << std::endl;
 	float ElapsedTime = pingTimeout.getElapsedTime().asMilliseconds();
 	if(ElapsedTime > 1000)
 	{
@@ -38,7 +32,6 @@ void ServerConnection::Run(void)
 
 void ServerConnection::PingClients(void)
 {
-	std::vector<int> *toKick = new std::vector<int>();
 	for (auto pair : clients)
 	{
 		Client *client = pair.second;
@@ -61,8 +54,9 @@ void ServerConnection::PingClients(void)
 			{
 				if(client->socket->getRemoteAddress() == sf::IpAddress::None)
 				{
-					//Kick client, too high ping
-					toKick->push_back(client->ID);
+					lockObject.lock();
+					toKick.emplace(std::pair<int, std::string>(client->ID, "Too high ping"));
+					lockObject.unlock();
 				}
 				else
 				{
@@ -77,22 +71,14 @@ void ServerConnection::PingClients(void)
 			}
 		}
 	}
-
-	for(int i : *toKick)
-	{
-		KickClient(i, "Too high ping");
-	}
-	toKick->clear();
-	delete toKick;
 }
 
 int ServerConnection::GetFreeClientId()
 {
-	for(int i = 0; i < 1024; i++)							//Magic number, fix!
+	for(int i = 0;; i++)
 	{
 		if(clients.find(i) == clients.end())
 		{
-			//Found a free client id
 			std::cout << "Returned client id " << i << std::endl;
 			return i;
 		}
@@ -107,15 +93,12 @@ void ServerConnection::AcceptReceive()
 		{
 			if(selector.isReady(s))
 			{
-				//Client is connecting
-				//std::cout << "Client is connecting.." << std::endl;
 				Client *client = new Client();
 				if (s.accept(*client->socket) == sf::Socket::Done)
 				{
 					int freeClientId = GetFreeClientId();
 					if(freeClientId != -1)
 					{
-						//Accept the client
 						client->pingClock = sf::Clock();
 						client->socket->setBlocking(true);
 						client->ID = freeClientId;
@@ -123,7 +106,6 @@ void ServerConnection::AcceptReceive()
 						clients.insert(std::pair<int, Client*>(freeClientId, client));
 						lockObject.unlock();
 						selector.add(*client->socket);
-
 						std::cout << client->socket->getRemoteAddress() << " connected on socket " << freeClientId << std::endl;
 					}
 				}
@@ -135,13 +117,11 @@ void ServerConnection::AcceptReceive()
 			}
 			else
 			{
-				//Check if any client has sent data
 				lockObject.lock();
 				for(std::pair<int, Client*> pair : clients)
 				{
 					if (selector.isReady(*pair.second->socket))
 					{
-						//std::cout << "Client is ready for receive.." << std::endl;
 						Client *client = pair.second;
 						if(client->socket->getRemoteAddress() !=sf::IpAddress::None)
 						{
@@ -158,8 +138,9 @@ void ServerConnection::AcceptReceive()
 							}
 							else if(status == sf::Socket::Disconnected)
 							{
-								//std::cout << "Client disconnected while receiving!" << std::endl;
-								toKick->push_back(pair.first);
+								lockObject.lock();
+								toKick.emplace(pair.first, "Socket disconnected");
+								lockObject.unlock();
 								delete received;
 							}
 						}

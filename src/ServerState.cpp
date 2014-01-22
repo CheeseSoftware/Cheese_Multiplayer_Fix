@@ -37,7 +37,18 @@ GameState *ServerState::Update(App &app, Game &game)
 	currentWorld->Update(app, this);
 	sC->Run();
 	ProcessPackets(this);
+	KickClients(this);
 	return this;
+}
+
+void ServerState::KickClients(GameUtility *gameUtility)
+{
+	auto clients = sC->toKick;
+	sC->toKick = std::map<int, std::string>();
+	for(auto it = clients.begin(); it != clients.end(); it++)
+	{
+		sC->KickClient(it->first, it->second);
+	}
 }
 
 void ServerState::ProcessPackets(GameUtility *gameUtility)
