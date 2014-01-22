@@ -13,11 +13,10 @@ ServerConnection::ServerConnection(int port, World *world)
 	{
 		std::cout << "Server listening to port " << port << std::endl;
 	}
-	
-		pingTimeout.restart();
-		s.setBlocking(true);
-		selector.add(s);
-		acceptReceiveThread->launch();
+	pingTimeout.restart();
+	s.setBlocking(true);
+	selector.add(s);
+	acceptReceiveThread->launch();
 }
 
 
@@ -81,7 +80,7 @@ void ServerConnection::PingClients(void)
 
 	for(int i : *toKick)
 	{
-		KickCLIENT_(i, "Too high ping");
+		KickClient(i, "Too high ping");
 	}
 	toKick->clear();
 	delete toKick;
@@ -102,7 +101,6 @@ int ServerConnection::GetFreeClientId()
 
 void ServerConnection::AcceptReceive()
 {
-	std::vector<int> *toKick = new std::vector<int>();
 	while(true)
 	{
 		if (selector.wait())
@@ -170,22 +168,18 @@ void ServerConnection::AcceptReceive()
 					}
 				}
 				lockObject.unlock();
-				for(int i : *toKick)
-					KickCLIENT_(i, "Disconnected");
-				toKick->clear();
 			}
 		}
 	}
-	delete toKick;
 }
 
-void ServerConnection::KickCLIENT_(int ID, std::string reason)
+void ServerConnection::KickClient(int ID, std::string reason)
 {
 	lockObject.lock();
 	auto client = clients.find(ID);
 	if(client != clients.end())
 	{
-		//Tell the client a kick message
+		//Send a kick message
 		const char *kickmsg = reason.c_str();
 		sf::Packet send;
 		send << (sf::Uint16)Kicked << kickmsg;
@@ -199,7 +193,7 @@ void ServerConnection::KickCLIENT_(int ID, std::string reason)
 		currentWorld->RemoveCreature(ID);
 		std::cout << "Kicked client: " << ID << " Reason: " << reason << std::endl;
 
-		//Tell other clients that client has left
+		//Tell other clients that the client has left
 		send.clear();
 		send << (sf::Uint16) PlayerLeft << (sf::Uint16)ID;
 		Broadcast(send);

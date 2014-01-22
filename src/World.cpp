@@ -98,11 +98,7 @@ void World::Update(App &app, GameUtility *gameUtility)
 	std::vector<short> toRemove = std::vector<short>();
 	for(std::pair<const short, std::unique_ptr<Creature>> &pair : creatureList)
 	{
-#ifdef SERVER
 		pair.second->Update(app, gameUtility);
-#else
-		pair.second->Update(app, gameUtility);
-#endif
 		if(pair.second->isDead())
 		{
 			sf::Packet packet;

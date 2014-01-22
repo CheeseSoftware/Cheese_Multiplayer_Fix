@@ -14,11 +14,12 @@ public:
 	ServerConnection(int port, World *world);
 	~ServerConnection(void);
 	void Broadcast(sf::Packet packet);
-	void KickCLIENT_(int ID, std::string reason);
+	void KickClient(int ID, std::string reason);
 	virtual void Run();
 
 	sf::Mutex lockObject;
 	std::queue<std::pair<sf::Packet*, Client*>> packets;
+	std::queue<int> toKick;
 	//long int maxClients;
 	std::map<int, Client*> clients;
 private:
