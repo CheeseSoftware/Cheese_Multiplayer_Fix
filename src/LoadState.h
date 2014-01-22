@@ -16,4 +16,3 @@ public:
 	virtual void Draw(App &app);
 };
 #endif
-

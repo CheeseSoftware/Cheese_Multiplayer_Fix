@@ -41,8 +41,8 @@ namespace gui
 		for (Selectable *i : *itemList)
 		{
 			i->Draw(app,
-				m_x + m_widthOffset + drawAreax,
-				m_y + m_heightOffset + drawAreay, 
+				m_X(app),
+				m_Y(app), 
 			drawAreaWidth < m_width ? drawAreaWidth : m_width, drawAreaHeight < m_height ? drawAreaHeight : m_height);
 		}
 	}

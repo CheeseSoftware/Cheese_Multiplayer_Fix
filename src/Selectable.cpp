@@ -8,8 +8,8 @@ namespace gui
 	Selectable::Selectable(int x, int y, int width, int height)
 		: down(false)
 	{
-		m_x = x;
-		m_y = y;
+		m_localX = x;
+		m_localY = y;
 		m_width = width;
 		m_height = height;
 		m_positionType = TopLeft;
@@ -17,6 +17,47 @@ namespace gui
 		m_heightOffset = 0;
 		m_texture = nullptr;
 	}
+
+		int Selectable::m_X(App &app)
+		{
+			int x = m_localX;
+
+			if (m_positionType == PositionType::centerTop || m_positionType == PositionType::middleCenter || m_positionType == PositionType::centerDown)
+			{
+				x += app.getSize().x/2;
+			}
+			else if (m_positionType == PositionType::TopRight || m_positionType == PositionType::centerRight || m_positionType == PositionType::DownRight)
+			{
+				x += app.getSize().x;
+			}
+			return x;
+		}
+
+		int Selectable::m_Y(App &app)
+		{
+			int y = m_localY;
+
+			if (m_positionType == PositionType::centerLeft || m_positionType == PositionType::middleCenter || m_positionType == PositionType::centerRight)
+			{
+				y += app.getSize().y/2;
+			}
+			else if (m_positionType == PositionType::DownLeft || m_positionType == PositionType::centerDown || m_positionType == PositionType::DownRight)
+			{
+				y += app.getSize().y;
+			}
+			return y;
+		}
+
+		int Selectable::m_X2(App &app)
+		{
+			return m_X(app) + m_width;
+		}
+
+		int Selectable::m_Y2(App &app)
+		{
+			return m_Y(app) + m_height;
+		}
+
 
 	bool Selectable::getSelected()
 	{
@@ -30,10 +71,14 @@ namespace gui
 		{
 			//std::cout << "posx:" << x + getPosition().x + m_widthOffset << " posy:" << y + getPosition().y + m_heightOffset << std::endl;
 			//std::cout << "mousex:" << sf::Mouse::getPosition().x << " mousey: " << sf::Mouse::getPosition().y << std::endl;
-			if (sf::Mouse::getPosition(app).x >= x + getPosition().x + m_widthOffset &&
+			/*if (sf::Mouse::getPosition(app).x >= x + getPosition().x + m_widthOffset &&
 				sf::Mouse::getPosition(app).x <= x + getPosition().x + m_widthOffset + getSize().x &&
 				sf::Mouse::getPosition(app).y >= y + getPosition().y + m_heightOffset &&
-				sf::Mouse::getPosition(app).y <= y + getPosition().y + m_heightOffset + getSize().y)
+				sf::Mouse::getPosition(app).y <= y + getPosition().y + m_heightOffset + getSize().y)*/
+			if (sf::Mouse::getPosition(app).x >= m_X(app) &&
+				sf::Mouse::getPosition(app).x <= m_X2(app) &&
+				sf::Mouse::getPosition(app).y >= m_Y(app) &&
+				sf::Mouse::getPosition(app).y <= m_Y2(app))
 			{
 				if(event.key.code == sf::Mouse::Left)
 				{
@@ -51,10 +96,10 @@ namespace gui
 		{
 			//std::cout << "posx:" << x + getPosition().x + m_widthOffset << " posy:" << y + getPosition().y + m_heightOffset << std::endl;
 			//std::cout << "mousex:" << sf::Mouse::getPosition().x << " mousey: " << sf::Mouse::getPosition().y << std::endl;
-			if (sf::Mouse::getPosition(app).x >= x + getPosition().x + m_widthOffset &&
-				sf::Mouse::getPosition(app).x <= x + getPosition().x + m_widthOffset + getSize().x &&
-				sf::Mouse::getPosition(app).y >= y + getPosition().y + m_heightOffset &&
-				sf::Mouse::getPosition(app).y <= y + getPosition().y + m_heightOffset + getSize().y)
+			if (sf::Mouse::getPosition(app).x >= m_X(app) &&
+				sf::Mouse::getPosition(app).x <= m_X2(app) &&
+				sf::Mouse::getPosition(app).y >= m_Y(app) &&
+				sf::Mouse::getPosition(app).y <= m_Y2(app))
 			{
 				if(event.key.code == sf::Mouse::Left)
 				{
@@ -80,12 +125,12 @@ namespace gui
 
 	void Selectable::Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight)
 	{
-		m_widthOffset = getPositionOffset(drawAreax, drawAreay, drawAreaWidth, drawAreaHeight).x;
-		m_heightOffset = getPositionOffset(drawAreax, drawAreay, drawAreaWidth, drawAreaHeight).y;
+		//m_widthOffset = getPositionOffset(drawAreax, drawAreay, drawAreaWidth, drawAreaHeight).x;
+		//m_heightOffset = getPositionOffset(drawAreax, drawAreay, drawAreaWidth, drawAreaHeight).y;
 		if(m_texture != nullptr)
 		{
 			sf::Sprite sprite = sf::Sprite(*m_texture);
-			sprite.setPosition(m_x + m_widthOffset + drawAreax, m_y + m_heightOffset + drawAreay);
+			sprite.setPosition(m_X(app), m_Y(app));
 			app.draw(sprite);
 		}
 	}

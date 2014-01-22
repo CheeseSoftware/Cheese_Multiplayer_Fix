@@ -139,7 +139,7 @@ namespace gui
 	void Minimap::Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight)
 	{
 		return;
-		sprite.setPosition(m_x, m_y);
+		sprite.setPosition(m_X(app), m_Y(app));
 		app.draw(sprite, sf::RenderStates::Default);
 	}
 }
