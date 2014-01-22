@@ -4,10 +4,9 @@ class GameState;
 
 #include <SFML\Graphics.hpp>
 #include <functional>
-
-#include "App.h"
 #include "MainCallbacks.h"
-#include "Game.h"
+class Game;
+class App;
 
 #ifndef GAMESTATE_H_INCLUDED
 #define GAMESTATE_H_INCLUDED

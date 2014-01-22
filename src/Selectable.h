@@ -1,9 +1,13 @@
 #ifdef CLIENT
 #pragma once
 #include <functional>
+#include <SFML\Window.hpp>
+#include <SFML\Graphics.hpp>
 #include "IMenuItem.h"
-#include "App.h"
 #include "PositionType.h"
+class IMenuItem;
+class App;
+class Game;
 
 #define CALLBACKFUNCTION__on(name) gui::ClickFunction on##name; public: void setOn##name##Callback(gui::ClickFunction function) { on##name = function; } protected:
 

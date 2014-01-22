@@ -1,6 +1,7 @@
 #ifdef CLIENT
 #include "Button.h"
 #include <iostream>
+#include "App.h"
 
 namespace gui
 {

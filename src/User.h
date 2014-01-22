@@ -6,8 +6,7 @@
 #include "CreatureController.h"
 #include "EventHandleable.h"
 
-#include "GameUtility.h"
-//class Creature;
+class GameUtility;
 
 class User : CreatureController, EventHandleable
 {

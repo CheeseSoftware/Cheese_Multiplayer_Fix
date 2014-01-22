@@ -1,6 +1,7 @@
 #ifdef CLIENT
 #include "Label.h"
 #include <iostream>
+#include "App.h"
 
 namespace gui
 {

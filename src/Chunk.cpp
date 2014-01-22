@@ -1,15 +1,17 @@
 #include "Chunk.h"
+
+#include <typeinfo>
+#ifdef CLIENT
+#include <SFML\Graphics.hpp>
+#endif
+
 #include "Block.h"
 #include "BlockGravity.h"
 #include "TextureContainer.h"
 #include "camera.h"
 #include "App.h"
 #include "GameUtility.h"
-#include <typeinfo>
-
-#ifdef CLIENT
-#include <SFML\Graphics.hpp>
-#endif
+#include "BlockRegister.h"
 
 Chunk::Chunk()
 { 

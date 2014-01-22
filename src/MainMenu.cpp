@@ -11,6 +11,8 @@
 #include "Label.h"
 #include "Text.h"
 #include "Button.h"
+#include "MenuItemContainer.h"
+#include "Game.h"
 
 MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 {

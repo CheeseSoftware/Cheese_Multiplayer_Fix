@@ -3,8 +3,6 @@
 #ifndef MAINMENU_H_INCLUDED
 #define MAINMENU_H_INCLUDED
 
-#include <functional>
-#include <vector>
 #include "AMenuState.h"
 #include "GameState.h"
 

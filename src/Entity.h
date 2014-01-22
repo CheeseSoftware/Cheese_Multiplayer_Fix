@@ -1,26 +1,20 @@
-//class Entity;
 #pragma once
-
 #define _USE_MATH_DEFINES
 
-#include <iostream>
-#include <vector>
-#include <queue>
-#include <math.h>
-#include "App.h"
+#include <SFML\Network.hpp>
 #ifdef SERVER
 #include <SFML\System.hpp>
 #else
 #include <SFML\Graphics.hpp>
 #endif
-#include <SFML\Network.hpp>
-#include "CollisionType.h"
 
+#include <iostream>
+#include "App.h"
+#include "CollisionType.h"
 enum MessageType;
 class TextureContainer;
 class World;
 class Camera;
-//template<class T> class EventHandler;
 class GameUtility;
 class Block;
 

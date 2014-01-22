@@ -1,9 +1,7 @@
 #pragma once
 #include "SolidBlock.h"
-#include "UniqueBlock.h"
-#include "Inventory.h"
-#include "Block.h"
-#include "GameUtility.h"
+class Inventory;
+class GameUtility;
 
 class BlockChest : public SolidBlock
 {

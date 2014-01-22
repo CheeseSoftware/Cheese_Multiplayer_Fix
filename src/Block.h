@@ -1,22 +1,17 @@
 #pragma once
-#include <iostream>
-#include <functional>
-#include "App.h" //#include <SFML/Graphics.hpp>
 #include <SFML\Network.hpp>
-
+#include "EventHandler.h"
 class TextureContainer;
 class World;
 class Entity;
 class Creature;
-#include "EventHandler.h"//template<class T> class EventHandler;
 class GameUtility;
+class App;
 
 class Block
 {
 public:
 	Block();
-	//Block(const unsigned short id);
-
 	virtual std::function<Block*(const unsigned short)> RegisterBlock(const unsigned short id);
 	virtual unsigned short getTextureId(App &const app, const unsigned short metadata) const=0;
 	virtual unsigned char getLayer() const=0;

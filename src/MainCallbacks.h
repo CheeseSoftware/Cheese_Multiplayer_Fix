@@ -1,8 +1,6 @@
 #pragma once
-
 #include <functional>
-
-#include "GameState.h"
+class GameState;
 
 struct MainCallbacks
 {

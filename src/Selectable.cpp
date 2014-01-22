@@ -1,7 +1,8 @@
 #ifdef CLIENT
 #include "Selectable.h"
-#include "GameState.h"
 #include <iostream>
+#include "GameState.h"
+#include "App.h"
 
 namespace gui
 {
