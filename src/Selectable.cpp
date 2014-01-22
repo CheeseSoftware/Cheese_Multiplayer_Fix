@@ -24,11 +24,11 @@ namespace gui
 
 			if (m_positionType == PositionType::centerTop || m_positionType == PositionType::middleCenter || m_positionType == PositionType::centerDown)
 			{
-				x += app.getSize().x/2;
+				x += app.getSize().x/2 - m_width/2;
 			}
 			else if (m_positionType == PositionType::TopRight || m_positionType == PositionType::centerRight || m_positionType == PositionType::DownRight)
 			{
-				x += app.getSize().x;
+				x += app.getSize().x - m_width/2;
 			}
 			return x;
 		}
@@ -39,11 +39,11 @@ namespace gui
 
 			if (m_positionType == PositionType::centerLeft || m_positionType == PositionType::middleCenter || m_positionType == PositionType::centerRight)
 			{
-				y += app.getSize().y/2;
+				y += app.getSize().y/2 - m_height/2;
 			}
 			else if (m_positionType == PositionType::DownLeft || m_positionType == PositionType::centerDown || m_positionType == PositionType::DownRight)
 			{
-				y += app.getSize().y;
+				y += app.getSize().y - m_height/2;
 			}
 			return y;
 		}
