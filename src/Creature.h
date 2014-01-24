@@ -1,9 +1,7 @@
 #pragma once
-
-#include "Entity.h"
-#include "Projectile.h"
 #include <SFML\Network.hpp>
-
+#include "Entity.h"
+class Projectile;
 class TextureContainer;
 class Camera;
 

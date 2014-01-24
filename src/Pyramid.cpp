@@ -1,9 +1,11 @@
-#include <iostream>
 #include "Pyramid.h"
-#include "GameUtility.h"
-#include "Chunk.h"
+
+#include <iostream>
 #include <time.h>
 
+#include "GameUtility.h"
+#include "Chunk.h"
+#include "BlockRegister.h"
 #include "BlockSolid.h"
 
 namespace generator

@@ -1,17 +1,13 @@
-
 #pragma once
-
 #include <SFML/Graphics.hpp>
-#include <string>
-#include <list>
 #include "Creature.h"
-#include "Inventory.h"
-#include "Item.h"
-#include "NormalItem.h"
-
+class Inventory;
+class Item;
+class NormalItem;
 class TextureContainer;
 class Camera;
 class Projectile;
+class App;
 
 class Player : public Creature
 {

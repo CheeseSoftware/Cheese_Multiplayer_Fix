@@ -4,7 +4,7 @@
 #define MENU_H_INCLUDED
 
 #include "GameState.h"
-#include "AMenuState.h"
+class AMenuState;
 
 class Menu : public GameState
 {

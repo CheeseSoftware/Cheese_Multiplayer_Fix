@@ -1,17 +1,20 @@
 #ifdef SERVER
+#define _USE_MATH_DEFINES
+#include "ServerState.h"
+
 #include <iostream>
 #include <string>
+#include <SFML\Graphics.hpp>
 #include <SFML\Network.hpp>
-#include "ServerState.h"
-#define _USE_MATH_DEFINES
 #include <math.h>
+
 #include "World.h"
 #include "Chunk.h"
 #include "BlockSolid.h"
 #include "BlockBackground.h"
 #include "App.h"
 #include "Packet.h"
-#include <SFML\Graphics.hpp>
+#include "BlockRegister.h"
 
 
 
@@ -37,7 +40,18 @@ GameState *ServerState::Update(App &app, Game &game)
 	currentWorld->Update(app, this);
 	sC->Run();
 	ProcessPackets(this);
+	KickClients(this);
 	return this;
+}
+
+void ServerState::KickClients(GameUtility *gameUtility)
+{
+	auto clients = sC->toKick;
+	sC->toKick = std::map<int, std::string>();
+	for(auto it = clients.begin(); it != clients.end(); it++)
+	{
+		sC->KickClient(it->first, it->second);
+	}
 }
 
 void ServerState::ProcessPackets(GameUtility *gameUtility)

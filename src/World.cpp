@@ -1,6 +1,13 @@
 #include "World.h"
+
+#include <deque>
+#include <mutex>
+#include <typeinfo>
+#include <memory>
+
 #include "App.h"
 #include "TextureContainer.h"
+#include "BlockRegister.h"
 #include "Camera.h"
 #include "Chunk.h"
 #include "BlockSolid.h"
@@ -10,10 +17,6 @@
 #include "MessageType.h"
 #include "EventHandler.h"
 #include "GameUtility.h"
-#include <deque>
-#include <mutex>
-#include <typeinfo>
-#include <memory>
 
 #define getChunkMatrixIndexX(x) (int)abs(x>>4 + chunkMatrix.second)
 #define getChunkColumnIndexY(y,x_it) (int)abs(y>>4 + x_it.second)
@@ -98,11 +101,7 @@ void World::Update(App &app, GameUtility *gameUtility)
 	std::vector<short> toRemove = std::vector<short>();
 	for(std::pair<const short, std::unique_ptr<Creature>> &pair : creatureList)
 	{
-#ifdef SERVER
 		pair.second->Update(app, gameUtility);
-#else
-		pair.second->Update(app, gameUtility);
-#endif
 		if(pair.second->isDead())
 		{
 			sf::Packet packet;

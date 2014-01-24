@@ -1,6 +1,5 @@
-#include <tuple>
-
 #include "Player.h"
+#include <tuple>
 #include "World.h"
 #include "Camera.h"
 #include "Projectile.h"
@@ -8,6 +7,7 @@
 #include "App.h"
 #include "Block.h"
 #include "GameUtility.h"
+#include "Inventory.h"
 
 Player::Player(int id, float X, float Y, short sizeX, short sizeY, bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name) 
 	: Creature(id, X, Y, sizeX, sizeY, 1024, 8192, 0.8125, spriteName, spriteIndex, IsClientControlling)

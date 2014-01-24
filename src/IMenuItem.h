@@ -1,9 +1,10 @@
-#pragma once
 #ifdef CLIENT
-#include "App.h"
-#include "MainCallbacks.h"
+#pragma once
+#include <SFML\Window.hpp>
+class App;
 class GameState;
 class GameUtility;
+class Game;
 
 namespace gui
 {

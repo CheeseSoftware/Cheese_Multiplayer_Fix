@@ -1,9 +1,6 @@
 #pragma once
 #include "App.h"
-#include "BlockRegister.h"
-#include "Camera.h"
 #include "GameState.h"
-#include "TextureContainer.h"
 #include "World.h"
 
 class World;

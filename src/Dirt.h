@@ -2,9 +2,7 @@
 #include "LargeTextureBlock.h"
 #include "SolidBlock.h"
 
-class Dirt
-	: public LargeTextureBlock
-	, public SolidBlock
+class Dirt: public LargeTextureBlock, public SolidBlock
 {
 public:
 	virtual unsigned short getTextureId(App &const app, const unsigned short metadata) const;

@@ -1,11 +1,15 @@
 #ifdef CLIENT
 #include "NoobishBlockMenu.h"
+
+#include <iostream>
+#include <SFML\Network.hpp>
+
 #include "World.h"
 #include "Block.h"
 #include "TextureContainer.h"
-#include <SFML\Network.hpp>
 #include "BlockRegister.h"
 #include "GameUtility.h"
+#include "Camera.h"
 
 NoobishBlockMenu::NoobishBlockMenu(World *world, GameUtility* gameUtility)
 	: selected(0)

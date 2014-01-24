@@ -1,4 +1,6 @@
 #include "BlockChest.h"
+#include "Inventory.h"
+#include "GameUtility.h"
 
 BlockChest::BlockChest()//(unsigned short id) 
 //	: Block(id)

@@ -1,10 +1,12 @@
-#include <iostream>
 #include "WeirdGenerator.h"
+
+#include <iostream>
+
 #include "GameUtility.h"
 #include "Chunk.h"
 #include <time.h>
-
 #include "BlockSolid.h"
+#include "BlockRegister.h"
 
 namespace generator
 {
