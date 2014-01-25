@@ -2,6 +2,7 @@
 #include "LoadState.h"
 #include "Connection.h"
 #include "PlayState.h"
+#include "Game.h"
 
 extern int _argc;
 extern char** _argv;
