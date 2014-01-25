@@ -1,13 +1,13 @@
 #ifdef CLIENT
 #pragma once
 #include "App.h"
+#include "CreatureController.h"
 #include "GameUtility.h"
 #include "GameState.h"
 #include "EventHandler.h"
 #include <SFML\Graphics.hpp>
 #include "MenuItemContainer.h"
 #include "Label.h"
-
 #include "Minimap.h"
 
 class World;
@@ -23,12 +23,17 @@ class PlayState : public GameUtility
 	NoobishBlockMenu *noobishBlockMenu;
 	Connection *connection;
 	EventHandler<GameUtility*> evsentHandler;
+
+	//std::map<int, CreatureController> creatureControllers;
+
     sf::Clock fpsClock;
 	sf::View hudView;
+	sf::Font *font;
+
 	gui::MenuItemContainer *hud;
 	gui::Label *pos;
-	sf::Font *font;
 	gui::Minimap *minimap;
+
 	void ProcessPackets(GameUtility *gameUtility);
 public:
 	PlayState(App &app);

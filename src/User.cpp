@@ -1,7 +1,7 @@
 #include "User.h"
 #include "Creature.h"
 
-User::User(int id) : CreatureController(id)
+User::User(int id, std::string name) : CreatureController(id, name)
 {
 
 }

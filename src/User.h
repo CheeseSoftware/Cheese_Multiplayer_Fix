@@ -8,10 +8,10 @@
 
 class GameUtility;
 
-class User : CreatureController, EventHandleable
+class User : public CreatureController, public EventHandleable
 {
 public:
-	User(int id);
+	User(int id, std::string name);
 
 #ifdef SERVER
 	// Client-kod

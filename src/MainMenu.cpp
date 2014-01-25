@@ -17,6 +17,7 @@
 MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 {
 	sf::Font *font = new sf::Font();
+	//font->load
 	if (!font->loadFromFile("font.ttf"))
 		throw "font.ttf not found";
 
