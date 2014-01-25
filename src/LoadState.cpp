@@ -30,6 +30,14 @@ LoadState::~LoadState(void)
 
 bool LoadState::Load()
 {
+	bool success = m_gameState->Load();
+	if (!success)
+		success = m_oldState->Load();
+	if (success)
+		Invoke([=](App &app, Game &game){ game.SetGameState(m_gameState); });
+	else
+		Invoke([=](App &app, Game &game){ game.SetGameState(m_oldState); });
+
 	return  true;
 }
 
@@ -39,6 +47,8 @@ void LoadState::EventUpdate(App &app, Game &game, const sf::Event &event)
 
 GameState *LoadState::Update(App &app, Game &game)
 {
+	//(app, game);
+
 	return (new PlayState(*(PlayState*)this));
 }
 

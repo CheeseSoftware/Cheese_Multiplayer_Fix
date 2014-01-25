@@ -1,6 +1,9 @@
 #pragma once
 #include <SFML\Network.hpp>
+#include <functional>
+
 #include "EventHandler.h"
+
 class TextureContainer;
 class World;
 class Entity;

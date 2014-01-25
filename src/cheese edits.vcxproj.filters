@@ -303,6 +303,9 @@
     <ClCompile Include="User.cpp">
       <Filter>Source Files\CreatureController</Filter>
     </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Source Files\GameState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Monster.h">
