@@ -13,6 +13,7 @@
 #include "Button.h"
 #include "MenuItemContainer.h"
 #include "Game.h"
+#include "LoadState.h"
 
 MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 {
@@ -29,7 +30,9 @@ MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 	button_mp->setPositionType(PositionType::middleCenter);
 	button_mp->setOnLMBClickFunctionCallback([=](App &app, const sf::Event event, int x, int y)
 	{
-		game->SetGameState(new PlayState(app));
+		LoadState *loadState = new LoadState(app, new PlayState(app), nullptr);
+		game->SetGameState(loadState);
+		loadState->Load();
 	});
 	menuItemContainer->Add(button_mp);
 

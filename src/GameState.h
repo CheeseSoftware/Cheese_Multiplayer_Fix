@@ -5,6 +5,7 @@ class GameState;
 #include <SFML\Graphics.hpp>
 #include <functional>
 #include <queue>
+#include <mutex>
 
 #include "App.h"
 #include "MainCallbacks.h"
@@ -19,7 +20,9 @@ class App;
 class GameState
 {
 	std::queue<std::function<void(App &app, Game &game)>> invokeQueue;
+	std::mutex *invokeLock;
 public:
+	GameState();
 	virtual bool Load(){return true;};
     virtual GameState *Update(App &app, Game &game); // ,Callbacks &game)... hmm.. Kanske ska App ha game?
 #ifdef CLIENT
@@ -28,6 +31,7 @@ public:
 #endif
 	void Invoke(std::function<void(App &app, Game &game)> function);
     //virtual void Shutdown()=0;
+	//GameState &operator =(  GameState const& other );
 };
 
 #endif // GAMESTATE_H_INCLUDED

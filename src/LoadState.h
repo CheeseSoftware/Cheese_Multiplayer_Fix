@@ -7,6 +7,8 @@ class LoadState : public GameState
 {
 	GameState *m_gameState;
 	GameState *m_oldState;
+
+	std::thread *thread;
 public:
 	LoadState(App &app, GameState *gameState, GameState *oldState/*>_< , sf::Time animationLength = 250ms, ScreenAnimation animation = new BLASTANDARD()*/);
 	~LoadState(void); 

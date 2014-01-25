@@ -34,7 +34,7 @@ PlayState::PlayState(App &app)
 	: GameUtility(app)
 	, hudView(sf::FloatRect(0.f, 0.f, (float)app.getSize().x, (float)app.getSize().y))
 {
-	minimap = new gui::Minimap(0, 0, 200, 200);
+	/*minimap = new gui::Minimap(0, 0, 200, 200);
 	fpsClock.restart();
 
 	char* str_ip = "127.0.0.1";
@@ -63,7 +63,7 @@ PlayState::PlayState(App &app)
 	ss << "Member of first" << std::endl;
 	pos = new gui::Label(50, 50, 200, 50, new sf::String(ss.str()), font, 10, 10);
 	//pos->setTexture(&getTextureContainer().getTextures("Test.png")[0]);
-	hud->Add(pos);
+	hud->Add(pos);*/
 	/*for(int i = 0; i < 200; i += 50)
 	{
 	std::stringstream ss;
@@ -99,7 +99,39 @@ PlayState::~PlayState()
 
 }
 
+bool PlayState::Load()
+{
+	//minimap = new gui::Minimap(0, 0, 200, 200);
+	fpsClock.restart();
 
+	char* str_ip = "127.0.0.1";
+
+	if (_argc >= 2)
+	{
+		str_ip = _argv[1];
+	}
+	std::cout << "Connecting to " << str_ip << " ...\n";
+
+	sf::IpAddress ip(str_ip);//std::string ip;
+	int port;
+
+	noobishBlockMenu = new NoobishBlockMenu(currentWorld, this);//InGameUI(app, tC, *currentWorld);
+	connection = new Connection(5001, ip);
+	blockRegister->RegisterBlockTextures(*tC);
+
+
+
+	hud = new gui::MenuItemContainer(0, 0, 0, 0);
+	hud->setPositionType(TopLeft);
+	font = new sf::Font();
+	if (!font->loadFromFile("font.ttf"))
+		throw "font.ttf not found";
+	std::stringstream ss;
+	ss << "Member of first" << std::endl;
+	pos = new gui::Label(50, 50, 200, 50, new sf::String(ss.str()), font, 10, 10);
+	//pos->setTexture(&getTextureContainer().getTextures("Test.png")[0]);
+	hud->Add(pos);
+}
 
 
 
