@@ -1,5 +1,7 @@
 #ifdef CLIENT
 
+#include <iostream>
+
 #include "GameClient.h"
 #include "GameState.h"
 #include "App.h"

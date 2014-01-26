@@ -41,7 +41,7 @@ Connection::Connection(int port, sf::IpAddress ip)
 	else
 	{
 		std::cout << "Error connecting to " << ip << " : " << port << std::endl;
-		std::cin.get();
+		//throw 0XFF00FF;//*_*/ >.< >_< dålig lösning
 	}
 }
 

@@ -101,7 +101,7 @@ PlayState::~PlayState()
 
 bool PlayState::Load()
 {
-	//minimap = new gui::Minimap(0, 0, 200, 200);
+	minimap = new gui::Minimap(0, 0, 200, 200);
 	fpsClock.restart();
 
 	char* str_ip = "127.0.0.1";
@@ -116,6 +116,7 @@ bool PlayState::Load()
 	int port;
 
 	noobishBlockMenu = new NoobishBlockMenu(currentWorld, this);//InGameUI(app, tC, *currentWorld);
+
 	connection = new Connection(5001, ip);
 	blockRegister->RegisterBlockTextures(*tC);
 
@@ -131,6 +132,8 @@ bool PlayState::Load()
 	pos = new gui::Label(50, 50, 200, 50, new sf::String(ss.str()), font, 10, 10);
 	//pos->setTexture(&getTextureContainer().getTextures("Test.png")[0]);
 	hud->Add(pos);
+
+	return true;
 }
 
 

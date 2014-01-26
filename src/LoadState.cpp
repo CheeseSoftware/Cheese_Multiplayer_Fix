@@ -23,6 +23,7 @@ LoadState::LoadState(App &app, GameState *gameState, GameState *oldState)
 	sf::IpAddress ip(str_ip);//std::string ip;
 	int port;*/
 	//connection = new Connection(5001, ip, this);
+	Load();
 }
 
 
@@ -37,10 +38,17 @@ bool LoadState::Load()
 		bool success = m_gameState->Load();
 		//if (!success)
 		//	success = m_oldState->Load();
+		std::cout<<this<<std::endl;
 		if (success)
-			Invoke([=](App &app, Game &game){ game.SetGameState(m_gameState); });
+		{
+			delete m_oldState;
+			Invoke([this](App &app, Game &game){ game.SetGameState(m_gameState); });
+		}
 		else
-			Invoke([=](App &app, Game &game){ game.SetGameState(m_oldState); });
+		{
+			Invoke([this](App &app, Game &game){ game.SetGameState(m_oldState); });
+			delete m_gameState;
+		}
 	});
 	return  true;
 }
@@ -51,9 +59,9 @@ void LoadState::EventUpdate(App &app, Game &game, const sf::Event &event)
 
 GameState *LoadState::Update(App &app, Game &game)
 {
-	//(app, game);
+	GameState::Update(app, game);
 
-	return (new PlayState(*(PlayState*)this));
+	return nullptr;
 }
 
 void LoadState::Draw(App &app)
