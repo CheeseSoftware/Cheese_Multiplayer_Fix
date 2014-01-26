@@ -30,8 +30,9 @@ MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 	button_mp->setPositionType(PositionType::middleCenter);
 	button_mp->setOnLMBClickFunctionCallback([=](App &app, const sf::Event event, int x, int y)
 	{
-		LoadState *loadState = new LoadState(app, new PlayState(app), this);
-		game->SetGameState(loadState, true);
+		//LoadState *loadState = new LoadState(app, new PlayState(app), this);
+		//game->SetGameState(loadState, true);
+		game->SetGameState(new PlayState(app));
 	});
 	menuItemContainer->Add(button_mp);
 
