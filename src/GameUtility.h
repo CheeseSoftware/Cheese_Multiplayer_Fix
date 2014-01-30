@@ -2,6 +2,7 @@
 #include "App.h"
 #include "GameState.h"
 #include "World.h"
+#include "SoundHandler.h"
 
 class World;
 class Camera;
@@ -18,6 +19,7 @@ protected:
 	BlockRegister *blockRegister; // surkod
 	World *currentWorld;
 	std::queue<sf::Packet> *packetDataList;
+	SoundHandler soundHandler;
 public:
 	GameUtility(App &app);
 	~GameUtility();
@@ -26,6 +28,7 @@ public:
 	//virtual void Draw(App &app);
 	inline World *getCurrentWorld() { return currentWorld; }
 	inline TextureContainer &getTextureContainer() { return *tC; }
+	inline SoundHandler &getSoundHandler() { return soundHandler; }
 	inline std::queue<sf::Packet>* getPacketDataList() { return packetDataList; };
 	inline void SendPacket(sf::Packet p) { packetDataList->push(p); };
 #ifdef CLIENT

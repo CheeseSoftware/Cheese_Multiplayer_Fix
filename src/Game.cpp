@@ -16,5 +16,5 @@ void Game::SetGameState(GameState *gameState, bool keepMemory)
 		std::cout << "new gamestate: " << m_gameState << std::endl;
 
 	if (m_gameState)
-		std::cout << "new gamestate: "<< typeid(m_gameState).name() << std::endl;
+		std::cout << "new gamestate: "<< typeid(*m_gameState).name() << std::endl;
 }

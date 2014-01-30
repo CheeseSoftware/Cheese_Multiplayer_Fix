@@ -185,7 +185,7 @@
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-network-s-d.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
+      <AdditionalDependencies>sfml-audio-s.lib;sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-network-s-d.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\SFML-1.6\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -202,7 +202,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-network.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
+      <AdditionalDependencies>sfml-audio-s.lib;sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-network.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\SFML-1.6\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -258,7 +258,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-network-s.lib;sfml-system-s.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-network-s.lib;sfml-system-s.lib;sfml-audio-s.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
@@ -276,7 +276,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-network-s.lib;sfml-system-s.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-network-s.lib;sfml-system-s.lib;sfml-audio-s.lib;%(AdditionalDependencies);libnoise.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Server Release|Win32'">
@@ -408,6 +408,8 @@
     <ClInclude Include="Pyramid.h" />
     <ClInclude Include="Flat.h" />
     <ClInclude Include="MainCallbacks.h" />
+    <ClInclude Include="SMusic.h" />
+    <ClInclude Include="SSound.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="YGenerator.h" />
     <ClInclude Include="XGenerator.h" />

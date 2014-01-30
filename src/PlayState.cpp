@@ -22,6 +22,8 @@
 #include "TextBox.h"
 #include "Minimap.h"
 
+#include "SMusic.h"
+
 namespace sf
 {
 	class RenderWindow;
@@ -34,6 +36,8 @@ PlayState::PlayState(App &app)
 	: GameUtility(app)
 	, hudView(sf::FloatRect(0.f, 0.f, (float)app.getSize().x, (float)app.getSize().y))
 {
+	
+
 	minimap = new gui::Minimap(0, 0, 200, 200);
 	fpsClock.restart();
 
@@ -65,6 +69,13 @@ PlayState::PlayState(App &app)
 	pos = new gui::Label(50, 50, 200, 50, new sf::String(ss.str()), font, 10, 10);
 	//pos->setTexture(&getTextureContainer().getTextures("Test.png")[0]);
 	hud->Add(pos);
+
+	//soundHandler.setVolume(0.5);
+
+	//soundHandler.PlayMusic(app, this, "audio\\hahah!.wav", 1, true);
+	soundHandler.LoadSound("jump.wav");
+	soundHandler.PlayMusic(app, this, "hahaha!.wav", 1, true, [](){ return sf::Vector2f(0.f, 0.f); });
+
 	/*minimap = new gui::Minimap(0, 0, 200, 200);
 	fpsClock.restart();
 
@@ -207,6 +218,7 @@ GameState *PlayState::Update(App &app, Game &game)
 	currentWorld->Update(app, this);
 	camera->Update(app, game);
 	minimap->Update(app, this);
+	//soundHandler.Update(camera->getEntityPosition());
 
 
 	while (!packetDataList->empty())

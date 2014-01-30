@@ -1,15 +1,15 @@
+#ifdef CLIENT
 #pragma once
-
-#ifndef MAINMENU_H_INCLUDED
-#define MAINMENU_H_INCLUDED
 
 #include "AMenuState.h"
 #include "GameState.h"
+#include "SoundHandler.h"
 
 class Game;
 
 class MainMenu : public AMenuState
 {
+	SoundHandler soundHandler;
 public:
 	MainMenu(Game *game);
     ~MainMenu();

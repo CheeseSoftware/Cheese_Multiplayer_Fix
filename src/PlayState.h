@@ -9,6 +9,7 @@
 #include "MenuItemContainer.h"
 #include "Label.h"
 #include "Minimap.h"
+#include "SoundHandler.h"
 
 class World;
 class InGameUI;
@@ -33,6 +34,8 @@ class PlayState : public GameUtility
 	gui::MenuItemContainer *hud;
 	gui::Label *pos;
 	gui::Minimap *minimap;
+
+	//SoundHandler soundHandler;
 
 	void ProcessPackets(GameUtility *gameUtility);
 public:

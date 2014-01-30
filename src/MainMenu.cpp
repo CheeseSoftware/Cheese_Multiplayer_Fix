@@ -33,6 +33,7 @@ MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 		//LoadState *loadState = new LoadState(app, new PlayState(app), this);
 		//game->SetGameState(loadState, true);
 		game->SetGameState(new PlayState(app));
+		//delete this;
 	});
 	menuItemContainer->Add(button_mp);
 
@@ -41,6 +42,7 @@ MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 	button_sp->setOnLMBClickFunctionCallback([=](App &app, const sf::Event event, int x, int y)
 	{
 		button_sp->setText(new sf::Text(sf::String("Not implemented, idiot!"), *font));
+		soundHandler.PlayMusic(app, this, "audio\\hahah!.wav", 0.5, true);
 	});
 	menuItemContainer->Add(button_sp);
 
@@ -49,12 +51,16 @@ MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 	button_settings->setOnLMBClickFunctionCallback([=](App &app, const sf::Event event, int x, int y)
 	{
 		button_settings->setText(new sf::Text(sf::String("Not implemented, idiot!"), *font));
+		soundHandler.PlayMusic(app, this, "audio\\hahah!.wav", 0.5, true);
 	});
 	menuItemContainer->Add(button_settings);
+
+	
 }
 
 MainMenu::~MainMenu()// : AMenuState()//void MainMenu::Shutdown()
 {
+	std::cout << "snordestructor\n";
 	AMenuState::~AMenuState();
 }
 

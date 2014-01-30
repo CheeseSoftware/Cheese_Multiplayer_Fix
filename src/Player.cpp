@@ -10,7 +10,7 @@
 #include "Inventory.h"
 
 Player::Player(int id, float X, float Y, short sizeX, short sizeY, bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name) 
-	: Creature(id, X, Y, sizeX, sizeY, 1024, 8192, 0.8125, spriteName, spriteIndex, IsClientControlling)
+	: Creature(id, X, Y, sizeX, sizeY, 1024, 8192, 0.9375, spriteName, spriteIndex, IsClientControlling)
 {
 	name = Name;
 	cameraDelay = 0;
@@ -158,6 +158,8 @@ Up:
 						sf::Packet packet;
 						packet << (sf::Uint16)MessageType::CreatureMove << x << y << speedX << speedY << angle << horizontal << vertical;
 						gameUtility->SendPacket(packet);
+
+						gameUtility->getSoundHandler().PlaySound(app, this, "jump.wav", 1.0, false, [this](){ return getPosition(); });
 					}
 				}
 				break;
