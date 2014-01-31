@@ -15,6 +15,8 @@
 #include "App.h"
 #include "Packet.h"
 #include "BlockRegister.h"
+#include "Client.h"
+#include "World.h"
 
 
 
@@ -33,12 +35,12 @@ GameState *ServerState::Update(App &app, Game &game)
 	//std::cout << "updates per second: " << 1/(app).getFrameTime() << std::endl;
 	while (!packetDataList->empty())
 	{
-		std::cout << "packets " << packetDataList->size() << std::endl;
+		//std::cout << "packets " << packetDataList->size() << std::endl;
 		sC->Broadcast(packetDataList->front());
 		packetDataList->pop();
 	}
 	currentWorld->Update(app, this);
-	sC->Run();
+	sC->Update();
 	ProcessPackets(this);
 	KickClients(this);
 	return this;

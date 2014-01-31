@@ -5,8 +5,8 @@
 #include <iostream>
 #include <thread>
 #include <queue>
-#include "Client.h"
-#include "World.h"
+class Client;
+class World;
 
 class ServerConnection
 {
@@ -15,7 +15,7 @@ public:
 	~ServerConnection(void);
 	void Broadcast(sf::Packet packet);
 	void KickClient(int ID, std::string reason);
-	virtual void Run();
+	virtual void Update();
 
 	sf::Mutex lockObject;
 	std::queue<std::pair<sf::Packet*, Client*>> packets;

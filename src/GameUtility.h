@@ -19,13 +19,13 @@ protected:
 	BlockRegister *blockRegister; // surkod
 	World *currentWorld;
 	std::queue<sf::Packet> *packetDataList;
-	SoundHandler soundHandler;
+	//SoundHandler soundHandler;
 public:
 	GameUtility(App &app);
 	~GameUtility();
 	inline World *getCurrentWorld() { return currentWorld; }
 	inline TextureContainer &getTextureContainer() { return *tC; }
-	inline SoundHandler &getSoundHandler() { return soundHandler; }
+	//inline SoundHandler &getSoundHandler() { return soundHandler; }
 	inline std::queue<sf::Packet>* getPacketDataList() { return packetDataList; };
 	inline void SendPacket(sf::Packet p) { packetDataList->push(p); };
 #ifdef CLIENT

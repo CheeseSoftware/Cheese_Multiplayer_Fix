@@ -1,5 +1,7 @@
 #include "ServerConnection.h"
 #include "Player.h"
+#include "Client.h"
+#include "World.h"
 
 ServerConnection::ServerConnection(int port, World *world)
 {
@@ -20,7 +22,7 @@ ServerConnection::~ServerConnection(void)
 {
 }
 
-void ServerConnection::Run(void)
+void ServerConnection::Update(void)
 {
 	float ElapsedTime = pingTimeout.getElapsedTime().asMilliseconds();
 	if(ElapsedTime > 1000)
