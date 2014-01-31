@@ -7,7 +7,8 @@
 
 TextureContainer::TextureContainer(void)
 {
-	AddSpriteSheet("slot.png", 32, 32);
+	AddSpriteSheet("void.png", 1, 1);
+	/*AddSpriteSheet("slot.png", 32, 32);
 	AddSpriteSheet("Block0.png", 16, 16);
 	AddSpriteSheet("BlockBackground.png", 16, 16);
 	AddSpriteSheet("BlockSolid.png", 16, 16);
@@ -20,7 +21,7 @@ TextureContainer::TextureContainer(void)
 	AddSpriteSheet("dirt.png", 512, 512);
 	AddSpriteSheet("dirty128.png", 128, 128);
 	AddSpriteSheet("Background.png", 512, 512);
-	AddSpriteSheet("Test.png", 200, 50);
+	AddSpriteSheet("Test.png", 200, 50);*/
 }
 
 

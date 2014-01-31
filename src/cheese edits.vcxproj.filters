@@ -97,9 +97,6 @@
     <Filter Include="Source Files\World\Generator">
       <UniqueIdentifier>{a3a935c3-2fba-4d0f-badc-e78bcdc4733e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\callbacks">
-      <UniqueIdentifier>{3d8fa046-aa01-4727-813a-0abf55ce5394}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\game">
       <UniqueIdentifier>{e9f0fb75-00a3-419f-9307-c1c7cb696eba}</UniqueIdentifier>
     </Filter>
@@ -123,6 +120,9 @@
     </Filter>
     <Filter Include="Source Files\Audio">
       <UniqueIdentifier>{d15b8328-bddb-4905-b893-fe3a41859c95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Compressor\callbacks">
+      <UniqueIdentifier>{3d8fa046-aa01-4727-813a-0abf55ce5394}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -425,9 +425,6 @@
     <ClInclude Include="Eventhandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextureContainer.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="MainMenu.h">
       <Filter>Header Files\GameState\Menu</Filter>
     </ClInclude>
@@ -480,7 +477,7 @@
       <Filter>Header Files\World\Generator</Filter>
     </ClInclude>
     <ClInclude Include="MainCallbacks.h">
-      <Filter>Header Files\callbacks</Filter>
+      <Filter>Header Files\Compressor\callbacks</Filter>
     </ClInclude>
     <ClInclude Include="GameClient.h">
       <Filter>Header Files\game</Filter>
@@ -520,6 +517,9 @@
     </ClInclude>
     <ClInclude Include="SSound.h">
       <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureContainer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
