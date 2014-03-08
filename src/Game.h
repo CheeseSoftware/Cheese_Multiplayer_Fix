@@ -6,7 +6,7 @@
 class GameState;
 class App;
 
-class Game
+class Game :  ISoundHandler
 {
 protected:
 	GameState *m_gameState;

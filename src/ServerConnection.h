@@ -8,6 +8,8 @@
 class Client;
 class World;
 
+
+
 class ServerConnection
 {
 public:
@@ -33,4 +35,3 @@ private:
 	sf::SocketSelector selector;
 	World* currentWorld;
 };
-

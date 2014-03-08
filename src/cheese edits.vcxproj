@@ -405,6 +405,8 @@
     <ClInclude Include="GameServer.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="IPacketAble.h" />
+    <ClInclude Include="ISoundHandler.h" />
     <ClInclude Include="Pyramid.h" />
     <ClInclude Include="Flat.h" />
     <ClInclude Include="MainCallbacks.h" />

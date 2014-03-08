@@ -10,6 +10,8 @@
 
 #include "Client.h"
 
+
+
 class Connection
 {
 public:
@@ -25,4 +27,3 @@ private:
 	bool Connect(sf::IpAddress ip, int port);
 	void Receive();
 };
-
