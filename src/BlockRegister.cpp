@@ -1,5 +1,5 @@
 #include "BlockRegister.h"
-#include "TextureContainer.h"
+#include "ITextureContainer.h"
 #include "Block.h"
 #include "BlockSolid.h"
 #include "BlockBackground.h"
@@ -37,13 +37,13 @@ void BlockRegister::RegisterBlock(Block *block, const size_t typeId)
 }
 
 #ifdef CLIENT
-void BlockRegister::RegisterBlockTextures(TextureContainer &Tc)
+void BlockRegister::RegisterBlockTextures(ITextureContainer *Tc)
 {
 	blockTextureList.reserve(blockTypeList.size());
 	blockTextureList.push_back(nullptr);
 	for (int i = 1; i < blockTypeList.size(); i++)
 	{
-		blockTextureList.push_back(Tc.getTextures(blockList[i]->getTextureName()));
+		blockTextureList.push_back(Tc->getTextures(blockList[i]->getTextureName()));
 	}
 }
 #endif
@@ -61,7 +61,7 @@ Block *BlockRegister::getBlockType(const unsigned short id)
 }
 
 #ifdef CLIENT
-sf::Sprite *BlockRegister::getBlockTextures(const Block *block)
+sf::Sprite **BlockRegister::getBlockTextures(const Block *block)
 {
 	return blockTextureList[getBlockIdByTypeId(typeid(*block).hash_code())];
 }
