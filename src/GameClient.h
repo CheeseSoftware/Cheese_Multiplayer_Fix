@@ -2,18 +2,20 @@
 #pragma once
 
 #include "Game.h"
+#include "SoundHandler.h"
+#include "TextureContainer.h"
 
-class GameClient : public Game
+class GameClient : public Game, virtual SoundHandler, public TextureContainer
 {
 	App *app;
 
 protected:
 #pragma region texturures_Sounds_fonts_scripts
-	TextureContainer *textureContainer;
-	SoundHandler *soundHandler;
+	//TextureContainer *textureContainer;
+	//SoundHandler *soundHandler;
 
-	virtual int LoadGameTexture(std::string path, int spriteWidth = 0, int spriteHeight = 0);
-	virtual int LoadGameSound(std::string path);
+	//virtual int LoadGameTexture(std::string path, int spriteWidth = 0, int spriteHeight = 0);
+	//virtual int LoadGameSound(std::string path);
 	//virtual int LoadMusic(std::string)=0;
 #pragma endregion
 
@@ -26,18 +28,20 @@ public:
 	virtual void Restart();
 
 #pragma region texturures_Sounds_fonts_scripts
-	virtual int LoadTexture(std::string path, int spriteWidth = 0, int spriteHeight = 0);
-	virtual int LoadSound(std::string path);
-
-	virtual int ReloadGameTexture(int id, std::string path, int spriteWidth = 0, int spriteHeight = 0);
-	virtual int ReloadGameSound(int id, std::string path);
+//	virtual bool LoadSound(std::string) override;
+//	virtual bool LoadMusic(std::string) override;
 #ifdef CLIENT
-	virtual void DrawTexture(int id, double x, double y);
-	virtual void PlaySound(void *source, int id, float volume, bool loop, std::function<sf::Vector2f()> = nullptr);
-	virtual void PlayMusic(void *source, std::string path, float volume, bool loop, std::function<sf::Vector2f()> = nullptr);
-	//virtual void ExecuteScript(int id)=0;
-#else
+	//virtual SSound *PlaySound(App &app, void *source, std::string name, float volume, bool loop) override;
+	//virtual SSound *PlaySound(App &app, void *source, std::string name, float volume, bool loop, std::function<sf::Vector2f()> position) override;
+	//virtual SMusic *PlayMusic(App &app, void *source, std::string name, float volume, bool loop) override;
+	//virtual SMusic *PlayMusic(App &app, void *source, std::string name, float volume, bool loop, std::function<sf::Vector2f()> position) override;
 
+	//virtual void stopSounds(void *source) override;
+
+	//virtual void setVolume(float volume) override;
+	//virtual float getVolume()=0;
+#else
+//...
 #endif
 #pragma endregion 
 };

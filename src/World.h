@@ -30,6 +30,7 @@ class GameUtility;
 class BlockRegister;
 class CreatureController;
 class User;
+class Game;
 
 enum MessageType;
 
@@ -71,10 +72,10 @@ public:
 	World(GameUtility *gameUtility);
 #ifdef CLIENT
 	void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
-	void Draw(App &app, GameUtility *gameUtility);
+	void Draw(App &app, Game *game, GameUtility *gameUtility);
 #endif
 
-	void Update(App &app, GameUtility *GameUtility);
+	void Update(App &app, Game *game, GameUtility *gameUtility);
 	void setBlock(long x, long y, long layer, unsigned short id, GameUtility *gameUtility);
 	void setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata, GameUtility *gameUtility);
 	void setBlockMetadata(long x, long y, long layer, unsigned short metadata, GameUtility *gameUtility);

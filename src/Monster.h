@@ -15,5 +15,5 @@ CLIENT_(
 )
 	//virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList,Camera *camera, EventHandler &EventHandler);
 
-	virtual void Update(App &app, GameUtility *GameUtility);
+	virtual void Update(App &app, Game *game, GameUtility *gameUtility);
 };

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ITextureContainer.h"
+
 class TextureContainer;
 #ifndef TEXTURECONTAINER_H_INCLUDED
 #define TEXTURECONTAINER_H_INCLUDED
@@ -13,23 +15,26 @@ class TextureContainer;
 
 #include "App.h"
 
-class TextureContainer
+class TextureContainer : public virtual ITextureContainer
 {
 private:
 #ifdef CLIENT
-	std::vector<sf::Texture> textureList;
-	std::vector<sf::Sprite*> spriteList;//std::map<std::string, sf::Sprite*> textureList;
+	//std::vector<sf::Texture> textureList;
+	//std::vector<sf::Sprite*> spriteList;
+
+	std::map<std::string, sf::Texture*> textureList;//
+	std::map<std::string, sf::Sprite*> spriteList;//
 #else
 	std::vector<std::string> textureList;
 #endif
 public:
 	TextureContainer(void);
 	~TextureContainer(void);
-	int AddTexture(std::string fileName, int textureType);
-	int AddSpriteSheet(std::string fileName, int spriteWidth, int spriteHeight);
-	//CLIENT_( sf::Sprite *getTextures(std::string textureName); )
+	//virtual bool AddTexture(std::string fileName, int textureType) override;
+	virtual bool AddSpriteSheet(std::string fileName, int spriteWidth, int spriteHeight) override;
+	//CLIENT_(  )
 #ifdef CLIENT
-	sf::Sprite *getSprites(int id);
+	virtual sf::Sprite **getTextures(std::string textureName) override;
 #endif
 };
 

@@ -17,6 +17,7 @@ class World;
 class Camera;
 class GameUtility;
 class Block;
+class Game;
 
 class Entity
 {
@@ -46,7 +47,7 @@ public:
 	Entity(int id, float x, float y, short sizeX, short sizeY,
 		float angle, float speed, float maxSpeed, float friction, std::string spriteName,
 		int spriteIndex, bool isClientControlling);
-	virtual void Update(App &app, GameUtility *GameUtility);
+	virtual void Update(App &app, Game *game, GameUtility *gameUtility);
 /*#ifdef SERVER
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
 #else
@@ -55,7 +56,7 @@ public:
 	
 #ifdef CLIENT
 	virtual void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
-    virtual void Draw(App &app, GameUtility *gameUtility);
+    virtual void Draw(App &app, Game *game, GameUtility *gameUtility);
 #endif
 	virtual CollisionType CheckCollision(App &app, World *world, GameUtility *gameUtility, float speedX, float speedY);
 	virtual void OnCollide(App &app, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType);

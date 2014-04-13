@@ -23,5 +23,6 @@ enum MessageType
 	BlockMetadataChange,
 	RequestChunks,
 	Chunks,
-	Chat
+	Chat,
+	SoundHandlerInit
 };

@@ -2,8 +2,10 @@
 #pragma once
 
 #include "Game.h"
+#include "SoundHandler.h"
+#include "TextureContainer.h"
 
-class GameServer : public Game
+class GameServer : public Game, public SoundHandler, public TextureContainer
 {
 	App *app;
 public:

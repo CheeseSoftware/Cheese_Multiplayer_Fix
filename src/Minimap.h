@@ -21,7 +21,7 @@ namespace gui
 		sf::Uint8* pixels;
 	public:
 		Minimap(int x, int y, int witdh, int heigh);
-		void Update(App &app, GameUtility *gameUtility);
+		void Update(App &app, Game *game, GameUtility *gameUtility);
 		void Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight);
 	};
 }

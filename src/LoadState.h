@@ -10,11 +10,11 @@ class LoadState : public GameState
 
 	std::thread *thread;
 public:
-	LoadState(App &app, GameState *gameState, GameState *oldState/*>_< , sf::Time animationLength = 250ms, ScreenAnimation animation = new BLASTANDARD()*/);
+	LoadState(App &app, Game *game, GameState *gameState, GameState *oldState/*>_< , sf::Time animationLength = 250ms, ScreenAnimation animation = new BLASTANDARD()*/);
 	~LoadState(void); 
-	virtual bool Load();
-	virtual void EventUpdate(App &app, Game &game, const sf::Event &event);
-	virtual GameState *Update(App &app, Game &game);
-	virtual void Draw(App &app);
+	virtual bool Load(Game *game);
+	virtual void EventUpdate(App &app, Game *game, const sf::Event &event);
+	virtual GameState *Update(App &app, Game *game);
+	virtual void Draw(App &app, Game *game);
 };
 #endif

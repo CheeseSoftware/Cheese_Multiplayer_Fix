@@ -6,7 +6,6 @@
 
 class World;
 class Camera;
-class TextureContainer;
 class BlockRegister;
 
 class GameUtility : public virtual GameState
@@ -15,7 +14,7 @@ protected:
 #ifdef CLIENT
 	Camera *camera;
 #endif
-	TextureContainer *tC;
+	//TextureContainer *tC;
 	BlockRegister *blockRegister; // surkod
 	World *currentWorld;
 	std::queue<sf::Packet> *packetDataList;
@@ -24,7 +23,7 @@ public:
 	GameUtility(App &app);
 	~GameUtility();
 	inline World *getCurrentWorld() { return currentWorld; }
-	inline TextureContainer &getTextureContainer() { return *tC; }
+	//inline TextureContainer &getTextureContainer() { return *tC; }
 	//inline SoundHandler &getSoundHandler() { return soundHandler; }
 	inline std::queue<sf::Packet>* getPacketDataList() { return packetDataList; };
 	inline void SendPacket(sf::Packet p) { packetDataList->push(p); };

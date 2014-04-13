@@ -12,7 +12,7 @@ public:
 	Projectile(int id, float x, float y, short sizeX, short sizeY, float angle, float speed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling);
 	~Projectile(void);
 
-	virtual void Update(App &app, GameUtility *GameUtility);
+	virtual void Update(App &app, Game *game, GameUtility *gameUtility);
 /*#ifdef SERVER
 	virtual void Update(App &app, World *world, std::queue<sf::Packet> *packetDataList);
 #else
@@ -22,7 +22,7 @@ public:
 	virtual void Collision(World *world);
 	const char *const getTextureName();
 	short getTextureId();
-	/*virtual void Draw(App &app);
+	/*virtual void Draw(App &app, Game *game);
 	void Rotate(float degrees);
 	void setAngle(float angle);
 	float getAngle();

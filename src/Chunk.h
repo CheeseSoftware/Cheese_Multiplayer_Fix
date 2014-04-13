@@ -16,6 +16,7 @@ class TextureContainer;
 class Camera;
 class Block;
 class GameUtility;
+class Game;
 
 class Chunk
 {
@@ -34,7 +35,7 @@ public:
 	void setMetadata(unsigned char layer, unsigned short x, unsigned short y, unsigned short metadata);
 	unsigned short getBlockId(unsigned char layer, unsigned short x, unsigned short y, GameUtility* gameUtility);
 #ifdef CLIENT
-	void Draw(long xPos, long yPos, App &app, GameUtility *gameUtility);
+	void Draw(long xPos, long yPos, App &app, Game *game, GameUtility *gameUtility);
 #endif
 	bool isAnySolid(std::pair<Block*, unsigned short> blocks[6]);
 	bool isAnySeeThrough(std::pair<Block*, unsigned short> blocks[6]);

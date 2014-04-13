@@ -39,11 +39,11 @@ class PlayState : public GameUtility
 
 	void ProcessPackets(GameUtility *gameUtility);
 public:
-	PlayState(App &app);
+	PlayState(App &app, Game *game);
 	~PlayState();
-	virtual bool Load();
-    virtual void EventUpdate(App &app, Game &game, const sf::Event &event);
-    virtual GameState *Update(App &app, Game &game);
-    virtual void Draw(App &app);
+	virtual bool Load(Game *game);
+    virtual void EventUpdate(App &app, Game *game, const sf::Event &event);
+    virtual GameState *Update(App &app, Game *game);
+    virtual void Draw(App &app, Game *game);
 };
 #endif
