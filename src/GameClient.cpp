@@ -9,7 +9,7 @@
 #include "MainMenu.h"
 #include "TextureContainer.h"
 
-int GameClient::LoadGameTexture(std::string path, int spriteWidth = 0, int spriteHeight = 0)
+/*int GameClient::LoadGameTexture(std::string path, int spriteWidth = 0, int spriteHeight = 0)
 {
 	if (spriteWidth == 0 && spriteHeight == 0)
 		return textureContainer->AddTexture("textures\\game\\" + path, 0);
@@ -20,7 +20,7 @@ int GameClient::LoadGameTexture(std::string path, int spriteWidth = 0, int sprit
 int GameClient::LoadGameSound(std::string path)
 {
 	return soundHandler->LoadSound("audio\\game\\" + path);
-}
+}*/
 
 // Public:	*	*	*	*	*	*	*	*	*	*	*	*
 
@@ -51,17 +51,17 @@ void GameClient::Run()
 				app->close();
 			
 
-			m_gameState->EventUpdate(*app, *this, event);
+			m_gameState->EventUpdate(*app, this, event);
 			// Pass the event to all the objects (if there would be objects)
             //app.handleEvent(event);
 		}
 
 		app->Update(); 
-		m_gameState->Update(*app, *this);
+		m_gameState->Update(*app, this);
 
 		app->clear();
 
-		m_gameState->Draw(*app);
+		m_gameState->Draw(*app, this);
 
 		app->display();
 	}
@@ -82,7 +82,7 @@ void GameClient::Restart()
 }
 
 #pragma region texturures_Sounds_fonts_scripts
-	int GameClient::LoadTexture(std::string path, int spriteWidth = 0, int spriteHeight = 0)
+/*	int GameClient::LoadTexture(std::string path, int spriteWidth = 0, int spriteHeight = 0)
 	{
 		if (spriteWidth == 0 || spriteHeight == 0)
 			return textureContainer->AddTexture("textures\\" + path, 0);
@@ -126,7 +126,7 @@ void GameClient::Restart()
 			soundHandler->PlayMusic(app, source, "audio\\music\\" + path, volume, loop, position);
 		else
 			soundHandler->PlayMusic(app, source, "audio\\music\\" + path, volume, loop);
-	}
+	}*/
 
 #pragma endregion 
 #endif

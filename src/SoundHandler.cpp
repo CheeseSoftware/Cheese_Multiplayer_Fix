@@ -1,10 +1,11 @@
 #ifdef CLIENT
 #include <SFML\Audio.hpp>
+#endif
 #include <functional>
 
 #include "SoundHandler.h"
 #include "App.h"
-
+#include "ISoundable.h"
 
 SoundHandler::SoundHandler()
 {
@@ -13,19 +14,12 @@ SoundHandler::SoundHandler()
 
 SoundHandler::~SoundHandler()
 {
+#ifdef CLIENT
 	for (auto soundVector : m_soundContainer)
 	{
 		for (auto s: soundVector.second)
 		{
-			//s->sound.stop();
-			delete s;
-		}
-	}
-
-	for (auto soundVector : m_posSoundContainer)
-	{
-		for (auto s: soundVector.second.second)
-		{
+			//s->sound.stop(); << error tror jag, men det ska köras!
 			delete s;
 		}
 	}
@@ -39,49 +33,40 @@ SoundHandler::~SoundHandler()
 		}
 	}
 
-	for (auto musicVector : m_posMusicContainer)
-	{
-		for (auto s: musicVector.second.second)
-		{
-			delete s;
-		}
-	}
-
 	for (auto soundBuffer : m_soundBufferContainer)
 	{
 		delete soundBuffer.second;
 	}
-
+#endif
 }
 
-float SoundHandler::CalculateVolume(const sf::Vector2f &a, const sf::Vector2f &b)
+/*float SoundHandler::CalculateVolume(const sf::Vector2f &a, const sf::Vector2f &b)
 {
 	float deltaX = a.x - b.x;
 	float deltaY = a.y - b.y;
 	float volume = 128.f*sqrt(pow(deltaX, 2) + pow(deltaY, 2));
 	volume = (volume < 1.f)? m_volume:m_volume*volume;
 	return volume;
-}
-
-//public:
-
-void SoundHandler::Update(const sf::Vector2f &position)
+}*/
+#ifdef CLIENT
+float SoundHandler::CalculateVolume(float distance) const
 {
+	float volume = 128.f/distance;
+	volume = (volume < 1.f)? m_volume:m_volume*volume;
+	return volume;
+}
+#endif
+
+/************************
+******** public: ********
+************************/
+
+void SoundHandler::UpdateSounds(const sf::Vector2f &position)
+{
+#ifdef CLIENT
 	for (auto soundVector : m_soundContainer)
 	{
 		for(auto rit = soundVector.second.rbegin(); rit != soundVector.second.rend(); ++rit)
-		{
-			if ((*rit)->sound.getStatus() == sf::SoundSource::Status::Stopped)
-			{
-				delete *rit;
-				soundVector.second.erase(--(rit.base()));
-			}
-		}
-	}
-
-	for (auto soundVector : m_posSoundContainer)
-	{
-		for(auto rit = soundVector.second.second.rbegin(); rit != soundVector.second.second.rend(); ++rit)
 		{
 		//for (auto s: soundVector.second.second)
 		//{
@@ -89,13 +74,15 @@ void SoundHandler::Update(const sf::Vector2f &position)
 			{
 				(*rit)->sound.stop();
 				delete (*rit);
-				soundVector.second.second.erase(--(rit.base()));
+				soundVector.second.erase(--(rit.base()));
 				continue;
 			}
 
-			(*rit)->sound.setVolume((*rit)->volume*CalculateVolume(position, soundVector.second.first()));
+			(*rit)->sound.setVolume(CalculateVolume(soundVector.first->getDistance(position)));
+			//(*rit)->sound.setVolume((*rit)->volume*CalculateVolume(position, soundVector.second.first()));
 		}
 	}
+
 
 	for (auto musicVector : m_musicContainer)
 	{
@@ -105,28 +92,18 @@ void SoundHandler::Update(const sf::Vector2f &position)
 			{
 				delete *rit;
 				musicVector.second.erase(--(rit.base()));
-			}
-		}
-	}
-
-	for (auto musicVector : m_posMusicContainer)
-	{
-		for(auto rit = musicVector.second.second.rbegin(); rit != musicVector.second.second.rend(); ++rit)
-		{
-			if ((*rit)->music.getStatus() == sf::SoundSource::Status::Stopped)
-			{
-				delete *rit;
-				musicVector.second.second.erase(--(rit.base()));
 				continue;
 			}
 
-			(*rit)->music.setVolume((*rit)->volume*CalculateVolume(position, musicVector.second.first()));
+			(*rit)->music.setVolume(CalculateVolume(musicVector.first->getDistance(position)));
 		}
 	}
+#endif
 }
 
 bool SoundHandler::LoadSound(std::string name)
 {
+#ifdef CLIENT
 	if (m_soundBufferContainer.find(name) == m_soundBufferContainer.end())
 	{
 		sf::SoundBuffer *soundBuffer = new sf::SoundBuffer;
@@ -134,11 +111,15 @@ bool SoundHandler::LoadSound(std::string name)
 		if (soundBuffer->loadFromFile("audio\\" + name))
 		{
 			m_soundBufferContainer.insert(std::pair<std::string, sf::SoundBuffer*>(name, soundBuffer));
+			return true;
 		}
 	}
+#endif
+	return false;
 }
 
-SSound *SoundHandler::PlaySound(App &app, void *source, std::string name, float volume, bool loop)
+#ifdef CLIENT
+SSound *SoundHandler::PlaySound(App &app, ISoundable *source, std::string name, float volume, bool loop)
 {
 	auto soundBuffer = m_soundBufferContainer.find(name);
 
@@ -147,13 +128,13 @@ SSound *SoundHandler::PlaySound(App &app, void *source, std::string name, float 
 		SSound *sound = new SSound();
 		sound->sound = sf::Sound(*soundBuffer->second);
 		sound->sound.setLoop(loop);
-		sound->sound.setVolume(volume*m_volume);
+		sound->sound.setVolume(volume*CalculateVolume(source->getDistance(app.getView().getCenter())));
 		sound->sound.play();
 
 		sound->volume = volume;
 
 		if (m_soundContainer.find(source) == m_soundContainer.end())
-			m_soundContainer.insert(std::pair<void*,std::vector<SSound*>>(source, std::vector<SSound*>()));
+			m_soundContainer.insert(std::pair<ISoundable *,std::vector<SSound*>>(source, std::vector<SSound*>()));
 
 		m_soundContainer[source].push_back(sound);
 		return sound;
@@ -162,7 +143,7 @@ SSound *SoundHandler::PlaySound(App &app, void *source, std::string name, float 
 	return nullptr;
 }
 
-SSound *SoundHandler::PlaySound(App &app, void *source, std::string name, float volume, bool loop, std::function<sf::Vector2f()> position)
+/*SSound *SoundHandler::PlaySound(App &app, ISoundable *source, std::string name, float volume, bool loop, std::function<sf::Vector2f()> position)
 {
 	auto soundBuffer = m_soundBufferContainer.find(name);
 	sf::Vector2f pos = position();
@@ -188,21 +169,21 @@ SSound *SoundHandler::PlaySound(App &app, void *source, std::string name, float 
 	}
 
 	return nullptr;
-}
+}*/
 
-SMusic *SoundHandler::PlayMusic(App &app, void *source, std::string name, float volume, bool loop)
+SMusic *SoundHandler::PlayMusic(App &app, ISoundable *source, std::string name, float volume, bool loop)
 {
 	SMusic *music = new SMusic();
 	if (music->music.openFromFile(name))
 	{
 		music->music.setLoop(loop);
-		music->music.setVolume(volume*m_volume);
+		music->music.setVolume(volume*CalculateVolume(source->getDistance(app.getView().getCenter())));
 		music->music.play();
 
 		music->volume = volume;
 
 		if (m_musicContainer.find(source) == m_musicContainer.end())
-			m_musicContainer.insert(std::pair<void*,std::vector<SMusic*>>(source, std::vector<SMusic*>()));
+			m_musicContainer.insert(std::pair<ISoundable*,std::vector<SMusic*>>(source, std::vector<SMusic*>()));
 
 		m_musicContainer[source].push_back(music);
 
@@ -211,7 +192,7 @@ SMusic *SoundHandler::PlayMusic(App &app, void *source, std::string name, float 
 	return nullptr;
 }
 
-SMusic *SoundHandler::PlayMusic(App &app, void *source, std::string name, float volume, bool loop, std::function<sf::Vector2f()> position)//sf::Vector2f pos)
+/*SMusic *SoundHandler::PlayMusic(App &app, ISoundable *source, std::string name, float volume, bool loop, std::function<sf::Vector2f()> position)//sf::Vector2f pos)
 {
 	SMusic *music = new SMusic();
 	sf::Vector2f pos = position();
@@ -234,11 +215,11 @@ SMusic *SoundHandler::PlayMusic(App &app, void *source, std::string name, float 
 		return music;
 	}
 	return nullptr;
-}
+}*/
 
-void SoundHandler::stopSounds(void *source)
+void SoundHandler::stopSounds(ISoundable *source)
 {
-
+	//>.<
 }
 
 void SoundHandler::setVolume(float volume)
@@ -267,4 +248,4 @@ float SoundHandler::getVolume()
 	return m_volume;
 }
 
-#endif
+#endif // #ifdef CLIENT

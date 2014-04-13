@@ -12,6 +12,7 @@
 #include "App.h"
 #include "GameUtility.h"
 #include "BlockRegister.h"
+#include "Game.h"
 
 Chunk::Chunk()
 { 
@@ -73,7 +74,7 @@ Block *Chunk::getHighestBlock(unsigned char x, unsigned char y)
 }
 
 #ifdef CLIENT
-void Chunk::Draw(long xPos, long yPos, App &app, GameUtility *gameUtility)
+void Chunk::Draw(long xPos, long yPos, App &app, Game *game, GameUtility *gameUtility)
 {
 	Block *air = gameUtility->getBlockRegister().getBlockType(2);
 	int startX = (app.getView().getCenter().x - (app.getSize().x/2))/16 - (xPos*CHUNKWIDTH);
@@ -97,7 +98,7 @@ void Chunk::Draw(long xPos, long yPos, App &app, GameUtility *gameUtility)
 			{
 				if(blockList[x][y][l].first != nullptr )
 				{
-					blockList[x][y][l].first->Draw((xPos - 1 << 4) + x << 4, (yPos - 1 << 4) + y << 4, app, gameUtility, blockList[x][y][l].second); 
+					blockList[x][y][l].first->Draw((xPos - 1 << 4) + x << 4, (yPos - 1 << 4) + y << 4, app, game, gameUtility, blockList[x][y][l].second); 
 					if(!blockList[x][y][l].first->isSeeThrough())
 						break;
 				}

@@ -21,7 +21,7 @@
 #include "Button.h"
 #include "TextBox.h"
 #include "Minimap.h"
-
+#include "Game.h"
 #include "SMusic.h"
 
 namespace sf
@@ -32,7 +32,7 @@ namespace sf
 extern int _argc;
 extern char** _argv;
 
-PlayState::PlayState(App &app)
+PlayState::PlayState(App &app, Game *game)
 	: GameUtility(app)
 	, hudView(sf::FloatRect(0.f, 0.f, (float)app.getSize().x, (float)app.getSize().y))
 {
@@ -55,7 +55,7 @@ PlayState::PlayState(App &app)
 	noobishBlockMenu = new NoobishBlockMenu(currentWorld, this);//InGameUI(app, tC, *currentWorld);
 
 	connection = new Connection(5001, ip);
-	blockRegister->RegisterBlockTextures(*tC);
+	blockRegister->RegisterBlockTextures(game);
 
 
 
@@ -73,8 +73,8 @@ PlayState::PlayState(App &app)
 	//soundHandler.setVolume(0.5);
 
 	//soundHandler.PlayMusic(app, this, "audio\\hahah!.wav", 1, true);
-	soundHandler.LoadSound("jump.wav");
-	soundHandler.PlayMusic(app, this, "hahaha!.wav", 1, true, [](){ return sf::Vector2f(0.f, 0.f); });
+	//soundHandler.LoadSound("jump.wav");
+	//soundHandler.PlayMusic(app, this, "hahaha!.wav", 1, true, [](){ return sf::Vector2f(0.f, 0.f); });
 
 	/*minimap = new gui::Minimap(0, 0, 200, 200);
 	fpsClock.restart();
@@ -141,7 +141,7 @@ PlayState::~PlayState()
 
 }
 
-bool PlayState::Load()
+bool PlayState::Load(Game *game)
 {
 	minimap = new gui::Minimap(0, 0, 200, 200);
 	fpsClock.restart();
@@ -160,7 +160,7 @@ bool PlayState::Load()
 	noobishBlockMenu = new NoobishBlockMenu(currentWorld, this);//InGameUI(app, tC, *currentWorld);
 
 	connection = new Connection(5001, ip);
-	blockRegister->RegisterBlockTextures(*tC);
+	blockRegister->RegisterBlockTextures(game);
 
 
 
@@ -181,7 +181,7 @@ bool PlayState::Load()
 
 
 
-void PlayState::EventUpdate(App &app, Game &game, const sf::Event &event)
+void PlayState::EventUpdate(App &app, Game *game, const sf::Event &event)
 {
 	if (event.type == sf::Event::Resized)
 	{
@@ -198,7 +198,7 @@ void PlayState::EventUpdate(App &app, Game &game, const sf::Event &event)
 	noobishBlockMenu->EventUpdate(app, event, this);
 }
 
-GameState *PlayState::Update(App &app, Game &game)
+GameState *PlayState::Update(App &app, Game *game)
 {
 	if (fpsClock.getElapsedTime().asMilliseconds() > 25)
 	{
@@ -215,9 +215,9 @@ GameState *PlayState::Update(App &app, Game &game)
 	}
 
 	hud->Update(app, game);
-	currentWorld->Update(app, this);
+	currentWorld->Update(app, game, this);
 	camera->Update(app, game);
-	minimap->Update(app, this);
+	minimap->Update(app, game, this);
 	//soundHandler.Update(camera->getEntityPosition());
 
 
@@ -236,10 +236,10 @@ GameState *PlayState::Update(App &app, Game &game)
 	return this;
 } 
 
-void PlayState::Draw(App &app)
+void PlayState::Draw(App &app, Game *game)
 {
 	app.setView(*reinterpret_cast<sf::View*>(camera));
-	currentWorld->Draw(app, this);
+	currentWorld->Draw(app, game, this);
 	app.setView(hudView);
 	if(getCamera().getEntity() != nullptr)
 	{
@@ -249,7 +249,7 @@ void PlayState::Draw(App &app)
 		pos->setText(new sf::Text(sf::String(temp.str()), *font));
 	}
 	hud->Draw(app, 0, 0, app.getSize().x, app.getSize().y);
-	noobishBlockMenu->Draw(app, this); // < orsakar lagg temp
+	noobishBlockMenu->Draw(app, game, this); // < orsakar lagg temp
 	minimap->Draw(app, 0, 0, 400, 400);
 }
 

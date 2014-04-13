@@ -52,12 +52,13 @@ void BlockChest::OnEntityTouch(Entity *entity, const unsigned short metadata)
 }
 
 #ifdef CLIENT
-void BlockChest::Draw(const long posX, const long posY, App &app, GameUtility *gameUtility, const unsigned short metadata)
+void BlockChest::Draw(const long posX, const long posY, App &app, Game *game, GameUtility *gameUtility, const unsigned short metadata)
 {
 	if(isDrawingInventory)
 	{
-		inventory->Draw(posX, posY - inventory->getSizeY()*32, app, gameUtility->getTextureContainer());
+		//Det måste använd ITextureContainer
+		//inventory->Draw(posX, posY - inventory->getSizeY()*32, app, game);
 	}
-	Block::Draw(posX, posY, app, gameUtility, metadata);
+	Block::Draw(posX, posY, app, game, gameUtility, metadata);
 }
 #endif

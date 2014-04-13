@@ -17,6 +17,7 @@
 #include "MessageType.h"
 #include "EventHandler.h"
 #include "GameUtility.h"
+#include "Game.h"
 
 #define getChunkMatrixIndexX(x) (int)abs(x>>4 + chunkMatrix.second)
 #define getChunkColumnIndexY(y,x_it) (int)abs(y>>4 + x_it.second)
@@ -34,9 +35,9 @@ void World::EventUpdate(App &app, const sf::Event &event, GameUtility *gameUtili
 	eventHandler.EventUpdate(app, event, gameUtility);
 }
 
-void World::Draw(App &app, GameUtility *gameUtility) // >.<
+void World::Draw(App &app, Game *game, GameUtility *gameUtility) // >.<
 {
-	sf::Sprite background = gameUtility->getTextureContainer().getTextures("Background.png")[0];
+	sf::Sprite background = (*game->getTextures("Background.png"))[0];
 	for(int x = 0; x <= app.getSize().x / 512; x++)
 	{
 		for(int y = 0; y <= app.getSize().y / 512; y++)
@@ -64,7 +65,7 @@ maxY : chunkMatrix.first[x].first.size();
 		{
 			if (chunkMatrix.first[x].first[y] != nullptr)
 			{
-				chunkMatrix.first[x].first[y]->Draw(x-chunkMatrix.second, y-chunkMatrix.first[x].second, app, gameUtility);
+				chunkMatrix.first[x].first[y]->Draw(x-chunkMatrix.second, y-chunkMatrix.first[x].second, app, game, gameUtility);
 			}
 		}
 	}
@@ -74,34 +75,34 @@ maxY : chunkMatrix.first[x].first.size();
 	entityListLock.lock();
 	for (Entity *entity : entityList)
 	{
-		entity->Draw(app, gameUtility);
+		entity->Draw(app, game, gameUtility);
 	}
 	entityListLock.unlock();
 
 	creatureListLock.lock();
 	for(std::pair<const short, std::unique_ptr<Creature>> &pair : creatureList)//for(auto pair : creatureList)
 	{
-		pair.second->Draw(app, gameUtility);
+		pair.second->Draw(app, game, gameUtility);
 	}
 	creatureListLock.unlock();
 }
 #endif
 
-void World::Update(App &app, GameUtility *gameUtility)
+void World::Update(App &app, Game *game, GameUtility *gameUtility)
 {
 	for (Entity *entity : entityList)
 	{
 #ifdef SERVER
-		entity->Update(app, gameUtility);
+		entity->Update(app, game, gameUtility);
 #else
-		entity->Update(app, gameUtility);
+		entity->Update(app, game, gameUtility);
 #endif
 	}
 
 	std::vector<short> toRemove = std::vector<short>();
 	for(std::pair<const short, std::unique_ptr<Creature>> &pair : creatureList)
 	{
-		pair.second->Update(app, gameUtility);
+		pair.second->Update(app, game, gameUtility);
 		if(pair.second->isDead())
 		{
 			sf::Packet packet;

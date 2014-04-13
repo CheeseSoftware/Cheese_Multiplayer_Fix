@@ -6,9 +6,9 @@
 #include "GameUtility.h"
 
 #ifdef CLIENT
-void LargeTextureBlock::Draw(const long posX, const long posY, App &app, GameUtility *gameUtility, const unsigned short metadata)
+void LargeTextureBlock::Draw(const long posX, const long posY, App &app, Game *game, GameUtility *gameUtility, const unsigned short metadata)
 {
-	sf::Sprite *tempSprite = &gameUtility->getBlockRegister().getBlockTextures(this)
+	sf::Sprite *tempSprite = &(*gameUtility->getBlockRegister().getBlockTextures(this))
 		[getTextureId(app, metadata)//*getTextureSize()*getTextureSize()
 		//+(((short)floor(abs((posY < 0)? ~posY:posY)/16.0))%getTextureSize())*getTextureSize()
 		];//+(((short)floor(abs((posX < 0)? ~posX:posX)/16.0))%getTextureSize())];

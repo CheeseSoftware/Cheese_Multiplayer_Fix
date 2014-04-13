@@ -43,7 +43,7 @@ namespace gui
 		sprite.setTexture(texture);
 	}
 
-	void Minimap::Update(App &app, GameUtility *const gameUtility)
+	void Minimap::Update(App &app, Game *game, GameUtility *gameUtility)
 	{
 		return;
 		long playerX = (long)floor(gameUtility->getCamera().getEntityPosition().x/16+0.5)-viewWidth/2;

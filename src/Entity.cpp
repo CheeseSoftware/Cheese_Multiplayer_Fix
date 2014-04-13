@@ -6,6 +6,7 @@
 #include "TextureContainer.h"
 #include "World.h"
 #include "GameUtility.h"
+#include "Game.h"
 
 Entity::Entity(int id, float x, float y, short sizeX, short sizeY,
 			   float angle, float speed, float maxSpeed, float friction, std::string spriteName,
@@ -45,7 +46,7 @@ void Entity::PhysicUpdate(App &app, World *world, float timeSpan)
 	else if	(speedY < -maxSpeed)	speedY = -maxSpeed;
 }
 
-void Entity::Update(App &app, GameUtility *gameUtility)
+void Entity::Update(App &app, Game *game, GameUtility *gameUtility)
 {
 	currentBlock = gameUtility->getCurrentWorld()->getBlockAndMetadata(
 		(long)x>>4L,
@@ -225,9 +226,9 @@ void Entity::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtil
 
 }
 
-void Entity::Draw(App &app, GameUtility *gameUtility)
+void Entity::Draw(App &app, Game *game, GameUtility *gameUtility)
 {
-	sf::Sprite *sprite = &(gameUtility->getTextureContainer().getTextures(spriteName)[spriteIndex]);
+	sf::Sprite *sprite = &(*(game->getTextures(spriteName))[spriteIndex]);
 	if (sprite != nullptr)
 	{
 		if(	x + sizeX*0.5 >=

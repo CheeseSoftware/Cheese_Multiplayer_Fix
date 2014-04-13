@@ -84,13 +84,13 @@ void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtility
 
 }
 
-void NoobishBlockMenu::Draw(App &app, GameUtility *gameUtility)
+void NoobishBlockMenu::Draw(App &app, Game *game, GameUtility *gameUtility)
 {
 	for (int j = 0; j < 2; j++)
 	{
 		for(int i = 0; i < 80; ++i)
 		{
-			blockMenu[j][i].first->Draw(i<<4, app.getSize().y -32+16*j, app, gameUtility, blockMenu[j][i].second);
+			blockMenu[j][i].first->Draw(i<<4, app.getSize().y -32+16*j, app, game, gameUtility, blockMenu[j][i].second);
 		}
 	}
 }

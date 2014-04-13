@@ -192,7 +192,7 @@ void Inventory::Draw(int xPos, int yPos, App& app, TextureContainer& tC)
 	int x = xPos;
 	int y = yPos;
 	int slot = 0;
-	sf::Sprite slotSprite = tC.getTextures("slot.png")[0];
+	sf::Sprite slotSprite = (*tC.getTextures("slot.png"))[0];
 	for(int xSlot = 0; xSlot < xSize; xSlot++)
 	{
 		for(int ySlot = 0; ySlot < ySize; ySlot++)
