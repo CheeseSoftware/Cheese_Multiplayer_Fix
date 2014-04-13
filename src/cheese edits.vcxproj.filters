@@ -16,9 +16,6 @@
     <Filter Include="Source Files\GameState">
       <UniqueIdentifier>{8d961622-9744-4b8d-88e2-2e15c5b8f18c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GameState">
-      <UniqueIdentifier>{8e08149d-26ad-409e-a997-116c3f9b76cb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Block">
       <UniqueIdentifier>{8beaf456-f2b3-4503-8e4b-9dd746bd2619}</UniqueIdentifier>
     </Filter>
@@ -88,9 +85,6 @@
     <Filter Include="Source Files\GameState\Menu">
       <UniqueIdentifier>{e66064ae-ccc0-4262-afcd-a8c7f1408926}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GameState\Menu">
-      <UniqueIdentifier>{9da7d566-afca-4899-bfa5-ac4ac39efc31}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\World\Generator">
       <UniqueIdentifier>{57400c47-2b53-4692-b55d-80a156ec6e84}</UniqueIdentifier>
     </Filter>
@@ -123,6 +117,12 @@
     </Filter>
     <Filter Include="Header Files\Compressor\callbacks">
       <UniqueIdentifier>{3d8fa046-aa01-4727-813a-0abf55ce5394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameState">
+      <UniqueIdentifier>{8e08149d-26ad-409e-a997-116c3f9b76cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameState\Menu">
+      <UniqueIdentifier>{9da7d566-afca-4899-bfa5-ac4ac39efc31}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -519,6 +519,18 @@
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
     <ClInclude Include="TextureContainer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IPacketAble.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ISoundHandler.h">
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="ISoundable.h">
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="ITextureContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
