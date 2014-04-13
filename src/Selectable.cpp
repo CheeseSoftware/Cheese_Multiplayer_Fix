@@ -119,7 +119,7 @@ namespace gui
 		return nullptr;
 	}
 
-	GameState *Selectable::Update(App &app, Game &game)
+	GameState *Selectable::Update(App &app, Game *game)
 	{
 		return nullptr;
 	}

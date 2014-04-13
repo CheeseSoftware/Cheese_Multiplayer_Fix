@@ -30,7 +30,7 @@ ServerState::~ServerState()
 	delete currentWorld;
 }
 
-GameState *ServerState::Update(App &app, Game &game)
+GameState *ServerState::Update(App &app, Game *game)
 {
 	//std::cout << "updates per second: " << 1/(app).getFrameTime() << std::endl;
 	while (!packetDataList->empty())
@@ -39,7 +39,7 @@ GameState *ServerState::Update(App &app, Game &game)
 		sC->Broadcast(packetDataList->front());
 		packetDataList->pop();
 	}
-	currentWorld->Update(app, this);
+	currentWorld->Update(app, game, this);
 	sC->Update();
 	ProcessPackets(this);
 	KickClients(this);

@@ -19,17 +19,17 @@ class App;
 
 class GameState
 {
-	std::queue<std::function<void(App &app, Game &game)>> invokeQueue;
+	std::queue<std::function<void(App &app, Game *game)>> invokeQueue;
 	std::mutex *invokeLock;
 public:
 	GameState();
-	virtual bool Load(){return true;};
-    virtual GameState *Update(App &app, Game &game); // ,Callbacks &game)... hmm.. Kanske ska App ha game?
+	virtual bool Load(Game *game){return true;};
+    virtual GameState *Update(App &app, Game *game); // ,Callbacks &game)... hmm.. Kanske ska App ha game?
 #ifdef CLIENT
-	virtual void EventUpdate(App &app, Game &game, const sf::Event &event)=0; // ^^ samma här
-    virtual void Draw(App &app)=0; // då får draw också gameXD, fast "error"-callback bör ju kunna ske där med! Men varför ska man hantera error olika? tr {} catch{} finally{} FUNKAR!
+	virtual void EventUpdate(App &app, Game *game, const sf::Event &event)=0; // ^^ samma här
+    virtual void Draw(App &app, Game *game)=0; // då får draw också gameXD, fast "error"-callback bör ju kunna ske där med! Men varför ska man hantera error olika? tr {} catch{} finally{} FUNKAR!
 #endif
-	void Invoke(std::function<void(App &app, Game &game)> function);
+	void Invoke(std::function<void(App &app, Game *game)> function);
     //virtual void Shutdown()=0;
 	//GameState &operator =(  GameState const& other );
 };

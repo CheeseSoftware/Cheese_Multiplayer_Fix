@@ -29,9 +29,9 @@ void Creature::PhysicUpdate(App &app, World *world, float timeSpan)
 	Entity::PhysicUpdate(app, world, timeSpan);
 }
 
-void Creature::Update(App &app, GameUtility *gameUtility)
+void Creature::Update(App &app, Game *game, GameUtility *gameUtility)
 {
-	Entity::Update(app, gameUtility);
+	Entity::Update(app, game, gameUtility);
 }
 
 void Creature::CreatureMove(float x, float y, float speedX, float speedY, float angle, float horizontal, float vertical)

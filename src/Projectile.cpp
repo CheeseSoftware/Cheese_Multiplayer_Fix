@@ -22,7 +22,7 @@ void Projectile::Update(App &app, World *world, std::queue<sf::Packet> *packetDa
 #else
 void Projectile::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
 #endif*/
-void Projectile::Update(App &app, GameUtility *GameUtility)
+void Projectile::Update(App &app, Game *game, GameUtility *GameUtility)
 { 
 	/*speed = sqrt(pow(abs(speedX),2)+pow(abs(speedY),2));
 	friction = 100/speed;
@@ -37,7 +37,7 @@ void Projectile::Update(App &app, GameUtility *GameUtility)
 		//	angle += 180;
 	}
 
-	Entity::Update(app, GameUtility);
+	Entity::Update(app, game, GameUtility);
 /*#ifdef SERVER
 	Entity::Update(app, world, packetDataList);
 #else
@@ -55,7 +55,7 @@ void Projectile::Collision(World *world)
 const char *const Projectile::getTextureName() { return "arrow.png"; }
 short Projectile::getTextureId() { return 0; }
 
-/*void Projectile::Draw(App &app)
+/*void Projectile::Draw(App &app, Game *game)
 {
 	app.Draw(*sprite);
 }

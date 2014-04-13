@@ -8,6 +8,7 @@
 #include "Block.h"
 #include "GameUtility.h"
 #include "Inventory.h"
+#include "Game.h"
 
 Player::Player(int id, float X, float Y, short sizeX, short sizeY, bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name) 
 	: Creature(id, X, Y, sizeX, sizeY, 1024, 8192, 0.9375, spriteName, spriteIndex, IsClientControlling)
@@ -36,7 +37,7 @@ void Player::Update(App &app, World *world, std::queue<sf::Packet> *packetDataLi
 #else
 void Player::Update(App &app, World *world, std::queue<sf::Packet> *packetDataList, Camera *camera, EventHandler &eventHandler)
 #endif*/
-void Player::Update(App &app, GameUtility *GameUtility)
+void Player::Update(App &app, Game *game, GameUtility *gameUtility)
 {
 	//std::cout << "xpos: " << x << " ypos:" << y << " xspeed:" << speedX << " yspeed:" << speedY << std::endl;
 #ifdef CLIENT
@@ -49,7 +50,7 @@ void Player::Update(App &app, GameUtility *GameUtility)
 		currentChunkYOld = currentChunkY;
 		currentChunkX = floor(x/16.f+0.5)/16;
 		currentChunkY = floor(y/16.f+0.5)/16;
-		if(GameUtility->getCurrentWorld() != nullptr && currentChunkX != currentChunkXOld || currentChunkY != currentChunkYOld)
+		if(gameUtility->getCurrentWorld() != nullptr && currentChunkX != currentChunkXOld || currentChunkY != currentChunkYOld)
 		{
 			//Now request chunks from server! We have moved to a different chunk!
 			sf::Packet chunkPacket = sf::Packet();
@@ -58,21 +59,21 @@ void Player::Update(App &app, GameUtility *GameUtility)
 			{
 				for(long y = currentChunkY - 6; y < currentChunkY + 6; y++)
 				{
-					if(GameUtility->getCurrentWorld()->getChunk(x, y) == nullptr)
+					if(gameUtility->getCurrentWorld()->getChunk(x, y) == nullptr)
 					{
 						//std::cout << "requesting chunk: x:" << x << " y:" << y << std::endl;
 						chunkPacket << (sf::Int32)x << (sf::Int32) y;
 					}
 				}
 			}
-			GameUtility->SendPacket(chunkPacket);
+			gameUtility->SendPacket(chunkPacket);
 		}
 
-		if (GameUtility->getCamera().getEntity() != this)
+		if (gameUtility->getCamera().getEntity() != this)
 		{
 			if (cameraDelay <= 0)
 			{
-				GameUtility->getCamera().setCameraAt(this);
+				gameUtility->getCamera().setCameraAt(this);
 				cameraDelay = 0.5;
 			}
 			else
@@ -83,7 +84,7 @@ void Player::Update(App &app, GameUtility *GameUtility)
 	}
 #endif
 
-	Creature::Update(app, GameUtility);
+	Creature::Update(app, game, gameUtility);
 	/*#ifdef SERVER
 	Creature::Update(app, world, packetDataList);
 	#else
@@ -159,7 +160,7 @@ Up:
 						packet << (sf::Uint16)MessageType::CreatureMove << x << y << speedX << speedY << angle << horizontal << vertical;
 						gameUtility->SendPacket(packet);
 
-						gameUtility->getSoundHandler().PlaySound(app, this, "jump.wav", 1.0, false, [this](){ return getPosition(); });
+						//gameUtility->getSoundHandler().PlaySound(app, this, "jump.wav", 1.0, false, [this](){ return getPosition(); });
 					}
 				}
 				break;
@@ -265,11 +266,11 @@ UpR:
 	}
 }
 
-void Player::Draw(App &app, GameUtility *gameUtility)
+void Player::Draw(App &app, Game *game, GameUtility *gameUtility)
 {
 
 	//inventory->Draw(16, 16, app, gameUtility->getTextureContainer()); 
-	Creature::Draw(app, gameUtility);
+	Creature::Draw(app, game, gameUtility);
 }
 #endif
 

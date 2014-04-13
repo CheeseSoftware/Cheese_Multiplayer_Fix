@@ -8,7 +8,7 @@
 TextureContainer::TextureContainer(void)
 {
 	AddSpriteSheet("void.png", 1, 1);
-	/*AddSpriteSheet("slot.png", 32, 32);
+	AddSpriteSheet("slot.png", 32, 32);
 	AddSpriteSheet("Block0.png", 16, 16);
 	AddSpriteSheet("BlockBackground.png", 16, 16);
 	AddSpriteSheet("BlockSolid.png", 16, 16);
@@ -21,7 +21,7 @@ TextureContainer::TextureContainer(void)
 	AddSpriteSheet("dirt.png", 512, 512);
 	AddSpriteSheet("dirty128.png", 128, 128);
 	AddSpriteSheet("Background.png", 512, 512);
-	AddSpriteSheet("Test.png", 200, 50);*/
+	AddSpriteSheet("Test.png", 200, 50);
 }
 
 
@@ -41,6 +41,8 @@ bool TextureContainer::AddSpriteSheet(std::string fileName, int spriteWidth, int
 	{
 		std::cout << "Failed to load " << fileName << '\n';
 	}
+
+	textureList.emplace(fileName, texture);
 
 	int width = texture->getSize().x/spriteWidth;
 	int height = texture->getSize().y/spriteHeight;
@@ -68,7 +70,7 @@ bool TextureContainer::AddSpriteSheet(std::string fileName, int spriteWidth, int
 			sprite[x + (y*width)].setTextureRect(sf::IntRect(x*spriteWidth, y*spriteHeight, spriteWidth, spriteHeight));
 		}
 	}
-	textureList.emplace(fileName, sprite);
+	spriteList.emplace(fileName, sprite);
 	std::cout << "Added texturesheet " << fileName << std::endl;
 	return success;
 	//)
@@ -96,9 +98,9 @@ bool TextureContainer::AddSpriteSheet(std::string fileName, int spriteWidth, int
 
 //CLIENT_(
 #ifdef CLIENT
-	sf::Sprite *TextureContainer::getTextures(std::string textureName)
+	sf::Sprite **TextureContainer::getTextures(std::string textureName)
 {
-	auto it = textureList.find(textureName);
-	return (it == textureList.end()) ? nullptr : it->second;
+	auto it = spriteList.find(textureName);
+	return (it == spriteList.end()) ? nullptr : &it->second;
 }//)
 #endif

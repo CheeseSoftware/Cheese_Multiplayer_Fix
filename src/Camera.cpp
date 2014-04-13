@@ -32,7 +32,7 @@ Camera::~Camera(void)
 
 }
 
-void Camera::Update(App &app, Game &game)
+void Camera::Update(App &app, Game *game)
 {
 	if (currentEntity != nullptr)
 	{

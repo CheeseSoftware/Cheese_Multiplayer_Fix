@@ -49,7 +49,7 @@ namespace gui
 	public:
 		virtual bool getSelected();
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, float x, float y);
-		virtual GameState *Update(App &app, Game &game);
+		virtual GameState *Update(App &app, Game *game);
 		virtual void Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight)=0;
 
 		virtual void OnLMBPressed(	App &app, const sf::Event &event, float x, float y);

@@ -26,7 +26,7 @@ void GameServer::Run()
 	{
 		app->Update();
 	}
-	while (m_gameState->Update(*app, *this));
+	while (m_gameState->Update(*app, this));
 }
 
 void GameServer::Exit()

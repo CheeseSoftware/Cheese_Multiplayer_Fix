@@ -22,7 +22,7 @@ AMenuState::~AMenuState()//void AMenuState::Shutdown()
 	}
 }
 
-void AMenuState::EventUpdate(App &app, Game &game, const sf::Event &event)
+void AMenuState::EventUpdate(App &app, Game *game, const sf::Event &event)
 {
 	if (event.type == sf::Event::Resized)
 	{
@@ -32,12 +32,12 @@ void AMenuState::EventUpdate(App &app, Game &game, const sf::Event &event)
 	menuItemContainer->EventUpdate(app, event, 0, 0);//eventHandler.EventUpdate(app, event, this);
 }
 
-GameState *AMenuState::Update(App &app, Game &game)
+GameState *AMenuState::Update(App &app, Game *game)
 {
 	return this;
 }
 
-void AMenuState::Draw(App &app)
+void AMenuState::Draw(App &app, Game *game)
 {
 	menuItemContainer->Draw(app, 0, 0, 0, 0);
 }

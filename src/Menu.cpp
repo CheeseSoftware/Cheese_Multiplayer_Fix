@@ -17,12 +17,12 @@ Menu::~Menu()//void Menu::Shutdown()
     //delete AMenuState;
 }
 
-void Menu::EventUpdate(App &app, Game &game, const sf::Event &event)
+void Menu::EventUpdate(App &app, Game *game, const sf::Event &event)
 {
     //AMenuState->EventUpdate(app, game, event);
 }
 
-GameState *Menu::Update(App &app, Game &game)
+GameState *Menu::Update(App &app, Game *game)
 {
 	/*GameState *newState = AMenuState->Update(app, game);
 	if (newState != AMenuState)
@@ -42,7 +42,7 @@ GameState *Menu::Update(App &app, Game &game)
     return this;
 }
 
-void Menu::Draw(App &app)
+void Menu::Draw(App &app, Game *game)
 {
     //AMenuState->Draw(app);
 }

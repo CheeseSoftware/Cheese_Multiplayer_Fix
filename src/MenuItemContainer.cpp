@@ -28,7 +28,7 @@ namespace gui
 		return nullptr;
 	}
 
-	GameState *MenuItemContainer::Update(App &app, Game &game)
+	GameState *MenuItemContainer::Update(App &app, Game *game)
 	{
 		for (Selectable *item : *itemList)
 			item->Update(app, game);

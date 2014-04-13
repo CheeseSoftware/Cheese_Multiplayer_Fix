@@ -19,7 +19,7 @@ namespace gui
 	public:
 		MenuItemContainer(int x, int y, int width, int height);
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, float x, float y);
-		virtual GameState *Update(App &app, Game &game);
+		virtual GameState *Update(App &app, Game *game);
 		virtual void Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight);
 		sf::Vector2f getSize();
 		void Add(Selectable *item);

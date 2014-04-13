@@ -37,7 +37,7 @@ bool LoadState::Load(Game *game)
 	{
 		bool success = m_gameState->Load(game);
 		//if (!success)
-		//	success = m_oldState->Load();
+		//	success = m_oldState->Load(Game *game);
 		std::cout<<this<<std::endl;
 		if (success)
 		{

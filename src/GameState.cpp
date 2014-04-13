@@ -5,7 +5,7 @@ GameState::GameState()
 	GameState::invokeLock = new std::mutex();
 }
 
-GameState *GameState::Update(App &app, Game &game)
+GameState *GameState::Update(App &app, Game *game)
 {
 	invokeLock->lock();
 	while(!invokeQueue.empty())
@@ -18,7 +18,7 @@ GameState *GameState::Update(App &app, Game &game)
 	return this;
 }
 
-void GameState::Invoke(std::function<void(App& app, Game &game)> function)
+void GameState::Invoke(std::function<void(App& app, Game *game)> function)
 {
 	invokeLock->lock();
 	invokeQueue.push(function);
