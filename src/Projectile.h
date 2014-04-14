@@ -22,6 +22,7 @@ public:
 	virtual void Collision(World *world);
 	const char *const getTextureName();
 	short getTextureId();
+	virtual void OnCollide(App &app, Game *game, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType) override;
 	/*virtual void Draw(App &app, Game *game);
 	void Rotate(float degrees);
 	void setAngle(float angle);

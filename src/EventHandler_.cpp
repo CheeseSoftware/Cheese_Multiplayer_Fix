@@ -3,7 +3,7 @@
 #include "App.h"
 #include "World.h"
 
-void EventHandler::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility)
+void EventHandler::EventUpdate(App &app, Game *game, const sf::Event &event, GameUtility* gameUtility)
 {
 	for (auto it : callbackList)
 	{

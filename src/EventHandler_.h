@@ -15,7 +15,7 @@ class EventHandler
 {
 	std::map<void*,std::function<void(App&, const sf::Event&, GameUtility*)>> callbackList;
 public:
-	void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
+	void EventUpdate(App &app, Game *game, const sf::Event &event, GameUtility* gameUtility);
 	void AddEventCallback(void *source, std::function<void(App&, const sf::Event&, GameUtility*)> callback);
 	void RemoveEventCallback(void *source);
 };

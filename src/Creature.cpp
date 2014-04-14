@@ -45,7 +45,7 @@ void Creature::CreatureMove(float x, float y, float speedX, float speedY, float 
 	this->vertical = vertical;
 }
 
-void Creature::OnCollide(App &app, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType)
+void Creature::OnCollide(App &app, Game *game, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType)
 {
 	if((collisionType == CollisionType::YAxis && speedY > 3) || (collisionType == CollisionType::XYAxis && speedY > 3))
 	{

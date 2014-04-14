@@ -30,9 +30,9 @@ World::World(GameUtility *gameUtility)
 }
 
 #ifdef CLIENT
-void World::EventUpdate(App &app, const sf::Event &event, GameUtility *gameUtility)
+void World::EventUpdate(App &app, Game *game, const sf::Event &event, GameUtility *gameUtility)
 {
-	eventHandler.EventUpdate(app, event, gameUtility);
+	eventHandler.EventUpdate(app, game, event, gameUtility);
 }
 
 void World::Draw(App &app, Game *game, GameUtility *gameUtility) // >.<
@@ -387,7 +387,7 @@ int World::AddEntity(Entity *entity)
 	entityListLock.lock(); //std::cout << "entitylist locked!\n";
 	entityList.push_back(entity);
 	CLIENT_(
-		eventHandler.AddEventCallback(entity,[entity] (App& a, const sf::Event& e, GameState* gUtil) { entity->EventUpdate(a, e, reinterpret_cast<GameUtility*>(gUtil)); });
+		eventHandler.AddEventCallback(entity,[entity] (App& a, Game *game, const sf::Event& e, GameState* gUtil) { entity->EventUpdate(a, game, e, reinterpret_cast<GameUtility*>(gUtil)); });
 		)
 		entityListLock.unlock(); //std::cout << "entitylist unlocked!\n";
 	return 0;
@@ -406,7 +406,7 @@ int World::AddCreature(int id, Creature *creature)
 	{
 		creatureList.insert(std::pair<short, std::unique_ptr<Creature>>(id, std::unique_ptr<Creature>(creature)));
 		CLIENT_(
-			eventHandler.AddEventCallback(creature, [creature] (App& a, const sf::Event& e, GameUtility* gUtil) { creature->EventUpdate(a, e, gUtil); });
+			eventHandler.AddEventCallback(creature, [creature] (App& a, Game *game, const sf::Event& e, GameUtility* gUtil) { creature->EventUpdate(a, game, e, gUtil); });
 		)
 	}
 	else

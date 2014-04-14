@@ -11,20 +11,21 @@
 
 class World;
 class GameUtility;
+class Game;
 
 template<class T>
 class EventHandler
 {
-	std::map<void*,std::function<void(App&, const sf::Event&, T)>> callbackList; 
+	std::map<void*,std::function<void(App&, Game *game, const sf::Event&, T)>> callbackList; 
 public:
-	void EventUpdate(App& app, const sf::Event& event, T t)
+	void EventUpdate(App& app, Game *game, const sf::Event& event, T t)
 	{
 		for (auto it : callbackList)
 		{
-			it.second(app, event, t);
+			it.second(app, game, event, t);
 		}
 	}
-	void AddEventCallback(void *source, std::function<void(App&, const sf::Event&, T)> callback)
+	void AddEventCallback(void *source, std::function<void(App&, Game *game, const sf::Event&, T)> callback)
 	{
 		callbackList.emplace(source, callback);
 	}

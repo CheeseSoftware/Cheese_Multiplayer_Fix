@@ -9,7 +9,7 @@
 
 SoundHandler::SoundHandler()
 {
-
+	LoadSound("jump.wav");
 }
 
 SoundHandler::~SoundHandler()
@@ -73,7 +73,7 @@ void SoundHandler::UpdateSounds(const sf::Vector2f &position)
 			if ((*rit)->sound.getStatus() == sf::SoundSource::Status::Stopped)
 			{
 				(*rit)->sound.stop();
-				delete (*rit);
+				//delete (*rit);
 				soundVector.second.erase(--(rit.base()));
 				continue;
 			}

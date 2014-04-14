@@ -4,7 +4,7 @@
 #include "World.h"
 
 template<class T>
-void EventHandler::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility)
+void EventHandler::EventUpdate(App &app, Game *game, const sf::Event &event, GameUtility* gameUtility)
 {
 	for (auto it : callbackList)
 	{

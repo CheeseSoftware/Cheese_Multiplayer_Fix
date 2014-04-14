@@ -27,7 +27,7 @@ public:
 	//>.<NoobishBlockMenu();
 	NoobishBlockMenu(World *world, GameUtility* gameUtility);
 
-	void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
+	void EventUpdate(App &app, Game *game, const sf::Event &event, GameUtility* gameUtility);
 	void Draw(App &app, Game *game, GameUtility *gameUtility);
 };
 #endif

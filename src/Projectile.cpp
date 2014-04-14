@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "Projectile.h"
 #include "World.h"
+#include "Game.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -54,6 +55,14 @@ void Projectile::Collision(World *world)
 
 const char *const Projectile::getTextureName() { return "arrow.png"; }
 short Projectile::getTextureId() { return 0; }
+
+void Projectile::OnCollide(App &app, Game *game, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType)
+{
+#ifdef CLIENT
+	if ((speedX > 0.1 || speedX < -0.1) && (speedY > 0.1 || speedY < -0.1))
+		game->PlaySound(app, this, "jump.wav", 0.5, false);
+#endif
+}
 
 /*void Projectile::Draw(App &app, Game *game)
 {

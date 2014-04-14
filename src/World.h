@@ -71,7 +71,7 @@ private:
 public:
 	World(GameUtility *gameUtility);
 #ifdef CLIENT
-	void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
+	void EventUpdate(App &app, Game *game, const sf::Event &event, GameUtility* gameUtility);
 	void Draw(App &app, Game *game, GameUtility *gameUtility);
 #endif
 

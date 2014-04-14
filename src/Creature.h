@@ -21,7 +21,7 @@ public:
 	virtual void Update(App &app, Game *game, GameUtility *gameUtility);
 	void setController(CreatureController *controller);
 	void CreatureMove(float x, float y, float speedX, float speedY, float angle, float horizontal, float vertical);
-	virtual void OnCollide(App &app, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType);
+	virtual void OnCollide(App &app, Game *game, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType);
 	virtual void OnProjectileHit(App &app, GameUtility *gameUtility, Projectile *projectile, float damage);
 	virtual void OnDeath();
 	virtual void OnDamage(float damage);

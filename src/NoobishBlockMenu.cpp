@@ -33,7 +33,7 @@ NoobishBlockMenu::NoobishBlockMenu(World *world, GameUtility* gameUtility)
 	}
 }
 
-void NoobishBlockMenu::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility)
+void NoobishBlockMenu::EventUpdate(App &app, Game *game, const sf::Event &event, GameUtility* gameUtility)
 {
 	if(event.type == sf::Event::MouseButtonPressed)
 	{

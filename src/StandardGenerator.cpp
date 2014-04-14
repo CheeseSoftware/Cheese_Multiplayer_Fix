@@ -13,11 +13,13 @@ namespace generator
 	StandardGenerator::StandardGenerator()
 		: SeedGenerator()
 	{
+		noiseModule.SetOctaveCount(10);
 	}
 
 	StandardGenerator::StandardGenerator(int seed)
 		: SeedGenerator(seed)
 	{
+		noiseModule.SetOctaveCount(10);
 	}
 
 	Chunk *StandardGenerator::operator() (long x, long y, GameUtility *gameUtility)
@@ -30,14 +32,14 @@ namespace generator
 			for (unsigned char yy = 0; yy < 16; yy++)
 			{
 				strength = /*noiseModule.GetValue((double)x+(double)xx/16.0, (double)y+(double)yy/16.0, 0)/2*/
-					+(y*16+yy) / ((y < 0)? 1024: 1024.0)
+					+(y*16+yy-32*sin((float)(x*16+xx))/32) / ((y < 0)? 256: 256.0)
 					+ noiseModule.GetValue(((double)x+(double)xx/16.0)/64,((double)y+(double)yy/16.0)/64, 10)/4+0.5;//*(y*16+yy)/1024.0;
 
 				if (strength > 0.5)
 				{
 					//strength -= noiseModule.GetValue((double)x/4.0+(double)xx/64.0, (double)y/4.0+(double)yy/64.0, 0)/32;
 					double caveStrength = noiseModule.GetValue(((double)x+(double)xx/16.0)/4, ((double)y+(double)yy/16.0)/4, 0);
-					if (caveStrength > 0.0
+					if (caveStrength > -0.75
 						&& caveStrength + noiseModule.GetValue(((double)x+(double)xx/16.0)/128, ((double)y+(double)yy/16)/128, 10) > -0.50)
 					{
 						if (strength > 0.5 + 1.0 / 128.0)

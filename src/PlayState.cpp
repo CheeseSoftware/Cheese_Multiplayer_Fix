@@ -194,19 +194,21 @@ void PlayState::EventUpdate(App &app, Game *game, const sf::Event &event)
 	}
 
 	hud->EventUpdate(app, event, hud->getPosition().x, hud->getPosition().y);
-	currentWorld->EventUpdate(app, event, this);
-	noobishBlockMenu->EventUpdate(app, event, this);
+	currentWorld->EventUpdate(app, game, event, this);
+	noobishBlockMenu->EventUpdate(app, game, event, this);
 }
 
 GameState *PlayState::Update(App &app, Game *game)
 {
-	if (fpsClock.getElapsedTime().asMilliseconds() > 25)
+	if (true || fpsClock.getElapsedTime().asMilliseconds() > 25)
 	{
-		//if (1/app.getFrameTime() < 90)
-		//std::cout << "fps: " << 1/app.getFrameTime() << " << LOW FPS!!!!!! <<<<<<\n";
-		//else
-		//std::cout << "fps: " << 1/app.getFrameTime() << "\n";
+		if (1/app.getFrameTime() < 90)
+		std::cout << "fps: " << 1/app.getFrameTime() << " << LOW FPS!!!!!! <<<<<<\n";
+		else
+		std::cout << "fps: " << 1/app.getFrameTime() << "\n";
 		fpsClock.restart();
+
+		
 	}
 	//else if (1/app.getFrameTime() < 50.f)
 	{
@@ -218,7 +220,7 @@ GameState *PlayState::Update(App &app, Game *game)
 	currentWorld->Update(app, game, this);
 	camera->Update(app, game);
 	minimap->Update(app, game, this);
-	//soundHandler.Update(camera->getEntityPosition());
+	game->UpdateSounds(camera->getEntityPosition());//soundHandler.Update(camera->getEntityPosition());
 
 
 	while (!packetDataList->empty())

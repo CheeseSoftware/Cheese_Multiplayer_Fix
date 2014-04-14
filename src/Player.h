@@ -32,7 +32,7 @@ public:
 		CLIENT_(
 		Player(int id, float X, float Y, short sizeX, short sizeY,
 		bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name);
-	virtual void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
+	virtual void EventUpdate(App &app, Game *game, const sf::Event &event, GameUtility* gameUtility);
 	virtual void Draw(App &app, Game *game, GameUtility *gameUtility) override;
 	)
 	virtual void Update(App &app, Game *game, GameUtility *gameUtility);

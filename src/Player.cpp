@@ -94,7 +94,7 @@ void Player::Update(App &app, Game *game, GameUtility *gameUtility)
 
 #ifdef CLIENT
 
-void Player::EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility)
+void Player::EventUpdate(App &app, Game *game, const sf::Event &event, GameUtility* gameUtility)
 {
 	if (isClientControlling)
 	{
@@ -142,7 +142,7 @@ Up:
 					else if (ySpeed2 != 0 && speedY != 0)
 						break;
 
-					if (CheckCollision(app, gameUtility->getCurrentWorld(), gameUtility, (xSpeed2 > 0)? -1:1, (ySpeed2 > 0)? -1:1))
+					if (CheckCollision(app, game, gameUtility->getCurrentWorld(), gameUtility, (xSpeed2 > 0)? -1:1, (ySpeed2 > 0)? -1:1))
 					{
 						if (speedX == 0)
 							speedX = xSpeed2;
@@ -160,7 +160,7 @@ Up:
 						packet << (sf::Uint16)MessageType::CreatureMove << x << y << speedX << speedY << angle << horizontal << vertical;
 						gameUtility->SendPacket(packet);
 
-						//gameUtility->getSoundHandler().PlaySound(app, this, "jump.wav", 1.0, false, [this](){ return getPosition(); });
+						//game->PlaySound(app, this, "jump.wav", 1.0, false, [this](){ return getPosition(); });
 					}
 				}
 				break;
@@ -184,7 +184,7 @@ Up:
 						deltaSpeedY *= -1;
 
 
-					Projectile *projectile = new Projectile(0, x+(sizeX>>1), y+(sizeY>>1), 32, 32, angle, 1024, 0.03125F, "arrow.png", 0, false);
+					Projectile *projectile = new Projectile(0, x+(sizeX>>1), y+(sizeY>>1)-16, 32, 32, angle, 1024, 0.03125F, "arrow.png", 0, false);
 					gameUtility->getCurrentWorld()->AddEntity(projectile);
 				}
 				break;

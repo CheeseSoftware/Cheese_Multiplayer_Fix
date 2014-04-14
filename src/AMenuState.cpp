@@ -29,7 +29,7 @@ void AMenuState::EventUpdate(App &app, Game *game, const sf::Event &event)
 		app.setView(sf::View(sf::FloatRect(0, 0, app.getSize().x, app.getSize().y)));
 	}
 
-	menuItemContainer->EventUpdate(app, event, 0, 0);//eventHandler.EventUpdate(app, event, this);
+	menuItemContainer->EventUpdate(app, event, 0, 0);//eventHandler.EventUpdate(app, game, event, this);
 }
 
 GameState *AMenuState::Update(App &app, Game *game)

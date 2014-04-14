@@ -11,6 +11,7 @@
 #include <iostream>
 #include "App.h"
 #include "CollisionType.h"
+#include "ISoundable.h"
 enum MessageType;
 class TextureContainer;
 class World;
@@ -19,7 +20,7 @@ class GameUtility;
 class Block;
 class Game;
 
-class Entity
+class Entity : public ISoundable
 {
 protected:
 	int m_id;
@@ -55,14 +56,15 @@ public:
 #endif*/
 	
 #ifdef CLIENT
-	virtual void EventUpdate(App &app, const sf::Event &event, GameUtility* gameUtility);
+	virtual void EventUpdate(App &app, Game *game, const sf::Event &event, GameUtility* gameUtility);
     virtual void Draw(App &app, Game *game, GameUtility *gameUtility);
 #endif
-	virtual CollisionType CheckCollision(App &app, World *world, GameUtility *gameUtility, float speedX, float speedY);
-	virtual void OnCollide(App &app, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType);
+	virtual CollisionType CheckCollision(App &app, Game *game, World *world, GameUtility *gameUtility, float speedX, float speedY);
+	virtual void OnCollide(App &app, Game *game, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType);
 	virtual const char *const getTextureName()=0;
 	virtual short getTextureId()=0;
     //void setPosition(float x, float y);
+	virtual float getDistance(sf::Vector2f other) override;
 	sf::Vector2f getPosition();
 	void setSize(float x, float y);
 	sf::Vector2f getSize();
