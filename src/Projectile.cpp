@@ -49,6 +49,7 @@ void Projectile::Update(App &app, Game *game, GameUtility *GameUtility)
 void Projectile::Collision(World *world)
 {
 	//world.setBlock(2, (int)x<<4-16, (int)y<<4,1);
+
 	speedX = 0;
 	speedY = 0;
 }
@@ -58,10 +59,9 @@ short Projectile::getTextureId() { return 0; }
 
 void Projectile::OnCollide(App &app, Game *game, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType)
 {
-#ifdef CLIENT
-	if ((speedX > 0.1 || speedX < -0.1) && (speedY > 0.1 || speedY < -0.1))
-		game->PlaySound(app, this, "jump.wav", 0.5, false);
-#endif
+	Entity::OnCollide(app, game, world, gameUtility, speedX, speedY, collisionType);
+	this->speedX = 0;
+	this->speedY = 0;
 }
 
 /*void Projectile::Draw(App &app, Game *game)

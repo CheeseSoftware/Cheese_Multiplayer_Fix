@@ -236,7 +236,10 @@ CollisionType Entity::CheckCollision(App &app, Game *game, World *world, GameUti
 
 void Entity::OnCollide(App &app, Game *game, World *world, GameUtility *gameUtility, float speedX, float speedY, CollisionType collisionType)
 {
-
+#ifdef CLIENT
+ 	if ((speedX > 0.75 || speedX < -0.75) || (speedY > 0.75 || speedY < -0.75))
+		game->PlaySound(app, this, "jump.wav", 0.5, false);
+#endif
 }
 
 #ifdef CLIENT

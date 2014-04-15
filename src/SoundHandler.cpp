@@ -53,6 +53,7 @@ float SoundHandler::CalculateVolume(float distance) const
 {
 	float volume = 128.f/distance;
 	volume = (volume < 1.f)? m_volume:m_volume*volume;
+	return 0.5f;
 	return volume;
 }
 #endif
