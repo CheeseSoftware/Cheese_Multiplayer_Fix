@@ -31,8 +31,9 @@ MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 	button_mp->setOnLMBClickFunctionCallback([=](App &app, const sf::Event event, int x, int y)
 	{
 		//LoadState *loadState = new LoadState(app, new PlayState(app), this);
-		//game->SetGameState(loadState, true);
-		game->SetGameState(new PlayState(app, game));
+		//game->SetGameState(loadState, true);r3
+		std::cout << "multiplayer" << std::endl;
+		//game->SetGameState(new PlayState(app, game));
 		//delete this;
 	});
 	menuItemContainer->Add(button_mp);
@@ -41,6 +42,7 @@ MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 	button_sp->setPositionType(PositionType::middleCenter);
 	button_sp->setOnLMBClickFunctionCallback([=](App &app, const sf::Event event, int x, int y)
 	{
+		std::cout << "singleplayer" << std::endl;
 		button_sp->setText(new sf::Text(sf::String("Not implemented, idiot!"), *font));
 		//soundHandler.PlayMusic(app, this, "audio\\hahah!.wav", 0.5, true);
 	});
@@ -50,6 +52,7 @@ MainMenu::MainMenu(Game *game) : AMenuState()//void MainMenu::Initialize()
 	button_settings->setPositionType(PositionType::middleCenter);
 	button_settings->setOnLMBClickFunctionCallback([=](App &app, const sf::Event event, int x, int y)
 	{
+		std::cout << "settings" << std::endl;
 		button_settings->setText(new sf::Text(sf::String("Not implemented, idiot!"), *font));
 		//soundHandler.PlayMusic(app, this, "audio\\hahah!.wav", 0.5, true);
 	});

@@ -29,16 +29,16 @@ namespace gui
 		int m_widthOffset;
 		int m_heightOffset;
 
-		CALLBACKFUNCTION__on(LMBPressedFunction)
-			CALLBACKFUNCTION__on(LMBReleasedFunction)
-			CALLBACKFUNCTION__on(LMBClickFunction)
-			CALLBACKFUNCTION__on(RMBPressedFunction)
-			CALLBACKFUNCTION__on(RMBReleasedFunction)
-			CALLBACKFUNCTION__on(RMBClickFunction)
-			CALLBACKFUNCTION__on(HoverFunction)
-			CALLBACKFUNCTION__on(HoverReleasedFunction)
+		CALLBACKFUNCTION__on(LMBPressedFunction);
+		CALLBACKFUNCTION__on(LMBReleasedFunction);
+		CALLBACKFUNCTION__on(LMBClickFunction);
+		CALLBACKFUNCTION__on(RMBPressedFunction);
+		CALLBACKFUNCTION__on(RMBReleasedFunction);
+		CALLBACKFUNCTION__on(RMBClickFunction);
+		CALLBACKFUNCTION__on(HoverFunction);
+		CALLBACKFUNCTION__on(HoverReleasedFunction);
 
-			sf::Sprite *m_texture;
+		sf::Sprite *m_texture;
 		PositionType m_positionType;
 		Selectable(int x, int y, sf::Sprite* texture);
 		Selectable(int x, int y, int width, int height);
@@ -51,14 +51,14 @@ namespace gui
 		virtual bool getSelected();
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, float x, float y);
 		virtual GameState *Update(App &app, Game *game);
-		virtual void Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight)=0;
+		virtual void Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight) = 0;
 
-		virtual void OnLMBPressed(	App &app, const sf::Event &event, float x, float y);
-		virtual void OnLMBReleased(	App &app, const sf::Event &event, float x, float y);
-		virtual void OnLMBClick(	App &app, const sf::Event &event, float x, float y);
-		virtual void OnRMBPressed(	App &app, const sf::Event &event, float x, float y);
-		virtual void OnRMBReleased(	App &app, const sf::Event &event, float x, float y);
-		virtual void OnRMBClick(	App &app, const sf::Event &event, float x, float y);
+		virtual void OnLMBPressed(App &app, const sf::Event &event, float x, float y);
+		virtual void OnLMBReleased(App &app, const sf::Event &event, float x, float y);
+		virtual void OnLMBClick(App &app, const sf::Event &event, float x, float y);
+		virtual void OnRMBPressed(App &app, const sf::Event &event, float x, float y);
+		virtual void OnRMBReleased(App &app, const sf::Event &event, float x, float y);
+		virtual void OnRMBClick(App &app, const sf::Event &event, float x, float y);
 
 		virtual void OnHover(App &app, const sf::Event &event, float x, float y);
 		virtual void OnHoverReleased(App &app, const sf::Event &event, float x, float y);

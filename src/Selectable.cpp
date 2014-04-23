@@ -18,7 +18,7 @@ namespace gui
 		m_height = 10;  //Do not render invisible if some idiot forgot to give texture to constructor
 		m_texture = texture;
 
-		if(texture != nullptr)
+		if (texture != nullptr)
 		{
 			m_width = texture->getTexture()->getSize().x;
 			m_height = texture->getTexture()->getSize().y;
@@ -44,11 +44,11 @@ namespace gui
 
 		if (m_positionType == PositionType::centerTop || m_positionType == PositionType::middleCenter || m_positionType == PositionType::centerDown)
 		{
-			x += app.getSize().x/2 - m_width/2;
+			x += app.getSize().x / 2 - m_width / 2;
 		}
 		else if (m_positionType == PositionType::TopRight || m_positionType == PositionType::centerRight || m_positionType == PositionType::DownRight)
 		{
-			x += app.getSize().x - m_width/2;
+			x += app.getSize().x - m_width / 2;
 		}
 		return x;
 	}
@@ -59,11 +59,11 @@ namespace gui
 
 		if (m_positionType == PositionType::centerLeft || m_positionType == PositionType::middleCenter || m_positionType == PositionType::centerRight)
 		{
-			y += app.getSize().y/2 - m_height/2;
+			y += app.getSize().y / 2 - m_height / 2;
 		}
 		else if (m_positionType == PositionType::DownLeft || m_positionType == PositionType::centerDown || m_positionType == PositionType::DownRight)
 		{
-			y += app.getSize().y - m_height/2;
+			y += app.getSize().y - m_height / 2;
 		}
 		return y;
 	}
@@ -100,11 +100,11 @@ namespace gui
 				sf::Mouse::getPosition(app).y >= m_Y(app) &&
 				sf::Mouse::getPosition(app).y <= BottomY(app))
 			{
-				if(event.key.code == sf::Mouse::Left)
+				if (event.key.code == sf::Mouse::Left)
 				{
 					OnLMBPressed(app, event, x, y);
 				}
-				else if(event.key.code == sf::Mouse::Right)
+				else if (event.key.code == sf::Mouse::Right)
 				{
 					OnRMBPressed(app, event, x, y);
 				}
@@ -121,17 +121,17 @@ namespace gui
 				sf::Mouse::getPosition(app).y >= m_Y(app) &&
 				sf::Mouse::getPosition(app).y <= BottomY(app))
 			{
-				if(event.key.code == sf::Mouse::Left)
+				if (event.key.code == sf::Mouse::Left)
 				{
 					OnLMBReleased(app, event, x, y);
 					down = false;
 				}
-				else if(event.key.code == sf::Mouse::Right)
+				else if (event.key.code == sf::Mouse::Right)
 				{
 					OnRMBReleased(app, event, x, y);
 				}
 			}
-			else if(this->getSelected())
+			else if (this->getSelected())
 				Unselect();
 		}
 
@@ -147,7 +147,7 @@ namespace gui
 	{
 		//m_widthOffset = getPositionOffset(drawAreax, drawAreay, drawAreaWidth, drawAreaHeight).x;
 		//m_heightOffset = getPositionOffset(drawAreax, drawAreay, drawAreaWidth, drawAreaHeight).y;
-		if(m_texture != nullptr)
+		if (m_texture != nullptr)
 		{
 			sf::Sprite sprite = sf::Sprite(*m_texture);
 			sprite.setPosition(m_X(app), m_Y(app));
@@ -158,7 +158,7 @@ namespace gui
 
 	void Selectable::OnLMBPressed(App &app, const sf::Event &event, float x, float y)
 	{
-		if(selected)
+		if (selected)
 			Unselect();
 		else
 			selected = true;
@@ -171,10 +171,11 @@ namespace gui
 
 	void Selectable::OnLMBReleased(App &app, const sf::Event &event, float x, float y)
 	{
-		if(selected)
+		/*if (selected)
 			Unselect();
 		else
 			selected = true;
+			*/
 
 		if (onLMBPressedFunction)
 			onLMBPressedFunction(app, event, x, y);
@@ -193,7 +194,7 @@ namespace gui
 
 	void Selectable::OnRMBPressed(App &app, const sf::Event &event, float x, float y)
 	{
-		if(selected)
+		if (selected)
 			Unselect();
 		else
 			selected = true;
@@ -204,16 +205,15 @@ namespace gui
 
 	void Selectable::OnRMBReleased(App &app, const sf::Event &event, float x, float y)
 	{
-		/*if(selected)
-		Unselect();
+		if (selected)
+			Unselect();
 		else
-		selected = true;*/
+			selected = true;
 
 		if (onRMBPressedFunction)
 			onRMBPressedFunction(app, event, x, y);
 
-		//if (down)
-		//	OnLMBClick(app, event, x, y);
+		OnRMBClick(app, event, x, y);
 	}
 
 	void Selectable::OnRMBClick(App &app, const sf::Event &event, float x, float y)
@@ -235,7 +235,7 @@ namespace gui
 
 	sf::Vector2f Selectable::getSize()
 	{
-		return sf::Vector2f(m_width, m_height); 
+		return sf::Vector2f(m_width, m_height);
 	}
 
 	void Selectable::Unselect()
@@ -247,7 +247,7 @@ namespace gui
 	sf::Vector2f Selectable::getPositionOffset(float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight)
 	{
 		sf::Vector2f output = sf::Vector2f(0, 0);
-		switch(m_positionType)
+		switch (m_positionType)
 		{
 		case TopRight:
 			output.x += (drawAreaWidth - getSize().x);
