@@ -61,14 +61,14 @@ PlayState::PlayState(App &app, Game *game)
 
 	hud = new gui::MenuItemContainer(0, 0);
 	hud->setPositionType(TopLeft);
-	font = new sf::Font();
+	/*font = new sf::Font();
 	if (!font->loadFromFile("font.ttf"))
 		throw "font.ttf not found";
 	std::stringstream ss;
 	ss << "Member of first" << std::endl;
 	pos = new gui::Label(50, 50, 200, 50, new sf::String(ss.str()), font, 10, 10);
 	//pos->setTexture(&getTextureContainer().getTextures("Test.png")[0]);
-	hud->Add(pos);
+	hud->Add(pos);*/
 
 	//soundHandler.setVolume(0.5);
 
@@ -164,7 +164,7 @@ bool PlayState::Load(Game *game)
 
 
 
-	hud = new gui::MenuItemContainer(0, 0);
+	/*hud = new gui::MenuItemContainer(0, 0);
 	hud->setPositionType(TopLeft);
 	font = new sf::Font();
 	if (!font->loadFromFile("font.ttf"))
@@ -173,7 +173,7 @@ bool PlayState::Load(Game *game)
 	ss << "Member of first" << std::endl;
 	pos = new gui::Label(50, 50, 200, 50, new sf::String(ss.str()), font, 10, 10);
 	//pos->setTexture(&getTextureContainer().getTextures("Test.png")[0]);
-	hud->Add(pos);
+	hud->Add(pos);*/
 
 	return true;
 }

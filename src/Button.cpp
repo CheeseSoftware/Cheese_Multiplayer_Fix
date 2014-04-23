@@ -5,8 +5,8 @@
 
 namespace gui
 {
-	Button::Button(int x, int y, int width, int height, sf::String *text, sf::Font *font, int lineLength, int maxLength)
-		: Label(x, y, width, height, text, font, lineLength, maxLength)
+	Button::Button(int x, int y, sf::Sprite *texture, sf::String *text, sf::Font *font, int lineLength, int maxLength)
+		: Label(x, y, texture, text, font, lineLength, maxLength)
 	{
 	}
 
@@ -17,8 +17,7 @@ namespace gui
 
 	void Button::Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight)
 	{
-		getText()->setPosition(m_X(app), m_Y(app));
-		app.draw(*getText());
+		Label::Draw(app, drawAreax, drawAreay, drawAreaWidth, drawAreaHeight);
 	}
 }
 #endif
