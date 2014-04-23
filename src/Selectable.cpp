@@ -6,16 +6,35 @@
 
 namespace gui
 {
+	Selectable::Selectable(int x, int y, sf::Sprite* texture)
+		: down(false)
+	{
+		m_localX = x;
+		m_localY = y;
+		m_positionType = TopLeft;
+		m_widthOffset = 0;
+		m_heightOffset = 0;
+		m_width = 10;   //Do not render invisible if some idiot forgot to give texture to constructor
+		m_height = 10;  //Do not render invisible if some idiot forgot to give texture to constructor
+		m_texture = texture;
+
+		if(texture != nullptr)
+		{
+			m_width = texture->getTexture()->getSize().x;
+			m_height = texture->getTexture()->getSize().y;
+		}
+	}
+
 	Selectable::Selectable(int x, int y, int width, int height)
 		: down(false)
 	{
 		m_localX = x;
 		m_localY = y;
-		m_width = width;
-		m_height = height;
 		m_positionType = TopLeft;
 		m_widthOffset = 0;
 		m_heightOffset = 0;
+		m_width = width;
+		m_height = height;
 		m_texture = nullptr;
 	}
 
@@ -49,12 +68,12 @@ namespace gui
 		return y;
 	}
 
-	int Selectable::m_X2(App &app)
+	int Selectable::RightX(App &app)
 	{
 		return m_X(app) + m_width;
 	}
 
-	int Selectable::m_Y2(App &app)
+	int Selectable::BottomY(App &app)
 	{
 		return m_Y(app) + m_height;
 	}
@@ -65,21 +84,21 @@ namespace gui
 		return selected;
 	}
 
-
 	GameState *Selectable::EventUpdate(App& app, const sf::Event& event, float x, float y)
 	{
 		if (event.type == sf::Event::MouseButtonPressed)
 		{
-			//std::cout << "posx:" << x + getPosition().x + m_widthOffset << " posy:" << y + getPosition().y + m_heightOffset << std::endl;
-			//std::cout << "mousex:" << sf::Mouse::getPosition().x << " mousey: " << sf::Mouse::getPosition().y << std::endl;
-			/*if (sf::Mouse::getPosition(app).x >= x + getPosition().x + m_widthOffset &&
-			sf::Mouse::getPosition(app).x <= x + getPosition().x + m_widthOffset + getSize().x &&
-			sf::Mouse::getPosition(app).y >= y + getPosition().y + m_heightOffset &&
-			sf::Mouse::getPosition(app).y <= y + getPosition().y + m_heightOffset + getSize().y)*/
+			sf::Vector2i mouse = sf::Mouse::getPosition(app);
+			int x = m_X(app);
+			int y = m_Y(app);
+			int xx = RightX(app);
+			int yy = BottomY(app);
+
+
 			if (sf::Mouse::getPosition(app).x >= m_X(app) &&
-				sf::Mouse::getPosition(app).x <= m_X2(app) &&
+				sf::Mouse::getPosition(app).x <= RightX(app) &&
 				sf::Mouse::getPosition(app).y >= m_Y(app) &&
-				sf::Mouse::getPosition(app).y <= m_Y2(app))
+				sf::Mouse::getPosition(app).y <= BottomY(app))
 			{
 				if(event.key.code == sf::Mouse::Left)
 				{
@@ -98,9 +117,9 @@ namespace gui
 			//std::cout << "posx:" << x + getPosition().x + m_widthOffset << " posy:" << y + getPosition().y + m_heightOffset << std::endl;
 			//std::cout << "mousex:" << sf::Mouse::getPosition().x << " mousey: " << sf::Mouse::getPosition().y << std::endl;
 			if (sf::Mouse::getPosition(app).x >= m_X(app) &&
-				sf::Mouse::getPosition(app).x <= m_X2(app) &&
+				sf::Mouse::getPosition(app).x <= RightX(app) &&
 				sf::Mouse::getPosition(app).y >= m_Y(app) &&
-				sf::Mouse::getPosition(app).y <= m_Y2(app))
+				sf::Mouse::getPosition(app).y <= BottomY(app))
 			{
 				if(event.key.code == sf::Mouse::Left)
 				{
@@ -112,7 +131,7 @@ namespace gui
 					OnRMBReleased(app, event, x, y);
 				}
 			}
-			else
+			else if(this->getSelected())
 				Unselect();
 		}
 

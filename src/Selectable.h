@@ -28,24 +28,25 @@ namespace gui
 		int m_height;
 		int m_widthOffset;
 		int m_heightOffset;
-		
-		CALLBACKFUNCTION__on(LMBPressedFunction)
-		CALLBACKFUNCTION__on(LMBReleasedFunction)
-		CALLBACKFUNCTION__on(LMBClickFunction)
-		CALLBACKFUNCTION__on(RMBPressedFunction)
-		CALLBACKFUNCTION__on(RMBReleasedFunction)
-		CALLBACKFUNCTION__on(RMBClickFunction)
-		CALLBACKFUNCTION__on(HoverFunction)
-		CALLBACKFUNCTION__on(HoverReleasedFunction)
 
-		sf::Sprite *m_texture;
+		CALLBACKFUNCTION__on(LMBPressedFunction)
+			CALLBACKFUNCTION__on(LMBReleasedFunction)
+			CALLBACKFUNCTION__on(LMBClickFunction)
+			CALLBACKFUNCTION__on(RMBPressedFunction)
+			CALLBACKFUNCTION__on(RMBReleasedFunction)
+			CALLBACKFUNCTION__on(RMBClickFunction)
+			CALLBACKFUNCTION__on(HoverFunction)
+			CALLBACKFUNCTION__on(HoverReleasedFunction)
+
+			sf::Sprite *m_texture;
 		PositionType m_positionType;
+		Selectable(int x, int y, sf::Sprite* texture);
 		Selectable(int x, int y, int width, int height);
 
 		int m_X(App &app);
 		int m_Y(App &app);
-		int m_X2(App &app);
-		int m_Y2(App &app);
+		int RightX(App &app);
+		int BottomY(App &app);
 	public:
 		virtual bool getSelected();
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, float x, float y);

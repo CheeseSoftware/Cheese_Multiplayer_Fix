@@ -9,8 +9,8 @@
 
 namespace gui
 {
-	MenuItemContainer::MenuItemContainer(int x, int y, int width, int height)
-		: Selectable(x, y, width, height)
+	MenuItemContainer::MenuItemContainer(int x, int y)
+		: Selectable(x, y, nullptr)
 	{
 		itemList = new std::vector<Selectable*>();
 	}

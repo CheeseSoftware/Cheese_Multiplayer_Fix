@@ -12,8 +12,8 @@ namespace gui
 		m_text->setCharacterSize(24);
 		m_text->setColor(sf::Color::Green);
 		m_text->setStyle(sf::Text::Bold);
-		m_width = m_text->getGlobalBounds().width;
-		m_height = m_text->getGlobalBounds().height;
+		//m_width = m_text->getGlobalBounds().width;
+		//m_height = m_text->getGlobalBounds().height;
 		m_lineLength = lineLength;
 		m_maxLength = maxLength;
 		//delete temptext;

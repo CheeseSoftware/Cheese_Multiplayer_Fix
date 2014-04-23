@@ -11,7 +11,7 @@
 
 AMenuState::AMenuState()// : menuItemContainer(0, 0, 100, 100)//void AMenuState::Initialize()
 {
-	menuItemContainer = new gui::MenuItemContainer(0, 0, 0, 0);
+	menuItemContainer = new gui::MenuItemContainer(0, 0);
 }
 
 AMenuState::~AMenuState()//void AMenuState::Shutdown()

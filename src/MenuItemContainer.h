@@ -17,7 +17,7 @@ namespace gui
 		EventHandler<GameState*> eventHandler;
 
 	public:
-		MenuItemContainer(int x, int y, int width, int height);
+		MenuItemContainer(int x, int y);
 		virtual GameState *EventUpdate(App& app, const sf::Event& event, float x, float y);
 		virtual GameState *Update(App &app, Game *game);
 		virtual void Draw(App &app, float drawAreax, float drawAreay, int drawAreaWidth, int drawAreaHeight);

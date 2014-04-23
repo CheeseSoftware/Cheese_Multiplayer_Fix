@@ -59,7 +59,7 @@ PlayState::PlayState(App &app, Game *game)
 
 
 
-	hud = new gui::MenuItemContainer(0, 0, 0, 0);
+	hud = new gui::MenuItemContainer(0, 0);
 	hud->setPositionType(TopLeft);
 	font = new sf::Font();
 	if (!font->loadFromFile("font.ttf"))
@@ -164,7 +164,7 @@ bool PlayState::Load(Game *game)
 
 
 
-	hud = new gui::MenuItemContainer(0, 0, 0, 0);
+	hud = new gui::MenuItemContainer(0, 0);
 	hud->setPositionType(TopLeft);
 	font = new sf::Font();
 	if (!font->loadFromFile("font.ttf"))
