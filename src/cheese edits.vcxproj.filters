@@ -527,12 +527,6 @@
     <ClInclude Include="ISoundHandler.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="ISoundable.h">
-      <Filter>Header Files\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="ITextureContainer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet1.props" />
